@@ -16,12 +16,6 @@
 (load "~/.emacs.d/custom/php.el")
 (load "~/.emacs.d/custom/c_and_cpp.el")
 
-
-;; (if (display-graphic-p)
-;;     (setq custom-file "~/.emacs.d/custom_gui.el")
-;;   (setq custom-file "~/.emacs.d/custom.el"))
-;; (load custom-file)
-
 (setq custom-file (expand-file-name "custom.el" my-custom-dir))
 (load custom-file)
 

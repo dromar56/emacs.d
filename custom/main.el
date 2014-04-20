@@ -1,42 +1,21 @@
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
 
+;;;;;;;
+;; MISC
+;;;;;;;
+
 (menu-bar-mode 0)
 (tool-bar-mode 0)
-;; (scroll-bar-mode 0)
-
-;; (color-theme-approximate-on)
-
-;; (load-theme 'moe-dark t)
-
-;; winner-mode to undo/redo windows changes
-  (when (fboundp 'winner-mode)
-      (winner-mode 1))
-
-;; (set-face-attribute 'mode-line nil
-;; 		    :foreground "gray0"
-;; 		    :background "cyan"
-;; 		    :overline "green"
-;; 		    :underline "red")
-
-;; (set-face-attribute 'mode-line-inactive nil
-;; 		    :foreground "gray0"
-;; 		    :background "white"
-;; 		    :overline "green"
-;; 		    :underline "red")
-
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Enable access to the clipboard
 (setq x-select-enable-clipboard t)
 
-;; (load-theme 'monokai t)
-;; (load-theme 'zenburn t)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
-
-;;;;;;;
-;; MISC
-;;;;;;;
+;; winner-mode to undo/redo windows changes
+  (when (fboundp 'winner-mode)
+      (winner-mode 1))
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -67,8 +46,9 @@
 (require 'iy-go-to-char)
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
-;; Replace region with whatever you type
-;; (delete-selection-mode 1)
+;;;;;;;;;
+;; Eshell
+;;;;;;;;;
 
 ;; eshell prompt color
 (setq eshell-prompt-function (lambda nil
@@ -98,27 +78,6 @@
 ;;;;;;;;;;;;;
 
 (projectile-global-mode t)
-;; (setq projectile-enable-caching t)
-;; (setq projectile-require-project-root nil)
-
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Truncate lines in helm buffer
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defun helm-buffers-list ()
-;;   "Preconfigured `helm' to list buffers.
-;; It is an enhanced version of `helm-for-buffers'."
-;;   (interactive)
-;;   (let ((helm-after-initialize-hook
-;;          (cons
-;;           (lambda ()
-;;             (with-current-buffer (get-buffer-create helm-buffer)
-;;               (setq truncate-lines t)))
-;;           helm-after-initialize-hook)))
-;;     (helm :sources '(helm-source-buffers-list
-;;                      helm-source-ido-virtual-buffers
-;;                      helm-source-buffer-not-found)
-;;           :buffer "*helm buffers*" :keymap helm-buffer-map)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Add prefix to Dired buffers
@@ -130,23 +89,6 @@
   (let ((name (buffer-name)))
     (if (not (string-match "^Dir/" name))
         (rename-buffer (concat "Dir/" name) t))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Jedi - Python AutoCompletion
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:setup-keys t)                      ; optional
-;; (setqj edi:complete-on-dot t)                 ; optional
-
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Multi-Major-Mode Mode
-;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (add-to-list 'load-path "~/.emacs.d/elpa/mmm-mode-20130606.7")
-;; (require 'mmm-auto)
-;; (setq mmm-global-mode 'maybe)
-;; (mmm-add-mode-ext-class 'html-mode "\\.php\\'" 'html-php)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Auto-Complete Mode
@@ -172,25 +114,6 @@
   t)
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
-
-
-;;;;;;;;;;;;
-;; Emacs Nav
-;;;;;;;;;;;;
-
-;; (add-to-list 'load-path "~/.emacs.d/vendor/emacs-nav")
-;; (require 'nav)
-;; (nav-disable-overeager-window-splitting)
-
-
-;;;;;;;;;;;;;;
-;; Sr-Speedbar
-;;;;;;;;;;;;;;
-
-;; (add-to-list 'load-path "~/.emacs.d/vendor")
-;; (require 'sr-speedbar)
-;; (eval-after-load "speedbar" '(speedbar-add-supported-extension ".php"))
-
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Eval and replace
@@ -241,15 +164,6 @@
 ;; remove those pesky lock files
 (setq create-lockfiles nil)
 
-;; (setq temporary-file-directory "~/.auto_saves/")
-
-;; (setq backup-directory-alist
-;;       `((".*" . ,temporary-file-directory)))
-;; (setq auto-save-file-name-transforms
-;;       `((".*" ,temporary-file-directory t)))
-
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tramp (remote connection)
@@ -264,9 +178,6 @@
 ;; Ido-mode
 ;;;;;;;;;;;
 
-;; (add-to-list 'load-path "~/.emacs.d/elpa/ido-ubiquitous-1.6")
-;; (require 'ido-ubiquitous)
-
 (ido-mode t)
 (ido-ubiquitous t)
 (ido-vertical-mode t)
@@ -276,16 +187,10 @@
 
 (setq ido-enable-prefix nil
       ido-enable-flex-matching t
-      ;; ido-auto-merge-work-directories-length nil
-      ;; ido-create-new-buffer 'always
-      ;; ido-use-filename-at-point 'guess
-      ;; ido-use-virtual-buffers t
-      ;; ido-handle-duplicate-virtual-buffers 2
       ido-max-prospects 30)
 
 (setq ido-ignore-buffers
       '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-
 	"^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
 	;; "^\*"
 	)
@@ -294,19 +199,6 @@
 (require 'flx-ido)
 (ido-everywhere 1)
 (flx-ido-mode 1)
-
-;; disable ido faces to see flx highlights.
-;; (setq ido-use-faces nil)
-
-
-;;;;;;;;;;;;
-;; Smex Mode
-;;;;;;;;;;;;
-
-;; (require 'smex)
-;; (smex-initialize)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Mouse/Wheel options
@@ -332,28 +224,8 @@
   (scroll-down -3)
   )
 
-;;;;;;;;;;;;;;;;;
-;; Hack for xterm
-;;;;;;;;;;;;;;;;;
-
-;; (if (equal "xterm" (tty-type))
-;;     (define-key input-decode-map "\e[1;2A" [S-up]))
-
-;; (if (equal "xterm" (tty-type))
-;;     (define-key input-decode-map "\e[1;4B" [C-S-down]))
-
-;; (if (equal "xterm" (tty-type))
-;;     (define-key input-decode-map "\e[1;4A" [C-S-up]))
-
-;; (if (equal "xterm" (tty-type))
-;;     (define-key input-decode-map "\e[1;4D" [C-S-left]))
-
-;; (if (equal "xterm" (tty-type))
-;;     (define-key input-decode-map "\e[1;4C" [C-S-right]))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Marmelade - Package list for emacs
+;; Third party package repositories
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'package)
@@ -364,8 +236,6 @@
 
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-;; (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Indent Whole Buffer
@@ -397,6 +267,11 @@
   (set-window-dedicated-p (selected-window) locked-buffer-mode))
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Save undo history when revert-buffer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; emacs doesn't actually save undo history with revert-buffer
 ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
 ;; fix that.
@@ -414,7 +289,6 @@
 ;; mark the buffer as not modified
 (not-modified)
 (set-visited-file-modtime))
-
 
 (setq revert-buffer-function 'revert-buffer-keep-history)
 (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
