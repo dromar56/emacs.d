@@ -2,7 +2,6 @@
 (global-set-key (kbd "M-o") 'helm-occur)
 (global-set-key (kbd "C-M-o") 'helm-multi-occur)
 
-
 ;; A la carte Menu
 (global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
 
@@ -114,12 +113,3 @@
 (global-set-key (kbd "<M-down>") 'down-and-locate)
 (global-set-key [mouse-5] 'mouse-down-and-locate)
 (global-set-key [mouse-4] 'mouse-up-and-locate)
-
-
-
-;;;;;;;;;;;;;
-;; JAVASCRIPT
-;;;;;;;;;;;;;
-
-;;SWANK-JS MODE IS FUCKING AWESOME
-(global-set-key [f5] 'slime-js-reload)
