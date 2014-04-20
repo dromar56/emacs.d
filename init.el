@@ -12,35 +12,28 @@
   (message "Loading personal configuration files in %s..." my-custom-dir)
   (mapc 'load (directory-files my-custom-dir 't "^[^#].*el$")))
 
-
-;; (load "~/.emacs.d/custom/javascript.el")
-;; (load "~/.emacs.d/custom/livescript.el")
-;; (load "~/.emacs.d/custom/coffee-script.el")
-;; ;; (load "~/.emacs.d/custom/tabbar.el")
-;; (load "~/.emacs.d/custom/lua.el")
-;; (load "~/.emacs.d/custom/jade.el")
-;; (load "~/.emacs.d/custom/php.el")
-;; (load "~/.emacs.d/custom/c_and_cpp.el")
-
 (setq custom-file (expand-file-name "custom.el" my-custom-dir))
-(load custom-file)
+;; (load custom-file)
 
-(setq my-gui-theme 'solarized-dark)
-(setq my-terminal-theme 'solarized-dark)
+(load-theme 'zenburn t)
+;; (load-theme 'solarized-dark t)
 
-(if (daemonp)
-(add-hook 'after-make-frame-functions
-          '(lambda (f)
-             (with-selected-frame f
-               (when (window-system f) 
-		 (if (display-graphic-p) 
-		     (load-theme my-gui-theme) 
-		   (load-theme my-terminal-theme))))))
-)
+;; (setq my-gui-theme 'solarized-dark)
+;; (setq my-terminal-theme 'solarized-dark)
 
-(if (display-graphic-p) 
-    (load-theme my-gui-theme) 
-  (load-theme my-terminal-theme))
+;; (if (daemonp)
+;; (add-hook 'after-make-frame-functions
+;;           '(lambda (f)
+;;              (with-selected-frame f
+;;                (when (window-system f) 
+;; 		 (if (display-graphic-p) 
+;; 		     (load-theme my-gui-theme) 
+;; 		   (load-theme my-terminal-theme))))))
+;; )
+
+;; (if (display-graphic-p) 
+;;     (load-theme my-gui-theme) 
+;;   (load-theme my-terminal-theme))
 
 
 (fset 'my-create-header
