@@ -18,13 +18,18 @@
 ;; Windows manipulation
 (global-set-key (kbd "C-x |") 'split-window-right)
 (global-set-key (kbd "C-x -") 'split-window-below)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "M-<right>") 'other-window)
-(global-set-key (kbd "M-<left>") '(lambda (&optional n)
-					     (interactive "P") (other-window -1)))
+(global-set-key (kbd "C-x C-<right>") 'windmove-right)
+(global-set-key (kbd "C-x C-<left>") 'windmove-left)
+(global-set-key (kbd "C-x C-<down>") 'windmove-down)
+(global-set-key (kbd "C-x C-<up>") 'windmove-up)
+
+;; (global-set-key (kbd "M-<right>") 'other-window)
+;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
+;; 					     (interactive "P") (other-window -1)))
+
+(global-set-key (kbd "<prior>") (lambda () (interactive) (scroll-down 8)))
+(global-set-key (kbd "<next>") (lambda () (interactive) (scroll-down -8)))
+
 ;; Magit Mode
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -42,14 +47,6 @@
 (global-set-key (kbd "s->") 'mc/unmark-next-like-this)
 (global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
 (global-set-key (kbd "s-m") 'mc/mark-all-like-this)
-
-;; FUCKING AMAZING KEY CHORDS MODE OH MY GOD
-(add-hook 'after-init-hook 'my-after-init-hook)
-(defun my-after-init-hook ()
-  (key-chord-define-global "jk"     'ace-jump-mode)
-  (key-chord-define-global "/g"     'magit-status)
-  ;; (key-chord-define-global "df"     'goto-line)
-  )
 
 ;; Expand region by semantics units
 (global-set-key (kbd "s-x") 'er/expand-region)
@@ -98,18 +95,13 @@
 ;; Macro bindings
 (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
 
-;; Add count-lines-function to c-mode
-(defun my-c-mode-hook ()
-  (local-set-key (kbd "C-c C-w") 'count-lines-function)
-  )
-(add-hook 'c-mode-hook 'my-c-mode-hook)
-
 ;; Goto
 (global-set-key [(meta g)] 'goto-line)
 
 ;;Special Buffer (loaded)
 (global-set-key (kbd "C-b") 'ido-switch-buffer)
-(global-set-key (kbd "<M-up>") 'up-and-locate)
-(global-set-key (kbd "<M-down>") 'down-and-locate)
+(global-set-key (kbd "C-x b") 'ibuffer)
+;; (global-set-key (kbd "<M-up>") 'up-and-locate)
+;; (global-set-key (kbd "<M-down>") 'down-and-locate)
 (global-set-key [mouse-5] 'mouse-down-and-locate)
 (global-set-key [mouse-4] 'mouse-up-and-locate)

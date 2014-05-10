@@ -18,8 +18,12 @@
 ;;  Ligne ubercool
  (save-excursion (let ((start (point)) (end (progn (forward-list) (point)))) (count-lines-region start end)))
 
+;; Add count-lines-function to c-mode
 (defun my-c-mode-hook ()
   (local-set-key (kbd "C-c C-w") 'count-lines-function)
   )
 (add-hook 'c-mode-hook 'my-c-mode-hook)
 ;; (add-hook 'c-mode-common-hook   (lambda () (highlight-80+-mode t) ) )
+
+
+

@@ -5,8 +5,22 @@
 ;; MISC
 ;;;;;;;
 
+(require 'indent-guide)
+
+(electric-indent-mode t)
+
+;; Nice scrolling
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-preserve-screen-position 1)
+
 (menu-bar-mode 0)
 (tool-bar-mode 0)
+
+(global-auto-revert-mode t)
+
+(window-numbering-mode t)
+
 
 ;; Enable access to the clipboard
 (setq x-select-enable-clipboard t)
@@ -30,14 +44,11 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-(require 'yasnippet)
-(yas-global-mode 1)
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
 
 (require 'uniquify)
 ;; (setq uniquify-buffer-name-style 'reverse)
-
-(require 'key-chord)
-(key-chord-mode 1)
 
 (require 'expand-region)
 
@@ -292,3 +303,37 @@
 
 (setq revert-buffer-function 'revert-buffer-keep-history)
 (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+
+
+;;;;;;;;;;;;;;;;;
+;; Search engines
+;;;;;;;;;;;;;;;;;
+
+(defun prelude-search (query-url prompt)
+  "Open the search url constructed with the QUERY-URL.
+PROMPT sets the `read-string prompt."
+  (browse-url
+   (concat query-url
+           (url-hexify-string
+            (if mark-active
+                (buffer-substring (region-beginning) (region-end))
+              (read-string prompt))))))
+
+(defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+  "Given some information regarding a search engine, install the interactive command to search through them"
+  `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+       ,(format "Search %s with a query or region if any." search-engine-name)
+       (interactive)
+       (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+(prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+(prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+(prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+(prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+(prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
+
+
+;;;;;;;;;;;;;;;;;;
+;; Mode Line color
+;;;;;;;;;;;;;;;;;;
+
