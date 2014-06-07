@@ -16,12 +16,17 @@
 (global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
 
 ;; Windows manipulation
-(global-set-key (kbd "C-x |") 'split-window-right)
-(global-set-key (kbd "C-x -") 'split-window-below)
-(global-set-key (kbd "C-x C-<right>") 'windmove-right)
-(global-set-key (kbd "C-x C-<left>") 'windmove-left)
-(global-set-key (kbd "C-x C-<down>") 'windmove-down)
-(global-set-key (kbd "C-x C-<up>") 'windmove-up)
+(global-set-key (kbd "C-x |")		'split-window-right)
+(global-set-key (kbd "C-x -")		'split-window-below)
+(global-set-key (kbd "C-x C-<right>")	'windmove-right)
+(global-set-key (kbd "C-x C-<left>")	'windmove-left)
+(global-set-key (kbd "C-x C-<down>")	'windmove-down)
+(global-set-key (kbd "C-x C-<up>")	'windmove-up)
+
+(global-set-key (kbd "C-x <left>")	'shrink-window-horizontally)
+(global-set-key (kbd "C-x <right>")	'enlarge-window-horizontally)
+(global-set-key (kbd "C-x <up>")	'enlarge-window)
+(global-set-key (kbd "C-x <down>")	'shrink-window)
 
 ;; (global-set-key (kbd "M-<right>") 'other-window)
 ;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
@@ -100,6 +105,8 @@
 
 ;;Special Buffer (loaded)
 (global-set-key (kbd "C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
+(global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
 (global-set-key (kbd "C-x b") 'ibuffer)
 ;; (global-set-key (kbd "<M-up>") 'up-and-locate)
 ;; (global-set-key (kbd "<M-down>") 'down-and-locate)

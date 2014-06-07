@@ -19,13 +19,21 @@
 
 (global-auto-revert-mode t)
 
-(window-numbering-mode t)
+;; (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+
+
+;; (window-numbering-mode t)
 
 
 ;; Enable access to the clipboard
 (setq x-select-enable-clipboard t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Try to fix the shell unicode problem
+(defadvice ansi-term (after advise-ansi-term-coding-system)
+    (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+(ad-activate 'ansi-term)
 
 ;; winner-mode to undo/redo windows changes
   (when (fboundp 'winner-mode)
@@ -44,8 +52,12 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-;; (require 'yasnippet)
-;; (yas-global-mode 1)
+(require 'yasnippet)
+(yas-global-mode 1)
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-expand)
+
 
 (require 'uniquify)
 ;; (setq uniquify-buffer-name-style 'reverse)
@@ -56,6 +68,16 @@
 
 (require 'iy-go-to-char)
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+
+
+(defun my-find-file-check-make-large-file-read-only-hook ()
+  "If a file is over a given size, make the buffer read only."
+  (when (> (buffer-size) (* 1024 10))
+    (setq buffer-read-only t)
+    (buffer-disable-undo)
+    (fundamental-mode)))
+
+(add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
 
 ;;;;;;;;;
 ;; Eshell
@@ -107,6 +129,7 @@
 
 (require 'auto-complete)
 (global-auto-complete-mode t)
+
 
 ;;;;;;;;;;;;;;;;
 ;; Ace Jump Mode
