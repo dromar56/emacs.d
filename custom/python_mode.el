@@ -1,7 +1,7 @@
 ;; (require 'elpy nil t)
 (elpy-enable)
 (elpy-use-ipython)
-(elpy-clean-modeline)
+;; (elpy-clean-modeline)
 
 (setq elpy-rpc-backend "jedi")
 

@@ -32,12 +32,12 @@
 
 ;; Try to fix the shell unicode problem
 (defadvice ansi-term (after advise-ansi-term-coding-system)
-    (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+  (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
 (ad-activate 'ansi-term)
 
 ;; winner-mode to undo/redo windows changes
-  (when (fboundp 'winner-mode)
-      (winner-mode 1))
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -52,11 +52,17 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; (add-to-list 'load-path
+;; 	     "~/.emacs.d/snippets")
 (require 'yasnippet)
-(yas-global-mode 1)
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
+;; (define-key yas-minor-mode-map (kbd "<tab>") nil)
+;; (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-expand)
+(yas-global-mode 1)
+(setq yas-snippet-dirs (append yas-snippet-dirs
+			       '("~/.emacs.d/snippets")))
 
 
 (require 'uniquify)
@@ -72,7 +78,7 @@
 
 (defun my-find-file-check-make-large-file-read-only-hook ()
   "If a file is over a given size, make the buffer read only."
-  (when (> (buffer-size) (* 1024 10))
+  (when (> (buffer-size) (* 1024 1024))
     (setq buffer-read-only t)
     (buffer-disable-undo)
     (fundamental-mode)))
@@ -271,6 +277,9 @@
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
+;; (add-to-list 'package-archives
+;; 	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Indent Whole Buffer
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -312,17 +321,17 @@
 (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
   (interactive)
 
-;; tell Emacs the modtime is fine, so we can edit the buffer
-(clear-visited-file-modtime)
+  ;; tell Emacs the modtime is fine, so we can edit the buffer
+  (clear-visited-file-modtime)
 
-;; insert the current contents of the file on disk
-(widen)
-(delete-region (point-min) (point-max))
-(insert-file-contents (buffer-file-name))
+  ;; insert the current contents of the file on disk
+  (widen)
+  (delete-region (point-min) (point-max))
+  (insert-file-contents (buffer-file-name))
 
-;; mark the buffer as not modified
-(not-modified)
-(set-visited-file-modtime))
+  ;; mark the buffer as not modified
+  (not-modified)
+  (set-visited-file-modtime))
 
 (setq revert-buffer-function 'revert-buffer-keep-history)
 (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
@@ -345,9 +354,9 @@ PROMPT sets the `read-string prompt."
 (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
   "Given some information regarding a search engine, install the interactive command to search through them"
   `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-       ,(format "Search %s with a query or region if any." search-engine-name)
-       (interactive)
-       (prelude-search ,search-engine-url ,search-engine-prompt)))
+     ,(format "Search %s with a query or region if any." search-engine-name)
+     (interactive)
+     (prelude-search ,search-engine-url ,search-engine-prompt)))
 
 (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
 (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
@@ -359,4 +368,3 @@ PROMPT sets the `read-string prompt."
 ;;;;;;;;;;;;;;;;;;
 ;; Mode Line color
 ;;;;;;;;;;;;;;;;;;
-
