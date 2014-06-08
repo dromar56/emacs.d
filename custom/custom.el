@@ -31,7 +31,8 @@
 # expand-env: ((${6:some-var} ${7:some-value}))}${8:
 # type: snippet}
 # --
-$0"))
+$0")
+ '(yas-prompt-functions (quote (yas-ido-prompt yas-x-prompt yas-dropdown-prompt yas-completing-prompt yas-ido-prompt yas-no-prompt))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
