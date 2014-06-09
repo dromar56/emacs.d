@@ -55,6 +55,7 @@
 
 ;; Expand region by semantics units
 (global-set-key (kbd "s-x") 'er/expand-region)
+(global-set-key (kbd "s-\/") 'er/expand-region)
 
 ;; Register Windows
 (global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
@@ -80,7 +81,7 @@
 (global-set-key (kbd "<f12>") 'indent-whole-buffer)
 
 ;; BOOKMARKS
-(global-set-key (kbd "C-x C-b") 'helm-bookmarks)
+(global-set-key (kbd "s-b") 'helm-bookmarks)
 
 ;; Ace Jump Mode
 (define-key global-map (kbd "C-f") 'ace-jump-mode)

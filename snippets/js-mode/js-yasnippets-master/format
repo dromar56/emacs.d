@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: format
+# key: format
+# --
+require("util").format("$1", $0)

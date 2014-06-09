@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : for each
+#key : foreach
+# --
+${1:collection}.forEach(function(${2:value, index, arr}) {
+  $0
+});

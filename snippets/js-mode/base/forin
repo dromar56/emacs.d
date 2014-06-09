@@ -1,0 +1,8 @@
+#Author : Christopher Roach <vthakr@gmail.com>
+#name : for in
+#key : forin
+# --
+for (var ${1:variable} in ${2:object}) {
+    ${3:if (!$1.hasOwnProperty(name)) continue;}
+    $0
+}

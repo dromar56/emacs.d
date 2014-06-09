@@ -1,6 +1,19 @@
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
 
+;;;;;;;;;;;;
+;; yasnippet
+;;;;;;;;;;;;
+
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+(require 'yasnippet)
+;; (define-key yas-minor-mode-map (kbd "<tab>") nil)
+;; (define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-insert-snippet)
+(yas-global-mode 1)
+
+
 ;;;;;;;
 ;; MISC
 ;;;;;;;
@@ -54,15 +67,6 @@
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-;; (add-to-list 'load-path
-;; 	     "~/.emacs.d/snippets")
-(require 'yasnippet)
-;; (define-key yas-minor-mode-map (kbd "<tab>") nil)
-;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-expand)
-(yas-global-mode 1)
-(setq yas-snippet-dirs (append yas-snippet-dirs
-			       '("~/.emacs.d/snippets")))
 
 
 (require 'uniquify)
@@ -134,7 +138,11 @@
 ;;;;;;;;;;;;;;;;;;;;;
 
 (require 'auto-complete)
+(setq ac-auto-start nil)
 (global-auto-complete-mode t)
+
+(define-key ac-mode-map (kbd "C-/") 'auto-complete)
+(global-set-key "\M-/" 'auto-complete)
 
 
 ;;;;;;;;;;;;;;;;

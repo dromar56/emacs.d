@@ -13,6 +13,7 @@
  '(js2-include-node-externs t)
  '(linum-format " %7i ")
  '(org-export-backends (quote (ascii html icalendar latex md)))
+ '(projectile-switch-project-action (quote projectile-dired))
  '(projectile-tags-command "ctags -Re %s %s")
  '(recentf-auto-cleanup (quote never))
  '(recentf-max-saved-items 10000)
@@ -23,7 +24,7 @@
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
  '(uniquify-strip-common-suffix t)
  '(vc-follow-symlinks nil)
- '(yas-choose-tables-first t)
+ '(yas-choose-tables-first nil)
  '(yas-new-snippet-default "# -*- mode: snippet -*-
 # name: $1
 # key: ${2:${1:$(yas--key-from-desc yas-text)}}${3:
