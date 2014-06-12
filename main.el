@@ -1,17 +1,6 @@
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
 
-;;;;;;;;;;;;
-;; yasnippet
-;;;;;;;;;;;;
-
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"))
-(require 'yasnippet)
-;; (define-key yas-minor-mode-map (kbd "<tab>") nil)
-;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-insert-snippet)
-(yas-global-mode 1)
 
 
 ;;;;;;;
@@ -21,6 +10,7 @@
 (require 'indent-guide)
 
 (electric-indent-mode t)
+(electric-pair-mode 1)
 
 ;; Nice scrolling
 (setq scroll-margin 0
@@ -132,17 +122,6 @@
   (let ((name (buffer-name)))
     (if (not (string-match "^Dir/" name))
         (rename-buffer (concat "Dir/" name) t))))
-
-;;;;;;;;;;;;;;;;;;;;;
-;; Auto-Complete Mode
-;;;;;;;;;;;;;;;;;;;;;
-
-(require 'auto-complete)
-(setq ac-auto-start nil)
-(global-auto-complete-mode t)
-
-(define-key ac-mode-map (kbd "C-/") 'auto-complete)
-(global-set-key "\M-/" 'auto-complete)
 
 
 ;;;;;;;;;;;;;;;;

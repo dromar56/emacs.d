@@ -18,7 +18,7 @@
   (add-hook 'css-mode-hook
 	    (lambda ()
 	      (define-key css-mode-map "\M-\C-x" 'slime-js-refresh-css)
-	      (define-key css-mode-map "\C-c\C-r" 'slime-js-embed-css)))) 
+	      (define-key css-mode-map "\C-c\C-r" 'slime-js-embed-css))))
 
 
 ;;SWANK-JS MODE IS FUCKING AWESOME
@@ -32,8 +32,11 @@
 
 
 ;; TERN
-;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;; (eval-after-load 'tern
-;;    '(progn
-;;       (require 'tern-auto-complete)
-;;       (tern-ac-setup)))
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     ;; (tern-ac-setup)
+     (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
+     ))
