@@ -40,3 +40,6 @@
      ;; (tern-ac-setup)
      (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
      ))
+
+
+(provide 'init-js)

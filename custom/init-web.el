@@ -15,3 +15,5 @@
   (setq web-mode-markup-indent-offset 4)
 )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+(provide 'init-web)

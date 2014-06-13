@@ -55,3 +55,4 @@
 ;;     (backward-delete-char-untabify 1)
 ;;     (ac-start)))
 
+(provide 'init-autocomplete)

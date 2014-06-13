@@ -24,3 +24,7 @@
 
 ;; Finally, the hook
 (add-hook 'jade-mode-hook 'my-jade-type-face)
+
+
+
+(provide 'init-jade)

@@ -17,3 +17,5 @@
       `no-indent'
     nil))
 (add-hook 'electric-indent-functions 'electric-indent-ignore-python)
+
+(provide 'init-python)

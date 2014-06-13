@@ -14,3 +14,7 @@
      ;; (define-key org-mode-map (kbd "<C-left>") nil)
      ;; (define-key org-mode-map (kbd "<C-right>") nil)
      ))
+
+
+
+(provide 'init-org)

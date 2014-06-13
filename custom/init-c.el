@@ -27,3 +27,4 @@
 
 
 
+(provide 'init-c)

@@ -6,3 +6,6 @@
 (defun livescript-eval ()
   (local-set-key (kbd "C-x C-e") 'livescript-compile-region))
 (add-hook 'livescript-mode-hook 'livescript-eval)
+
+
+(provide 'init-livescript)

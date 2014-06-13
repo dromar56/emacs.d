@@ -1,24 +1,26 @@
+(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
+(setq package-enable-at-startup nil)
+
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
 
+(defun require-package (package)
+  "Install given PACKAGE."
+  (unless (package-installed-p package)
+    (unless (assoc package package-archive-contents)
+      (package-refresh-contents))
+    (package-install package)))
 
 
 ;;;;;;;
 ;; MISC
 ;;;;;;;
 
-(require 'indent-guide)
-
 (electric-indent-mode t)
 (electric-pair-mode 1)
-
-;; Nice scrolling
-(setq scroll-margin 0
-      scroll-conservatively 100000
-      scroll-preserve-screen-position 1)
-
-(menu-bar-mode 0)
-(tool-bar-mode 0)
 
 (global-auto-revert-mode t)
 
@@ -44,8 +46,8 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(require 'powerline)
-(powerline-vim-theme)
+;; (require 'powerline)
+;; (powerline-vim-theme)
 
 (require 'recentf)
 ;; (recentf-mode 1)
