@@ -22,6 +22,7 @@
     init-autocomplete
     init-yasnippet
     init-org
+    init-helm
     ;; init-evil
 
     init-c

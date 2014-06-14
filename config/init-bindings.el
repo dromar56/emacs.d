@@ -66,9 +66,11 @@
 ;; Projectile
 (global-set-key (kbd "C-x p") 'helm-projectile)
 (global-set-key (kbd "s-d") 'projectile-find-dir)
-(global-set-key (kbd "s-f") 'projectile-find-file)
-(global-set-key (kbd "s-g") 'projectile-grep)
-;; (global-set-key (kbd "s-g") 'projectile-ag)
+;; (global-set-key (kbd "s-f") 'projectile-find-file)
+(global-set-key (kbd "s-f") 'helm-projectile)
+;; (global-set-key (kbd "s-g") 'projectile-grep)
+(global-set-key (kbd "s-g") 'projectile-ag)
+;; (global-set-key (kbd "s-g") 'projectile-ack)
 (global-set-key (kbd "s-p") 'projectile-switch-project)
  
 ;; Resize Windows
@@ -87,28 +89,40 @@
 (define-key global-map (kbd "C-f") 'ace-jump-mode)
 
 ;;Helm
+(global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "<f1>") 'helm-mini)
+(global-set-key (kbd "S-<f1>") 'helm-projectile)
+
+;;Project Explorer
+(global-set-key (kbd "<f1>") 'project-explorer-open)
+
 
 ;;Query Replace Regex
 (global-set-key (kbd "C-x C-r") 'query-replace-regexp)
-(global-set-key (kbd "s-o") 'helm-occur)
-(global-set-key (kbd "s-O") 'helm-regexp)
+(global-set-key (kbd "s-o") 'helm-swoop)
+(global-set-key (kbd "s-O") 'helm-multi-swoop)
+;; (global-set-key (kbd "s-o") 'helm-occur)
+;; (global-set-key (kbd "s-O") 'helm-regexp)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c M-x") 'smex-update)
 
 ;; Macro bindings
-(global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
+;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
 
 ;; Goto
 (global-set-key [(meta g)] 'goto-line)
 
 ;;Special Buffer (loaded)
-(global-set-key (kbd "C-b") 'ido-switch-buffer)
+;; (global-set-key (kbd "C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-b") 'helm-mini)
+;; (global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
+(global-set-key (kbd "M-b") 'helm-projectile)
+
 (global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
-(global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
-(global-set-key (kbd "C-x b") 'ibuffer)
+
+;; (global-set-key (kbd "C-x b") 'ibuffer)
 ;; (global-set-key (kbd "<M-up>") 'up-and-locate)
 ;; (global-set-key (kbd "<M-down>") 'down-and-locate)
 (global-set-key [mouse-5] 'mouse-down-and-locate)

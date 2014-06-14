@@ -2,8 +2,15 @@
 ;; MISC
 ;;;;;;;
 
+
+(require-package 'project-explorer)
+(after 'project-explorer
+  (setq pe/cache-directory (concat dotemacs-cache-directory "project-explorer"))
+  (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
+
 ;; (require-package 'edit-server)
 ;; (require 'edit-server)
+
 
 
 (electric-indent-mode t)
