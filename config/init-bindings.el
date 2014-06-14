@@ -113,3 +113,5 @@
 ;; (global-set-key (kbd "<M-down>") 'down-and-locate)
 (global-set-key [mouse-5] 'mouse-down-and-locate)
 (global-set-key [mouse-4] 'mouse-up-and-locate)
+
+(provide 'init-bindings)

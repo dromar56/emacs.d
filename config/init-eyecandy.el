@@ -1,3 +1,18 @@
+;;;;;;;;;;;;;;;;;;;;;;
+;; Theme customization
+;;;;;;;;;;;;;;;;;;;;;;
+
+(load-theme 'wombat t)
+(if (daemonp)
+(add-hook 'after-make-frame-functions
+          '(lambda (f)
+             (with-selected-frame f
+               (when (window-system f)
+		 (set-cursor-color "white") ;; Set it to white
+		 )))))
+(set-cursor-color "#ffffff")
+(set-face-attribute 'default nil :height 100)
+
 (require 'indent-guide)
 
 ;; Nice scrolling
@@ -28,7 +43,6 @@
 (setq sml/show-eol t)
 (setq sml/show-frame-identification t)
 (sml/setup)
-
 
 (if (fboundp 'global-prettify-symbols-mode)
     (progn

@@ -1,34 +1,46 @@
-(defvar my-root-dir (file-name-directory load-file-name)
-  "Root of emacs configuration.")
+(defgroup dotemacs nil
+  "Custom configuration for dotemacs."
+  :group 'local)
 
-(defvar my-custom-dir (expand-file-name "custom" my-root-dir)
-  "Where I put my custom files." )
+(defcustom dotemacs-cache-directory (concat user-emacs-directory ".cache/")
+  "The storage location for various persistent files."
+  :group 'dotemacs)
 
-(load (expand-file-name "main.el" my-root-dir))
-(load (expand-file-name "bindings.el" my-root-dir))
+(add-to-list 'load-path (concat user-emacs-directory "config"))
 
-;; load the personal settings (this includes `custom-file')
-(when (file-exists-p my-custom-dir)
-  (message "Loading personal configuration files in %s..." my-custom-dir)
-  (mapc 'load (directory-files my-custom-dir 't "^[^#].*el$")))
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
-(setq custom-file (expand-file-name "custom.el" my-custom-dir))
+(defcustom dotemacs-modules
+  '(init-packages
+    init-util
+    init-core
+    
+    init-eyecandy
+    
+    init-autocomplete
+    init-yasnippet
+    init-org
+    ;; init-evil
 
+    init-c
+    init-coffeescript
+    init-jade
+    init-js
+    init-livescript
+    init-lua
+    init-php
+    init-python
+    init-web
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Theme customization
-;;;;;;;;;;;;;;;;;;;;;;
+    init-bindings    
+    )
+  "Set of modules enabled in dotemacs."
+  :group 'dotemacs)
 
-(load-theme 'wombat t)
-(if (daemonp)
-(add-hook 'after-make-frame-functions
-          '(lambda (f)
-             (with-selected-frame f
-               (when (window-system f)
-		 (set-cursor-color "white") ;; Set it to white
-		 )))))
-(set-cursor-color "#ffffff")
-(set-face-attribute 'default nil :height 100)
+(dolist (module dotemacs-modules)
+  (require module))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Macro functions

@@ -1,31 +1,17 @@
-(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("org" . "http://orgmode.org/elpa/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
-(setq package-enable-at-startup nil)
-
-;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
-(package-initialize)
-
-(defun require-package (package)
-  "Install given PACKAGE."
-  (unless (package-installed-p package)
-    (unless (assoc package package-archive-contents)
-      (package-refresh-contents))
-    (package-install package)))
-
-
 ;;;;;;;
 ;; MISC
 ;;;;;;;
 
+;; (require-package 'edit-server)
+;; (require 'edit-server)
+
+
 (electric-indent-mode t)
-(electric-pair-mode 1)
+;; (electric-pair-mode 1)
 
 (global-auto-revert-mode t)
 
 ;; (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-
 
 ;; (window-numbering-mode t)
 
@@ -357,3 +343,7 @@ PROMPT sets the `read-string prompt."
 ;;;;;;;;;;;;;;;;;;
 ;; Mode Line color
 ;;;;;;;;;;;;;;;;;;
+
+
+
+(provide 'init-core)
