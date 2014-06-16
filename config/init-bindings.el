@@ -1,3 +1,12 @@
+;; Font size
+(global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
+(global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
+
 ;; Occur
 (global-set-key (kbd "M-o") 'helm-occur)
 (global-set-key (kbd "C-M-o") 'helm-multi-occur)
@@ -96,9 +105,9 @@
 (define-key global-map (kbd "C-f") 'ace-jump-mode)
 
 ;;Helm
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "<f1>") 'helm-mini)
-(global-set-key (kbd "S-<f1>") 'helm-projectile)
+;; (global-set-key (kbd "C-x b") 'helm-mini)
+;; (global-set-key (kbd "<f1>") 'helm-mini)
+;; (global-set-key (kbd "S-<f1>") 'helm-projectile)
 
 ;;Project Explorer
 ;; (global-set-key (kbd "<f1>") 'project-explorer-open)

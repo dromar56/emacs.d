@@ -15,6 +15,9 @@
 ;; MISC
 ;;;;;;;
 
+(add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
+(require 'neotree)
+
 (require-package 'project-explorer)
 (after 'project-explorer
   (setq pe/cache-directory (concat dotemacs-cache-directory "project-explorer/"))
