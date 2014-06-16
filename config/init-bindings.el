@@ -34,6 +34,8 @@
 
 (global-set-key (kbd "<prior>") (lambda () (interactive) (scroll-down 8)))
 (global-set-key (kbd "<next>") (lambda () (interactive) (scroll-down -8)))
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down 8)))
+(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down -8)))
 
 ;; Magit Mode
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -42,8 +44,8 @@
 ;; (global-set-key (kbd "C-+") 'undo-tree-redo)
 
 ;; iy-go-to-char
-(global-set-key (kbd "M-.") 'iy-go-up-to-char)
-(global-set-key (kbd "M-,") 'iy-go-up-to-char-backward)
+(global-set-key (kbd "C-c f") 'iy-go-to-char)
+(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
 
 ;; multiple-cursors bindings
 (global-set-key (kbd "s-M") 'mc/edit-lines)
@@ -54,8 +56,8 @@
 (global-set-key (kbd "s-m") 'mc/mark-all-like-this)
 
 ;; Expand region by semantics units
-(global-set-key (kbd "s-x") 'er/expand-region)
 (global-set-key (kbd "s-\/") 'er/expand-region)
+(global-set-key (kbd "s-?") 'er/contract-region)
 
 ;; Register Windows
 (global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
@@ -65,7 +67,8 @@
 
 ;; Projectile
 (global-set-key (kbd "C-x p") 'helm-projectile)
-(global-set-key (kbd "s-d") 'projectile-find-dir)
+;; (global-set-key (kbd "s-d") 'projectile-find-dir)
+(global-set-key (kbd "s-d") 'dired-jump)
 ;; (global-set-key (kbd "s-f") 'projectile-find-file)
 (global-set-key (kbd "s-f") 'helm-projectile)
 ;; (global-set-key (kbd "s-g") 'projectile-grep)
@@ -79,6 +82,10 @@
 (global-set-key (kbd "C-M-<down>") 'shrink-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
 
+
+(global-set-key (kbd "<f1>") 'helm-all-mark-rings)
+(global-set-key (kbd "<f2>") 'helm-register)
+(global-set-key (kbd "s-y") 'helm-show-kill-ring)
 (global-set-key (kbd "<f11>") 'menu-bar-mode)
 (global-set-key (kbd "<f12>") 'indent-whole-buffer)
 
@@ -94,18 +101,21 @@
 (global-set-key (kbd "S-<f1>") 'helm-projectile)
 
 ;;Project Explorer
-(global-set-key (kbd "<f1>") 'project-explorer-open)
+;; (global-set-key (kbd "<f1>") 'project-explorer-open)
 
 
 ;;Query Replace Regex
 (global-set-key (kbd "C-x C-r") 'query-replace-regexp)
 (global-set-key (kbd "s-o") 'helm-swoop)
-(global-set-key (kbd "s-O") 'helm-multi-swoop)
+(global-set-key (kbd "s-O") 'my-projectile-multi-occur)
+;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
 ;; (global-set-key (kbd "s-o") 'helm-occur)
 ;; (global-set-key (kbd "s-O") 'helm-regexp)
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; (global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-M-x") 'smex-major-mode-commands)
+(global-set-key (kbd "M-X") 'smex)
 (global-set-key (kbd "C-c M-x") 'smex-update)
 
 ;; Macro bindings
@@ -118,7 +128,7 @@
 ;; (global-set-key (kbd "C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-b") 'helm-mini)
 ;; (global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
-(global-set-key (kbd "M-b") 'helm-projectile)
+;; (global-set-key (kbd "M-b") 'helm-projectile)
 
 (global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
 

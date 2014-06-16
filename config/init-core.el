@@ -1,27 +1,47 @@
+;;;;;;;;;;;;;;;;;;
+;; Font lock speed
+;;;;;;;;;;;;;;;;;;
+
+(setq font-lock-support-mode 'jit-lock-mode)
+(setq jit-lock-stealth-time
+      16
+      jit-lock-defer-contextually nil
+      jit-lock-stealth-nice 0.5
+      jit-lock-defer-time 0.05)
+
+(setq font-lock-maximum-decoration 1)
+
 ;;;;;;;
 ;; MISC
 ;;;;;;;
 
-
 (require-package 'project-explorer)
 (after 'project-explorer
-  (setq pe/cache-directory (concat dotemacs-cache-directory "project-explorer"))
+  (setq pe/cache-directory (concat dotemacs-cache-directory "project-explorer/"))
   (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
 
-;; (require-package 'edit-server)
-;; (require 'edit-server)
+(add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
 
+;; Editing chrome areatext from emacs
+(require-package 'edit-server)
+(require 'edit-server)
 
+(when (executable-find "ag")
+  (require-package 'ag)
+  (setq ag-highlight-search t)
+  (require-package 'wgrep-ag))
 
+;; Multicolor parenthesis
+;; (require-package 'rainbow-delimiters)
+;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+(setq reb-re-syntax 'string) ;; fix backslash madness
+(add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
+
+(global-auto-revert-mode 1)
 (electric-indent-mode t)
-;; (electric-pair-mode 1)
-
-(global-auto-revert-mode t)
-
-;; (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-
-;; (window-numbering-mode t)
-
+(transient-mark-mode 1)
+(delete-selection-mode -1)
 
 ;; Enable access to the clipboard
 (setq x-select-enable-clipboard t)
@@ -39,9 +59,6 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-;; (require 'powerline)
-;; (powerline-vim-theme)
-
 (require 'recentf)
 ;; (recentf-mode 1)
 (setq recentf-max-menu-items 10)
@@ -57,13 +74,15 @@
 (require 'uniquify)
 ;; (setq uniquify-buffer-name-style 'reverse)
 
+(require-package 'expand-region)
 (require 'expand-region)
 
+(require-package 'multiple-cursors)
 (require 'multiple-cursors)
 
+(require-package 'iy-go-to-char)
 (require 'iy-go-to-char)
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-
 
 (defun my-find-file-check-make-large-file-read-only-hook ()
   "If a file is over a given size, make the buffer read only."
@@ -71,7 +90,6 @@
     (setq buffer-read-only t)
     (buffer-disable-undo)
     (fundamental-mode)))
-
 (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
 
 ;;;;;;;;;
@@ -118,7 +136,6 @@
     (if (not (string-match "^Dir/" name))
         (rename-buffer (concat "Dir/" name) t))))
 
-
 ;;;;;;;;;;;;;;;;
 ;; Ace Jump Mode
 ;;;;;;;;;;;;;;;;
@@ -151,24 +168,6 @@
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Save Macro Function
-;;;;;;;;;;;;;;;;;;;;;;
-
-(defun save-macro (name)
-  "save a macro. Take a name as argument
-     and save the last defined macro under
-     this name at the end of your .emacs"
-  (interactive "SName of the macro :")  ; ask for the name of the macro
-  (kmacro-name-last-macro name)         ; use this name for the macro
-  (find-file user-init-file)            ; open ~/.emacs or other user init file
-  (goto-char (point-max))               ; go to the end of the .emacs
-  (newline)                             ; insert a newline
-  (newline)                             ; insert a newline
-  (insert-kbd-macro name)               ; copy the macro
-  (newline)                             ; insert a newline
-  (switch-to-buffer nil))               ; return to the initial buffer
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Backfup Files settings (those damn annoying ~ files !)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -185,7 +184,6 @@
 
 ;; remove those pesky lock files
 (setq create-lockfiles nil)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tramp (remote connection)
@@ -246,21 +244,6 @@
   (scroll-down -3)
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Third party package repositories
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'package)
-
-;; (add-to-list 'package-archives
-;;     '("marmalade" .
-;;       "http://marmalade-repo.org/packages/"))
-
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-;; (add-to-list 'package-archives
-;; 	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Indent Whole Buffer
@@ -281,7 +264,6 @@
 (defadvice terminal-init-xterm (after select-shift-up activate)
   (define-key input-decode-map "\e[1;2A" [S-up]))
 
-
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Locked buffer mode
 ;;;;;;;;;;;;;;;;;;;;;
@@ -290,7 +272,6 @@
   "Make the current window always display this buffer."
   nil " locked" nil
   (set-window-dedicated-p (selected-window) locked-buffer-mode))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -350,7 +331,5 @@ PROMPT sets the `read-string prompt."
 ;;;;;;;;;;;;;;;;;;
 ;; Mode Line color
 ;;;;;;;;;;;;;;;;;;
-
-
 
 (provide 'init-core)

@@ -1,8 +1,33 @@
-;;;;;;;;;;;;;;;;;;;;;;
-;; Theme customization
-;;;;;;;;;;;;;;;;;;;;;;
+(require-package 'smart-mode-line)
+(setq sml/show-client t)
+(setq sml/show-eol t)
+(setq sml/show-frame-identification t)
+(sml/setup)
 
-(load-theme 'wombat t)
+(defun my-moe-light ()
+  (interactive)
+  (setq sml/theme 'light)
+  (sml/setup)
+  (setq moe-theme-mode-line-color 'cyan)
+  (moe-light)
+  )
+
+(defun my-moe-dark ()
+  (interactive)
+  (moe-dark)
+  (setq sml/theme 'dark)
+  (sml/setup)
+  ;; (setq moe-theme-mode-line-color 'green)
+  )
+
+;; Theme customization
+(require 'moe-theme)
+(moe-dark)
+;; Available colors: blue, orange, magenta, yellow, purple, red, cyan, w/b.
+
+
+   
+;; (load-theme 'wombat t)
 (if (daemonp)
 (add-hook 'after-make-frame-functions
           '(lambda (f)
@@ -11,8 +36,10 @@
 		 (set-cursor-color "white") ;; Set it to white
 		 )))))
 (set-cursor-color "#ffffff")
-(set-face-attribute 'default nil :height 100)
+;; (set-face-attribute 'default nil :height 100)
 
+;; Show indentation
+(require-package 'indent-guide)
 (require 'indent-guide)
 
 ;; Nice scrolling
@@ -23,6 +50,13 @@
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 
+(which-function-mode t)
+(blink-cursor-mode -1)
+
+(global-linum-mode t)
+(add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
+
+;; For a cleaner modeline
 (require-package 'diminish)
 (diminish 'visual-line-mode)
 (after 'autopair (diminish 'autopair-mode))
@@ -37,12 +71,6 @@
 (after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
-
-(require-package 'smart-mode-line)
-(setq sml/show-client t)
-(setq sml/show-eol t)
-(setq sml/show-frame-identification t)
-(sml/setup)
 
 (if (fboundp 'global-prettify-symbols-mode)
     (progn

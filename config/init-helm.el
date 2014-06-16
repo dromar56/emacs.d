@@ -11,4 +11,10 @@
 
 (require 'helm-config)
 
+(require-package 'wgrep-helm)
+(require 'wgrep-helm)
+
+
+(helm-mode 1)
+
 (provide 'init-helm)
