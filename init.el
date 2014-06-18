@@ -17,15 +17,21 @@
     init-util
     init-core
 
+    init-bindings
     init-eyecandy
 
-    init-autocomplete
+    ;; init-autocomplete
+    init-company
+    
     init-yasnippet
     init-org
     init-helm
     init-smartparens
-    ;; init-evil
+    init-discover
+    ;; init-evil    
 
+    init-macro
+    
     init-c
     init-coffeescript
     init-jade
@@ -36,8 +42,7 @@
     init-python
     init-web
 
-    init-bindings
-    init-macro
+    init-overrides
     )
   "Set of modules enabled in dotemacs."
   :group 'dotemacs)

@@ -41,10 +41,10 @@
 ;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
 ;; 					     (interactive "P") (other-window -1)))
 
-(global-set-key (kbd "<prior>") (lambda () (interactive) (scroll-down 8)))
-(global-set-key (kbd "<next>") (lambda () (interactive) (scroll-down -8)))
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down 8)))
-(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down -8)))
+(global-set-key (kbd "<prior>") 'beginning-of-buffer)
+(global-set-key (kbd "<next>") 'end-of-buffer)
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
+(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
 
 ;; Magit Mode
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -91,9 +91,8 @@
 (global-set-key (kbd "C-M-<down>") 'shrink-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
 
-
-(global-set-key (kbd "<f1>") 'helm-all-mark-rings)
-(global-set-key (kbd "<f2>") 'helm-register)
+(global-set-key (kbd "<f1>") 'helm-show-kill-ring)
+(global-set-key (kbd "<f2>") 'helm-all-mark-rings)
 (global-set-key (kbd "s-y") 'helm-show-kill-ring)
 (global-set-key (kbd "<f11>") 'menu-bar-mode)
 (global-set-key (kbd "<f12>") 'indent-whole-buffer)
@@ -122,9 +121,9 @@
 ;; (global-set-key (kbd "s-O") 'helm-regexp)
 
 ;; (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-M-x") 'smex-major-mode-commands)
-(global-set-key (kbd "M-X") 'smex)
+(global-set-key (kbd "C-M-x") 'helm-M-x)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c M-x") 'smex-update)
 
 ;; Macro bindings

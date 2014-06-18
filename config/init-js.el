@@ -5,7 +5,6 @@
 (js2r-add-keybindings-with-prefix "C-c C-m")
 ;; eg. extract function with `C-c C-m ef`.
 
-
 ;; SLIME - SWANK-JS
 (require 'slime)
 ;; (autoload 'slime "slime" "Slime" t)
@@ -32,14 +31,21 @@
 
 
 ;; TERN
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'tern
-  '(progn
-     (require 'tern-auto-complete)
-     ;; (tern-ac-setup)
-     (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
-     ))
+;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;; (eval-after-load 'tern
+;;   '(progn
+;;      (require 'tern-auto-complete)
+;;      ;; (tern-ac-setup)
+;;      (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
+;;      ))
 
+(require-package 'company-tern)
+
+ (when (executable-find "tern")
+    (require-package 'tern)
+    (add-hook 'js2-mode-hook 'tern-mode)
+    (after 'tern
+      ))
 
 (provide 'init-js)

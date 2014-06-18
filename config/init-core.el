@@ -34,10 +34,6 @@
   (setq ag-highlight-search t)
   (require-package 'wgrep-ag))
 
-;; Multicolor parenthesis
-;; (require-package 'rainbow-delimiters)
-;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
 (setq reb-re-syntax 'string) ;; fix backslash madness
 (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
@@ -67,9 +63,19 @@
 (setq recentf-max-menu-items 10)
 ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
+;;==========
+;; Undo tree
+;;==========
+
+(require-package 'undo-tree)
 (require 'undo-tree)
 (global-undo-tree-mode)
+;; Unmap 'C-x r' to avoid conflict with discover
+(after 'undo-tree
+  (define-key undo-tree-map (kbd "C-x r") nil))
 
+
+(require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 

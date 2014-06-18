@@ -22,11 +22,16 @@
 
 ;; Theme customization
 (require 'moe-theme)
-(moe-dark)
+(my-moe-dark)
 ;; Available colors: blue, orange, magenta, yellow, purple, red, cyan, w/b.
 
 
-   
+;; Multicolor parenthesis
+;; (require-package 'rainbow-delimiters)
+;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+
+
 ;; (load-theme 'wombat t)
 (if (daemonp)
 (add-hook 'after-make-frame-functions
