@@ -2,6 +2,15 @@
 (require 'company)
 
 (setq company-idle-delay 0)
+
+(defun company-auto-completion-toggle ()
+  (interactive)
+  (if (eq company-idle-delay 0)
+      (setq company-idle-delay nil)
+    (setq company-idle-delay 0))
+)
+(global-set-key (kbd "M-c") 'company-auto-completion-toggle)
+
 (setq company-minimum-prefix-length 1)
 (setq company-show-numbers 1)
 (setq company-tooltip-limit 10)
@@ -27,6 +36,7 @@
 
 
 (global-set-key (kbd "C-o") 'company-manual-begin)
+(global-set-key (kbd "M-o") 'company-tern)
 (global-set-key (kbd "M-?") 'company-dabbrev)
 
 (defadvice company-complete-common (around advice-for-company-complete-common activate)

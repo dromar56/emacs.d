@@ -1,33 +1,22 @@
-;;;;;;;;;;;;;;;;;;
-;; Font lock speed
-;;;;;;;;;;;;;;;;;;
+;; (elscreen-start)
 
-(setq font-lock-support-mode 'jit-lock-mode)
-(setq jit-lock-stealth-time
-      16
-      jit-lock-defer-contextually nil
-      jit-lock-stealth-nice 0.5
-      jit-lock-defer-time 0.05)
-
-(setq font-lock-maximum-decoration 1)
 
 ;;;;;;;
 ;; MISC
 ;;;;;;;
 
-(add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
-(require 'neotree)
+;; (add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
+;; (require 'neotree)
 
-(require-package 'project-explorer)
-(after 'project-explorer
-  (setq pe/cache-directory (concat dotemacs-cache-directory "project-explorer/"))
-  (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
-
-(add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
+;; (require-package 'project-explorer)
+;; (after 'project-explorer
+;;   (setq pe/cache-directory (concat dotemacs-cache-directory "project-explorer/"))
+;;   (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
+;; (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
 
 ;; Editing chrome areatext from emacs
-(require-package 'edit-server)
-(require 'edit-server)
+;; (require-package 'edit-server)
+;; (require 'edit-server)
 
 (when (executable-find "ag")
   (require-package 'ag)
@@ -38,7 +27,7 @@
 (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
 (global-auto-revert-mode 1)
-(electric-indent-mode t)
+(electric-indent-mode -1)
 (transient-mark-mode 1)
 (delete-selection-mode -1)
 
@@ -51,10 +40,6 @@
 (defadvice ansi-term (after advise-ansi-term-coding-system)
   (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
 (ad-activate 'ansi-term)
-
-;; winner-mode to undo/redo windows changes
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -77,8 +62,6 @@
 
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-
-
 
 (require 'uniquify)
 ;; (setq uniquify-buffer-name-style 'reverse)

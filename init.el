@@ -22,16 +22,17 @@
 
     ;; init-autocomplete
     init-company
-    
+
     init-yasnippet
     init-org
     init-helm
     init-smartparens
     init-discover
-    ;; init-evil    
+    ;; init-evil
+    init-workspace2
 
     init-macro
-    
+
     init-c
     init-coffeescript
     init-jade
@@ -49,4 +50,3 @@
 
 (dolist (module dotemacs-modules)
   (require module))
-

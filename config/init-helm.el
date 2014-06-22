@@ -10,11 +10,17 @@
   (require-package 'helm-projectile))
 
 (require 'helm-config)
+(helm-mode 1)
 
 (require-package 'wgrep-helm)
-(require 'wgrep-helm)
+;; (require 'wgrep-helm)
 
 
-(helm-mode 1)
+
+(require-package 'helm-ag)
+(setq helm-ag-thing-at-point 'symbol)
+(defun helm-ag-projectile ()
+  (interactive)
+  (helm-ag (projectile-project-root)))
 
 (provide 'init-helm)

@@ -1,0 +1,1283 @@
+
+;; ----- smex-history -----
+(
+ global-discover-mode
+ customize-group
+ company-mode
+ describe-function
+ helm-M-x
+ helm-find-files
+ helm-mode
+ customize
+ helm-regexp
+ helm-colors
+ helm-top
+ customize-group-other-window
+ helm-register
+ list-registers
+ eval-region
+ global-unset-key
+ add-global-abbrev
+ make-directory
+ revert-buffer
+ json-mode
+ align-regexp
+ project-explorer-open
+ describe-variable
+ linum-mode
+ js2-mode
+ font-lock-mode
+ regexp-builder
+ smartparens-strict-mode
+ describe-bindings
+ smex-save-to-file
+ rename-file
+ sass-mode
+ tetris
+ load-theme
+ tags-loop-continue
+ projectile-regenerate-tags
+ grep
+ imenu
+ helm-etags-select
+ set-face-background
+ Info-up
+ find-tag
+ tmm-menubar
+ customize-themes
+ powerline-vim-theme
+ powerline-default-theme
+ powerline-center-evil-theme
+ newline
+ imenu-anywhere
+ transpose-words
+ powerline-revert
+ slime-eval-region
+ describe-key-briefly
+ php-mode
+ diff-mode
+ undo-tree-mode
+ show-paren-mode
+ locked-buffer-mode
+ js2-imenu-extras-mode
+ mc/mark-all-like-this
+ org-mode
+ html-mode
+ helm-occur
+ tabbar-mode
+ tags-search
+ rename-buffer
+ slime-connect
+ fill-paragraph
+ window-numbering-mode
+ org-todo
+ web-mode
+ butterfly
+ tern-mode
+ magit-push
+ sort-lines
+ helm-do-grep
+ local-set-key
+ menu-bar-open
+ ido-ubiquitous
+ prelude-angular
+ ido-vertical-mode
+ recover-this-file
+ set-background-color
+ global-undo-tree-mode
+ powerline-center-theme
+ slime-eval-last-expression
+ smex
+ term
+ circe
+ occur
+ rgrep
+ idomenu
+ js-mode
+ c++-mode
+ css-mode
+ conf-mode
+ copy-file
+ ido-dired
+ list-tags
+ yaml-mode
+ helm-imenu
+ eval-buffer
+ windmove-up
+ magit-commit
+ select-frame
+ server-start
+ set-variable
+ t-mouse-mode
+ epa-list-keys
+ find-variable
+ ido-find-file
+ org-todo-list
+ clipboard-yank
+ magit-file-log
+ prelude-google
+ bookmark-delete
+ emacs-lisp-mode
+ helm-etags-help
+ magit-stage-all
+ powerline-reset
+ browse-url-emacs
+ er/expand-region
+ helm-moccur-help
+ set-cursor-color
+ switch-to-buffer
+ x-clipboard-yank
+ shell-script-mode
+ tmm-menubar-mouse
+ projectile-recentf
+ er/mark-method-call
+ powerline-nano-theme
+ projectile-find-file
+ clipboard-kill-region
+ ediff-windows-wordwise
+ kill-buffer-and-window
+ menu-bar-select-buffer
+ projectile-kill-buffers
+ org-ascii-export-as-ascii
+ lacarte-execute-menu-command
+ windmove-default-keybindings
+ cd
+ 5x5
+ arp
+ dbx
+ dig
+ erc
+ ert
+ ftp
+ gdb
+ irc
+ jdb
+ man
+ mpc
+ pdb
+ pwd
+ rsh
+ sdb
+ w3m
+ xdb
+ yow
+ calc
+ diff
+ dirs
+ ffap
+ ffip
+ gnus
+ help
+ ielm
+ info
+ life
+ mail
+ mpuz
+ ping
+ pong
+ talk
+ undo
+ yank
+ zone
+ chmod
+ debug
+ diary
+ dired
+ ediff
+ edirs
+ hanoi
+ lgrep
+ mkdir
+ rcirc
+ rmail
+ route
+ slime
+ snake
+ spook
+ tumme
+ whois
+ widen
+ woman
+ c-mode
+ doctor
+ dunnet
+ ediff3
+ edirs3
+ epatch
+ finger
+ getenv
+ gomoku
+ ignore
+ ispell
+ locate
+ perldb
+ proced
+ repeat
+ rlogin
+ rzgrep
+ setenv
+ sql-ms
+ tabify
+ telnet
+ thumbs
+ vc-dir
+ zrgrep
+ ac-help
+ ac-next
+ ac-stop
+ apropos
+ battery
+ bs-show
+ bubbles
+ c-guess
+ compile
+ erc-tls
+ fortune
+ gud-gdb
+ ibuffer
+ m2-mode
+ m4-mode
+ netstat
+ pr-help
+ ps-mode
+ run-dig
+ sh-mode
+ sldb-up
+ sql-db2
+ tpu-edt
+ unrmail
+ up-list
+ vc-diff
+ vc-pull
+ version
+ vi-mode
+ webjump
+ 2C-split
+ Info-toc
+ TeX-mode
+ ac-start
+ ada-mode
+ ag-dired
+ ag-files
+ appt-add
+ asm-mode
+ awk-mode
+ blackbox
+ c-c-menu
+ calendar
+ checkdoc
+ cua-mode
+ dcl-mode
+ decipher
+ dns-mode
+ ebuffers
+ f90-mode
+ gfm-mode
+ helm-apt
+ helm-ucs
+ holidays
+ how-many
+ idl-mode
+ ido-mode
+ ifconfig
+ iwconfig
+ landmark
+ lua-mode
+ mh-nmail
+ mh-rmail
+ mh-smail
+ msb-mode
+ nslookup
+ org-copy
+ org-goto
+ org-info
+ org-sort
+ org-yank
+ quickurl
+ recenter
+ remember
+ rst-mode
+ run-lisp
+ ses-mode
+ show-all
+ sldb-out
+ slime-cd
+ sql-help
+ sql-mode
+ srt-mode
+ sws-mode
+ tar-mode
+ tcl-mode
+ tex-mode
+ untabify
+ url-mail
+ vc-ediff
+ vc-merge
+ vip-mode
+ where-is
+ xml-mode
+ yank-pop
+ 5x5-crack
+ Info-edit
+ Info-exit
+ Info-help
+ Info-last
+ Info-menu
+ Info-mode
+ Info-next
+ Info-prev
+ ac-expand
+ ac-ignore
+ ad-update
+ ag-regexp
+ ansi-term
+ backtrace
+ benchmark
+ c-version
+ calc-undo
+ copyright
+ down-list
+ ebuffers3
+ eregistry
+ erevision
+ ffap-menu
+ ffap-next
+ find-file
+ find-grep
+ full-calc
+ goto-char
+ goto-line
+ grep-find
+ grep-mode
+ haml-mode
+ handwrite
+ helm-bbdb
+ helm-emms
+ helm-find
+ helm-help
+ helm-mini
+ help-mode
+ help-quit
+ hexl-mode
+ hide-body
+ html2text
+ icon-mode
+ indent-to
+ jade-mode
+ java-mode
+ join-line
+ kill-grep
+ kill-line
+ kill-sexp
+ kill-word
+ left-char
+ left-word
+ lisp-mode
+ magit-log
+ magit-tag
+ mail-mode
+ make-face
+ mark-page
+ mark-sexp
+ mark-word
+ mule-diag
+ new-frame
+ next-file
+ next-line
+ nxml-mode
+ objc-mode
+ open-line
+ org-cycle
+ org-occur
+ org-timer
+ pcomplete
+ perl-mode
+ pike-mode
+ prog-mode
+ recompile
+ ruby-mode
+ scroll-up
+ sgml-mode
+ sldb-down
+ sldb-mode
+ sldb-next
+ sldb-quit
+ sldb-step
+ slime-nop
+ slime-pwd
+ snmp-mode
+ solitaire
+ sql-mysql
+ sql-solid
+ texi2info
+ text-mode
+ todo-mode
+ todo-show
+ top-level
+ tramp-bug
+ undefined
+ undo-only
+ unix-sync
+ vc-revert
+ vc-update
+ vera-mode
+ vhdl-mode
+ view-file
+ view-mode
+ view-todo
+ w3m-dtree
+ what-line
+ what-page
+ yas-about
+ yas/about
+ zone-mode
+ Info-index
+ Info-split
+ LaTeX-mode
+ ac-isearch
+ ac-mouse-1
+ ac-mouse-4
+ ac-mouse-5
+ ad-recover
+ ada-header
+ ag-project
+ antlr-mode
+ array-mode
+ brief-mode
+ browse-url
+ c-awk-menu
+ c-c++-menu
+ c-idl-menu
+ calculator
+ comint-bol
+ comint-run
+ cperl-mode
+ crisp-mode
+ cvs-status
+ cvs-update
+ cwarn-mode
+ diary-mode
+ dsssl-mode
+ eldoc-mode
+ elide-head
+ elint-file
+ erc-select
+ find-dired
+ forms-mode
+ gnus-slave
+ hanoi-unix
+ hide-entry
+ hide-other
+ httpd-stop
+ image-mode
+ iso-german
+ keep-lines
+ kill-emacs
+ kkc-region
+ latex-mode
+ lpr-buffer
+ lpr-region
+ magit-diff
+ magit-show
+ make-frame
+ man-follow
+ mark-defun
+ mh-version
+ mixal-mode
+ mouse-kill
+ multi-term
+ next-error
+ next-match
+ nroff-mode
+ occur-mode
+ occur-next
+ occur-prev
+ org-agenda
+ org-attach
+ org-metaup
+ org-refile
+ org-reload
+ org-return
+ org-reveal
+ pr-ps-name
+ ps-despool
+ quick-calc
+ raise-sexp
+ re-builder
+ read-color
+ right-char
+ right-word
+ rmail-mode
+ ruler-mode
+ run-octave
+ run-prolog
+ run-python
+ run-scheme
+ run-skewer
+ shell-mode
+ show-entry
+ sieve-mode
+ sldb-abort
+ sldb-break
+ sldb-cycle
+ slime-info
+ slime-mode
+ slime-ping
+ sort-pages
+ split-line
+ sql-ingres
+ sql-linter
+ sql-oracle
+ sql-sqlite
+ sql-sybase
+ time-stamp
+ todo-print
+ tpu-edt-on
+ tpu-mapper
+ traceroute
+ type-break
+ ucs-insert
+ viper-mode
+ w3m-buffer
+ w3m-cookie
+ w3m-gohome
+ w3m-namazu
+ w3m-region
+ w3m-search
+ write-file
+ yas-expand
+ Helper-help
+ Info-search
+ Info-tagify
+ abbrev-mode
+ about-emacs
+ ac-previous
+ ad-activate
+ ad-unadvise
+ allout-mode
+ artist-mode
+ auto-insert
+ bibtex-mode
+ buffer-menu
+ bury-buffer
+ c-add-style
+ c-java-menu
+ c-objc-menu
+ c-pike-menu
+ c-set-style
+ calc-keypad
+ center-line
+ coffee-mode
+ comint-mode
+ comment-box
+ count-words
+ cvs-examine
+ delete-char
+ delete-file
+ delete-pair
+ delphi-mode
+ diff-backup
+ disassemble
+ doctex-mode
+ double-mode
+ ediff-files
+ ediff-merge
+ edirs-merge
+ elint-defun
+ elp-results
+ end-of-line
+ epl-refresh
+ er/mark-url
+ erc-add-pal
+ fill-region
+ first-error
+ flush-lines
+ focus-frame
+ follow-mode
+ fringe-mode
+ helm-gentoo
+ helm-locate
+ helm-resume
+ helm-timers
+ help-follow
+ hide-leaves
+ httpd-start
+ ido-pop-dir
+ iimage-mode
+ image-dired
+ indent-sexp
+ info-finder
+ insert-char
+ insert-file
+ insert-pair
+ invert-face
+ iso-iso2tex
+ iso-spanish
+ iso-tex2iso
+ ispell-word
+ js2r-unwrap
+ kill-buffer
+ kill-region
+ lower-frame
+ magit-fetch
+ magit-merge
+ magit-stash
+ master-mode
+ mc/mark-pop
+ modify-face
+ multi-occur
+ nato-region
+ next-buffer
+ normal-mode
+ octave-mode
+ org-capture
+ org-columns
+ org-content
+ org-id-copy
+ org-id-goto
+ org-publish
+ org-shiftup
+ org-switchb
+ org-version
+ other-frame
+ pascal-mode
+ pr-txt-mode
+ pr-txt-name
+ prolog-mode
+ push-button
+ quit-window
+ raise-frame
+ refill-mode
+ reftex-mode
+ replace-amp
+ reveal-mode
+ rmail-input
+ run-at-time
+ save-buffer
+ scheme-mode
+ scroll-down
+ scroll-left
+ serial-term
+ server-mode
+ simula-mode
+ skewer-repl
+ slime-reset
+ slime-setup
+ slime-space
+ slitex-mode
+ smerge-mode
+ smex-update
+ snmpv2-mode
+ sort-fields
+ sql-connect
+ upcase-word
+ vc-annotate
+ vc-register
+ vc-rollback
+ view-buffer
+ w3m-antenna
+ w3m-fb-mode
+ w3m-perldoc
+ w3m-weather
+ what-domain
+ winner-mode
+ winner-redo
+ winner-undo
+ zap-to-char
+ Info-history
+ Info-summary
+ ac-last-help
+ align-entire
+ autoarg-mode
+ bookmark-set
+ bs-customize
+ c-defun-name
+ c-guess-view
+ c-indent-exp
+ c-set-offset
+ check-parens
+ clone-buffer
+ comment-dwim
+ comment-kill
+ complete-tag
+ compose-mail
+ cvs-checkout
+ cvs-quickdir
+ delete-frame
+ desktop-read
+ display-time
+ do-auto-save
+ ebnf-despool
+ edebug-defun
+ ediff-backup
+ ediff-files3
+ edit-abbrevs
+ edit-picture
+ edmacro-mode
+ eieio-browse
+ emacs-uptime
+ emerge-files
+ enable-theme
+ end-of-defun
+ er/mark-word
+ erase-buffer
+ erc-add-fool
+ erc-log-mode
+ find-library
+ flx-ido-mode
+ fortran-mode
+ forward-char
+ forward-line
+ forward-list
+ forward-page
+ forward-sexp
+ forward-word
+ generic-mode
+ glasses-mode
+ gnus-plugged
+ goto-address
+ helm-apropos
+ helm-dabbrev
+ helm-ff-help
+ helm-recentf
+ helm-surfraw
+ help-go-back
+ hi-lock-mode
+ hide-subtree
+ hl-line-mode
+ holiday-list
+ idlwave-mode
+ ido-complete
+ ido-push-dir
+ inferior-tcl
+ info-apropos
+ isearch-exit
+ iso-gtex2iso
+ iso-iso2gtex
+ iso-iso2sgml
+ iso-sgml2iso
+ kill-comment
+ list-abbrevs
+ list-buffers
+ load-library
+ lunar-phases
+ magit-cherry
+ magit-reflog
+ magit-status
+ magit-wazzup
+ manual-entry
+ mc/mmlte--up
+ mercury-mode
+ message-mail
+ message-mode
+ message-news
+ morse-region
+ move-line-up
+ not-modified
+ octet-buffer
+ org-add-note
+ org-clock-in
+ org-deadline
+ org-goto-ret
+ org-iswitchb
+ org-metadown
+ org-metaleft
+ org-org-menu
+ org-overview
+ org-priority
+ org-schedule
+ org-set-tags
+ org-shifttab
+ org-src-mode
+ org-tbl-menu
+ other-window
+ outline-mode
+ picture-mode
+ plstore-mode
+ pop-tag-mark
+ pr-customize
+ pr-interface
+ print-buffer
+ print-region
+ quickurl-ask
+ recentf-mode
+ recover-file
+ rot13-region
+ scroll-right
+ show-subtree
+ sieve-manage
+ sieve-upload
+ smerge-ediff
+ sort-columns
+ special-mode
+ split-window
+ sql-informix
+ sql-postgres
+ strokes-help
+ strokes-mode
+ subword-mode
+ sws-at-bol-p
+ table-insert
+ tags-apropos
+ talk-connect
+ texinfo-mode
+ timeclock-in
+ tooltip-mode
+ tpu-edt-mode
+ url-view-url
+ vc-mode-line
+ vc-print-log
+ vc-root-diff
+ verilog-mode
+ view-lossage
+ visible-mode
+ w3m-download
+ w3m-goto-url
+ write-region
+ xesam-search
+ Info-top-node
+ Info-validate
+ ac-quick-help
+ ace-jump-mode
+ ad-deactivate
+ ad-update-all
+ ada-find-file
+ align-current
+ appt-activate
+ apropos-value
+ apropos-zippy
+ autoconf-mode
+ backward-char
+ backward-list
+ backward-page
+ backward-sexp
+ backward-word
+ bookmark-jump
+ bookmark-load
+ bookmark-save
+ browse-url-w3
+ bs-cycle-next
+ calc-dispatch
+ calc-embedded
+ calendar-exit
+ calendar-mode
+ center-region
+ compile-defun
+ conf-ppd-mode
+ count-matches
+ cperl-perldoc
+ decipher-mode
+ delete-region
+ delete-window
+ denato-region
+ lm-verify
+ lm-synopsis
+ archive-mark
+ archive-undo
+ archive-view
+ describe-char
+ describe-face
+ describe-font
+ describe-mode
+ desktop-clear
+ dirtrack-mode
+ disable-theme
+ doc-view-mode
+ downcase-word
+ ebnf-eps-file
+ ediff-version
+ eieio-version
+ emacs-version
+ end-kbd-macro
+ end-of-buffer
+ enriched-mode
+ epa-mail-mode
+ epa-mail-sign
+ epa-sign-file
+ epatch-buffer
+ er/mark-defun
+ er/mark-email
+ er/mark-js-if
+ erc-fill-mode
+ erc-menu-mode
+ erc-ring-mode
+ exit-calendar
+ describe-key
+ package-install
+ yas-reload-all
+ load-file
+ package-list-packages
+ replace-regexp
+ elpy-set-backend
+ customize-face
+ magit-pull
+ eshell
+ yas-describe-tables
+ helm-projectile
+ evil-mode
+ yas-insert-snippet
+ flycheck-mode
+ projectile-ack
+ my-create-header
+ elpy-set-project-root
+ projectile-remove-known-project
+ ac-complete
+ flymake-mode
+ auto-complete
+ projectile-grep
+ auto-complete-mode
+ orgtbl-mode
+ create-shell
+ helm-grep-mode
+ read-only-mode
+ toggle-truncate-lines
+ org-html-export-to-html
+ package-refresh-contents
+ global-auto-complete-mode
+ shell
+ pretty-symbols-mode
+ ac-trigger-key-command
+ elpy-flymake-forward-error
+ projectile-invalidate-cache
+ package-list-packages-no-fetch
+ projectile-cleanup-known-projects
+ desktop-save
+ create-eshell
+ ediff-buffers
+ projectile-ag
+ yas-tryout-snippet
+ projectile-multi-occur
+ yas-visit-snippet-file
+ org-html-export-as-html
+ speedbar
+ eval-defun
+ iedit-mode
+ magit-init
+ yas/expand
+ elpy-enable
+ python-mode
+ skewer-mode
+ paredit-mode
+ snippet-mode
+ flyspell-mode
+ narrow-to-page
+ yas-minor-mode
+ flymake-compile
+ popwin:messages
+ yas-new-snippet
+ yas-minor-mode-on
+ recentf-open-files
+ org-md-export-as-markdown
+ org-md-export-to-markdown
+ smex-show-unbound-commands
+ projectile-switch-to-buffer
+ projectile-purge-dir-from-cache
+ undo-tree-visualizer-selection-toggle-diff
+ ag
+ align
+ elpy-test
+ scss-mode
+ save-macro
+ pyvenv-mode
+ expand-abbrev
+ markdown-mode
+ pyvenv-workon
+ eval-last-sexp
+ helm-bookmarks
+ js2r-rename-var
+ org-insert-link
+ pyvenv-activate
+ skewer-css-mode
+ describe-project
+ fundamental-mode
+ jump-to-register
+ narrow-to-region
+ projectile-dired
+ toggle-read-only
+ edit-server-start
+ ido-wide-find-dir
+ info-emacs-manual
+ yas-abort-snippet
+ customize-variable
+ electric-pair-mode
+ js2r-ternary-to-if
+)
+
+;; ----- smex-data -----
+(
+ (eval-region . 83)
+ (describe-key . 67)
+ (load-theme . 35)
+ (load-file . 34)
+ (describe-function . 56)
+ (package-install . 41)
+ (customize-group . 59)
+ (package-list-packages . 28)
+ (replace-regexp . 21)
+ (align-regexp . 23)
+ (my_create_header . 13)
+ (customize-face . 13)
+ (tags-loop-continue . 11)
+ (projectile-regenerate-tags . 10)
+ (eshell . 10)
+ (grep . 8)
+ (imenu . 7)
+ (describe-variable . 17)
+ (helm-etags-select . 7)
+ (yas-insert-snippet . 8)
+ (set-face-background . 7)
+ (Info-up . 6)
+ (find-tag . 6)
+ (tmm-menubar . 6)
+ (flymake-mode . 6)
+ (projectile-ack . 7)
+ (customize-themes . 6)
+ (powerline-vim-theme . 6)
+ (powerline-default-theme . 6)
+ (powerline-center-evil-theme . 6)
+ (newline . 5)
+ (customize . 11)
+ (create-shell . 5)
+ (imenu-anywhere . 5)
+ (yas-reload-all . 36)
+ (helm-projectile . 9)
+ (projectile-grep . 6)
+ (transpose-words . 5)
+ (powerline-revert . 5)
+ (slime-eval-region . 5)
+ (describe-key-briefly . 5)
+ (org-html-export-to-html . 5)
+ (package-refresh-contents . 5)
+ (shell . 4)
+ (js2-mode . 9)
+ (php-mode . 4)
+ (diff-mode . 4)
+ (jedi:setup . 6)
+ (helm-grep-mode . 5)
+ (undo-tree-mode . 4)
+ (show-paren-mode . 4)
+ (locked-buffer-mode . 4)
+ (elpy-set-project-root . 7)
+ (js2-imenu-extras-mode . 4)
+ (mc/mark-all-like-this . 4)
+ (toggle-truncate-lines . 5)
+ (elpy-flymake-forward-error . 4)
+ (org-mode . 3)
+ (html-mode . 3)
+ (helm-occur . 3)
+ (magit-pull . 12)
+ (ac-complete . 6)
+ (tabbar-mode . 3)
+ (tags-search . 3)
+ (create-eshell . 3)
+ (magit-refresh . 3)
+ (rename-buffer . 3)
+ (slime-connect . 3)
+ (fill-paragraph . 3)
+ (my-create-header . 7)
+ (auto-complete-mode . 6)
+ (window-numbering-mode . 3)
+ (org-html-export-as-html . 3)
+ (org-todo . 2)
+ (web-mode . 2)
+ (butterfly . 2)
+ (helm-mode . 7)
+ (tern-mode . 2)
+ (iedit-mode . 2)
+ (magit-push . 2)
+ (sort-lines . 2)
+ (yas/expand . 2)
+ (elpy-enable . 2)
+ (python-mode . 2)
+ (rename-file . 2)
+ (skewer-mode . 2)
+ (desktop-save . 3)
+ (helm-do-grep . 2)
+ (snippet-mode . 2)
+ (ediff-buffers . 3)
+ (local-set-key . 2)
+ (menu-bar-open . 2)
+ (ido-ubiquitous . 2)
+ (narrow-to-page . 2)
+ (yas-minor-mode . 2)
+ (dired-do-delete . 2)
+ (flymake-compile . 2)
+ (popwin:messages . 2)
+ (prelude-angular . 2)
+ (slime-js-reload . 2)
+ (describe-bindings . 5)
+ (ido-vertical-mode . 2)
+ (recover-this-file . 2)
+ (smex-save-to-file . 2)
+ (yas-minor-mode-on . 2)
+ (recentf-open-files . 2)
+ (set-background-color . 2)
+ (global-undo-tree-mode . 2)
+ (powerline-center-theme . 2)
+ (global-auto-complete-mode . 5)
+ (org-md-export-as-markdown . 2)
+ (org-md-export-to-markdown . 2)
+ (dired-do-find-marked-files . 2)
+ (slime-eval-last-expression . 2)
+ (projectile-switch-to-buffer . 2)
+ (smex . 1)
+ (term . 1)
+ (circe . 1)
+ (occur . 1)
+ (rgrep . 1)
+ (tetris . 1)
+ (idomenu . 1)
+ (js-mode . 1)
+ (c++-mode . 1)
+ (css-mode . 1)
+ (conf-mode . 1)
+ (copy-file . 1)
+ (elpy-test . 1)
+ (ido-dired . 1)
+ (list-tags . 1)
+ (sass-mode . 1)
+ (scss-mode . 1)
+ (yaml-mode . 1)
+ (dired-jump . 2)
+ (eval-defun . 2)
+ (helm-imenu . 1)
+ (magit-grep . 1)
+ (magit-init . 2)
+ (eval-buffer . 1)
+ (windmove-up . 1)
+ (magit-commit . 1)
+ (select-frame . 1)
+ (server-start . 1)
+ (set-variable . 1)
+ (t-mouse-mode . 1)
+ (auto-complete . 6)
+ (create_header . 1)
+ (dired-do-copy . 1)
+ (epa-list-keys . 1)
+ (find-variable . 1)
+ (ido-find-file . 1)
+ (jedi:ac-setup . 1)
+ (org-todo-list . 1)
+ (revert-buffer . 4)
+ (clipboard-yank . 1)
+ (helm-info-grep . 1)
+ (list-registers . 4)
+ (magit-file-log . 1)
+ (prelude-google . 1)
+ (read-only-mode . 5)
+ (regexp-builder . 4)
+ (bookmark-delete . 1)
+ (emacs-lisp-mode . 1)
+ (helm-etags-help . 1)
+ (helm-find-files . 4)
+ (lua-end-of-proc . 1)
+ (magit-stage-all . 1)
+ (markdown-export . 1)
+ (org-insert-link . 1)
+ (powerline-reset . 1)
+ (skewer-css-mode . 1)
+ (browse-url-emacs . 1)
+ (er/expand-region . 1)
+ (helm-moccur-help . 1)
+ (narrow-to-region . 1)
+ (set-cursor-color . 1)
+ (switch-to-buffer . 1)
+ (toggle-read-only . 1)
+ (x-clipboard-yank . 1)
+ (helm-ff-run-etags . 1)
+ (jedi:dot-complete . 1)
+ (shell-script-mode . 1)
+ (tmm-menubar-mouse . 1)
+ (yas-abort-snippet . 1)
+ (customize-variable . 1)
+ (projectile-recentf . 1)
+ (sticky-buffer-mode . 1)
+ (er/mark-method-call . 1)
+ (jedi:install-server . 1)
+ (yas-describe-tables . 10)
+ (electric-indent-mode . 1)
+ (powerline-nano-theme . 1)
+ (projectile-find-file . 1)
+ (clipboard-kill-region . 1)
+ (coffee-compile-region . 1)
+ (ediff-windows-wordwise . 1)
+ (kill-buffer-and-window . 1)
+ (magit-cherry-pick-item . 1)
+ (menu-bar-select-buffer . 1)
+ (projectile-multi-occur . 3)
+ (helm-jedi-related-names . 1)
+ (projectile-kill-buffers . 1)
+ (org-ascii-export-as-ascii . 1)
+ (smex-show-unbound-commands . 2)
+ (projectile-invalidate-cache . 4)
+ (lacarte-execute-menu-command . 1)
+ (windmove-default-keybindings . 1)
+ (undo-tree-visualizer-selection-toggle-diff . 2)
+ (elpy-set-backend . 14)
+ (ac-trigger-key-command . 4)
+ (flycheck-mode . 7)
+ (highlight-indentation-mode . 1)
+ (package-list-packages-no-fetch . 4)
+ (pyvenv-mode . 1)
+ (pyvenv-workon . 1)
+ (pyvenv-activate . 1)
+ (package-menu-mark-delete . 1)
+ (magit-commit-mode . 1)
+ (describe-project . 1)
+ (info-emacs-manual . 1)
+ (projectile-cleanup-known-projects . 4)
+ (projectile-find-file-in-known-projects . 1)
+ (yas/describe-tables . 1)
+ (helm-bookmarks . 1)
+ (ido-wide-find-dir . 1)
+ (yas-visit-snippet-file . 3)
+ (yas-tryout-snippet . 3)
+ (yas-new-snippet . 2)
+ (js2r--extract-var-between . 1)
+ (expand-abbrev . 1)
+ (linum-mode . 4)
+ (tern-ac-complete . 2)
+ (flyspell-mode . 2)
+ (jump-to-register . 1)
+ (speedbar . 2)
+ (js2r-ternary-to-if . 1)
+ (markdown-mode . 1)
+ (js2r-rename-var . 1)
+ (fundamental-mode . 1)
+ (projectile-commander . 1)
+ (projectile-dired . 1)
+ (projectile-remove-known-project . 7)
+ (projectile-purge-dir-from-cache . 2)
+ (evil-mode . 8)
+ (paredit-mode . 2)
+ (electric-pair-mode . 1)
+ (Helper-describe-bindings . 1)
+ (Helper-describe-function . 2)
+ (edit-server-start . 1)
+ (align . 1)
+ (orgtbl-mode . 5)
+ (eval-last-sexp . 1)
+ (projectile-ag . 3)
+ (pe/quit . 3)
+ (save-macro . 1)
+ (ag . 1)
+ (projectile-replace . 1)
+ (magit-branch-manager . 1)
+ (pretty-symbols-mode . 4)
+ (smartparens-strict-mode . 4)
+ (rainbow-delimiters-mode . 2)
+ (font-lock-mode . 2)
+ (project-explorer-open . 1)
+ (json-mode . 1)
+ (make-directory . 1)
+ (global-unset-key . 2)
+ (add-global-abbrev . 1)
+ (helm-register . 2)
+ (customize-group-other-window . 1)
+ (helm-top . 1)
+ (helm-colors . 1)
+ (helm-M-x . 6)
+ (helm-regexp . 7)
+ (company-mode . 2)
+ (global-discover-mode . 1)
+)

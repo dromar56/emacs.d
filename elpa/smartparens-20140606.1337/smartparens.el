@@ -393,7 +393,9 @@ can be of any length.")
                      (:open "("     :close ")"     :actions (insert wrap autoskip navigate))
                      (:open "["     :close "]"     :actions (insert wrap autoskip navigate))
                      (:open "{"     :close "}"     :actions (insert wrap autoskip navigate))
-                     (:open "`"     :close "`"     :actions (insert wrap autoskip navigate)))))
+		     (:open "`"     :close "`"     :actions (insert wrap autoskip navigate)))))
+
+  ;; FUUUCK
   "List of pair definitions.
 
 Maximum length of opening or closing pair is

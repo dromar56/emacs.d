@@ -1,7 +1,34 @@
+;;;;;;;;;;;;;;;;;;
+;; Font lock speed
+;;;;;;;;;;;;;;;;;;
+
+(setq font-lock-support-mode 'jit-lock-mode)
+(setq jit-lock-stealth-time
+      16
+      jit-lock-defer-contextually nil
+      jit-lock-stealth-nice 0.5
+      jit-lock-defer-time 0.05)
+
+(setq font-lock-maximum-decoration 0)
+
+
+
+(defun set-frame-font-size (size)
+  (interactive "nSize:")
+  (set-face-attribute 'default (selected-frame) :height size)
+  )
+
+;; Doesn't work ...
+;; (add-hook 'after-make-frame-functions (lambda () (interactive) (set-frame-font-size 100)))
+
+
+(require-package 'anzu)
+(global-anzu-mode 1)
+
 (require-package 'smart-mode-line)
-(setq sml/show-client t)
-(setq sml/show-eol t)
-(setq sml/show-frame-identification t)
+(setq sml/show-client nil)
+(setq sml/show-eol nil)
+(setq sml/show-frame-identification nil)
 (sml/setup)
 
 (defun my-moe-light ()
@@ -58,7 +85,7 @@
 (which-function-mode t)
 (blink-cursor-mode -1)
 
-(global-linum-mode t)
+;; (global-linum-mode t)
 (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
 
 ;; For a cleaner modeline
@@ -72,10 +99,17 @@
 (after 'guide-key (diminish 'guide-key-mode))
 (after 'eldoc (diminish 'eldoc-mode))
 (after 'smartparens (diminish 'smartparens-mode))
-(after 'company (diminish 'company-mode))
 (after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
+;; (after 'helm (diminish 'helm-mode))
+(after 'anzu (diminish 'anzu-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'tern (diminish 'tern-mode))
+;; (after 'company (diminish 'company-mode))
+
+
+
 
 (if (fboundp 'global-prettify-symbols-mode)
     (progn

@@ -4,47 +4,96 @@
 (require 'discover)
 (global-discover-mode 1)
 
-
-
-
 (discover-add-context-menu
- :context-menu '(js2-refactor
-		 (description "JS2 Refactor2")
+ :context-menu '(workgroups2
+		 (description "workgroups2")
+		 (actions
+                  ("Windows configuration"
+		   ("w" "Save window configuration" wg-save-wconfig)
+		   ("j" "Jump to window configuration" wg-restore-saved-wconfig)
+		   ("k" "Kill window configuration" wg-kill-saved-wconfig)
+		   ("]" "Redo wconfig change" wg-redo-wconfig-change)
+		   ("[" "Undo wconfig change" wg-undo-wconfig-change)
+		   )
+		  ("Workgroups"
+		   ("M-e" "Switch to workgroup" wg-switch-to-workgroup)
+		   ("e" "Switch to workgroup" wg-switch-to-workgroup)
+		   ("/" "Switch to last workgroup" wg-switch-to-previous-workgroup)
+		   ("r" "Rename" wg-rename-workgroup)
+		   ("c" "Create" wg-create-workgroup)
+		   ("C" "Clone" wg-clone-workgroup)
+		   ("C-k" "Kill Workgroup" wg-kill-workgroup)
+		   ("s" "Save session" wg-save-session)
+		   ("C-l" "Load session" wg-reload-session)
+		   )
+		  ))
+ :bind "M-e")
+
+(setq makey-key-mode-keymaps nil)
+(discover-add-context-menu
+ :context-menu '(misc-functions
+		 (description "Misc functions")
 		 (actions
 		  ("Functions"
-		   ("ef" "extract function" js2r-extract-function)
-		   ("em" "extract method" js2r-extract-method)
-		   ("ip" "introduce parameter" js2r-introduce-parameter)
-		   ("lp" "localize parameter" js2r-localize-parameter)
-		   ("ao" "Arguments to object" js2r-arguments-to-object))
-		  ("Variables"
-		   ("ev" "Extract variable" js2r-extract-var)
-		   ("iv" "Inline variable" js2r-inline-var)
-		   ("rv" "Rename variable" (lambda () (interactive) (js2r-rename-var)))
-		   ("vt" "var to this" js2r-var-to-this)
-		   ("sv" "split var declaration" js2r-split-var-declaration))
-		  ("Contract/Expand"
-		   ("cu" "contract function" js2r-contract-function)
-		   ("eu" "expand function" js2r-expand-function)
-		   ("ca" "contract array" js2r-contract-array)
-		   ("ea" "expand array" js2r-expand-array)
-		   ("co" "contract object" js2r-contract-object)
-		   ("eo" "expand object" js2r-expand-object))
-		  ("Structure"
-		   ("3i" "ternary to if" js2r-ternary-to-if)
-		   ("uw" "unwrap" js2r-unwrap)
-		   ("ig" "inject global in iife" js2r-inject-global-in-iife)
-		   ("wi" "wrap buffer in iife" js2r-wrap-buffer-in-iife))
-		  ("Misc"
-		   ("lt" "log this" js2r-log-this)
-		   ("sl" "forward slurp" js2r-forward-slurp)
-		   ("ba" "forward barf" js2r-forward-barf))))
- :mode 'js2-mode
- :mode-hook 'js2-mode-hook
- :bind "C-c C-m")
+		   ("`" "Insert `" (lambda () (interactive) (insert "`")))
+		   ("m" "Save macro" save-macro)
+		   ("u" "Undo tree" undo-tree-visualize)
+		   ("q" "helm-mini" helm-mini)
+		   ("d" "dired-jump" dired-jump)
+		   ("p" "switch projects" projectile-switch-project)
+		   ("c" "toggle company" company-auto-completion-toggle)
+		   ("y" "kill ring" helm-show-kill-ring)
+		   ("f" "helm projectile" helm-projectile)
+		   ("w" "helm projectile" helm-projectile)
+		   ("1" "ace jump" ace-jump-mode)
+		   ("r" "discover register" makey-key-mode-popup-register)
+		   ("s" "Font Size" set-frame-font-size)
+		   ("<tab>" "helm-mini" helm-mini)
+		   ("v" "Revert buffer" revert-buffer)
+		   )))
+
+ :bind "`")
+
+;; (global-unset-key (kbd "`"))
+
+;; (discover-add-context-menu
+;;  :context-menu '(js2-refactor
+;; 		 (description "JS2 Refactor2")
+;; 		 (actions
+;; 		  ("Functions"
+;; 		   ("ef" "extract function" js2r-extract-function)
+;; 		   ("em" "extract method" js2r-extract-method)
+;; 		   ("ip" "introduce parameter" js2r-introduce-parameter)
+;; 		   ("lp" "localize parameter" js2r-localize-parameter)
+;; 		   ("ao" "Arguments to object" js2r-arguments-to-object))
+;; 		  ("Variables"
+;; 		   ("ev" "Extract variable" js2r-extract-var)
+;; 		   ("iv" "Inline variable" js2r-inline-var)
+;; 		   ("rv" "Rename variable" (lambda () (interactive) (js2r-rename-var)))
+;; 		   ("vt" "var to this" js2r-var-to-this)
+;; 		   ("sv" "split var declaration" js2r-split-var-declaration))
+;; 		  ("Contract/Expand"
+;; 		   ("cu" "contract function" js2r-contract-function)
+;; 		   ("eu" "expand function" js2r-expand-function)
+;; 		   ("ca" "contract array" js2r-contract-array)
+;; 		   ("ea" "expand array" js2r-expand-array)
+;; 		   ("co" "contract object" js2r-contract-object)
+;; 		   ("eo" "expand object" js2r-expand-object))
+;; 		  ("Structure"
+;; 		   ("3i" "ternary to if" js2r-ternary-to-if)
+;; 		   ("uw" "unwrap" js2r-unwrap)
+;; 		   ("ig" "inject global in iife" js2r-inject-global-in-iife)
+;; 		   ("wi" "wrap buffer in iife" js2r-wrap-buffer-in-iife))
+;; 		  ("Misc"
+;; 		   ("lt" "log this" js2r-log-this)
+;; 		   ("sl" "forward slurp" js2r-forward-slurp)
+;; 		   ("ba" "forward barf" js2r-forward-barf))))
+;;  :mode 'js2-mode
+;;  :mode-hook 'js2-mode-hook
+;;  :bind "C-c C-m")
 
 (discover-add-context-menu
- :context-menu '(rectangles
+ :context-menu '(register
 		 (description "Register and rectangles")
 		 (actions
 		  ("Save to register"
