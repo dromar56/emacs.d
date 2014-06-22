@@ -2,7 +2,7 @@
 (require 'workgroups2)
 
 ;; if you start Emacs as "emacs --daemon" - turn off autoloading of workgroups:
-(setq wg-use-default-session-file nil)
+;; (setq wg-use-default-session-file nil)
 
 
 ;; Change workgroups session file
@@ -54,6 +54,6 @@
 (defadvice wg-switch-to-workgroup (after wg-winner-after activate)
   (wg-winner-load))
 
-(workgroups-mode 1)   ; put this one at the bottom of .emacs
+;; (workgroups-mode 1)   ; put this one at the bottom of .emacs
 
 (provide 'init-workspace2)
