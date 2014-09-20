@@ -1,3 +1,26 @@
+(global-set-key (kbd "<escape>") 'god-mode-all)
+
+(global-set-key (kbd "M-n")	'forward-paragraph)
+(global-set-key (kbd "M-p")	'backward-paragraph)
+
+(global-set-key (kbd "C-c n")	'winner-redo)
+(global-set-key (kbd "C-c p")	'winner-undo)
+
+(global-set-key (kbd "C-x C-1") 'delete-other-windows)
+(global-set-key (kbd "C-x C-2") 'split-window-below)
+(global-set-key (kbd "C-x C-3") 'split-window-right)
+(global-set-key (kbd "C-x C-0") 'delete-window)
+
+(global-set-key (kbd "C-;") 'repeat)
+
+(after 'god-mode
+  (define-key god-local-mode-map (kbd "i") 'god-mode)
+  (define-key god-local-mode-map (kbd "<right>")	'windmove-right)
+  (define-key god-local-mode-map (kbd "<left>")	'windmove-left)
+  (define-key god-local-mode-map (kbd "<down>")	'windmove-down)
+  (define-key god-local-mode-map (kbd "<up>")	'windmove-up)
+  )
+
 ;;Elscreen
 
 ;; (elscreen-set-prefix-key "\M-e")
@@ -15,6 +38,12 @@
 ;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
 ;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
 ;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
+
+(global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
+ 
+(global-set-key (kbd "C-z") 'helm-mini)
+(global-set-key (kbd "M-z") 'helm-projectile)
+
 
 
 ;; Anzu
@@ -105,9 +134,9 @@
 				 (message "Windows disposition saved")))
 
 ;; Projectile
-(global-set-key (kbd "C-p") 'helm-projectile)
-;; (global-set-key (kbd "s-d") 'projectile-find-dir)
-(global-set-key (kbd "s-d") 'dired-jump)
+;; (global-set-key (kbd "C-p") 'helm-projectile)
+(global-set-key (kbd "s-d") 'projectile-find-dir)
+;; (global-set-key (kbd "s-d") 'dired-jump)
 ;; (global-set-key (kbd "s-f") 'projectile-find-file)
 (global-set-key (kbd "s-f") 'helm-projectile)
 ;; (global-set-key (kbd "s-g") 'projectile-grep)
@@ -133,7 +162,8 @@
 (global-set-key (kbd "s-b") 'helm-bookmarks)
 
 ;; Ace Jump Mode
-(define-key global-map (kbd "C-f") 'ace-jump-mode)
+(define-key global-map (kbd "C-.") 'ace-jump-mode)
+(define-key global-map (kbd "C-,") 'undo-tree-undo)
 
 ;;Helm
 ;; (global-set-key (kbd "C-x b") 'helm-mini)
@@ -166,7 +196,7 @@
 
 ;;Special Buffer (loaded)
 ;; (global-set-key (kbd "C-b") 'ido-switch-buffer)
-(global-set-key (kbd "C-b") 'helm-mini)
+;; (global-set-key (kbd "C-b") 'helm-mini)
 ;; (global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
 ;; (global-set-key (kbd "M-b") 'helm-projectile)
 

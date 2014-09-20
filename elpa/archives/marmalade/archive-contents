@@ -1,19 +1,4 @@
 (1
- (highlight-sexp .
-		 [(1 0)
-		  nil "highlight current zone according to its context" single])
- (tdd .
-      [(1 0)
-       nil "recompile on save and indicate success in the mode line" single])
- (markdown-toc .
-	       [(0 0 5)
-		((s
-		  (1 7 0))
-		 (dash
-		  (2 5 0))
-		 (markdown-mode
-		  (2 0)))
-		"A simple TOC generator for markdown file" tar])
  (zone-matrix .
 	      [(0 0 1)
 	       nil "Matrix themed Zone mode" tar])
@@ -102,7 +87,7 @@
 	      [(0 7 1)
 	       nil "Wrap text with punctation or tag" single])
  (world-time-mode .
-		  [(0 0 2)
+		  [(0 0 6)
 		   nil "show whole days of world-time diffs" single])
  (workspaces .
 	     [(0 1)
@@ -200,7 +185,7 @@
 	   [(8 0 4)
 	    nil "major mode for editing html templates" single])
  (web .
-      [(0 4 2)
+      [(0 4 3)
        ((dash
 	 (2 3 0)))
        "useful HTTP client" single])
@@ -470,6 +455,9 @@
  (tdd-status-mode-line .
 		       [(0 1 2)
 			nil "TDD status on the mode-line" single])
+ (tdd .
+      [(1 0)
+       nil "recompile on save and indicate success in the mode line" single])
  (tbemail .
 	  [(0 2)
 	   nil "Provide syntax highlighting for email editing via" single])
@@ -678,6 +666,9 @@
  (sokoban .
 	  [(1 23)
 	   nil "Play the Sokoban game in emacs" single])
+ (snakehump .
+	    [(0 1 1)
+	     nil "Convert between compound word conventions" tar])
  (smtpmail-multi .
 		 [(0 6)
 		  nil "Use different smtp servers for sending mail" single])
@@ -857,6 +848,9 @@
 	      (sequences
 	       (0 1 0)))
 	     "A dead simple way to load sensitive information" single])
+ (sedated .
+	  [(1 0)
+	   nil "A few extremely simple sed functions for familiar text manipulation" single])
  (seclusion-mode .
 		 [(1 1 1)
 		  nil "Edit in seclusion. A Dark Room mode." single])
@@ -1047,7 +1041,7 @@
 	     (1 2)))
 	   "A library for pasting to https://refheap.com" single])
  (recursive-narrow .
-		   [(1 0)
+		   [(1 2)
 		    nil "narrow-to-region that operates recursively" single])
  (rect-mark .
 	    [(1 4)
@@ -1494,14 +1488,14 @@
 	   [(20120112)
 	    nil "org html export for text/html MIME emails" single])
  (org-magit .
-	    [(0 2 0)
+	    [(0 2 2)
 	     ((magit
-	       (0 8))
+	       (1 2 0))
 	      (org
 	       (6 1)))
 	     "basic support for magit links" single])
  (org-journal .
-	      [(1 5 1)
+	      [(1 5 2)
 	       nil "a simple org-mode based journaling mode" single])
  (org-gnome .
 	    [(0 1)
@@ -1646,6 +1640,9 @@
  (mwe-log-commands .
 		   [(20041106)
 		    nil "log keyboard commands to buffer" single])
+ (mv-shell .
+	   [(1 2)
+	    nil "keep buffers in sync with filename throughout 'mv'commands in shell-mode." single])
  (mustache-mode .
 		[(1 2)
 		 nil "A major mode for editing Mustache files." single])
@@ -1687,8 +1684,8 @@
 	       (1 1)))
 	     "Mote minor mode" single])
  (monokai-theme .
-		[(0 0 11)
-		 nil "REQUIRES EMACS 24: Monokai Color Theme for Emacs." single])
+		[(0 0 12)
+		 nil "DEPRECATED: Monokai Color Theme for Emacs." single])
  (monky .
 	[(0 1)
 	 nil "control Hg from Emacs." single])
@@ -1798,6 +1795,15 @@
  (markup-faces .
 	       [(1 0 0)
 		nil "collection of faces for markup language modes" single])
+ (markdown-toc .
+	       [(0 0 6)
+		((markdown-mode
+		  (2 0))
+		 (dash
+		  (2 5 0))
+		 (s
+		  (1 7 0)))
+		"A simple TOC generator for markdown file" single])
  (markdown-mode .
 		[(2 0)
 		 nil "Emacs Major mode for Markdown-formatted text files" single])
@@ -1832,7 +1838,7 @@
 	    [(1 2 2)
 	     nil "modeline replacement forked from an early version of powerline.el" single])
  (maildir .
-	  [(0 0 23)
+	  [(0 0 27)
 	   ((kv
 	     (0 0 17))
 	    (dash
@@ -2047,6 +2053,9 @@
  (kanban .
 	 [(0 1 2)
 	  nil "Parse org-todo headlines to use org-tables as Kanban tables" single])
+ (jump-dls .
+	   [(0 4)
+	    nil "Jump to definition of symbol using various methods." single])
  (jump-char .
 	    [(0 1)
 	     nil "navigation by char" single])
@@ -2254,7 +2263,7 @@
 	    (0 0 6)))
 	  "chainsaw powered logging" single])
  (hungry-delete .
-		[(1 0)
+		[(1 1)
 		 nil "hungry delete minor mode" single])
  (httpd .
 	[(1 0 1)
@@ -2277,6 +2286,11 @@
  (ht .
      [(1 5)
       nil "The missing hash table library for Emacs" single])
+ (how-many-lines-in-project .
+			    [(0 3)
+			     ((find-file-in-project
+			       (3 3)))
+			     "Calculate how many lines are there in your project." single])
  (hook-utils .
 	     [(1 0)
 	      nil "Add a few utility functions for manipulating hooks" single])
@@ -2317,6 +2331,9 @@
  (highlight-symbol .
 		   [(1 1)
 		    nil "automatic and manual symbol highlighting" single])
+ (highlight-sexp .
+		 [(1 0)
+		  nil "highlight current zone according to its context" single])
  (highlight-parentheses .
 			[(1 0 1)
 			 nil "highlight surrounding parentheses" single])
@@ -2626,12 +2643,8 @@
 	    [(0 1 0)
 	     nil "Minor mode that assigns a unique number to each frame for easy switching" single])
  (frame-restore .
-		[(0 4)
-		 ((dash
-		   (1 2))
-		  (f
-		   (0 11))
-		  (emacs
+		[(0 5)
+		 ((emacs
 		   (24 1)))
 		 "Restore Emacs frame" single])
  (foo .
@@ -2829,13 +2842,9 @@
 		   (0 6 0)))
 		 "Cask support in Flycheck" single])
  (flycheck .
-	   [(0 19)
-	    ((s
-	      (1 9 0))
-	     (dash
+	   [(0 20)
+	    ((dash
 	      (2 4 0))
-	     (f
-	      (0 11 0))
 	     (pkg-info
 	      (0 4))
 	     (cl-lib
@@ -2917,6 +2926,11 @@
  (fancy-mode .
 	     [(0 1)
 	      nil "Major mode for programming with the Fancy language." single])
+ (fancy-battery .
+		[(0 2)
+		 ((emacs
+		   (24 1)))
+		 "Fancy battery display" single])
  (fakir .
 	[(0 1 9)
 	 ((noflet
@@ -3073,6 +3087,9 @@
 	(ctable
 	 (0 1 1)))
        "A RPC stack for the Emacs Lisp" single])
+ (env-var-import .
+		 [(2 1)
+		  nil "Import shell environment variables in GUI Emacs" single])
  (enclose .
 	  [(0 0 2)
 	   nil "Enclose cursor within punctuation pairs" single])
@@ -3137,9 +3154,9 @@
 	     [(0 4)
 	      nil "Handy functions for inspecting and comparing package archives" single])
  (elnode .
-	 [(0 9 9 7 8)
+	 [(0 9 9 8 5)
 	  ((web
-	    (0 1 4))
+	    (0 4 3))
 	   (dash
 	    (1 1 0))
 	   (noflet
@@ -3192,6 +3209,9 @@
  (electric-case .
 		[(2 2 1)
 		 nil "insert camelCase, snake_case words without \"Shift\"ing" single])
+ (eldoro .
+	 [(0 1 0)
+	  nil "A pomodoro timer/tracker that works with org-mode." tar])
  (el-x .
        [(0 3 0)
 	((cl-lib
@@ -3416,7 +3436,7 @@
 		     (24)))
 		   "Collection of useful combinators for Emacs Lisp" single])
  (dash .
-       [(2 7 0)
+       [(2 8 0)
 	nil "A modern list library for Emacs" single])
  (dart-mode .
 	    [(0 9)
@@ -3473,7 +3493,7 @@
 	      [(0 0 5)
 	       nil "a markup mode for creole" single])
  (creole .
-	 [(1 0 3)
+	 [(1 0 5)
 	  ((noflet
       (0 0 3))
 	   (kv
@@ -3719,6 +3739,9 @@
  (clojure-here .
 	       [(0 11)
 		nil "Clojure process in a buffer" single])
+ (clojure-env .
+	      [(0 0 3)
+	       nil "manage clojure environments with Emacs" single])
  (cljsbuild-mode .
 		 [(0 2 0)
 		  nil "A minor mode for the ClojureScript 'lein cljsbuild' command" single])
@@ -3763,7 +3786,7 @@
 	   (1 1)))
 	 "Client for IRC in Emacs" tar])
  (cider .
-	[(0 5 0)
+	[(0 6 0)
 	 ((clojure-mode
 	   (2 0 0))
 	  (cl-lib
@@ -3806,7 +3829,7 @@
 	[(0 1)
 	 nil "implementation of a hash table whose key-value pairs expire" single])
  (c-eldoc .
-	  [(0 5)
+	  [(0 7)
 	   nil "helpful description of the arguments to C functions" single])
  (button-lock .
 	      [(1 0 0)
@@ -4024,7 +4047,7 @@
 		      (1 2 0)))
 		    "Yasnippets for AngularJS" tar])
  (android-mode .
-	       [(0 2 5)
+	       [(0 3 0)
 		nil "Minor mode for Android application development" single])
  (anaphora .
 	   [(1 0 0)

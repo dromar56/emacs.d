@@ -15,7 +15,15 @@
 (require-package 'wgrep-helm)
 ;; (require 'wgrep-helm)
 
+(defadvice helm-mini (before winner-skip-helm activate)
+  (winner-mode -1))
+(defadvice helm-mini (after winner-skip-helm activate)
+  (winner-mode 1))
 
+(defadvice helm-projectile (before winner-skip-helm activate)
+  (winner-mode -1))
+(defadvice helm-projectile (after winner-skip-helm activate)
+  (winner-mode 1))
 
 (require-package 'helm-ag)
 (setq helm-ag-thing-at-point 'symbol)

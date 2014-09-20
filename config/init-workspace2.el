@@ -57,3 +57,4 @@
 ;; (workgroups-mode 1)   ; put this one at the bottom of .emacs
 
 (provide 'init-workspace2)
+

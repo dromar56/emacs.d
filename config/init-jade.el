@@ -10,6 +10,10 @@
   "Enable indent guide mode"
   (indent-guide-mode t))
 
+
+(add-hook 'jade-mode-hook '(lambda () (interactive) (yas-minor-mode -1)))
+
+
 ;; First create new face which is a copy of hl-line-face
 (copy-face 'font-lock-type-face 'font-lock-type-face-jade-mode)
 

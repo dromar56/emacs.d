@@ -27,7 +27,7 @@
     init-org
     init-helm
     init-smartparens
-    init-discover
+    ;; init-discover
     ;; init-evil
     init-workspace2
 
