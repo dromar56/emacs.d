@@ -1,52 +1,55 @@
-(defgroup dotemacs nil
-  "Custom configuration for dotemacs."
-  :group 'local)
+(require 'org)
+(org-babel-load-file (expand-file-name "~/.emacs.d/david.org"))
 
-(defcustom dotemacs-cache-directory (concat user-emacs-directory ".cache/")
-  "The storage location for various persistent files."
-  :group 'dotemacs)
+;; (defgroup dotemacs nil
+;;   "Custom configuration for dotemacs."
+;;   :group 'local)
 
-(add-to-list 'load-path (concat user-emacs-directory "config"))
+;; (defcustom dotemacs-cache-directory (concat user-emacs-directory ".cache/")
+;;   "The storage location for various persistent files."
+;;   :group 'dotemacs)
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
+;; (add-to-list 'load-path (concat user-emacs-directory "config"))
 
-(defcustom dotemacs-modules
-  '(init-packages
-    init-util
-    init-core
+;; (setq custom-file (concat user-emacs-directory "custom.el"))
+;; (when (file-exists-p custom-file)
+;;   (load custom-file))
 
-    init-bindings
-    init-eyecandy
+;; (defcustom dotemacs-modules
+;;   '(init-packages
+;;     init-util
+;;     init-core
 
-    ;; init-autocomplete
-    init-company
+;;     init-bindings
+;;     init-eyecandy
 
-    init-yasnippet
-    init-org
-    init-helm
-    init-smartparens
-    ;; init-discover
-    ;; init-evil
-    init-workspace2
+;;     ;; init-autocomplete
+;;     init-company
 
-    init-macro
+;;     init-yasnippet
+;;     init-org
+;;     init-helm
+;;     init-smartparens
+;;     ;; init-discover
+;;     ;; init-evil
+;;     init-workspace2
 
-    init-c
-    init-coffeescript
-    init-jade
-    init-js
-    init-livescript
-    init-lua
-    init-php
-    init-python
-    init-web
+;;     init-macro
 
-    init-overrides
-    )
-  "Set of modules enabled in dotemacs."
-  :group 'dotemacs)
+;;     init-c
+;;     init-coffeescript
+;;     init-jade
+;;     init-js
+;;     init-livescript
+;;     init-lua
+;;     init-php
+;;     init-python
+;;     init-web
 
-(dolist (module dotemacs-modules)
-  (require module))
+;;     init-overrides
+;;     )
+;;   "Set of modules enabled in dotemacs."
+;;   :group 'dotemacs)
+
+;; (dolist (module dotemacs-modules)
+;;   (require module))
