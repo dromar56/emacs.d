@@ -9,8 +9,8 @@
 (after 'projectile
   (require-package 'helm-projectile))
 
-(require 'helm-config)
-(helm-mode 1)
+;; (require 'helm-config)
+;; (helm-mode 1)
 
 (require-package 'wgrep-helm)
 ;; (require 'wgrep-helm)
