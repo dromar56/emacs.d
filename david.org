@@ -1,17 +1,17 @@
 #+TITLE: David's Emacs Configuration
-
+#+STARTUP: hideblocks
 
 * Configuration
 ** Initialisation
+*** Custom file
 #+begin_src emacs-lisp
-    (add-to-list 'load-path (concat user-emacs-directory "config"))
-
     (setq custom-file (concat user-emacs-directory "custom.el"))
     (when (file-exists-p custom-file)
       (load custom-file))
-  #+end_src
+#+end_src
 
 *** Packages
+Initialize packages and provide the very useful =require-package= function, who installs the package from the repositories if it doesn't exist.
 #+begin_src emacs-lisp
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
@@ -30,9 +30,10 @@
     (package-install package)))
 
 (provide 'init-packages)
-   #+end_src
+#+end_src
    
 ** Util
+Some cleanup should be done... I'm not sure I use any of these functions.
  #+begin_src emacs-lisp
      (if (fboundp 'with-eval-after-load)
          (defmacro after (feature &rest body)
@@ -159,22 +160,10 @@
 
      (provide 'init-util)
 
-   #+end_src
+#+end_src
    
 ** Core
    #+begin_src emacs-lisp
-;; (guru-global-mode 1)
-
-(defun my-update-cursor ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'bar
-                      'box)))
-
-(add-hook 'god-mode-enabled-hook 'my-update-cursor)
-(add-hook 'god-mode-disabled-hook 'my-update-cursor)
-
-;; (elscreen-start)
-
 
 ;;;;;;;
 ;; MISC
@@ -238,21 +227,6 @@ narrowed."
 ;; (recentf-mode 1)
 (setq recentf-max-menu-items 10)
 ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
-;;==========
-;; Undo tree
-;;==========
-
-(require-package 'undo-tree)
-(require 'undo-tree)
-(global-undo-tree-mode)
-;; Unmap 'C-x r' to avoid conflict with discover
-(after 'undo-tree
-  (define-key undo-tree-map (kbd "C-x r") nil))
-
-
-(require-package 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (require 'uniquify)
 ;; (setq uniquify-buffer-name-style 'reverse)
@@ -516,362 +490,146 @@ PROMPT sets the `read-string prompt."
 ;;;;;;;;;;;;;;;;;;
 
 (provide 'init-core)
-   #+end_src
-
-** Bindings
-   #+begin_src emacs-lisp
-(global-set-key (kbd "<escape>") 'god-mode-all)
-
-(global-set-key (kbd "M-n")	'forward-paragraph)
-(global-set-key (kbd "M-p")	'backward-paragraph)
-
-(global-set-key (kbd "C-c n")	'winner-redo)
-(global-set-key (kbd "C-c p")	'winner-undo)
-
-(global-set-key (kbd "C-x C-1") 'delete-other-windows)
-(global-set-key (kbd "C-x C-2") 'split-window-below)
-(global-set-key (kbd "C-x C-3") 'split-window-right)
-(global-set-key (kbd "C-x C-0") 'delete-window)
-
-(global-set-key (kbd "C-;") 'repeat)
-
-(after 'god-mode
-  (define-key god-local-mode-map (kbd "i") 'god-mode)
-  (define-key god-local-mode-map (kbd "<right>")	'windmove-right)
-  (define-key god-local-mode-map (kbd "<left>")	'windmove-left)
-  (define-key god-local-mode-map (kbd "<down>")	'windmove-down)
-  (define-key god-local-mode-map (kbd "<up>")	'windmove-up)
-  )
-
-;;Elscreen
-
-;; (elscreen-set-prefix-key "\M-e")
-;; (define-key elscreen-map (kbd  "t"		)  'elscreen-toggle-display-tab)
-;; (define-key elscreen-map (kbd  "<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
-;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
-;; (define-key elscreen-map (kbd  "r"		)  'elscreen-screen-nickname)
-;; (define-key elscreen-map (kbd  "c"		)  'elscreen-create)
-;; (define-key elscreen-map (kbd  "k"		)  'elscreen-kill)
-;; (define-key elscreen-map (kbd  "s"		)  'elscreen-swap)
-;; (define-key elscreen-map (kbd  "t"		)  'elscreen-toggle-display-tab)
-;; (define-key elscreen-map (kbd  "<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
-;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
-
-(global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
- 
-(global-set-key (kbd "C-z") 'helm-mini)
-(global-set-key (kbd "M-z") 'helm-projectile)
-
-
-
-;; Anzu
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-
-;; Font size
-(global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
-(global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
-(global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
-
-;; Occur
-(global-set-key (kbd "M-o") 'helm-occur)
-(global-set-key (kbd "C-M-o") 'helm-multi-occur)
-
-;; A la carte Menu
-(global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
-
-;; helm-imenuu
-(global-set-key (kbd "C-t") 'transpose-chars)
-(global-set-key (kbd "M-t") 'transpose-words)
-;; (global-set-key (kbd "C-t") 'idomenu)
-;; (global-set-key (kbd "M-t") 'imenu-anywhere)
-
-;; helm-etags
-;; (global-set-key (kbd "M-t") 'helm-etags-select)
-
-;; Locked mode
-(global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
-
-;; Windows manipulation
-(global-set-key (kbd "C-x |")		'split-window-right)
-(global-set-key (kbd "C-x -")		'split-window-below)
-(global-set-key (kbd "C-x C-<right>")	'windmove-right)
-(global-set-key (kbd "C-x C-<left>")	'windmove-left)
-(global-set-key (kbd "C-x C-<down>")	'windmove-down)
-(global-set-key (kbd "C-x C-<up>")	'windmove-up)
-
-(global-set-key (kbd "C-x <left>")	'shrink-window-horizontally)
-(global-set-key (kbd "C-x <right>")	'enlarge-window-horizontally)
-(global-set-key (kbd "C-x <up>")	'enlarge-window)
-(global-set-key (kbd "C-x <down>")	'shrink-window)
-
-;; (global-set-key (kbd "M-<right>") 'other-window)
-;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
-;; 					     (interactive "P") (other-window -1)))
-
-(global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
-(global-set-key (kbd "C-<next>") 'end-of-buffer)
-(global-set-key (kbd "<prior>") 'scroll-down-command)
-(global-set-key (kbd "<next>") 'scroll-up-command)
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
-(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
-
-;; Magit Mode
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; Undo Tree mode
-;; (global-set-key (kbd "C-+") 'undo-tree-redo)
-
-;; iy-go-to-char
-(global-set-key (kbd "C-M-.") 'iy-go-to-char)
-(global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
-
-;; multiple-cursors bindings
-(global-set-key (kbd "s-M") 'mc/edit-lines)
-(global-set-key (kbd "s-.") 'mc/mark-next-like-this)
-(global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
-(global-set-key (kbd "s->") 'mc/unmark-next-like-this)
-(global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
-(global-set-key (kbd "s-m") 'mc/mark-all-like-this)
-
-(global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
-
-
-;; Expand region by semantics units
-(global-set-key (kbd "s-\/") 'er/expand-region)
-(global-set-key (kbd "s-?") 'er/contract-region)
-
-;; Register Windows
-(global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
-				(message "Windows disposition loaded")))
-(global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
-				 (message "Windows disposition saved")))
-
-;; Projectile
-;; (global-set-key (kbd "C-p") 'helm-projectile)
-(global-set-key (kbd "s-d") 'projectile-find-dir)
-;; (global-set-key (kbd "s-d") 'dired-jump)
-;; (global-set-key (kbd "s-f") 'projectile-find-file)
-(global-set-key (kbd "s-f") 'helm-projectile)
-;; (global-set-key (kbd "s-g") 'projectile-grep)
-;; (global-set-key (kbd "s-g") 'projectile-ag)
-(global-set-key (kbd "s-g") 'helm-ag-projectile)
-;; (global-set-key (kbd "s-g") 'projectile-ack)
-(global-set-key (kbd "s-p") 'projectile-switch-project)
- 
-;; Resize Windows
-(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-M-<down>") 'shrink-window)
-(global-set-key (kbd "C-M-<up>") 'enlarge-window)
-
-;; (global-set-key (kbd "<f1>") 'helm-show-kill-ring)
-(global-set-key (kbd "<f1>") 'keyboard-quit)
-(global-set-key (kbd "<f2>") 'helm-all-mark-rings)
-(global-set-key (kbd "s-y") 'helm-show-kill-ring)
-(global-set-key (kbd "<f11>") 'menu-bar-mode)
-(global-set-key (kbd "<f12>") 'indent-whole-buffer)
-
-;; BOOKMARKS
-(global-set-key (kbd "s-b") 'helm-bookmarks)
-
-;; Ace Jump Mode
-(define-key global-map (kbd "C-.") 'ace-jump-mode)
-(define-key global-map (kbd "C-,") 'undo-tree-undo)
-
-;;Helm
-;; (global-set-key (kbd "C-x b") 'helm-mini)
-;; (global-set-key (kbd "<f1>") 'helm-mini)
-;; (global-set-key (kbd "S-<f1>") 'helm-projectile)
-
-;;Project Explorer
-;; (global-set-key (kbd "<f1>") 'project-explorer-open)
-
-
-;;Query Replace Regex
-(global-set-key (kbd "C-x C-r") 'query-replace-regexp)
-(global-set-key (kbd "s-o") 'helm-swoop)
-(global-set-key (kbd "s-O") 'my-projectile-multi-occur)
-;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
-;; (global-set-key (kbd "s-o") 'helm-occur)
-;; (global-set-key (kbd "s-O") 'helm-regexp)
-
-;; (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "C-M-x") 'helm-M-x)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c M-x") 'smex-update)
-
-;; Macro bindings
-;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
-
-;; Goto
-(global-set-key [(meta g)] 'goto-line)
-
-;;Special Buffer (loaded)
-;; (global-set-key (kbd "C-b") 'ido-switch-buffer)
-;; (global-set-key (kbd "C-b") 'helm-mini)
-;; (global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
-;; (global-set-key (kbd "M-b") 'helm-projectile)
-
-(global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
-
-;; (global-set-key (kbd "C-x b") 'ibuffer)
-;; (global-set-key (kbd "<M-up>") 'up-and-locate)
-;; (global-set-key (kbd "<M-down>") 'down-and-locate)
-(global-set-key [mouse-5] 'mouse-down-and-locate)
-(global-set-key [mouse-4] 'mouse-up-and-locate)
-
-(provide 'init-bindings)
-
-
-   #+end_src
+#+end_src
 
 ** Eyecandy
    #+begin_src emacs-lisp
-;;;;;;;;;;;;;;;;;;
-;; Font lock speed
-;;;;;;;;;;;;;;;;;;
+     ;;;;;;;;;;;;;;;;;;
+     ;; Font lock speed
+     ;;;;;;;;;;;;;;;;;;
 
-(setq font-lock-support-mode 'jit-lock-mode)
-(setq jit-lock-stealth-time
-      16
-      jit-lock-defer-contextually nil
-      jit-lock-stealth-nice 0.5
-      jit-lock-defer-time 0.05)
+     (setq font-lock-support-mode 'jit-lock-mode)
+     (setq jit-lock-stealth-time
+           16
+           jit-lock-defer-contextually nil
+           jit-lock-stealth-nice 0.5
+           jit-lock-defer-time 0.05)
 
-(setq font-lock-maximum-decoration 0)
-
-
-
-(defun set-frame-font-size (size)
-  (interactive "nSize:")
-  (set-face-attribute 'default (selected-frame) :height size)
-  )
-
-;; Doesn't work ...
-;; (add-hook 'after-make-frame-functions (lambda () (interactive) (set-frame-font-size 100)))
-
-
-(require-package 'anzu)
-(global-anzu-mode 1)
-
-(require-package 'smart-mode-line)
-(setq sml/show-client nil)
-(setq sml/show-eol nil)
-(setq sml/show-frame-identification nil)
-(sml/setup)
-
-(defun my-moe-light ()
-  (interactive)
-  (setq sml/theme 'light)
-  (sml/setup)
-  (setq moe-theme-mode-line-color 'cyan)
-  (moe-light)
-  )
-
-(defun my-moe-dark ()
-  (interactive)
-  (moe-dark)
-  (setq sml/theme 'dark)
-  (sml/setup)
-  ;; (setq moe-theme-mode-line-color 'green)
-  )
-
-;; Theme customization
-(require 'moe-theme)
-(my-moe-dark)
-;; Available colors: blue, orange, magenta, yellow, purple, red, cyan, w/b.
-
-
-;; Multicolor parenthesis
-;; (require-package 'rainbow-delimiters)
-;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+     (setq font-lock-maximum-decoration 0)
 
 
 
-;; (load-theme 'wombat t)
-(if (daemonp)
-(add-hook 'after-make-frame-functions
-          '(lambda (f)
-             (with-selected-frame f
-               (when (window-system f)
-		 (set-cursor-color "white") ;; Set it to white
-		 )))))
-(set-cursor-color "#ffffff")
-;; (set-face-attribute 'default nil :height 100)
+     (defun set-frame-font-size (size)
+       (interactive "nSize:")
+       (set-face-attribute 'default (selected-frame) :height size)
+       )
 
-;; Show indentation
-(require-package 'indent-guide)
-(require 'indent-guide)
+     ;; Doesn't work ...
+     ;; (add-hook 'after-make-frame-functions (lambda () (interactive) (set-frame-font-size 100)))
 
-;; Nice scrolling
-(setq scroll-margin 0
-      scroll-conservatively 100000
-      scroll-preserve-screen-position 1)
 
-(menu-bar-mode 0)
-(tool-bar-mode 0)
+     (require-package 'anzu)
+     (global-anzu-mode 1)
 
-(which-function-mode t)
-(blink-cursor-mode -1)
+     (require-package 'smart-mode-line)
+     (setq sml/show-client nil)
+     (setq sml/show-eol nil)
+     (setq sml/show-frame-identification nil)
+     (sml/setup)
 
-;; (global-linum-mode t)
-(add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
+     (defun my-moe-light ()
+       (interactive)
+       (setq sml/theme 'light)
+       (sml/setup)
+       (setq moe-theme-mode-line-color 'cyan)
+       (moe-light)
+       )
 
-;; For a cleaner modeline
-(require-package 'diminish)
-(diminish 'visual-line-mode)
-(after 'autopair (diminish 'autopair-mode))
-(after 'undo-tree (diminish 'undo-tree-mode))
-(after 'auto-complete (diminish 'auto-complete-mode))
-(after 'projectile (diminish 'projectile-mode))
-(after 'yasnippet (diminish 'yas-minor-mode))
-(after 'guide-key (diminish 'guide-key-mode))
-(after 'eldoc (diminish 'eldoc-mode))
-(after 'smartparens (diminish 'smartparens-mode))
-(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
-(after 'git-gutter+ (diminish 'git-gutter+-mode))
-(after 'magit (diminish 'magit-auto-revert-mode))
-;; (after 'helm (diminish 'helm-mode))
-(after 'anzu (diminish 'anzu-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'tern (diminish 'tern-mode))
-;; (after 'company (diminish 'company-mode))
+     (defun my-moe-dark ()
+       (interactive)
+       (moe-dark)
+       (setq sml/theme 'dark)
+       (sml/setup)
+       ;; (setq moe-theme-mode-line-color 'green)
+       )
+
+     ;; Theme customization
+     (require 'moe-theme)
+     (my-moe-dark)
+     ;; Available colors: blue, orange, magenta, yellow, purple, red, cyan, w/b.
+
+
+     ;; Multicolor parenthesis
+     ;; (require-package 'rainbow-delimiters)
+     ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 
 
+     ;; (load-theme 'wombat t)
+     (if (daemonp)
+     (add-hook 'after-make-frame-functions
+               '(lambda (f)
+                  (with-selected-frame f
+                    (when (window-system f)
+                      (set-cursor-color "white") ;; Set it to white
+                      )))))
+     (set-cursor-color "#ffffff")
+     ;; (set-face-attribute 'default nil :height 100)
 
-(if (fboundp 'global-prettify-symbols-mode)
-    (progn
-      (global-prettify-symbols-mode)
-      (add-hook 'js2-mode-hook
-                (lambda ()
-                  (push '("function" . 955) prettify-symbols-alist)
-                  (push '("return" . 8592) prettify-symbols-alist))))
-  (progn
-    (require-package 'pretty-symbols)
-    (require 'pretty-symbols)
-    (diminish 'pretty-symbols-mode)
-    (add-to-list 'pretty-symbol-categories 'js)
-    (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
-    (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
-    (add-hook 'find-file-hook 'pretty-symbols-mode)))
+     ;; Show indentation
+     (require-package 'indent-guide)
+     (require 'indent-guide)
+
+     ;; Nice scrolling
+     (setq scroll-margin 0
+           scroll-conservatively 100000
+           scroll-preserve-screen-position 1)
+
+     (menu-bar-mode 0)
+     (tool-bar-mode 0)
+
+     (which-function-mode t)
+     (blink-cursor-mode -1)
+
+     ;; (global-linum-mode t)
+     (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
+
+     ;; For a cleaner modeline
+     (require-package 'diminish)
+     (diminish 'visual-line-mode)
+     (after 'autopair (diminish 'autopair-mode))
+     (after 'undo-tree (diminish 'undo-tree-mode))
+     (after 'auto-complete (diminish 'auto-complete-mode))
+     (after 'projectile (diminish 'projectile-mode))
+     (after 'yasnippet (diminish 'yas-minor-mode))
+     (after 'guide-key (diminish 'guide-key-mode))
+     (after 'eldoc (diminish 'eldoc-mode))
+     (after 'smartparens (diminish 'smartparens-mode))
+     (after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
+     (after 'git-gutter+ (diminish 'git-gutter+-mode))
+     (after 'magit (diminish 'magit-auto-revert-mode))
+     ;; (after 'helm (diminish 'helm-mode))
+     (after 'anzu (diminish 'anzu-mode))
+     (after 'skewer (diminish 'skewer-mode))
+     (after 'tern (diminish 'tern-mode))
+     ;; (after 'company (diminish 'company-mode))
 
 
-(provide 'init-eyecandy)
 
-   #+end_src
 
-** Company
+     (if (fboundp 'global-prettify-symbols-mode)
+         (progn
+           (global-prettify-symbols-mode)
+           (add-hook 'js2-mode-hook
+                     (lambda ()
+                       (push '("function" . 955) prettify-symbols-alist)
+                       (push '("return" . 8592) prettify-symbols-alist))))
+       (progn
+         (require-package 'pretty-symbols)
+         (require 'pretty-symbols)
+         (diminish 'pretty-symbols-mode)
+         (add-to-list 'pretty-symbol-categories 'js)
+         (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
+         (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
+         (add-hook 'find-file-hook 'pretty-symbols-mode)))
+
+
+     (provide 'init-eyecandy)
+
+#+end_src
+
+** Configuration for plugins
+*** Company
    #+begin_src emacs-lisp
 (require-package 'company)
 (require 'company)
@@ -922,9 +680,51 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-company)
 
-   #+end_src
+#+end_src
 
-** Yasnippet
+*** Auto-complete :disabled:
+#+begin_src emacs-lisp :tangle no
+;;;;;;;;;;;;;;;;;;;;;
+;; Auto-Complete Mode
+;;;;;;;;;;;;;;;;;;;;;
+
+
+(require-package 'ac-dabbrev)
+(require-package 'auto-complete)
+
+(require 'cl)
+(require 'dabbrev)
+(require 'auto-complete)
+
+(require 'ac-dabbrev)
+
+
+(after 'auto-complete
+  (add-to-list 'ac-sources 'ac-source-dabbrev))
+(after 'linum
+  (ac-linum-workaround))
+
+(defun ac-dabbrev-expand ()
+  (interactive)
+  (auto-complete '(ac-source-dabbrev)))
+
+(global-set-key (kbd "M-/") 'ac-dabbrev-expand)
+
+(global-auto-complete-mode t)
+
+(setq ac-auto-start nil)
+(define-key ac-mode-map (kbd "<tab>") nil)
+(define-key ac-mode-map (kbd "C-o") 'auto-complete)
+(define-key ac-mode-map (kbd "M-?") 'auto-complete)
+;; (define-key ac-mode-map (kbd "M-/") 'dabbrev-expand)
+(define-key ac-complete-mode-map (kbd "C-g") 'ac-stop)
+(define-key ac-complete-mode-map (kbd "<down>") 'ac-next)
+(define-key ac-complete-mode-map (kbd "<up>") 'ac-previous)
+(define-key ac-complete-mode-map (kbd "RET") 'ac-expand)
+(provide 'init-autocomplete)
+#+end_src
+
+*** Yasnippet
    #+begin_src emacs-lisp
 ;;;;;;;;;;;;
 ;; yasnippet
@@ -945,9 +745,9 @@ PROMPT sets the `read-string prompt."
 (provide 'init-yasnippet)
 
 
-   #+end_src
+#+end_src
 
-** Org
+*** Org
    #+begin_src emacs-lisp
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
@@ -970,9 +770,9 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-org)
 
-   #+end_src
+#+end_src
 
-** Helm
+*** Helm
    #+begin_src emacs-lisp
 ;; (setq helm-command-prefix-key "C-c h")
 (setq helm-quick-update t)
@@ -1009,9 +809,9 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-helm)
 
-   #+end_src
+#+end_src
 
-** Smartparens
+*** Smartparens
    #+begin_src emacs-lisp
 
 (require-package 'smartparens)
@@ -1063,9 +863,9 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-smartparens)
 
-   #+end_src
+#+end_src
 
-** Discover
+*** Discover
    #+begin_src emacs-lisp
 (require-package 'discover)
 (require-package 'discover-my-major)
@@ -1273,18 +1073,18 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-discover)
 
-   #+end_src
+#+end_src
 
-** Evil
+*** Evil
    #+begin_src emacs-lisp
 (require-package 'evil)
 (require 'evil)
 
 (provide 'init-evil)
 
-   #+end_src
+#+end_src
 
-** Workspace
+*** Workspace
    #+begin_src emacs-lisp
 (require-package 'workgroups2)
 (require 'workgroups2)
@@ -1348,39 +1148,78 @@ PROMPT sets the `read-string prompt."
 
 
 
-   #+end_src
+#+end_src
 
-** Macro
-   #+begin_src emacs-lisp
-(fset 'my-create-header
-      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([1 67108896 5 134217787 1 11 25 return 25 return 25 up 1 S-right 134217847 up 1 67108896 5 134217848 101 backspace 114 101 103 101 120 114 101 112 108 backspace backspace backspace backspace backspace backspace backspace backspace backspace 114 101 112 108 97 99 101 114 101 return 46 return 25 return 1 11 25 down down 1 11 25 134217849 up 1 C-right C-left] 0 "%d")) arg)))
+*** Guru-mode  :disabled:
+#+begin_src emacs-lisp :tangle yes
+;; (require-package 'guru-mode)
+;; (require 'guru-mode)
+;; (guru-global-mode 1)
+#+end_src
 
+*** God-mode
+#+begin_src emacs-lisp :tangle yes
+(defun my-update-cursor ()
+  (setq cursor-type (if (or god-local-mode buffer-read-only)
+                        'bar
+                      'box)))
 
-(fset 'my-projectile-multi-occur
-      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([8388710 right 134217825 19] 0 "%d")) arg)))
+(add-hook 'god-mode-enabled-hook 'my-update-cursor)
+(add-hook 'god-mode-disabled-hook 'my-update-cursor)
 
+(global-set-key (kbd "<escape>") 'god-mode-all)
+(after 'god-mode
+  (define-key god-local-mode-map (kbd "i") 'god-mode)
+  (define-key god-local-mode-map (kbd "<right>")	'windmove-right)
+  (define-key god-local-mode-map (kbd "<left>")	'windmove-left)
+  (define-key god-local-mode-map (kbd "<down>")	'windmove-down)
+  (define-key god-local-mode-map (kbd "<up>")	'windmove-up))
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Save Macro Function
-;;;;;;;;;;;;;;;;;;;;;;
+#+end_src
 
-(defun save-macro (name)
-  "save a macro. Take a name as argument
-     and save the last defined macro under
-     this name at the end of init-macro.el"
-  (interactive "SName of the macro :")  ; ask for the name of the macro
-  (kmacro-name-last-macro name)         ; use this name for the macro
-  (find-file (concat user-emacs-directory "config/init-macro.el"))            ; open ~/.emacs or other user init file
-  (goto-char (point-min))               ; go to the end of the .emacs
-  (insert-kbd-macro name)               ; copy the macro
-  (newline)                             ; insert a newline
-  (newline)                             ; insert a newline
-  (newline)                             ; insert a newline
-  (switch-to-buffer nil))               ; return to the initial buffer
+*** Elscreen :disabled:
+#+begin_src emacs-lisp :tangle no
+;; (elscreen-start)
+;;Elscreen
 
-(provide 'init-macro)
+;; (elscreen-set-prefix-key "\M-e") ;; kbd
+;; (define-key elscreen-map (kbd  "t"		)  'elscreen-toggle-display-tab)
+;; (define-key elscreen-map (kbd  "<right>"	)  'elscreen-next)
+;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
+;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
+;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
+;; (define-key elscreen-map (kbd  "r"		)  'elscreen-screen-nickname)
+;; (define-key elscreen-map (kbd  "c"		)  'elscreen-create)
+;; (define-key elscreen-map (kbd  "k"		)  'elscreen-kill)
+;; (define-key elscreen-map (kbd  "s"		)  'elscreen-swap)
+;; (define-key elscreen-map (kbd  "t"		)  'elscreen-toggle-display-tab)
+;; (define-key elscreen-map (kbd  "<right>"	)  'elscreen-next)
+;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
+;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
+;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
 
-   #+end_src
+#+end_src
+
+*** Undo-tree
+#+begin_src emacs-lisp :tangle yes
+;;==========
+;; Undo tree
+;;==========
+
+(require-package 'undo-tree)
+(require 'undo-tree)
+(global-undo-tree-mode)
+;; Unmap 'C-x r' to avoid conflict with discover
+(after 'undo-tree
+  (define-key undo-tree-map (kbd "C-x r") nil))
+
+#+end_src
+
+*** Flycheck
+#+begin_src emacs-lisp :tangle yes
+(require-package 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+#+end_src
 
 ** Languages modes
 *** c
@@ -1415,7 +1254,7 @@ PROMPT sets the `read-string prompt."
 
 
 (provide 'init-c)
-    #+end_src
+#+end_src
 
 *** coffeescript
     #+begin_src emacs-lisp
@@ -1432,7 +1271,7 @@ PROMPT sets the `read-string prompt."
 (provide 'init-coffeescript)
 
 
-    #+end_src
+#+end_src
 
 *** jade
     #+begin_src emacs-lisp
@@ -1471,7 +1310,7 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-jade)
 
-    #+end_src
+#+end_src
 
 *** js
     #+begin_src emacs-lisp
@@ -1527,7 +1366,7 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-js)
 
-    #+end_src
+#+end_src
 
 *** livescript
     #+begin_src emacs-lisp
@@ -1543,7 +1382,7 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-livescript)
 
-    #+end_src
+#+end_src
 
 *** lua
     #+begin_src emacs-lisp
@@ -1553,7 +1392,7 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-lua)
 
-    #+end_src
+#+end_src
 
 *** php
     #+begin_src emacs-lisp
@@ -1562,7 +1401,7 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-php)
 
-    #+end_src
+#+end_src
 
 *** python
     #+begin_src emacs-lisp
@@ -1596,7 +1435,7 @@ PROMPT sets the `read-string prompt."
 
 (provide 'init-python)
 
-    #+end_src
+#+end_src
 
 *** web
 #+begin_src emacs-lisp
@@ -1622,6 +1461,229 @@ PROMPT sets the `read-string prompt."
 
 
 #+end_src
+
+** General Bindings
+   #+begin_src emacs-lisp
+
+(global-set-key (kbd "M-n")	'forward-paragraph)
+(global-set-key (kbd "M-p")	'backward-paragraph)
+
+(global-set-key (kbd "C-c n")	'winner-redo)
+(global-set-key (kbd "C-c p")	'winner-undo)
+
+(global-set-key (kbd "C-x C-1") 'delete-other-windows)
+(global-set-key (kbd "C-x C-2") 'split-window-below)
+(global-set-key (kbd "C-x C-3") 'split-window-right)
+(global-set-key (kbd "C-x C-0") 'delete-window)
+
+(global-set-key (kbd "C-;") 'repeat)
+
+(global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
+ 
+(global-set-key (kbd "C-z") 'helm-mini)
+(global-set-key (kbd "M-z") 'helm-projectile)
+
+
+
+;; Anzu
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+;; Font size
+(global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
+(global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
+
+;; Occur
+(global-set-key (kbd "M-o") 'helm-occur)
+(global-set-key (kbd "C-M-o") 'helm-multi-occur)
+
+;; A la carte Menu
+(global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
+
+;; helm-imenuu
+(global-set-key (kbd "C-t") 'transpose-chars)
+(global-set-key (kbd "M-t") 'transpose-words)
+;; (global-set-key (kbd "C-t") 'idomenu)
+;; (global-set-key (kbd "M-t") 'imenu-anywhere)
+
+;; helm-etags
+;; (global-set-key (kbd "M-t") 'helm-etags-select)
+
+;; Locked mode
+(global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
+
+;; Windows manipulation
+(global-set-key (kbd "C-x |")		'split-window-right)
+(global-set-key (kbd "C-x -")		'split-window-below)
+(global-set-key (kbd "C-x C-<right>")	'windmove-right)
+(global-set-key (kbd "C-x C-<left>")	'windmove-left)
+(global-set-key (kbd "C-x C-<down>")	'windmove-down)
+(global-set-key (kbd "C-x C-<up>")	'windmove-up)
+
+(global-set-key (kbd "C-x <left>")	'shrink-window-horizontally)
+(global-set-key (kbd "C-x <right>")	'enlarge-window-horizontally)
+(global-set-key (kbd "C-x <up>")	'enlarge-window)
+(global-set-key (kbd "C-x <down>")	'shrink-window)
+
+;; (global-set-key (kbd "M-<right>") 'other-window)
+;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
+;; 					     (interactive "P") (other-window -1)))
+
+(global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
+(global-set-key (kbd "C-<next>") 'end-of-buffer)
+(global-set-key (kbd "<prior>") 'scroll-down-command)
+(global-set-key (kbd "<next>") 'scroll-up-command)
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
+(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
+
+;; Magit Mode
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; Undo Tree mode
+;; (global-set-key (kbd "C-+") 'undo-tree-redo)
+
+;; iy-go-to-char
+(global-set-key (kbd "C-M-.") 'iy-go-to-char)
+(global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
+
+;; multiple-cursors bindings
+(global-set-key (kbd "s-M") 'mc/edit-lines)
+(global-set-key (kbd "s-.") 'mc/mark-next-like-this)
+(global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
+(global-set-key (kbd "s->") 'mc/unmark-next-like-this)
+(global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
+(global-set-key (kbd "s-m") 'mc/mark-all-like-this)
+
+(global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
+
+
+;; Expand region by semantics units
+(global-set-key (kbd "s-\/") 'er/expand-region)
+(global-set-key (kbd "s-?") 'er/contract-region)
+
+;; Register Windows
+(global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
+				(message "Windows disposition loaded")))
+(global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
+				 (message "Windows disposition saved")))
+
+;; Projectile
+;; (global-set-key (kbd "C-p") 'helm-projectile)
+(global-set-key (kbd "s-d") 'projectile-find-dir)
+;; (global-set-key (kbd "s-d") 'dired-jump)
+;; (global-set-key (kbd "s-f") 'projectile-find-file)
+(global-set-key (kbd "s-f") 'helm-projectile)
+;; (global-set-key (kbd "s-g") 'projectile-grep)
+;; (global-set-key (kbd "s-g") 'projectile-ag)
+(global-set-key (kbd "s-g") 'helm-ag-projectile)
+;; (global-set-key (kbd "s-g") 'projectile-ack)
+(global-set-key (kbd "s-p") 'projectile-switch-project)
+ 
+;; Resize Windows
+(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-M-<down>") 'shrink-window)
+(global-set-key (kbd "C-M-<up>") 'enlarge-window)
+
+;; (global-set-key (kbd "<f1>") 'helm-show-kill-ring)
+(global-set-key (kbd "<f1>") 'keyboard-quit)
+(global-set-key (kbd "<f2>") 'helm-all-mark-rings)
+(global-set-key (kbd "s-y") 'helm-show-kill-ring)
+(global-set-key (kbd "<f11>") 'menu-bar-mode)
+(global-set-key (kbd "<f12>") 'indent-whole-buffer)
+
+;; BOOKMARKS
+(global-set-key (kbd "s-b") 'helm-bookmarks)
+
+;; Ace Jump Mode
+(define-key global-map (kbd "C-.") 'ace-jump-mode)
+(define-key global-map (kbd "C-,") 'undo-tree-undo)
+
+;;Helm
+;; (global-set-key (kbd "C-x b") 'helm-mini)
+;; (global-set-key (kbd "<f1>") 'helm-mini)
+;; (global-set-key (kbd "S-<f1>") 'helm-projectile)
+
+;;Project Explorer
+;; (global-set-key (kbd "<f1>") 'project-explorer-open)
+
+
+;;Query Replace Regex
+(global-set-key (kbd "C-x C-r") 'query-replace-regexp)
+(global-set-key (kbd "s-o") 'helm-swoop)
+(global-set-key (kbd "s-O") 'my-projectile-multi-occur)
+;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
+;; (global-set-key (kbd "s-o") 'helm-occur)
+;; (global-set-key (kbd "s-O") 'helm-regexp)
+
+;; (global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "C-M-x") 'helm-M-x)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c M-x") 'smex-update)
+
+;; Macro bindings
+;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
+
+;; Goto
+(global-set-key [(meta g)] 'goto-line)
+
+;;Special Buffer (loaded)
+;; (global-set-key (kbd "C-b") 'ido-switch-buffer)
+;; (global-set-key (kbd "C-b") 'helm-mini)
+;; (global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
+;; (global-set-key (kbd "M-b") 'helm-projectile)
+
+(global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
+
+;; (global-set-key (kbd "C-x b") 'ibuffer)
+;; (global-set-key (kbd "<M-up>") 'up-and-locate)
+;; (global-set-key (kbd "<M-down>") 'down-and-locate)
+(global-set-key [mouse-5] 'mouse-down-and-locate)
+(global-set-key [mouse-4] 'mouse-up-and-locate)
+
+(provide 'init-bindings)
+
+
+#+end_src
+
+** Macro
+   #+begin_src emacs-lisp
+(fset 'my-create-header
+      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([1 67108896 5 134217787 1 11 25 return 25 return 25 up 1 S-right 134217847 up 1 67108896 5 134217848 101 backspace 114 101 103 101 120 114 101 112 108 backspace backspace backspace backspace backspace backspace backspace backspace backspace 114 101 112 108 97 99 101 114 101 return 46 return 25 return 1 11 25 down down 1 11 25 134217849 up 1 C-right C-left] 0 "%d")) arg)))
+
+
+(fset 'my-projectile-multi-occur
+      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([8388710 right 134217825 19] 0 "%d")) arg)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Save Macro Function
+;;;;;;;;;;;;;;;;;;;;;;
+
+(defun save-macro (name)
+  "save a macro. Take a name as argument
+     and save the last defined macro under
+     this name at the end of init-macro.el"
+  (interactive "SName of the macro :")  ; ask for the name of the macro
+  (kmacro-name-last-macro name)         ; use this name for the macro
+  (find-file (concat user-emacs-directory "config/init-macro.el"))            ; open ~/.emacs or other user init file
+  (goto-char (point-min))               ; go to the end of the .emacs
+  (insert-kbd-macro name)               ; copy the macro
+  (newline)                             ; insert a newline
+  (newline)                             ; insert a newline
+  (newline)                             ; insert a newline
+  (switch-to-buffer nil))               ; return to the initial buffer
+
+(provide 'init-macro)
+
+#+end_src
+
 ** overrides
 #+begin_src emacs-lisp
 (add-hook
@@ -1645,3 +1707,4 @@ PROMPT sets the `read-string prompt."
 
 
 #+end_src
+
