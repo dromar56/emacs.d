@@ -1,7 +1,6 @@
 #Author : Christopher Roach <vthakr@gmail.com>
 #name : for
 # --
-for (var ${1:i}=0, len=${2:array}.length; $1 < len; ++$1) {
-    var ${3:variable} = $2[i];
+for (var ${1:i}=0; $1 < ${2:array}.length; ++$1) {
     $0
 }

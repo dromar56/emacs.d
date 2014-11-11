@@ -1,5 +1,13 @@
+(add-to-list 'load-path "~/.emacs.d/vendor/org-mode/lisp")
+
 (require 'org)
-(org-babel-load-file (expand-file-name "~/.emacs.d/david.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
+
+
+
+
+
+
 
 ;; (defgroup dotemacs nil
 ;;   "Custom configuration for dotemacs."
