@@ -221,65 +221,76 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                                                           helm-source-projectile-recentf-list))
 
 (require 'org)
-     (define-key global-map "\C-cl" 'org-store-link)
-     (define-key global-map "\C-ca" 'org-agenda)
-     (setq org-log-done t)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
 
-     ;; (global-set-key (kbd "<C-S-right>") 'helm-occur)
+;; (global-set-key (kbd "<C-S-right>") 'helm-occur)
 
-     (eval-after-load "org"
-       '(progn
-          (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-          ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-          ;; (define-key org-mode-map (kbd "<C-left>") nil)
-          ;; (define-key org-mode-map (kbd "<C-right>") nil)
-          (define-key org-mode-map (kbd "M-<down>") 'nil)
-          (define-key org-mode-map (kbd "M-<up>") 'nil)))
+(eval-after-load "org"
+'(progn
+   (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+;; (define-key org-mode-map (kbd "<C-left>") nil)
+;; (define-key org-mode-map (kbd "<C-right>") nil)
+(define-key org-mode-map (kbd "M-<down>") 'nil)
+(define-key org-mode-map (kbd "M-<up>") 'nil)))
 
-     (setq org-src-fontify-natively t)
-     (setq org-src-tab-acts-natively t)
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
 
 (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
 
-(setq org-main-file "~/org/david.org")
+(setq org-main-file "~/org/notes.org")
+(setq org-directory "~/org")
+
 (setq org-agenda-files '("~/org"))
-;; (setq org-agenda-files (list org-main-file))
+(load-library "find-lisp")
+(setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
+
+      ;; (setq org-agenda-files (list org-main-file))
 
 (setq org-default-notes-file org-main-file)
 (define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-t") 'org-capture)
 
-(defun get-project-org-file ()
+(defun d4g-get-project-org-name ()
+  "Return the name of the projectile project"
+  (replace-regexp-in-string "[^[:alnum:]]" "-" 
+                            (car (last (split-string projectile--project-root "/" t)))))
+
+(defun d4g-get-project-org-file ()
   "Return the path to the project org file"
   (concat org-directory "/projects/" 
-          (replace-regexp-in-string "[^[:alnum:]]" "-" 
-                                    (car (last (split-string projectile--project-root "/" t))))
+          (d4g-get-project-org-name)
           ".org"))
 
-(defun find-project-org-file-task ()
+(defun d4g-find-project-org-file-task ()
   "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
-  (let ((project-file get-project-org-file)
-        (project-headline-regexp "^\* Tasks"))
+  (let ((project-file (d4g-get-project-org-file))
+        (project-headline-regexp "^\\* Tasks")
+        (project-name (d4g-get-project-org-name)))
     (set-buffer (find-file-noselect project-file))
+    (goto-char (point-min))
     (if (not (re-search-forward project-headline-regexp nil t))
         (progn
           (goto-char (point-max))
-          (newline)
-          (insert "* Tasks")))
-
+          (if (not (eq (buffer-size) 0))
+              (newline 2))
+          (insert (concat "* Tasks :project:" project-name ":"))))
     (goto-char (point-min))
     (re-search-forward project-headline-regexp)
-    (org-end-of-subtree)
-    (newline)))
+    (end-of-line)))
 
 (setq org-capture-templates
       '(("p" "Project" entry (function find-project-org-file-task)
-         "** TODO %?\n  %i\n  %a")
+         "* TODO %?\n  %a\n  %i")
         ("t" "Todo" entry (file+headline "~/org/todo.org" "Todo")
-         "* TODO %?\n  %i\n  %a")
-        ("n" "Todo" entry (file+headline "~/org/notes.org" "Notes")
-         "* TODO %?\n  %i\n  %a")
+         "* TODO %?\n  %a\n  %i")
+        ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
+         "* %?\n  %a\n  %i")
         ("j" "Journal" entry (file+datetree "~/org/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")
+         "* %?\nEntered on %U\n  %a\n  %i")
         ("J" "Journal - more options")
         ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %x\n  %a")))
@@ -288,6 +299,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq org-capture-templates-contexts
       '(("p" ((lambda () "DOCSTRING" (interactive) projectile--project-root)))))
 
+(setq close-frame-after-org-capture-frame nil)
+(setq close-frame-after-org-capture-frame (selected-frame))
 
 (defun close-frame-after-org-capture ()
   (remove-hook 'org-capture-after-finalize-hook 'close-frame-after-org-capture)
@@ -578,6 +591,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
+(window-numbering-mode t)
+
 (setq help-window-select t)
 
     (customize-set-variable 'scroll-bar-mode (quote right))
@@ -854,6 +869,8 @@ narrowed."
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
 
+(setq ido-default-buffer-method 'selected-window)
+
 (defun set-frame-font-size (size)
   (interactive "nSize:")
   (set-face-attribute 'default (selected-frame) :height size)
@@ -917,6 +934,11 @@ narrowed."
     (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
     (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
     (add-hook 'find-file-hook 'pretty-symbols-mode)))
+
+(set-face-attribute 'window-numbering-face nil 
+                    :background "cyan" 
+                    :foreground "black"
+                    :weight 'semi-bold )
 
 (require-package 'smart-mode-line)
     (setq sml/show-client t)
@@ -1173,8 +1195,8 @@ narrowed."
 (global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
 
 ;; helm-imenuu
-(global-set-key (kbd "C-t") 'transpose-chars)
-(global-set-key (kbd "M-t") 'transpose-words)
+;; (global-set-key (kbd "C-t") 'transpose-chars)
+;; (global-set-key (kbd "M-t") 'transpose-words)
 ;; (global-set-key (kbd "C-t") 'idomenu)
 ;; (global-set-key (kbd "M-t") 'imenu-anywhere)
 
@@ -1330,3 +1352,88 @@ narrowed."
 ;; (global-set-key (kbd "C-f") 'forward-char)
 ;; (global-set-key (kbd "C-b") 'backward-char)
 ;; (global-set-key (kbd "C-j") 'newline-and-indent)
+
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+
+  (require 'mu4e)
+
+  ;; default
+  (setq mu4e-maildir "~/.mail")
+
+(setq mu4e-headers-skip-duplicates t)
+(setq mu4e-headers-include-related t)
+(setq mu4e-use-fancy-chars nil)
+(setq mu4e-view-show-images t)
+(setq mu4e-attachment-dir "~/Downloads")
+
+(setq mu4e-view-prefer-html t)
+
+  ;; (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  ;; (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  ;; (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+
+  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  (setq mu4e-sent-messages-behavior 'delete)
+
+  ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+  ;; additional non-Gmail addresses and want assign them different
+  ;; behavior.)
+
+  ;; setup some handy shortcuts
+  ;; you can quickly switch to your Inbox -- press ``ji''
+  ;; then, when you want archive some messages, move them to
+  ;; the 'All Mail' folder by pressing ``ma''.
+
+  ;; (setq mu4e-maildir-shortcuts
+  ;;     '( ("/INBOX"               . ?i)
+  ;;        ("/[Gmail].Sent Mail"   . ?s)
+  ;;        ("/[Gmail].Trash"       . ?t)
+  ;;        ("/[Gmail].All Mail"    . ?a)))
+
+  ;; allow for updating mail using 'U' in the main view:
+  (setq mu4e-get-mail-command "mbsync -a")
+
+  ;; something about ourselves
+  (setq
+   user-mail-address "dromar566@gmail.com"
+   user-full-name  "David Barrutia"
+   mu4e-compose-signature
+   (concat
+    "David Barrutia"
+    ""))
+
+  ;; sending mail -- replace USERNAME with your gmail username
+  ;; also, make sure the gnutls command line utils are installed
+  ;; package 'gnutls-bin' in Debian/Ubuntu
+
+  (require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
+     starttls-use-gnutls t
+     smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+     smtpmail-auth-credentials
+     '(("smtp.gmail.com" 587 "dromar56@gmail.com" nil))
+     smtpmail-default-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-service 587)
+
+  ;; alternatively, for emacs-24 you can use:
+  ;;(setq message-send-mail-function 'smtpmail-send-it
+  ;;     smtpmail-stream-type 'starttls
+  ;;     smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;     smtpmail-smtp-server "smtp.gmail.com"
+  ;;     smtpmail-smtp-service 587)
+
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
+
+(defun mu4e-open-mail-in-browser (args)
+  (interactive "P")
+  (let ((mail-content (buffer-string)))
+      (save-excursion
+        (with-temp-file "/tmp/mu4e-tmp-file.html" 
+          (progn 
+            (insert mail-content)
+            (eww-open-file "/tmp/mu4e-tmp-file.html"))))))
+
+(global-set-key (kbd "C-x m") 'mu4e)
