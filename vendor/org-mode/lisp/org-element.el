@@ -128,45 +128,99 @@
 ;; along with the affiliated keywords recognized.  Also set up
 ;; restrictions on recursive objects combinations.
 ;;
-;; These variables really act as a control center for the parsing
-;; process.
+;; `org-element-update-syntax' builds proper syntax regexps according
+;; to current setup.
 
-(defconst org-element-paragraph-separate
-  (concat "^\\(?:"
-          ;; Headlines, inlinetasks.
-          org-outline-regexp "\\|"
-          ;; Footnote definitions.
-	  "\\[\\(?:[0-9]+\\|fn:[-_[:word:]]+\\)\\]" "\\|"
-	  ;; Diary sexps.
-	  "%%(" "\\|"
-          "[ \t]*\\(?:"
-          ;; Empty lines.
-          "$" "\\|"
-	  ;; Tables (any type).
-	  "\\(?:|\\|\\+-[-+]\\)" "\\|"
-          ;; Blocks (any type), Babel calls and keywords.  Note: this
-	  ;; is only an indication and need some thorough check.
-          "#\\(?:[+ ]\\|$\\)" "\\|"
-	  ;; Drawers (any type) and fixed-width areas.  This is also
-	  ;; only an indication.
-	  ":" "\\|"
-          ;; Horizontal rules.
-          "-\\{5,\\}[ \t]*$" "\\|"
-          ;; LaTeX environments.
-          "\\\\begin{\\([A-Za-z0-9]+\\*?\\)}" "\\|"
-          ;; Clock lines.
-          (regexp-quote org-clock-string) "\\|"
-          ;; Lists.
-          (let ((term (case org-plain-list-ordered-item-terminator
-                        (?\) ")") (?. "\\.") (otherwise "[.)]")))
-                (alpha (and org-list-allow-alphabetical "\\|[A-Za-z]")))
-            (concat "\\(?:[-+*]\\|\\(?:[0-9]+" alpha "\\)" term "\\)"
-                    "\\(?:[ \t]\\|$\\)"))
-          "\\)\\)")
+(defvar org-element-paragraph-separate nil
   "Regexp to separate paragraphs in an Org buffer.
 In the case of lines starting with \"#\" and \":\", this regexp
 is not sufficient to know if point is at a paragraph ending.  See
 `org-element-paragraph-parser' for more information.")
+
+(defvar org-element--object-regexp nil
+  "Regexp possibly matching the beginning of an object.
+This regexp allows false positives.  Dedicated parser (e.g.,
+`org-export-bold-parser') will take care of further filtering.
+Radio links are not matched by this regexp, as they are treated
+specially in `org-element--object-lex'.")
+
+(defun org-element--set-regexps ()
+  "Build variable syntax regexps."
+  (setq org-element-paragraph-separate
+	(concat "^\\(?:"
+		;; Headlines, inlinetasks.
+		org-outline-regexp "\\|"
+		;; Footnote definitions.
+		"\\[\\(?:[0-9]+\\|fn:[-_[:word:]]+\\)\\]" "\\|"
+		;; Diary sexps.
+		"%%(" "\\|"
+		"[ \t]*\\(?:"
+		;; Empty lines.
+		"$" "\\|"
+		;; Tables (any type).
+		"\\(?:|\\|\\+-[-+]\\)" "\\|"
+		;; Blocks (any type), Babel calls and keywords.  This
+		;; is only an indication and need some thorough check.
+		"#\\(?:[+ ]\\|$\\)" "\\|"
+		;; Drawers (any type) and fixed-width areas.  This is
+		;; also only an indication.
+		":" "\\|"
+		;; Horizontal rules.
+		"-\\{5,\\}[ \t]*$" "\\|"
+		;; LaTeX environments.
+		"\\\\begin{\\([A-Za-z0-9]+\\*?\\)}" "\\|"
+		;; Clock lines.
+		(regexp-quote org-clock-string) "\\|"
+		;; Lists.
+		(let ((term (case org-plain-list-ordered-item-terminator
+			      (?\) ")") (?. "\\.") (otherwise "[.)]")))
+		      (alpha (and org-list-allow-alphabetical "\\|[A-Za-z]")))
+		  (concat "\\(?:[-+*]\\|\\(?:[0-9]+" alpha "\\)" term "\\)"
+			  "\\(?:[ \t]\\|$\\)"))
+		"\\)\\)")
+	org-element--object-regexp
+	(mapconcat #'identity
+		   (let ((link-types (regexp-opt org-link-types)))
+		     (list
+		      ;; Sub/superscript.
+		      "\\(?:[_^][-{(*+.,[:alnum:]]\\)"
+		      ;; Bold, code, italic, strike-through, underline
+		      ;; and verbatim.
+		      (concat "[*~=+_/]"
+			      (format "[^%s]"
+				      (nth 2 org-emphasis-regexp-components)))
+		      ;; Plain links.
+		      (concat "\\<" link-types ":")
+		      ;; Objects starting with "[": regular link,
+		      ;; footnote reference, statistics cookie,
+		      ;; timestamp (inactive).
+		      "\\[\\(?:fn:\\|\\(?:[0-9]\\|\\(?:%\\|/[0-9]*\\)\\]\\)\\|\\[\\)"
+		      ;; Objects starting with "@": export snippets.
+		      "@@"
+		      ;; Objects starting with "{": macro.
+		      "{{{"
+		      ;; Objects starting with "<" : timestamp
+		      ;; (active, diary), target, radio target and
+		      ;; angular links.
+		      (concat "<\\(?:%%\\|<\\|[0-9]\\|" link-types "\\)")
+		      ;; Objects starting with "$": latex fragment.
+		      "\\$"
+		      ;; Objects starting with "\": line break,
+		      ;; entity, latex fragment.
+		      "\\\\\\(?:[a-zA-Z[(]\\|\\\\[ \t]*$\\)"
+		      ;; Objects starting with raw text: inline Babel
+		      ;; source block, inline Babel call.
+		      "\\(?:call\\|src\\)_"))
+		   "\\|")))
+
+(org-element--set-regexps)
+
+;;;###autoload
+(defun org-element-update-syntax ()
+  "Update parser internals."
+  (interactive)
+  (org-element--set-regexps)
+  (org-element-cache-reset 'all))
 
 (defconst org-element-all-elements
   '(babel-call center-block clock comment comment-block diary-sexp drawer
@@ -4130,43 +4184,6 @@ Elements are accumulated into ACC."
     ;; Return result.
     acc))
 
-(defconst org-element--object-regexp
-  (mapconcat #'identity
-	     (let ((link-types (regexp-opt org-link-types)))
-	       (list
-		;; Sub/superscript.
-		"\\(?:[_^][-{(*+.,[:alnum:]]\\)"
-		;; Bold, code, italic, strike-through, underline and
-		;; verbatim.
-		(concat "[*~=+_/]"
-			(format "[^%s]" (nth 2 org-emphasis-regexp-components)))
-		;; Plain links.
-		(concat "\\<" link-types ":")
-		;; Objects starting with "[": regular link, footnote
-		;; reference, statistics cookie, timestamp (inactive).
-		"\\[\\(?:fn:\\|\\(?:[0-9]\\|\\(?:%\\|/[0-9]*\\)\\]\\)\\|\\[\\)"
-		;; Objects starting with "@": export snippets.
-		"@@"
-		;; Objects starting with "{": macro.
-		"{{{"
-		;; Objects starting with "<" : timestamp (active,
-		;; diary), target, radio target and angular links.
-		(concat "<\\(?:%%\\|<\\|[0-9]\\|" link-types "\\)")
-		;; Objects starting with "$": latex fragment.
-		"\\$"
-		;; Objects starting with "\": line break, entity,
-		;; latex fragment.
-		"\\\\\\(?:[a-zA-Z[(]\\|\\\\[ \t]*$\\)"
-		;; Objects starting with raw text: inline Babel
-		;; source block, inline Babel call.
-		"\\(?:call\\|src\\)_"))
-	     "\\|")
-  "Regexp possibly matching the beginning of an object.
-This regexp allows false positives.  Dedicated parser (e.g.,
-`org-export-bold-parser') will take care of further filtering.
-Radio links are not matched by this regexp, as they are treated
-specially in `org-element--object-lex'.")
-
 (defun org-element--object-lex (restriction)
   "Return next object in current buffer or nil.
 RESTRICTION is a list of object types, as symbols, that should be
@@ -5681,7 +5698,7 @@ Providing it allows for quicker computation."
 	 (if (not (member (org-element-property :key element)
 			  org-element-document-properties))
 	     (throw 'objects-forbidden element)
-	   (beginning-of-line)
+	   (goto-char (org-element-property :begin element))
 	   (search-forward ":")
 	   (if (and (>= pos (point)) (< pos (line-end-position)))
 	       (narrow-to-region (point) (line-end-position))
@@ -5794,6 +5811,30 @@ Providing it allows for quicker computation."
 		      (t (throw 'exit next)))))))
 	   ;; Store results in cache, if applicable.
 	   (org-element--cache-put element cache)))))))
+
+(defun org-element-lineage (blob &optional types with-self)
+  "List all ancestors of a given element or object.
+
+BLOB is an object or element.
+
+When optional argument TYPES is a list of symbols, return the
+first element or object in the lineage whose type belongs to that
+list.
+
+When optional argument WITH-SELF is non-nil, lineage includes
+BLOB itself as the first element, and TYPES, if provided, also
+apply to it.
+
+When BLOB is obtained through `org-element-context' or
+`org-element-at-point', only ancestors from its section can be
+found.  There is no such limitation when BLOB belongs to a full
+parse tree."
+  (let ((up (if with-self blob (org-element-property :parent blob)))
+	ancestors)
+    (while (and up (not (memq (org-element-type up) types)))
+      (unless types (push up ancestors))
+      (setq up (org-element-property :parent up)))
+    (if types up (nreverse ancestors))))
 
 (defun org-element-nested-p (elem-A elem-B)
   "Non-nil when elements ELEM-A and ELEM-B are nested."

@@ -26,9 +26,6 @@
     ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
  '(helm-buffer-max-length 30)
  '(helm-candidate-number-limit 200)
- '(helm-projectile-sources-list
-   (quote
-    (helm-source-projectile-buffers-list helm-source-projectile-files-list helm-source-projectile-recentf-list)) t)
  '(helm-truncate-lines t)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])
@@ -56,7 +53,6 @@
  '(sp-ignore-modes-list (quote (minibuffer-inactive-mode org-mode)))
  '(sp-show-pair-from-inside t)
  '(sp-successive-kill-preserve-whitespace 2)
- '(tramp-default-method "scp")
  '(tree-widget-image-enable nil)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
  '(uniquify-strip-common-suffix t)

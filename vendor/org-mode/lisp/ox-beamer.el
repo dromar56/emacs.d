@@ -337,12 +337,10 @@ INFO is a plist used as a communication channel."
    ;; 1. Look for "frame" environment in parents, starting from the
    ;;    farthest.
    (catch 'exit
-     (mapc (lambda (parent)
-	     (let ((env (org-element-property :BEAMER_ENV parent)))
-	       (when (and env (member-ignore-case env '("frame" "fullframe")))
-		 (throw 'exit (org-export-get-relative-level parent info)))))
-	   (nreverse (org-export-get-genealogy headline)))
-     nil)
+     (dolist (parent (nreverse (org-element-lineage headline)))
+       (let ((env (org-element-property :BEAMER_ENV parent)))
+	 (when (and env (member-ignore-case env '("frame" "fullframe")))
+	   (throw 'exit (org-export-get-relative-level parent info))))))
    ;; 2. Look for "frame" environment in HEADLINE.
    (let ((env (org-element-property :BEAMER_ENV headline)))
      (and env (member-ignore-case env '("frame" "fullframe"))
@@ -782,7 +780,7 @@ contextual information."
   "Transcode a TARGET object into Beamer code.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
-  (format "\\hypertarget{%s}{}"
+  (format "\\label{%s}"
 	  (org-export-solidify-link-text (org-element-property :value target))))
 
 

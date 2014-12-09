@@ -1,7 +1,12 @@
-(add-to-list 'load-path "~/.emacs.d/vendor/org-mode/lisp")
+;; (add-to-list 'load-path "~/.emacs.d/vendor/org-mode-zip/lisp")
+;; (add-to-list 'load-path "~/.emacs.d/vendor/org-mode/lisp")
+
+(if (file-newer-than-file-p "~/.emacs.d/config.org" "~/.emacs.d/config.el")
+    (shell-command-to-string "emacs -q --script ~/.emacs.d/tangle_config.el"))
 
 (require 'org)
-(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
+(load-file (expand-file-name "~/.emacs.d/config.el"))
+;; (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
 
 
 

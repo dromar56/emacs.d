@@ -161,6 +161,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (newline)                             ; insert a newline
   (switch-to-buffer nil))               ; return to the initial buffer
 
+(require 'helm-config)
 ;; (setq helm-command-prefix-key "C-c h")
 (setq helm-quick-update t)
 (setq helm-bookmark-show-location t)
@@ -170,8 +171,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require-package 'helm)
 (require-package 'helm-swoop)
 
-;; (require 'helm-config)
-;; (helm-mode 1)
+(helm-mode 1)
 
 (require-package 'wgrep-helm)
 ;; (require 'wgrep-helm)
@@ -186,11 +186,39 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (defadvice helm-projectile (after winner-skip-helm activate)
   (winner-mode 1))
 
- (customize-set-variable 'helm-boring-buffer-regexp-list
-   (quote
-    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
- (customize-set-variable 'helm-buffer-max-length 30)
- (customize-set-variable 'helm-candidate-number-limit 200)
+(customize-set-variable 'helm-boring-buffer-regexp-list
+                        (quote
+                         ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+(customize-set-variable 'helm-buffer-max-length 30)
+(customize-set-variable 'helm-candidate-number-limit 200)
+
+(setq helm-M-x-fuzzy-match t)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+(global-set-key (kbd "C-z") 'helm-mini)
+
+(global-set-key (kbd "C-t") 'helm-imenu)
+(global-set-key (kbd "M-t") 'helm-etags-select)
+(global-set-key (kbd "C-M-t") 'projectile-regenerate-tags)
+
+;; Occur
+(global-set-key (kbd "M-o") 'helm-occur)
+(global-set-key (kbd "C-M-o") 'helm-multi-occur)
+
+;; helm-etags
+;; (global-set-key (kbd "M-t") 'helm-etags-select)
+
+(global-set-key (kbd "<f2>") 'helm-all-mark-rings)
+(global-set-key (kbd "s-y") 'helm-show-kill-ring)
+
+;; BOOKMARKS
+(global-set-key (kbd "s-b") 'helm-bookmarks)
+
+(global-set-key (kbd "s-o") 'helm-swoop)
+;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
+;; (global-set-key (kbd "s-o") 'helm-occur)
+
+;; (global-set-key (kbd "s-O") 'helm-regexp)
 
 (require-package 'helm-ag)
 (setq helm-ag-thing-at-point 'symbol)
@@ -205,13 +233,16 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq helm-dash-browser-func 'browse-url)
 ;; (setq helm-dash-browser-func 'eww)
 
+(global-set-key (kbd "<f1>") 'helm-spaces)
+(key-chord-define-global "e3" 'helm-spaces)
+
 (projectile-global-mode t)
 (customize-set-variable 'projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
 (customize-set-variable 'projectile-remember-window-configs nil)
 (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
-(customize-set-variable 'projectile-tags-command "ctags -Re %s %s")
+(customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
 
 (after 'projectile
   (require-package 'helm-projectile))
@@ -219,6 +250,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
                                                           helm-source-projectile-files-list
                                                           helm-source-projectile-recentf-list))
+
+
+    (global-set-key (kbd "M-z") 'helm-projectile)
+    (global-set-key (kbd "s-f") 'helm-projectile)
+    (global-set-key (kbd "s-g") 'helm-ag-projectile)
 
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
@@ -252,24 +288,24 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq org-default-notes-file org-main-file)
 (define-key global-map (kbd "C-c c") 'org-capture)
-(define-key global-map (kbd "C-t") 'org-capture)
+(define-key global-map (kbd "<f1>") 'org-capture)
 
-(defun d4g-get-project-org-name ()
+(defun llc-get-project-org-name ()
   "Return the name of the projectile project"
-  (replace-regexp-in-string "[^[:alnum:]]" "-" 
-                            (car (last (split-string projectile--project-root "/" t)))))
+  (replace-regexp-in-string "[^[:alnum:]]" "-"
+                            (car (last (split-string (projectile-project-root) "/" t)))))
 
-(defun d4g-get-project-org-file ()
+(defun llc-get-project-org-file ()
   "Return the path to the project org file"
-  (concat org-directory "/projects/" 
-          (d4g-get-project-org-name)
+  (concat org-directory "/projects/"
+          (llc-get-project-org-name)
           ".org"))
 
-(defun d4g-find-project-org-file-task ()
+(defun llc-find-project-org-file-task ()
   "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
-  (let ((project-file (d4g-get-project-org-file))
+  (let ((project-file (llc-get-project-org-file))
         (project-headline-regexp "^\\* Tasks")
-        (project-name (d4g-get-project-org-name)))
+        (project-name (llc-get-project-org-name)))
     (set-buffer (find-file-noselect project-file))
     (goto-char (point-min))
     (if (not (re-search-forward project-headline-regexp nil t))
@@ -283,9 +319,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (end-of-line)))
 
 (setq org-capture-templates
-      '(("p" "Project" entry (function find-project-org-file-task)
+      '(("p" "Project" entry (function llc-find-project-org-file-task)
          "* TODO %?\n  %a\n  %i")
-        ("t" "Todo" entry (file+headline "~/org/todo.org" "Todo")
+        ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
          "* TODO %?\n  %a\n  %i")
         ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
          "* %?\n  %a\n  %i")
@@ -295,19 +331,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
         ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %x\n  %a")))
 
-
 (setq org-capture-templates-contexts
-      '(("p" ((lambda () "DOCSTRING" (interactive) projectile--project-root)))))
+      '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
 
-(setq close-frame-after-org-capture-frame nil)
-(setq close-frame-after-org-capture-frame (selected-frame))
-
-(defun close-frame-after-org-capture ()
-  (remove-hook 'org-capture-after-finalize-hook 'close-frame-after-org-capture)
-  (delete-frame))
-
-(global-set-key (kbd "<f1>") 'helm-spaces)
-(key-chord-define-global "e3" 'helm-spaces)
+;; Close frame after org-capture only if a certain frame-parameter is set
+(defun llc-close-frame-after-org-capture ()
+  (if (frame-parameter nil 'llc-close-frame-after-org-capture)
+      (delete-frame)))
+(add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
 
 (key-chord-mode t)
 
@@ -320,9 +351,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (interactive)
   (if (eq company-idle-delay 0)
       (setq company-idle-delay nil)
-    (setq company-idle-delay 0)))
+    (setq company-idle-delay 0))
+  (message (format "company-idle-delay : %s" company-idle-delay)))
 
-(global-set-key (kbd "M-c") 'company-auto-completion-toggle)
+(global-set-key (kbd "C-M-c") 'company-auto-completion-toggle)
 
 (setq company-minimum-prefix-length 1)
 (setq company-show-numbers 1)
@@ -425,6 +457,185 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (if (bolp)
       (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
 
+(require-package 'discover)
+(require-package 'discover-my-major)
+
+(require 'discover)
+(global-discover-mode 1)
+
+;; (setq makey-key-mode-keymaps nil)
+;; (discover-add-context-menu
+;;  :context-menu '(misc-functions
+;;                  (description "Misc functions")
+;;                  (actions
+;;                   ("Functions"
+;;                    ("`" "Insert `" (lambda () (interactive) (insert "`")))
+;;                    ("m" "Save macro" save-macro)
+;;                    ("u" "Undo tree" undo-tree-visualize)
+;;                    ("q" "helm-mini" helm-mini)
+;;                    ("d" "dired-jump" dired-jump)
+;;                    ("p" "switch projects" projectile-switch-project)
+;;                    ("c" "toggle company" company-auto-completion-toggle)
+;;                    ("y" "kill ring" helm-show-kill-ring)
+;;                    ("f" "helm projectile" helm-projectile)
+;;                    ("w" "helm projectile" helm-projectile)
+;;                    ("1" "ace jump" ace-jump-mode)
+;;                    ("r" "discover register" makey-key-mode-popup-register)
+;;                    ("s" "Font Size" set-frame-font-size)
+;;                    ("<tab>" "helm-mini" helm-mini)
+;;                    ("v" "Revert buffer" revert-buffer)
+;;                    )))
+
+;;  :bind "`")
+
+;; (global-unset-key (kbd "`"))
+
+;; (discover-add-context-menu
+;;  :context-menu '(js2-refactor
+;;               (description "JS2 Refactor2")
+;;               (actions
+;;                ("Functions"
+;;                 ("ef" "extract function" js2r-extract-function)
+;;                 ("em" "extract method" js2r-extract-method)
+;;                 ("ip" "introduce parameter" js2r-introduce-parameter)
+;;                 ("lp" "localize parameter" js2r-localize-parameter)
+;;                 ("ao" "Arguments to object" js2r-arguments-to-object))
+;;                ("Variables"
+;;                 ("ev" "Extract variable" js2r-extract-var)
+;;                 ("iv" "Inline variable" js2r-inline-var)
+;;                 ("rv" "Rename variable" (lambda () (interactive) (js2r-rename-var)))
+;;                 ("vt" "var to this" js2r-var-to-this)
+;;                 ("sv" "split var declaration" js2r-split-var-declaration))
+;;                ("Contract/Expand"
+;;                 ("cu" "contract function" js2r-contract-function)
+;;                 ("eu" "expand function" js2r-expand-function)
+;;                 ("ca" "contract array" js2r-contract-array)
+;;                 ("ea" "expand array" js2r-expand-array)
+;;                 ("co" "contract object" js2r-contract-object)
+;;                 ("eo" "expand object" js2r-expand-object))
+;;                ("Structure"
+;;                 ("3i" "ternary to if" js2r-ternary-to-if)
+;;                 ("uw" "unwrap" js2r-unwrap)
+;;                 ("ig" "inject global in iife" js2r-inject-global-in-iife)
+;;                 ("wi" "wrap buffer in iife" js2r-wrap-buffer-in-iife))
+;;                ("Misc"
+;;                 ("lt" "log this" js2r-log-this)
+;;                 ("sl" "forward slurp" js2r-forward-slurp)
+;;                 ("ba" "forward barf" js2r-forward-barf))))
+;;  :mode 'js2-mode
+;;  :mode-hook 'js2-mode-hook
+;;  :bind "C-c C-m")
+
+;; (discover-add-context-menu
+;;  :context-menu '(register
+;;                  (description "Register and rectangles")
+;;                  (actions
+;;                   ("Save to register"
+;;                    ("w" "window configuration to register" window-configuration-to-register)
+;;                    ("x" "copy to register" copy-to-register)
+;;                    ("SPC" "point to register" point-to-register)
+;;                    ("+" "increment register" increment-register)
+;;                    ("f" "frame configuration to register" frame-configuration-to-register)
+;;                    ;; this is technically not bound to a key but it's just too darn
+;;                    ;; useful to leave unbound.
+;;                    ("A" "append to register" append-to-register)
+;;                    )
+
+;;                   ("Load from register"
+;;                    ("l" "list registers" helm-register)
+;;                    ("i" "insert register" insert-register)
+;;                    ("j" "jump to register" jump-to-register)
+;;                    ("n" "number to register" number-to-register))
+
+;;                   ("Rectangle"
+;;                    ("M-w" "copy rectangle as kill" copy-rectangle-as-kill)
+;;                    ("N" "rectangle number lines" rectangle-number-lines)
+;;                    ("c" "clear rectangle" clear-rectangle)
+;;                    ("d" "delete rectangle" delete-rectangle)
+;;                    ("k" "kill rectangle" kill-rectangle)
+;;                    ("o" "open rectangle" open-rectangle)
+;;                    ("r" "copy rectangle to register" copy-rectangle-to-register)
+;;                    ("t" "string rectangle" string-rectangle)
+;;                    ("y" "yank rectangle" yank-rectangle))
+;;                   ))
+
+;;  :bind "C-x r")
+
+
+;; (discover-add-context-menu
+;;  :context-menu '(narrow
+;;                  (description "Narrow")
+;;                  (actions
+;;                   ("Narrow"
+;;                    ("n" "Narrow to region" narrow-to-region)
+;;                    ("d" "Narrow to defun" narrow-to-defun)
+;;                    ("p" "Narrow to page" narrow-to-page))
+;;                   ("Org narrow"
+;;                    ("b" "Org narrow to block" org-narrow-to-block)
+;;                    ("e" "Org narrow to element" org-narrow-to-element)
+;;                    ("s" "Org narrow to subtree" org-narrow-to-subtree))
+;;                   ("Widen" ("w" "Widen" widen))))
+
+;;  :bind "C-x n")
+
+
+(discover-add-context-menu
+ :context-menu '(helpfunctions
+                 (description "Help Functions")
+                 (actions
+                  ("Help functions"
+
+                   ("C-a"       "about-emacs" about-emacs)
+                   ("C-c"       "describe-copying" describe-copying)
+                   ("C-d"       "view-emacs-debugging" view-emacs-debugging)
+                   ("C-e"       "view-external-packages" view-external-packages)
+                   ("C-f"       "view-emacs-FAQ" view-emacs-FAQ)
+                   ("C-h"       "help-for-help" help-for-help)
+                   ("RET"       "view-order-manuals" view-order-manuals)
+                   ("C-n"       "view-emacs-news" view-emacs-news)
+                   ("C-o"       "describe-distribution" describe-distribution)
+                   ("C-p"       "view-emacs-problems" view-emacs-problems)
+                   ("C-t"       "view-emacs-todo" view-emacs-todo)
+                   ("C-w"       "describe-no-warranty" describe-no-warranty)
+                   ("C-\\"      "describe-input-method" describe-input-method)
+                   ("."         "display-local-help" display-local-help)
+                   ("?"         "help-for-help" help-for-help)
+                   ("C"         "describe-coding-system" describe-coding-system)
+                   ("F"         "Info-goto-emacs-command-node" Info-goto-emacs-command-node)
+                   ("I"         "describe-input-method" describe-input-method)
+                   ("K"         "Info-goto-emacs-key-command-node" Info-goto-emacs-key-command-node)
+                   ("L"         "describe-language-environment" describe-language-environment)
+                   ("P"         "describe-package" describe-package)
+                   ("S"         "info-lookup-symbol" info-lookup-symbol)
+                   ("a"         "apropos-command" apropos-command)
+                   ("b"         "describe-bindings" describe-bindings)
+                   ("c"         "describe-key-briefly" describe-key-briefly)
+                   ("d"         "apropos-documentation" apropos-documentation)
+                   ("e"         "view-echo-area-messages" view-echo-area-messages)
+                   ("f"         "describe-function" describe-function)
+                   ("g"         "describe-gnu-project" describe-gnu-project)
+                   ("h"         "view-hello-file" view-hello-file)
+                   ("i"         "info" info)
+                   ("k"         "describe-key" describe-key)
+                   ("l"         "view-lossage" view-lossage)
+                   ("m"         "describe-mode" describe-mode)
+                   ("n"         "view-emacs-news" view-emacs-news)
+                   ("p"         "finder-by-keyword" finder-by-keyword)
+                   ("q"         "help-quit" help-quit)
+                   ("r"         "info-emacs-manual" info-emacs-manual)
+                   ("s"         "describe-syntax" describe-syntax)
+                   ("t"         "help-with-tutorial" help-with-tutorial)
+                   ("v"         "describe-variable" describe-variable)
+                   ("w"         "where-is" where-is)
+                   ("<f1>"      "help-for-help" help-for-help)
+                   ("<help>"    "help-for-help" help-for-help)
+
+
+                   )
+                  ))
+
+ :bind "C-h h")
+
 (require-package 'evil)
 (require 'evil)
 
@@ -484,7 +695,33 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (defadvice wg-switch-to-workgroup (after wg-winner-after activate)
   (wg-winner-load))
 
-;; (workgroups-mode 1)   ; put this one at the bottom of .emacs
+
+;     (discover-add-context-menu
+;      :context-menu '(workgroups2
+;                      (description "workgroups2")
+;                      (actions
+;                       ("Windows configuration"
+;                        ("w" "Save window configuration" wg-save-wconfig)
+;                        ("j" "Jump to window configuration" wg-restore-saved-wconfig)
+;                        ("k" "Kill window configuration" wg-kill-saved-wconfig)
+;                        ("]" "Redo wconfig change" wg-redo-wconfig-change)
+;                        ("[" "Undo wconfig change" wg-undo-wconfig-change)
+;                        )
+;                       ("Workgroups"
+;                        ("M-e" "Switch to workgroup" wg-switch-to-workgroup)
+;                        ("e" "Switch to workgroup" wg-switch-to-workgroup)
+;                        ("/" "Switch to last workgroup" wg-switch-to-previous-workgroup)
+;                        ("r" "Rename" wg-rename-workgroup)
+;                        ("c" "Create" wg-create-workgroup)
+;                        ("C" "Clone" wg-clone-workgroup)
+;                        ("C-k" "Kill Workgroup" wg-kill-workgroup)
+;                        ("s" "Save session" wg-save-session)
+;                        ("C-l" "Load session" wg-reload-session)
+;                        )
+;                       ))
+;      :bind "<f1>")
+
+; (workgroups-mode 1)   ; put this one at the bottom of .emacs
 
 (defun my-update-cursor ()
   (setq cursor-type (if (or god-local-mode buffer-read-only)
@@ -513,6 +750,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (after 'undo-tree
   (define-key undo-tree-map (kbd "C-x r") nil))
 
+(define-key undo-tree-map (kbd "C-/") 'nil)
+
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -540,9 +779,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (after 'company (diminish 'company-mode))
 
 (require 'tramp)
-(setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
-;; (add-to-list 'backup-directory-alist
-;;              (cons tramp-file-name-regexp nil))
+ (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
+(setq tramp-default-method "sshx")
+
+ ;; (add-to-list 'backup-directory-alist
+ ;;              (cons tramp-file-name-regexp nil))
 
 ;; eshell prompt color
 (setq eshell-prompt-function (lambda nil
@@ -719,32 +960,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
     ;; remove those pesky lock files
     (setq create-lockfiles nil)
-
-               ;;;;;;;;;;;
-    ;; Ido-mode
-               ;;;;;;;;;;;
-
-    (ido-mode t)
-    (ido-ubiquitous t)
-    (ido-vertical-mode t)
-    (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-    (setq ido-auto-merge-work-directories-length -1)
-
-
-    (setq ido-enable-prefix nil
-          ido-enable-flex-matching t
-          ido-max-prospects 30)
-
-    (setq ido-ignore-buffers
-          '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-            "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-            ;; "^\*"
-            )
-          )
-
-    (require 'flx-ido)
-    (ido-everywhere 1)
-    (flx-ido-mode 1)
 
                ;;;;;;;;;;;;;;;;;;;;;;
     ;; Mouse/Wheel options
@@ -955,9 +1170,11 @@ narrowed."
 (load-theme 'sanityinc-tomorrow-eighties t)
 (setq default-frame-alist '((cursor-color . "#f2777a")))
 
-(set-face-attribute 'org-level-1 nil :height 1.3)
-(set-face-attribute 'org-level-2 nil :height 1.2)
-(set-face-attribute 'org-level-3 nil :height 1.1 :foreground "#69C031")
+; (set-face-attribute 'org-level-1 nil :height 1.3)
+; (set-face-attribute 'org-level-2 nil :height 1.2)
+; (set-face-attribute 'org-level-3 nil :height 1.1 :foreground "#69C031")
+
+ (set-face-attribute 'org-level-3 nil  :foreground "#69C031")
 
 ;;;;;;;;;;;;;;;;;;
 ;; Font lock speed
@@ -1169,11 +1386,6 @@ narrowed."
 
 (global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
 
-(global-set-key (kbd "C-z") 'helm-mini)
-(global-set-key (kbd "M-z") 'helm-projectile)
-
-
-
 ;; Anzu
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
@@ -1187,10 +1399,6 @@ narrowed."
 (global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
 (global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
 
-;; Occur
-(global-set-key (kbd "M-o") 'helm-occur)
-(global-set-key (kbd "C-M-o") 'helm-multi-occur)
-
 ;; A la carte Menu
 (global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
 
@@ -1199,9 +1407,6 @@ narrowed."
 ;; (global-set-key (kbd "M-t") 'transpose-words)
 ;; (global-set-key (kbd "C-t") 'idomenu)
 ;; (global-set-key (kbd "M-t") 'imenu-anywhere)
-
-;; helm-etags
-;; (global-set-key (kbd "M-t") 'helm-etags-select)
 
 ;; Locked mode
 (global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
@@ -1262,15 +1467,7 @@ narrowed."
                                  (message "Windows disposition saved")))
 
 ;; Projectile
-;; (global-set-key (kbd "C-p") 'helm-projectile)
 (global-set-key (kbd "s-d") 'projectile-find-dir)
-;; (global-set-key (kbd "s-d") 'dired-jump)
-;; (global-set-key (kbd "s-f") 'projectile-find-file)
-(global-set-key (kbd "s-f") 'helm-projectile)
-;; (global-set-key (kbd "s-g") 'projectile-grep)
-;; (global-set-key (kbd "s-g") 'projectile-ag)
-(global-set-key (kbd "s-g") 'helm-ag-projectile)
-;; (global-set-key (kbd "s-g") 'projectile-ack)
 (global-set-key (kbd "s-p") 'projectile-switch-project)
 
 ;; Resize Windows
@@ -1279,27 +1476,16 @@ narrowed."
 (global-set-key (kbd "C-M-<down>") 'shrink-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
 
-;; (global-set-key (kbd "<f1>") 'helm-show-kill-ring)
-;; (global-set-key (kbd "<f1>") 'keyboard-quit)
-(global-set-key (kbd "<f2>") 'helm-all-mark-rings)
-(global-set-key (kbd "s-y") 'helm-show-kill-ring)
 (global-set-key (kbd "<f11>") 'menu-bar-mode)
 (global-set-key (kbd "<f12>") 'indent-whole-buffer)
 
-;; BOOKMARKS
-(global-set-key (kbd "s-b") 'helm-bookmarks)
 
 ;; Ace Jump Mode
 (define-key global-map (kbd "M-SPC") 'ace-jump-mode)
 (define-key global-map (kbd "C-/") 'ace-jump-mode)
 
-(define-key undo-tree-map (kbd "C-/") 'nil)
 (define-key global-map (kbd "C-,") 'undo-tree-undo)
 
-;;Helm
-;; (global-set-key (kbd "C-x b") 'helm-mini)
-;; (global-set-key (kbd "<f1>") 'helm-mini)
-;; (global-set-key (kbd "S-<f1>") 'helm-projectile)
 
 ;;Project Explorer
 ;; (global-set-key (kbd "<f1>") 'project-explorer-open)
@@ -1307,29 +1493,13 @@ narrowed."
 
 ;;Query Replace Regex
 (global-set-key (kbd "C-x C-r") 'query-replace-regexp)
-(global-set-key (kbd "s-o") 'helm-swoop)
 (global-set-key (kbd "s-O") 'my-projectile-multi-occur)
-;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
-;; (global-set-key (kbd "s-o") 'helm-occur)
-;; (global-set-key (kbd "s-O") 'helm-regexp)
-
-;; (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "C-M-x") 'helm-M-x)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c M-x") 'smex-update)
 
 ;; Macro bindings
 ;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
 
 ;; Goto
 (global-set-key [(meta g)] 'goto-line)
-
-;;Special Buffer (loaded)
-;; (global-set-key (kbd "C-b") 'ido-switch-buffer)
-;; (global-set-key (kbd "C-b") 'helm-mini)
-;; (global-set-key (kbd "M-b") 'projectile-switch-to-buffer)
-;; (global-set-key (kbd "M-b") 'helm-projectile)
 
 (global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
 
