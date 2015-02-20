@@ -1,14 +1,15 @@
 
 ;; ----- smex-history -----
 (
+ package-list-packages
+ helm-ag
+ set-frame-font-size
  elpy-config
  delete-other-frames
  company-mode
  elpy-enable
  elpy-doc
  elpy-disable
- package-list-packages
- set-frame-font-size
  magit-stash
  projectile-invalidate-cache
  magit-blame-mode
@@ -133,7 +134,6 @@
  fortune
  go-mode
  gud-gdb
- helm-ag
  ibuffer
  idomenu
  m2-mode
@@ -1020,7 +1020,7 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 1)
- (set-frame-font-size . 8)
+ (set-frame-font-size . 10)
  (projectile-invalidate-cache . 2)
  (js-mode . 1)
  (shell . 1)
@@ -1031,8 +1031,9 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 1)
+ (package-list-packages . 2)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
+ (helm-ag . 1)
 )

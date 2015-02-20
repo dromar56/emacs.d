@@ -1358,11 +1358,11 @@ narrowed."
 
 ;; (require 'elpy nil t)
 (elpy-enable)
-(elpy-use-ipython "ipython2")
+(elpy-use-ipython "ipython3")
 ;; (elpy-clean-modeline)
 
 (defun elpy-use-python3 (args)
-  (elpy-use-ipython "ipython2")
+  (elpy-use-ipython "ipython3")
   (interactive "P")
   )
 
@@ -1378,6 +1378,9 @@ narrowed."
       `no-indent'
     nil))
 (add-hook 'electric-indent-functions 'electric-indent-ignore-python)
+
+(define-key elpy-mode-map (kbd "<C-down>") 'nil)
+(define-key elpy-mode-map (kbd "<C-up>") 'nil)
 
 ;; Fix yasnippet indentation in python-mode
 (add-hook 'python-mode-hook
