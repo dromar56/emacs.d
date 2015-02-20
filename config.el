@@ -171,7 +171,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require-package 'helm)
 (require-package 'helm-swoop)
 
-(helm-mode 1)
+; (helm-mode 1)
 
 (require-package 'wgrep-helm)
 ;; (require 'wgrep-helm)
@@ -193,7 +193,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (customize-set-variable 'helm-candidate-number-limit 200)
 
 (setq helm-M-x-fuzzy-match t)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-M-x") 'helm-M-x)
 
 (global-set-key (kbd "C-z") 'helm-mini)
 
@@ -233,16 +233,17 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq helm-dash-browser-func 'browse-url)
 ;; (setq helm-dash-browser-func 'eww)
 
-(global-set-key (kbd "<f1>") 'helm-spaces)
+;(global-set-key (kbd "<f1>") 'helm-spaces)
 (key-chord-define-global "e3" 'helm-spaces)
 
-(projectile-global-mode t)
-(customize-set-variable 'projectile-globally-ignored-directories
-   (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
-(customize-set-variable 'projectile-remember-window-configs nil)
-(customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
-(customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
+(require 'helm-projectile)
+    (projectile-global-mode t)
+  (customize-set-variable 'projectile-globally-ignored-directories
+     (quote
+      (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
+  (customize-set-variable 'projectile-remember-window-configs nil)
+  (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
+  (customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
 
 (after 'projectile
   (require-package 'helm-projectile))
@@ -289,6 +290,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq org-default-notes-file org-main-file)
 (define-key global-map (kbd "C-c c") 'org-capture)
 (define-key global-map (kbd "<f1>") 'org-capture)
+(define-key global-map (kbd "<S-f1>") (lambda () (interactive)
+                                        (let ((current-prefix-arg '(4)))
+                                          (call-interactively 'org-capture))))
 
 (defun llc-get-project-org-name ()
   "Return the name of the projectile project"
@@ -779,11 +783,39 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (after 'company (diminish 'company-mode))
 
 (require 'tramp)
- (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
-(setq tramp-default-method "sshx")
+   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
+  (setq tramp-default-method "sshx")
 
- ;; (add-to-list 'backup-directory-alist
- ;;              (cons tramp-file-name-regexp nil))
+(setq password-cache-expiry 'nil)
+
+   ;; (add-to-list 'backup-directory-alist
+   ;;              (cons tramp-file-name-regexp nil))
+
+(ido-mode t)
+  (ido-ubiquitous-mode t)
+  (ido-vertical-mode t)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+  (setq ido-auto-merge-work-directories-length -1)
+
+
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-max-prospects 30)
+
+  (setq ido-ignore-buffers
+        '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+          "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
+          ;; "^\*"
+          )
+        )
+
+  (require 'flx-ido)
+  (ido-everywhere t)
+  (flx-ido-mode 1)
+
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;;  (global-set-key (kbd "C-c M-x") 'smex-update)
 
 ;; eshell prompt color
 (setq eshell-prompt-function (lambda nil
@@ -832,257 +864,270 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
-(window-numbering-mode t)
+(setq bookmark-saved-flag 1)
 
-(setq help-window-select t)
+(setq suggest-key-binding 5)
 
-    (customize-set-variable 'scroll-bar-mode (quote right))
-    (customize-set-variable 'scroll-conservatively 100000)
-    (customize-set-variable 'scroll-preserve-screen-position 1)
+    (window-numbering-mode t)
 
-    (customize-set-variable 'show-paren-delay 0)
-    (customize-set-variable 'show-paren-mode t)
-    (customize-set-variable 'smex-history-length 1000)
-    (customize-set-variable 'recentf-auto-cleanup (quote never))
-    (customize-set-variable 'recentf-max-saved-items 200000)
+    (setq help-window-select t)
 
+        (customize-set-variable 'scroll-bar-mode (quote right))
+        (customize-set-variable 'scroll-conservatively 100000)
+        (customize-set-variable 'scroll-preserve-screen-position 1)
 
-
-    (setq inhibit-startup-screen t)
-
-
-        ;;;;;;;
-    ;; MISC
-        ;;;;;;;
-
-    ;; (add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
-    ;; (require 'neotree)
-
-    ;; (require-package 'project-explorer)
-    ;; (after 'project-explorer
-    ;;   (setq pe/cache-directory (concat (concat user-emacs-directory ".cache/") "project-explorer/"))
-    ;;   (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
-    ;; (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
-
-    ;; Editing chrome areatext from emacs
-    ;; (require-package 'edit-server)
-    ;; (require 'edit-server)
+        (customize-set-variable 'show-paren-delay 0)
+        (customize-set-variable 'show-paren-mode t)
+        (customize-set-variable 'smex-history-length 1000)
+        (customize-set-variable 'recentf-auto-cleanup (quote never))
+        (customize-set-variable 'recentf-max-saved-items 200000)
 
 
-    (setq reb-re-syntax 'string) ;; fix backslash madness
-    (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
-    (global-auto-revert-mode 1)
-    (electric-indent-mode -1)
-    (transient-mark-mode 1)
-    (delete-selection-mode -1)
-
-    ;; Enable access to the clipboard
-    (setq x-select-enable-clipboard t)
-
-    (defalias 'yes-or-no-p 'y-or-n-p)
-
-    ;; Try to fix the shell unicode problem
-    (defadvice ansi-term (after advise-ansi-term-coding-system)
-      (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-    (ad-activate 'ansi-term)
-
-    (put 'narrow-to-region 'disabled nil)
-
-    (require 'recentf)
-    ;; (recentf-mode 1)
-    (setq recentf-max-menu-items 10)
-    ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
-    (require 'uniquify)
-    (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
-    (customize-set-variable 'uniquify-strip-common-suffix t)
-
-    ;; (setq uniquify-buffer-name-style 'reverse)
-
-    ;;todo
-    (require-package 'expand-region)
-    (require 'expand-region)
-
-    (require-package 'multiple-cursors)
-    (require 'multiple-cursors)
-
-    (require-package 'iy-go-to-char)
-    (require 'iy-go-to-char)
-    (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-
-    (defun my-find-file-check-make-large-file-read-only-hook ()
-      "If a file is over a given size, make the buffer read only."
-      (when (> (buffer-size) (* 1024 1024))
-        (setq buffer-read-only t)
-        (buffer-disable-undo)
-        (fundamental-mode)))
-    (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
-
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; Add prefix to Dired buffers
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
-    (defun ensure-buffer-name-ends-in-slash ()
-      "change buffer name to end with slash"
-      (let ((name (buffer-name)))
-        (if (not (string-match "^Dir/" name))
-            (rename-buffer (concat "Dir/" name) t))))
-
-               ;;;;;;;;;;;;;;;;;;;
-    ;; Eval and replace
-               ;;;;;;;;;;;;;;;;;;;
-
-    (defun eval-and-replace ()
-      "Replace the preceding sexp with its value."
-      (interactive)
-      (backward-kill-sexp)
-      (condition-case nil
-          (prin1 (eval (read (current-kill 0)))
-                 (current-buffer))
-        (error (message "Invalid expression")
-               (insert (current-kill 0)))))
-
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; Emacs Backfup Files settings (those damn annoying ~ files !)
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    (setq backup-directory-alist `(("." . "~/.saves")))
-    (setq backup-by-copying t)
-    (setq delete-old-versions t
-          kept-new-versions 6
-          kept-old-versions 2
-          version-control t)
-
-    (setq auto-save-file-name-transforms
-          `((".*" ,"~/.saves/" t)))
-
-    ;; remove those pesky lock files
-    (setq create-lockfiles nil)
-
-               ;;;;;;;;;;;;;;;;;;;;;;
-    ;; Mouse/Wheel options
-               ;;;;;;;;;;;;;;;;;;;;;;
-
-    (defun up-and-locate()
-      (interactive)
-      (scroll-down 8)
-      )
-
-    (defun down-and-locate()
-      (interactive)
-      (scroll-down -8)
-      )
-
-    (defun mouse-up-and-locate()
-      (interactive)
-      (scroll-down 3)
-      )
-
-    (defun mouse-down-and-locate()
-      (interactive)
-      (scroll-down -3)
-      )
+        (setq inhibit-startup-screen t)
 
 
-               ;;;;;;;;;;;;;;;;;;;;;;
-    ;; Indent Whole Buffer
-               ;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;
+        ;; MISC
+            ;;;;;;;
 
-    (defun indent-whole-buffer ()
-      "indent whole buffer and untabify it"
-      (interactive)
-      (delete-trailing-whitespace)
-      (indent-region (point-min) (point-max) nil))
+        ;; (add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
+        ;; (require 'neotree)
 
-    ;;todo
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; FIX FOR TERMINAL SHIFT+UP
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    (if (equal "xterm" (tty-type))
-        (define-key input-decode-map "\e[1;2A" [S-up]))
+        ;; (require-package 'project-explorer)
+        ;; (after 'project-explorer
+        ;;   (setq pe/cache-directory (concat (concat user-emacs-directory ".cache/") "project-explorer/"))
+        ;;   (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
+        ;; (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
 
-    (defadvice terminal-init-xterm (after select-shift-up activate)
-      (define-key input-decode-map "\e[1;2A" [S-up]))
-
-               ;;;;;;;;;;;;;;;;;;;;;
-    ;; Locked buffer mode
-               ;;;;;;;;;;;;;;;;;;;;;
-
-    (define-minor-mode locked-buffer-mode
-      "Make the current window always display this buffer."
-      nil " locked" nil
-      (set-window-dedicated-p (selected-window) locked-buffer-mode))
+        ;; Editing chrome areatext from emacs
+        ;; (require-package 'edit-server)
+        ;; (require 'edit-server)
 
 
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; Save undo history when revert-buffer
-               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (setq reb-re-syntax 'string) ;; fix backslash madness
+        (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
-    ;; emacs doesn't actually save undo history with revert-buffer
-    ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
-    ;; fix that.
-    (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
-      (interactive)
+        (global-auto-revert-mode 1)
+        (electric-indent-mode -1)
+        (transient-mark-mode 1)
+        (delete-selection-mode -1)
 
-      ;; tell Emacs the modtime is fine, so we can edit the buffer
-      (clear-visited-file-modtime)
+        ;; Enable access to the clipboard
+        (setq x-select-enable-clipboard t)
 
-      ;; insert the current contents of the file on disk
-      (widen)
-      (delete-region (point-min) (point-max))
-      (insert-file-contents (buffer-file-name))
+        (defalias 'yes-or-no-p 'y-or-n-p)
 
-      ;; mark the buffer as not modified
-      (not-modified)
-      (set-visited-file-modtime))
+        ;; Try to fix the shell unicode problem
+        (defadvice ansi-term (after advise-ansi-term-coding-system)
+          (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+        (ad-activate 'ansi-term)
 
-    (setq revert-buffer-function 'revert-buffer-keep-history)
-    (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+        (put 'narrow-to-region 'disabled nil)
+
+        (require 'recentf)
+        ;; (recentf-mode 1)
+        (setq recentf-max-menu-items 10)
+        ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+        (require 'uniquify)
+        (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
+        (customize-set-variable 'uniquify-strip-common-suffix t)
+
+        ;; (setq uniquify-buffer-name-style 'reverse)
+
+        ;;todo
+        (require-package 'expand-region)
+        (require 'expand-region)
+
+        (require-package 'multiple-cursors)
+        (require 'multiple-cursors)
+
+        (require-package 'iy-go-to-char)
+        (require 'iy-go-to-char)
+        (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+
+        (defun my-find-file-check-make-large-file-read-only-hook ()
+          "If a file is over a given size, make the buffer read only."
+          (when (> (buffer-size) (* 1024 1024))
+            (setq buffer-read-only t)
+            (buffer-disable-undo)
+            (fundamental-mode)))
+        (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
+
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;; Add prefix to Dired buffers
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+        (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
+        (defun ensure-buffer-name-ends-in-slash ()
+          "change buffer name to end with slash"
+          (let ((name (buffer-name)))
+            (if (not (string-match "^Dir/" name))
+                (rename-buffer (concat "Dir/" name) t))))
+
+                   ;;;;;;;;;;;;;;;;;;;
+        ;; Eval and replace
+                   ;;;;;;;;;;;;;;;;;;;
+
+        (defun eval-and-replace ()
+          "Replace the preceding sexp with its value."
+          (interactive)
+          (backward-kill-sexp)
+          (condition-case nil
+              (prin1 (eval (read (current-kill 0)))
+                     (current-buffer))
+            (error (message "Invalid expression")
+                   (insert (current-kill 0)))))
+
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;; Emacs Backfup Files settings (those damn annoying ~ files !)
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+        (setq backup-directory-alist `(("." . "~/.saves")))
+        (setq backup-by-copying t)
+        (setq delete-old-versions t
+              kept-new-versions 6
+              kept-old-versions 2
+              version-control t)
+
+        (setq auto-save-file-name-transforms
+              `((".*" ,"~/.saves/" t)))
+
+        ;; remove those pesky lock files
+        (setq create-lockfiles nil)
+
+                   ;;;;;;;;;;;;;;;;;;;;;;
+        ;; Mouse/Wheel options
+                   ;;;;;;;;;;;;;;;;;;;;;;
+
+        (defun up-and-locate()
+          (interactive)
+          (scroll-down 8)
+          )
+
+        (defun down-and-locate()
+          (interactive)
+          (scroll-down -8)
+          )
+
+        (defun mouse-up-and-locate()
+          (interactive)
+          (scroll-down 3)
+          )
+
+        (defun mouse-down-and-locate()
+          (interactive)
+          (scroll-down -3)
+          )
 
 
-               ;;;;;;;;;;;;;;;;;
-    ;; Search engines
-               ;;;;;;;;;;;;;;;;;
+                   ;;;;;;;;;;;;;;;;;;;;;;
+        ;; Indent Whole Buffer
+                   ;;;;;;;;;;;;;;;;;;;;;;
 
-    (defun prelude-search (query-url prompt)
-      "Open the search url constructed with the QUERY-URL.
-               PROMPT sets the `read-string prompt."
-      (browse-url
-       (concat query-url
-               (url-hexify-string
-                (if mark-active
-                    (buffer-substring (region-beginning) (region-end))
-                  (read-string prompt))))))
+        (defun indent-whole-buffer ()
+          "indent whole buffer and untabify it"
+          (interactive)
+          (delete-trailing-whitespace)
+          (indent-region (point-min) (point-max) nil))
 
-    (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
-      "Given some information regarding a search engine, install the interactive command to search through them"
-      `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-         ,(format "Search %s with a query or region if any." search-engine-name)
-         (interactive)
-         (prelude-search ,search-engine-url ,search-engine-prompt)))
+        ;;todo
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;; FIX FOR TERMINAL SHIFT+UP
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (if (equal "xterm" (tty-type))
+            (define-key input-decode-map "\e[1;2A" [S-up]))
 
-    (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
-    (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
-    (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
-    (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
-    (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
+        (defadvice terminal-init-xterm (after select-shift-up activate)
+          (define-key input-decode-map "\e[1;2A" [S-up]))
+
+                   ;;;;;;;;;;;;;;;;;;;;;
+        ;; Locked buffer mode
+                   ;;;;;;;;;;;;;;;;;;;;;
+
+        (define-minor-mode locked-buffer-mode
+          "Make the current window always display this buffer."
+          nil " locked" nil
+          (set-window-dedicated-p (selected-window) locked-buffer-mode))
+
+
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;; Save undo history when revert-buffer
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+        ;; emacs doesn't actually save undo history with revert-buffer
+        ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
+        ;; fix that.
+        (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
+          (interactive)
+
+          ;; tell Emacs the modtime is fine, so we can edit the buffer
+          (clear-visited-file-modtime)
+
+          ;; insert the current contents of the file on disk
+          (widen)
+          (delete-region (point-min) (point-max))
+          (insert-file-contents (buffer-file-name))
+
+          ;; mark the buffer as not modified
+          (not-modified)
+          (set-visited-file-modtime))
+
+        (setq revert-buffer-function 'revert-buffer-keep-history)
+        (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+
+
+                   ;;;;;;;;;;;;;;;;;
+        ;; Search engines
+                   ;;;;;;;;;;;;;;;;;
+
+        (defun prelude-search (query-url prompt)
+          "Open the search url constructed with the QUERY-URL.
+                   PROMPT sets the `read-string prompt."
+          (browse-url
+           (concat query-url
+                   (url-hexify-string
+                    (if mark-active
+                        (buffer-substring (region-beginning) (region-end))
+                      (read-string prompt))))))
+
+        (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+          "Given some information regarding a search engine, install the interactive command to search through them"
+          `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+             ,(format "Search %s with a query or region if any." search-engine-name)
+             (interactive)
+             (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+        (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+        (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+        (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+        (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+        (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
 (defun narrow-or-widen-dwim (p)
-  "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
-Intelligently means: region, subtree, or defun, whichever applies
-first.
+  "If the buffer is narrowed, it widens. Otherwise, it narrows
+intelligently.  Intelligently means: region, org-src-block,
+org-subtree, or defun, whichever applies first.  Narrowing to
+org-src-block actually calls `org-edit-src-code'.
 
 With prefix P, don't widen, just narrow even if buffer is already
 narrowed."
   (interactive "P")
   (declare (interactive-only))
   (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((and (boundp 'org-src-mode) org-src-mode (not p))
+         (org-edit-src-exit))
         ((region-active-p)
          (narrow-to-region (region-beginning) (region-end)))
-        ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
-        (t (narrow-to-defun))))
+        ((derived-mode-p 'org-mode)
+         (cond ((ignore-errors (org-edit-src-code))
+                (delete-other-windows))
+               ((org-at-block-p)
+                (org-narrow-to-block))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'prog-mode) (narrow-to-defun))
+        (t (error "Please select a region to narrow to"))))
 
 (setq ido-default-buffer-method 'selected-window)
 
@@ -1154,18 +1199,6 @@ narrowed."
                     :background "cyan" 
                     :foreground "black"
                     :weight 'semi-bold )
-
-(require-package 'smart-mode-line)
-    (setq sml/show-client t)
-    (setq sml/show-eol t)
-    (setq sml/show-frame-identification t)
-
-(customize-set-variable 'sml/hidden-modes (quote (" hl-p" " Helm" " skewer")))
-(customize-set-variable 'sml/show-file-name t)
-(customize-set-variable 'sml/use-projectile-p (quote before-prefixes))
-
-(setq sml/theme 'dark)
-    (sml/setup)
 
 (load-theme 'sanityinc-tomorrow-eighties t)
 (setq default-frame-alist '((cursor-color . "#f2777a")))
@@ -1362,6 +1395,9 @@ narrowed."
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
+(add-to-list 'auto-mode-alist '("\\.dust?\\'" . web-mode))
+
+
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
@@ -1468,7 +1504,7 @@ narrowed."
 
 ;; Projectile
 (global-set-key (kbd "s-d") 'projectile-find-dir)
-(global-set-key (kbd "s-p") 'projectile-switch-project)
+(global-set-key (kbd "s-p") 'helm-projectile-switch-project)
 
 ;; Resize Windows
 (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
@@ -1522,88 +1558,3 @@ narrowed."
 ;; (global-set-key (kbd "C-f") 'forward-char)
 ;; (global-set-key (kbd "C-b") 'backward-char)
 ;; (global-set-key (kbd "C-j") 'newline-and-indent)
-
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
-
-  (require 'mu4e)
-
-  ;; default
-  (setq mu4e-maildir "~/.mail")
-
-(setq mu4e-headers-skip-duplicates t)
-(setq mu4e-headers-include-related t)
-(setq mu4e-use-fancy-chars nil)
-(setq mu4e-view-show-images t)
-(setq mu4e-attachment-dir "~/Downloads")
-
-(setq mu4e-view-prefer-html t)
-
-  ;; (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  ;; (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  ;; (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
-
-  ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-  ;; additional non-Gmail addresses and want assign them different
-  ;; behavior.)
-
-  ;; setup some handy shortcuts
-  ;; you can quickly switch to your Inbox -- press ``ji''
-  ;; then, when you want archive some messages, move them to
-  ;; the 'All Mail' folder by pressing ``ma''.
-
-  ;; (setq mu4e-maildir-shortcuts
-  ;;     '( ("/INBOX"               . ?i)
-  ;;        ("/[Gmail].Sent Mail"   . ?s)
-  ;;        ("/[Gmail].Trash"       . ?t)
-  ;;        ("/[Gmail].All Mail"    . ?a)))
-
-  ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "mbsync -a")
-
-  ;; something about ourselves
-  (setq
-   user-mail-address "dromar566@gmail.com"
-   user-full-name  "David Barrutia"
-   mu4e-compose-signature
-   (concat
-    "David Barrutia"
-    ""))
-
-  ;; sending mail -- replace USERNAME with your gmail username
-  ;; also, make sure the gnutls command line utils are installed
-  ;; package 'gnutls-bin' in Debian/Ubuntu
-
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-     starttls-use-gnutls t
-     smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-     smtpmail-auth-credentials
-     '(("smtp.gmail.com" 587 "dromar56@gmail.com" nil))
-     smtpmail-default-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-service 587)
-
-  ;; alternatively, for emacs-24 you can use:
-  ;;(setq message-send-mail-function 'smtpmail-send-it
-  ;;     smtpmail-stream-type 'starttls
-  ;;     smtpmail-default-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-service 587)
-
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
-
-(defun mu4e-open-mail-in-browser (args)
-  (interactive "P")
-  (let ((mail-content (buffer-string)))
-      (save-excursion
-        (with-temp-file "/tmp/mu4e-tmp-file.html" 
-          (progn 
-            (insert mail-content)
-            (eww-open-file "/tmp/mu4e-tmp-file.html"))))))
-
-(global-set-key (kbd "C-x m") 'mu4e)
