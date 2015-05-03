@@ -1,5 +1,5 @@
 #+TLE: David's Emacs Configuration
-#+STARTUP: hideblocks
+#+STARTUP: showblocks
 #+PROPERTY: header-args :tangle yes
 
 * Initialisation
@@ -293,7 +293,6 @@
                                                           helm-source-projectile-files-list
                                                           helm-source-projectile-recentf-list))
 
-
     (global-set-key (kbd "M-z") 'helm-projectile)
     (global-set-key (kbd "s-f") 'helm-projectile)
     (global-set-key (kbd "s-g") 'helm-ag-projectile)
@@ -326,6 +325,24 @@
 
       (setq org-main-file "~/org/notes.org")
       (setq org-directory "~/org")
+
+
+      (defun org-insert-elisp-block (name beg end)
+        (interactive "sName:\nr")
+        (org-insert-heading-after-current)
+        (save-excursion
+          (insert name "\n")
+          (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+          (if (region-active-p)
+              (progn
+                (kill-region beg end)
+                (yank)))
+          (insert "#+end_src")))
+
+      (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+
+
+
 
     #+end_src
 *** Org agenda
@@ -1073,6 +1090,8 @@
 ** Misc
   #+begin_src emacs-lisp
 
+(setq save-interprogram-paste-before-kill t)
+
 (setq bookmark-saved-flag 1)
 
 (setq suggest-key-binding 5)
@@ -1707,6 +1726,8 @@
 
 (define-key elpy-mode-map (kbd "<C-down>") 'nil)
 (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+(define-key elpy-mode-map (kbd "<M-up>") 'nil)
+(define-key elpy-mode-map (kbd "<M-down>") 'nil)
 
 ;; Fix yasnippet indentation in python-mode
 (add-hook 'python-mode-hook
@@ -1909,8 +1930,6 @@
     ;; (global-set-key (kbd "C-j") 'newline-and-indent)
 
 #+end_src
-
-
 * COMMENT Mu4e
   Mail setup
 #+begin_src emacs-lisp :tangle yes

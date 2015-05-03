@@ -281,6 +281,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq org-main-file "~/org/notes.org")
 (setq org-directory "~/org")
 
+
+(defun org-insert-elisp-block (name beg end)
+  (interactive "sName:\nr")
+  (org-insert-heading-after-current)
+  (save-excursion
+    (insert name "\n")
+    (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+    (if (region-active-p)
+        (progn
+          (kill-region beg end)
+          (yank)))
+    (insert "#+end_src")))
+
+(define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+
 (setq org-agenda-files '("~/org"))
 (load-library "find-lisp")
 (setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
@@ -864,6 +879,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
+(setq save-interprogram-paste-before-kill t)
+
 (setq bookmark-saved-flag 1)
 
 (setq suggest-key-binding 5)
@@ -1381,6 +1398,8 @@ narrowed."
 
 (define-key elpy-mode-map (kbd "<C-down>") 'nil)
 (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+(define-key elpy-mode-map (kbd "<M-up>") 'nil)
+(define-key elpy-mode-map (kbd "<M-down>") 'nil)
 
 ;; Fix yasnippet indentation in python-mode
 (add-hook 'python-mode-hook

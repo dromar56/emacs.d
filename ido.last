@@ -2,17 +2,13 @@
 
 ;; ----- ido-last-directory-list -----
 (
- ("/home/dromar/tmp/indepbox_monitor/" . "logs/")
- ("/home/dromar/tmp/" . "indepbox_monitor/")
- ("/home/dromar/projects/smart-meter-webapp/public/" . "js/")
- ("/home/dromar/projects/smart-meter-webapp/" . "public/")
  ("/tmp/" . "asd/")
  ("/home/dromar/projects/PastaGag/" . "controllers/")
  ("/home/dromar/projects/PastaGag/controllers/" . "users/")
  ("/home/dromar/projects/PastaGag/public/" . "css/")
  ("/home/dromar/projects/PastaGag/public/templates/" . "layouts/")
  ("/home/dromar/projects/smart-meter-webapp/views/" . "box/")
- ("/home/dromar/projects/smart-meter-webapp/public/js/" . "modules/")
+ ("/home/dromar/projects/smart-meter-webapp/public/js/" . "vendor/")
  ("/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/administrator/components/" . "com_bzccv/")
  ("/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/administrator/" . "components/")
  ("/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/" . "administrator/")
@@ -25,22 +21,20 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/home/dromar/.emacs.d/"
- "/home/dromar/tmp/indepbox_monitor/"
- "/home/dromar/tmp/indepbox_monitor/logs/"
- "/home/dromar/projects/smart-meter-webapp/public/js/modules/"
- "/home/dromar/projects/smart-meter-webapp/views/templates/"
+ #("/home/dromar/tmp/" 13 17 (face flx-highlight-face))
+ "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:"
  "/tmp/asd/"
  "/tmp/"
+ "/home/dromar/.emacs.d/"
  "/home/dromar/projects/PastaGag/controllers/users/"
  "/home/dromar/projects/PastaGag/controllers/"
  "/home/dromar/projects/PastaGag/public/css/"
  "/home/dromar/projects/PastaGag/public/js/"
  "/home/dromar/projects/PastaGag/public/templates/layouts/"
  "/home/dromar/projects/PastaGag/public/templates/"
+ "/home/dromar/projects/smart-meter-webapp/public/js/modules/"
  "/home/dromar/projects/smart-meter-webapp/views/box/"
  "/home/dromar/"
- "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:"
  "/home/dromar/Downloads/"
  "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/"
  "/lstock/backup/etc/"
@@ -49,48 +43,39 @@
 
 ;; ----- ido-work-file-list -----
 (
- "config.org"
- "plot.py"
- "bj-iotop_log"
- "strace-indepbox"
- "settings.js"
+ "timeclickers_save_40.txt"
  "asd"
  "wget.py"
  "test.py"
+ "config.org"
  "config.el"
+ "start-eibnetmux.sh"
+ "index.js"
+ "app.scss"
+ "services.js"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/dromar/.emacs.d/" (21729 49901 863313 172000) "custom.el" "smex-items" "tangle_config.el" "elisp/" "ido.last~" "session.1013c143d3dc000138501931800000005160119" ".emacs_workgroups" "init.el" "session.1013c143d3dc000142261552200000295730169" "vendor/" "bookmarks" ".git/" "places" "../" "snippets/" "session.1013c143d3dc000140674561100000006140021" ".smex-items" "README.md" "projectile.cache" "session.1013c143d3dc000140673059500000006210027" "ede-projects.el" "auto-save-list/" "tramp" "session.105744ef1cc49cf4b1142213759372949900000225510034" ".mc-lists.el" "url/" "smex-items-backup" "session.1013c143d3dc000141312652400000006647560" "ac-comphist.dat" "recentf" "ido.last" "config/" ".cache/" ".org-id-locations" "elpa/" "eshell/" ".gitignore" "LICENSE.md" "./" "session.1013c143d3dc000141314661100000005670030" "config.el" "TAGS" "session.1013c143d3dc000138501759100000005160117" "config.org" "projectile-bookmarks.eld" "session.1013c143d3dc000140481139300000005390033")
+ (#("/home/dromar/tmp/" 13 17 (face flx-highlight-face)) (21789 49829 156723 541000) "start-eibnetmux.sh" "sm-boxes" "start-eibnetmux.sh_orig" "epitech/" "../" "names_from_sepa.txt" "wordbreak.js" "crazyhorse_export_annuel_2014.csv" "test.sh" "PastaGag/" "crazy/" "names_from_csv.txt" "indepbox_monitor/" "./")
 
- ("/home/dromar/" (21732 40937 713298 372000) ".java/" ".ipython/" ".zshrc" ".emacs.d/" ".config/" "Pictures/" ".gtkrc-2.0" ".gnome2/" "Documents/" ".nevernote/" ".cinnamon/" ".mycolors" ".tmuxinator/" ".lesshst" "tmp/" "portraits/" ".frippery_rows" "dotfiles/" ".npm/" ".thumbnails/" ".mozilla/" ".e/" "builds/" ".steampid" ".PlayOnLinux/" ".tern-config" ".bash_logout" ".gem/" ".bash_history" "../" "pacman.log" "Templates/" ".scripts/" "access.txt" ".steampath" ".zshrc.pre-oh-my-zsh" ".gitignore_global" ".gtkrc-2.0-gnome-color-chooser" ".esd_auth" ".saves/" ".fonts.conf" ".bashrc" ".authinfo.gpg" ".themes/" ".zcompdump-archlaptop-5.0.7" ".pulse-cookie" ".zsh-update" ".kde4_save/" ".recently-used" ".gnome/" ".Skype/" "LoL-Linux-Tools/" ".adobe/" ".gnupg/" ".subversion/" ".kde4/" "projects/" ".gnome2_private/" "Public/" ".local/" ".ssh/" "downloads/" ".icons/" ".httpie/" "QNetSoul" ".bash_profile" ".netrc" "Videos/" ".cache/" "Downloads/" ".ICEauthority" ".mplayer/" "./" ".steam/" "org/" ".gitconfig" "WebStorm-139.1112/" "Music/" "PlayOnLinux's virtual drives/" ".zsh_history" ".bro" ".elementary/" ".macromedia/" "fontconfig/" "Desktop/" ".percol.d/" ".WebStorm9/" ".tmux.conf" ".oh-my-zsh/" ".histfile" ".dbus/" ".pki/" ".gnome-color-chooser/")
+ ("/home/dromar/" (21813 31112 230008 740000) ".java/" ".ipython/" ".zshrc" ".emacs.d/" ".klei/" ".config/" "Pictures/" ".gtkrc-2.0" ".gnome2/" "Documents/" ".nevernote/" ".cinnamon/" ".mycolors" ".tmuxinator/" ".lesshst" "tmp/" "portraits/" ".frippery_rows" "dotfiles/" ".npm/" ".thumbnails/" ".mozilla/" ".e/" "builds/" ".steampid" ".PlayOnLinux/" ".tern-config" ".bash_logout" ".gem/" ".bash_history" "../" "pacman.log" "Templates/" ".scripts/" "access.txt" "figure_1.png" ".steampath" ".zshrc.pre-oh-my-zsh" ".gitignore_global" ".gtkrc-2.0-gnome-color-chooser" ".esd_auth" ".saves/" ".fonts.conf" ".bashrc" ".authinfo.gpg" ".themes/" ".zcompdump-archlaptop-5.0.7" ".pulse-cookie" ".zsh-update" ".kde4_save/" ".recently-used" ".gnome/" ".node-gyp/" ".Skype/" "LoL-Linux-Tools/" ".adobe/" ".gnupg/" ".subversion/" ".kde4/" "projects/" ".gnome2_private/" "Public/" ".local/" ".wine/" ".ssh/" "downloads/" ".icons/" ".httpie/" "QNetSoul" ".bash_profile" ".netrc" "Videos/" ".cache/" "Downloads/" ".ICEauthority" ".mplayer/" "./" ".steam/" "org/" ".gitconfig" "WebStorm-139.1112/" ".fltk/" "Music/" "PlayOnLinux's virtual drives/" ".zsh_history" ".bro" ".elementary/" ".macromedia/" "fontconfig/" "Desktop/" ".percol.d/" ".WebStorm9/" ".tmux.conf" ".oh-my-zsh/" ".histfile" ".dbus/" ".pki/" ".gnome-color-chooser/")
 
- ("/home/dromar/tmp/indepbox_monitor/" (21732 41597 526630 568000) "monitor.sh" "../" "logs/" "./" "monitor_cron" "plot.py")
+ ("/home/dromar/projects/crazyhorse/" (21805 29227 551287 974000) "com_bzccv/" "../" "administrator/" "old/" "components/" "./")
 
- ("/home/dromar/tmp/indepbox_monitor/logs/" (21732 29542 323318 16000) "dev-monitor_log.csv" "strace-indepbox" "bj-iotop_log" "dev-iotop_log" "../" "./" "bj-monitor_log.csv")
-
- ("/home/dromar/tmp/" (21724 57686 506715 304000) "sm-boxes" "epitech/" "../" "names_from_sepa.txt" "crazyhorse_export_annuel_2014.csv" "test.sh" "PastaGag/" "crazy/" "names_from_csv.txt" "indepbox_monitor/" "./")
-
- ("/tmp/" (21732 33428 699977 983000) ".X11-unix/" ".ICE-unix/" ".font-unix/" ".Test-unix/" ".XIM-unix/" ".X0-lock" "systemd-private-bde0b9b3ad1c48f78473f5de017b2176-colord.service-BLFJce/" ".esd-120/" "ssh-uXaU4hhAFo9A/" "kde-dromar/" "xauth-1000-_0" "akonadi-dromar.uEsJPe/" ".esd-1000/" "tracker-extract-files.1000/" "tmux-1000/" ".com.google.Chrome.cAdCnK/" ".wine-1000/" "emacs1000/" ".org.chromium.Chromium.vkpOcZ/" "pacaurtmp-dromar/" "konsole-Y22233.history" "konsole-o22233.history" "konsole-X22233.history" "pip_build_dromar/" "pip_build_root/" "python/" "tmpxzi4nob_/" "asd/" "sdf/" "py2570WqQ" "py2570WxE" "py2570-XS" "py2570LiY" "py2570Mcr" "wget.py" "iotop_log" "konsole-Z22233.history" "konsole-P22233.history" "konsole-U22233.history" "sm-boxes" "a0e87885-cbc8-4100-aec6-3b8ebed30128/" "babel-13911Rsy/" "root@njs-03.bzctoons.net-26243" "npm-8850-9bb6bcf8/" "root@njs-03.bzctoons.net-20268" ".org.chromium.Chromium.VC5UAK/" ".org.chromium.Chromium.ISA3Bf/" "Popcorn-Time/" "../" "./")
-
- ("/home/dromar/projects/smart-meter-webapp/public/js/modules/" (21731 34738 846624 126000) "logic.js" "page.js" "dpt_list.js" "../" "knxCtrl.js" "mediaCtrl.js" "widget.js" ".tern-port" "services.js" "user.js" "directives/" "services/" "control.js" "./" "controllers.js" "webview.js" "settings.js")
-
- ("/home/dromar/projects/smart-meter-webapp/public/js/" (21723 25184 410378 861000) "app.js" "vendor/" "modules/" "../" "plugins/" "angularApp.js" "raphael-min.js" "./" "justgage.js")
-
- ("/home/dromar/projects/smart-meter-webapp/public/" (21702 12212 613305 434000) "js/" "../" "user_images/" "img/" "dist/" "./" "css/" "packery-example.html" "fonts/")
-
- ("/home/dromar/projects/smart-meter-webapp/" (21731 10277 693332 959000) ".sass-cache/" "sql/" "sm-boxes.json" "app.js" "package.json" "modules/" "config.json" ".git/" "routes/" "../" "public/" "bower_components/" "index.js" "README.md" "models/" "smart-meter-webapp.iml" "bower.json" "gulpfile.js" ".idea/" ".gitignore" "./" "node_modules/" "proj.org" "TAGS" "views/")
-
- ("/home/dromar/projects/smart-meter-webapp/views/templates/" (21731 11450 233330 938000) "page.jade" "media.jade" "modals/" "../" "current_cost.jade" "add-rule.jade" "control.jade" "mails/" "knx_config.jade" "box/" "box_settings.jade" "nest.jade" "add-smart-box.jade" "logic.jade" "./" "web_view.jade" "add-box.jade")
+ ("/home/dromar/.emacs.d/" (21734 35060 513308 153000) "custom.el" "smex-items" "tangle_config.el" "elisp/" "ido.last~" "session.1013c143d3dc000138501931800000005160119" ".emacs_workgroups" "init.el" "session.1013c143d3dc000142261552200000295730169" "vendor/" "bookmarks" ".git/" "places" "../" "snippets/" "session.1013c143d3dc000140674561100000006140021" ".smex-items" "README.md" "projectile.cache" "session.1013c143d3dc000140673059500000006210027" "ede-projects.el" "auto-save-list/" "tramp" "session.105744ef1cc49cf4b1142213759372949900000225510034" ".mc-lists.el" "url/" "smex-items-backup" "session.1013c143d3dc000141312652400000006647560" "ac-comphist.dat" "recentf" "ido.last" "config/" ".cache/" ".org-id-locations" "elpa/" "eshell/" ".gitignore" "LICENSE.md" "./" "session.1013c143d3dc000141314661100000005670030" "config.el" "TAGS" "session.1013c143d3dc000138501759100000005160117" "config.org" "projectile-bookmarks.eld" "session.1013c143d3dc000140481139300000005390033")
 
  ("/tmp/asd/" (21730 25399 306575 772000) "test.py" "asd" "../" "./")
+
+ ("/tmp/" (21730 25398 533242 440000) ".X11-unix/" ".ICE-unix/" ".font-unix/" ".Test-unix/" ".XIM-unix/" ".X0-lock" "systemd-private-bde0b9b3ad1c48f78473f5de017b2176-colord.service-BLFJce/" ".esd-120/" "ssh-uXaU4hhAFo9A/" "kde-dromar/" "xauth-1000-_0" "akonadi-dromar.uEsJPe/" ".esd-1000/" "tracker-extract-files.1000/" "tmux-1000/" ".com.google.Chrome.cAdCnK/" ".wine-1000/" "babel-25709s1/" "emacs1000/" ".org.chromium.Chromium.vkpOcZ/" "pacaurtmp-dromar/" "konsole-Y22233.history" "konsole-o22233.history" "konsole-X22233.history" "pip_build_dromar/" "pip_build_root/" "python/" "tmpxzi4nob_/" "asd/" "babel-32322tLc/" "sdf/" ".org.chromium.Chromium.KGo31p/" ".org.chromium.Chromium.OOzmWZ/" "Popcorn-Time/" "py2570WqQ" "py2570WxE" "py2570-XS" "py2570LiY" "py2570Mcr" "wget.py" "root@njs-03.bzctoons.net-28120" "root@njs-03.comwatt.com-28120" "../" "./")
 
  ("/home/dromar/projects/indepbox/indepbox/drivers/" (21730 25398 553242 439000) "zway/" "knx_x86/" "ipx.js" "knx.js" "../" "eco.js" "zway.js" "zstick.js" "migrations.js" "./" "knx_old.js" "ip/" "parse_xml.py")
 
  ("/tmp/python/" (21729 39204 399998 280000) "subliminal-0.7.4-py3.4.egg-info/" "subliminal/" "beautifulsoup4-4.3.2-py3.4.egg-info/" "bs4/" "guessit-0.6.2-py3.4.egg-info/" "guessit/" "requests/" "requests-2.5.1.dist-info/" "enzyme-0.4.1-py3.4.egg-info/" "enzyme/" "html5lib-0.999-py3.4.egg-info/" "html5lib/" "dogpile.cache-0.5.6-py3.4-nspkg.pth" "dogpile.cache-0.5.6-py3.4.egg-info/" "babelfish-0.4.0-py3.4.egg-info/" "babelfish/" "charade-1.0.3-py3.4.egg-info/" "charade/" "pysrt-1.0.1-py3.4.egg-info/" "pysrt/" "six-1.9.0.dist-info/" "__pycache__/" "six.py" "dogpile.core-0.4.1-py3.4-nspkg.pth" "dogpile.core-0.4.1-py3.4.egg-info/" "dogpile/" "chardet-2.3.0-py3.4.egg-info/" "chardet/" "../" "./")
 
  ("/home/dromar/projects/PastaGag/" (21725 7869 480017 301000) "test/" ".editorconfig" ".jshintignore" "package.json" "npm-debug.log.22603d3484e14a2848b784d8ab24b28a" "Gruntfile.js" "tasks/" "npm-debug.log" ".git/" "../" "server.js" "fixtures/" "locales/" "public/" "index.js" "README.md" "third-party/" ".npmignore" "models/" "lib/" "bower.json" ".jshintrc" ".build/" "config/" "LICENSE" "controllers/" ".gitignore" "./" "node_modules/" ".bowerrc" ".nodemonignore")
+
+ ("/home/dromar/projects/smart-meter-webapp/public/js/modules/" (21724 57716 300048 973000) "logic.js" "page.js" "dpt_list.js" "../" "knxCtrl.js" "mediaCtrl.js" "widget.js" "services.js" "user.js" "directives/" "services/" "control.js" "./" "controllers.js" "settings.js")
 
  ("/home/dromar/projects/PastaGag/controllers/users/" (21702 12228 223305 407000) "../" "index.js" "./")
 
@@ -110,11 +95,15 @@
 
  ("/home/dromar/projects/PastaGag/controllers/posts/" (21724 61513 543425 64000) "votes.js" "../" "index.js" "comments.js" "./" "votes_comments.js")
 
+ ("/home/dromar/projects/smart-meter-webapp/views/templates/" (21720 37390 399995 20000) "page.jade" "media.jade" "modals/" "../" "current_cost.jade" "add-rule.jade" "control.jade" "mails/" "knx_config.jade" "box/" "box_settings.jade" "nest.jade" "add-smart-box.jade" "logic.jade" "./" "add-box.jade")
+
  ("/home/dromar/projects/smart-meter-webapp/views/box/" (21702 12213 333305 432000) "index.jade" "../" "sidebar.jade" "./")
 
  ("/home/dromar/projects/smart-meter-webapp/views/" (21702 12213 339972 99000) "header.jade" "nav-bar.jade" "500.html" "register.jade" "error.jade" "user/" "index.jade" "logout.jade" "activate.jade" "../" "container.jade" "templates/" "layout.jade" "404.jade" "test.jade" "box/" "user.jade" "login.jade" "layout-alte.jade" "./" "404.html" "empty.html" "users/" "mixins.jade" "webapp.jade")
 
  ("/home/dromar/projects/smart-meter-webapp/public/js/vendor/" (21702 12212 603305 434000) "angular-file-upload-shim.min.js" "gauge.min.js" "angular-route.js" "packery.pkgd.min.js" "../" "slick-carousel/" "angular-slider-0.2.3/" "angular.min.js" "angular.js" "noty/" "raphael-min.js" "jquery.ui.touch-punch.js" "angular-slick/" "draggabilly.js" "bootstrap-colorpicker-module.js" "ui-bootstrap-tpls-0.11.0.min.js" "angular-file-upload.min.js" "angular-animate.js" "angular-ui.js" "./" "angular-ui-utils/" "angular-ui/" "dygraph-combined.js")
+
+ ("/home/dromar/projects/smart-meter-webapp/public/js/" (21702 12212 603305 434000) "app.js" "vendor/" "modules/" "../" "plugins/" "angularApp.js" "raphael-min.js" "./" "justgage.js")
 
  ("/home/dromar/Downloads/" (21706 60564 566649 319000) "CrazyHorse répartitions-3Trim2014.xls" "cower.tar.gz" "sepa2.xml" "export_comissions_01-2014.txt" "export_sepa_20150130032722.xml" "crazyhorse_export_2014.csv" "export_sepa_20141030125847.xml" "crazyhorse_export_annuel_2014 (1).csv" "../" "export_annual_2014_final.csv" "filtered_names.txt" "export_sepa_20140429184647.xml" "export_sepa_20140417112747.xml" "crazyhorse_export_annuel_2014.csv" "EXPORT ANNUEL 2014.xls" ".~lock.EXPORT ANNUEL 2014.xls#" "crazyhorse_export_annuel_2014 (3).csv" "export_sepa_20150130033149.xml" "pacaur.tar.gz" "export_sepa_20140718190137.xml" "crazyhorse_export_annuel_2014 (2).csv" "./" "workspace-grid-for-3.12-and-3.14.zip" "The Dictator (2012) [1080p]/" "export_comissions_01-2014 (1).txt")
 
