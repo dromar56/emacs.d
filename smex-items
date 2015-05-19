@@ -1,24 +1,25 @@
 
 ;; ----- smex-history -----
 (
+ helm-M-x
+ describe-key
+ package-list-packages
+ set-frame-font-size
  toggle-debug-on-error
  helm-org-agenda-files-headings
  org-insert-elisp-block
  eldoc-mode
  org-insert-heading-after-current
  org-insert-heading
- package-list-packages
  elpy-config
  delete-other-frames
  company-mode
  elpy-enable
  elpy-doc
  elpy-disable
- set-frame-font-size
  magit-stash
  projectile-invalidate-cache
  magit-blame-mode
- helm-M-x
  iy-go-to-char
  shell
  js-mode
@@ -236,7 +237,6 @@
  vc-merge
  vip-mode
  web-mode
- wg-reset
  where-is
  xml-mode
  yank-pop
@@ -298,9 +298,7 @@
  guru-mode
  haml-mode
  handwrite
- helm-bbdb
  helm-dash
- helm-emms
  helm-find
  helm-help
  helm-mini
@@ -597,7 +595,6 @@
  follow-mode
  fringe-mode
  helm-colors
- helm-gentoo
  helm-locate
  helm-regexp
  helm-resume
@@ -695,8 +692,6 @@
  what-domain
  windmove-up
  winner-mode
- winner-redo
- winner-undo
  zap-to-char
  Info-history
  Info-summary
@@ -726,7 +721,6 @@
  cvs-checkout
  cvs-quickdir
  delete-frame
- describe-key
  desktop-read
  desktop-save
  dired-unmark
@@ -818,7 +812,6 @@
  morse-region
  move-line-up
  not-modified
- octet-buffer
  opascal-mode
  org-add-note
  org-clock-in
@@ -1001,6 +994,13 @@
  helm-esh-help
  helm-info-bfd
  helm-info-cvs
+ js-gc
+ js-eval
+ 2C-command
+ jade-indent
+ vc-git-grep
+ company-diag
+ evil-ex-sort
 )
 
 ;; ----- smex-data -----
@@ -1020,18 +1020,18 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 1)
- (set-frame-font-size . 8)
+ (set-frame-font-size . 11)
  (projectile-invalidate-cache . 2)
  (js-mode . 1)
  (shell . 1)
  (magit-stash . 4)
  (iy-go-to-char . 1)
- (helm-M-x . 1)
+ (helm-M-x . 2)
  (magit-blame-mode . 6)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 2)
+ (package-list-packages . 3)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1041,4 +1041,5 @@
  (eldoc-mode . 2)
  (toggle-debug-on-error . 8)
  (helm-org-agenda-files-headings . 1)
+ (describe-key . 1)
 )

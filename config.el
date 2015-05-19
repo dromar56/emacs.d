@@ -252,7 +252,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                                                           helm-source-projectile-files-list
                                                           helm-source-projectile-recentf-list))
 
-
     (global-set-key (kbd "M-z") 'helm-projectile)
     (global-set-key (kbd "s-f") 'helm-projectile)
     (global-set-key (kbd "s-g") 'helm-ag-projectile)
@@ -657,90 +656,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (require-package 'evil)
 (require 'evil)
-
-(require-package 'workgroups2)
-(require 'workgroups2)
-
-;; if you start Emacs as "emacs --daemon" - turn off autoloading of workgroups:
-;; (setq wg-use-default-session-file nil)
-
-
-;; Change workgroups session file
-(setq wg-default-session-file "~/.emacs.d/.emacs_workgroups")
-
-;; winner-mode to undo/redo windows changes
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
-
-;;Winner-mode per workgroup hack
-(defvar wg-winner-vars nil)
-(defvar wg-winner-hash nil)
-
-(setq wg-winner-vars '(winner-ring-alist
-               winner-currents
-               winner-point-alist
-               winner-undone-data
-               winner-undo-counter
-               winner-pending-undo-ring))
-
-(setq wg-winner-hash (make-hash-table :test 'equal))
-
-(defun wg-winner-put (winner-name)
-  (let ((wg (ignore-errors (wg-workgroup-name (wg-current-workgroup)))))
-    (if wg
-    (puthash (list wg winner-name) (eval winner-name) wg-winner-hash))))
-
-(defun wg-winner-get (winner-name)
-  (let ((wg (ignore-errors (wg-workgroup-name (wg-current-workgroup)))))
-    (if wg
-    (eval `(setq ,winner-name (gethash '(,wg ,winner-name) wg-winner-hash))))))
-
-(defun wg-winner-save ()
-  (if winner-mode
-      (progn
-    (winner-mode -1)
-    (defun wg-winner-mode-restore ()
-      (winner-mode 1)))
-    (defun wg-winner-mode-restore ()))
-  (mapcar 'wg-winner-put wg-winner-vars))
-
-(defun wg-winner-load ()
-  (mapcar 'wg-winner-get wg-winner-vars)
-  (wg-winner-mode-restore))
-
-(defadvice wg-switch-to-workgroup (before wg-winner-before activate)
-  (wg-winner-save))
-
-(defadvice wg-switch-to-workgroup (after wg-winner-after activate)
-  (wg-winner-load))
-
-
-;     (discover-add-context-menu
-;      :context-menu '(workgroups2
-;                      (description "workgroups2")
-;                      (actions
-;                       ("Windows configuration"
-;                        ("w" "Save window configuration" wg-save-wconfig)
-;                        ("j" "Jump to window configuration" wg-restore-saved-wconfig)
-;                        ("k" "Kill window configuration" wg-kill-saved-wconfig)
-;                        ("]" "Redo wconfig change" wg-redo-wconfig-change)
-;                        ("[" "Undo wconfig change" wg-undo-wconfig-change)
-;                        )
-;                       ("Workgroups"
-;                        ("M-e" "Switch to workgroup" wg-switch-to-workgroup)
-;                        ("e" "Switch to workgroup" wg-switch-to-workgroup)
-;                        ("/" "Switch to last workgroup" wg-switch-to-previous-workgroup)
-;                        ("r" "Rename" wg-rename-workgroup)
-;                        ("c" "Create" wg-create-workgroup)
-;                        ("C" "Clone" wg-clone-workgroup)
-;                        ("C-k" "Kill Workgroup" wg-kill-workgroup)
-;                        ("s" "Save session" wg-save-session)
-;                        ("C-l" "Load session" wg-reload-session)
-;                        )
-;                       ))
-;      :bind "<f1>")
-
-; (workgroups-mode 1)   ; put this one at the bottom of .emacs
 
 (defun my-update-cursor ()
   (setq cursor-type (if (or god-local-mode buffer-read-only)

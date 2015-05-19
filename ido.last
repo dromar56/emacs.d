@@ -2,6 +2,11 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" . "recipe2/")
+ ("/home/dromar/tmp/recipes-with-angular-js-examples/" . "chapter5/")
+ ("/home/dromar/tmp/" . "recipes-with-angular-js-examples/")
+ ("/home/dromar/projects/smart-meter-box/eibnetmuxclientsamples/" . "eibcommand/")
+ ("/home/dromar/projects/smart-meter-box/" . "eibnetmuxclientsamples/")
  ("/tmp/" . "asd/")
  ("/home/dromar/projects/PastaGag/" . "controllers/")
  ("/home/dromar/projects/PastaGag/controllers/" . "users/")
@@ -16,12 +21,16 @@
  ("/lstock/" . "backup/")
  ("/" . "tmp/")
  ("/sudo:root@localhost:/" . "etc/")
- ("/home/dromar/" . ".emacs.d/")
+ ("/home/dromar/" . "tmp/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
- #("/home/dromar/tmp/" 13 17 (face flx-highlight-face))
+ "/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/recipe2/"
+ "/home/dromar/.scripts/"
+ "/home/dromar/projects/smart-meter-box/eibnetmuxclientsamples/eibcommand/"
+ "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/"
+ "/home/dromar/tmp/"
  "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:"
  "/tmp/asd/"
  "/tmp/"
@@ -36,30 +45,47 @@
  "/home/dromar/projects/smart-meter-webapp/views/box/"
  "/home/dromar/"
  "/home/dromar/Downloads/"
- "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/"
  "/lstock/backup/etc/"
  "/sudo:root@localhost:/etc/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "app.js"
+ "rssh-sm"
+ "eibcommand.c"
+ "rss"
+ "controller.php"
+ "bzccv.php"
  "timeclickers_save_40.txt"
  "asd"
  "wget.py"
  "test.py"
- "config.org"
- "config.el"
- "start-eibnetmux.sh"
- "index.js"
- "app.scss"
- "services.js"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- (#("/home/dromar/tmp/" 13 17 (face flx-highlight-face)) (21789 49829 156723 541000) "start-eibnetmux.sh" "sm-boxes" "start-eibnetmux.sh_orig" "epitech/" "../" "names_from_sepa.txt" "wordbreak.js" "crazyhorse_export_annuel_2014.csv" "test.sh" "PastaGag/" "crazy/" "names_from_csv.txt" "indepbox_monitor/" "./")
+ ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/recipe2/" (21832 51435 843337 222000) "app.js" "package.json" "../" ".tern-port" "public/" "README.md" "./" "node_modules/" "views/")
 
- ("/home/dromar/" (21813 31112 230008 740000) ".java/" ".ipython/" ".zshrc" ".emacs.d/" ".klei/" ".config/" "Pictures/" ".gtkrc-2.0" ".gnome2/" "Documents/" ".nevernote/" ".cinnamon/" ".mycolors" ".tmuxinator/" ".lesshst" "tmp/" "portraits/" ".frippery_rows" "dotfiles/" ".npm/" ".thumbnails/" ".mozilla/" ".e/" "builds/" ".steampid" ".PlayOnLinux/" ".tern-config" ".bash_logout" ".gem/" ".bash_history" "../" "pacman.log" "Templates/" ".scripts/" "access.txt" "figure_1.png" ".steampath" ".zshrc.pre-oh-my-zsh" ".gitignore_global" ".gtkrc-2.0-gnome-color-chooser" ".esd_auth" ".saves/" ".fonts.conf" ".bashrc" ".authinfo.gpg" ".themes/" ".zcompdump-archlaptop-5.0.7" ".pulse-cookie" ".zsh-update" ".kde4_save/" ".recently-used" ".gnome/" ".node-gyp/" ".Skype/" "LoL-Linux-Tools/" ".adobe/" ".gnupg/" ".subversion/" ".kde4/" "projects/" ".gnome2_private/" "Public/" ".local/" ".wine/" ".ssh/" "downloads/" ".icons/" ".httpie/" "QNetSoul" ".bash_profile" ".netrc" "Videos/" ".cache/" "Downloads/" ".ICEauthority" ".mplayer/" "./" ".steam/" "org/" ".gitconfig" "WebStorm-139.1112/" ".fltk/" "Music/" "PlayOnLinux's virtual drives/" ".zsh_history" ".bro" ".elementary/" ".macromedia/" "fontconfig/" "Desktop/" ".percol.d/" ".WebStorm9/" ".tmux.conf" ".oh-my-zsh/" ".histfile" ".dbus/" ".pki/" ".gnome-color-chooser/")
+ ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" (21832 49621 810002 42000) "../" "recipe2/" "recipe1/" "recipe4/" "./" "recipe5/" "recipe3/")
+
+ ("/home/dromar/tmp/recipes-with-angular-js-examples/" (21832 49621 893335 375000) "chapter2/" "chapter8/" "chapter9/" ".git/" "../" "chapter6/" "README.md" "chapter7/" "chapter1/" "chapter5/" "chapter3/" "./" "chapter10/" "chapter4/")
+
+ ("/home/dromar/tmp/" (21832 49596 856668 683000) "timclicker1" "start-eibnetmux.sh" "sm-boxes" "start-eibnetmux.sh_orig" "timclicker3" "epitech/" "../" "timeclicker2" "names_from_sepa.txt" "wordbreak.js" "editor/" "timclicker5" "crazyhorse_export_annuel_2014.csv" "test.sh" "PastaGag/" "crazy/" "timeclicker_cheat1" "recipes-with-angular-js-examples/" "names_from_csv.txt" "indepbox_monitor/" "./" "timeclicker4" "timeclickers_save_40.txt")
+
+ ("/home/dromar/" (21832 49922 563335 682000) ".java/" ".ipython/" ".zshrc" ".emacs.d/" ".klei/" ".config/" "Pictures/" ".gtkrc-2.0" ".gnome2/" "Documents/" ".nevernote/" ".cinnamon/" ".mycolors" ".tmuxinator/" ".lesshst" "tmp/" "portraits/" ".frippery_rows" "dotfiles/" ".npm/" ".thumbnails/" ".mozilla/" ".e/" "builds/" ".steampid" ".PlayOnLinux/" ".tern-config" ".bash_logout" ".gem/" ".bash_history" "../" "pacman.log" "Templates/" ".scripts/" "access.txt" "figure_1.png" ".steampath" ".zshrc.pre-oh-my-zsh" ".gitignore_global" ".gtkrc-2.0-gnome-color-chooser" ".esd_auth" ".saves/" ".fonts.conf" ".bashrc" ".authinfo.gpg" ".themes/" ".zcompdump-archlaptop-5.0.7" ".pulse-cookie" ".zsh-update" ".kde4_save/" ".recently-used" ".gnome/" ".node-gyp/" ".Skype/" "LoL-Linux-Tools/" ".adobe/" ".gnupg/" ".subversion/" ".kde4/" "projects/" ".gnome2_private/" "Public/" ".local/" ".wine/" ".ssh/" "downloads/" ".icons/" ".httpie/" "QNetSoul" ".bash_profile" ".netrc" "Videos/" ".cache/" "Downloads/" ".ICEauthority" ".mplayer/" "./" ".steam/" "org/" ".gitconfig" "WebStorm-139.1112/" ".fltk/" "Music/" "PlayOnLinux's virtual drives/" ".zsh_history" ".bro" ".elementary/" ".macromedia/" "fontconfig/" "Desktop/" ".percol.d/" ".WebStorm9/" ".tmux.conf" ".oh-my-zsh/" ".histfile" ".dbus/" ".pki/" ".gnome-color-chooser/")
+
+ ("/home/dromar/projects/smart-meter-webapp/" (21776 6270 263356 370000) ".sass-cache/" "sql/" "sm-boxes.json" "app.js" "package.json" "modules/" "config.json" ".git/" "routes/" "../" "readme.org" "public/" "bower_components/" "index.js" "models/" "smart-meter-webapp.iml" "bower.json" "gulpfile.js" ".idea/" ".gitignore" "./" "readme.md" "node_modules/" "proj.org" "TAGS" "views/")
+
+ ("/home/dromar/projects/" (21805 24197 881231 339000) "knx/" "old_projects/" "indepbox_diff/" "nodejs/" "deploy/" "indepbox/" "Raytracer/" "eip/" "console/" "ib-system/" "work/" "webdev/" "epitech/" "../" "indepbox-server-couchdb/" "logger-metier/" "knx-meter/" "kwin-fix-dual-screens/" "smart-meter-sails/" "node-tcp-json/" "crazyhorse/" "ib-watchdog/" "codecombat/" "PastaGag/" "smart-meter-box/" "smart-meter-webapp/" "sm-system/" "smbox/" "ChefCloudScala/" "sm-sentinel/" "./" "test.diff" "fake_eip/" "db4go/" "sd-tar/" "sm-deploy/" "raytracer2/")
+
+ ("/home/dromar/projects/smart-meter-box/eibnetmuxclientsamples/eibcommand/" (21757 37865 856556 445000) "Makefile" "../" ".deps/" "Makefile.am" "eibcommand.o" "./" "eibcommand" "Makefile.in" "eibcommand.c")
+
+ ("/home/dromar/projects/smart-meter-box/eibnetmuxclientsamples/" (21757 37865 876556 445000) "Makefile" "config.h.in" "writememory/" "resetdevice/" "readmemory/" "php/" "../" "decode/" "config.h" "eibstatus/" "firereads/" "eibtrace/" "eibmultiread/" "scripts/" "Changelog" "search/" "Makefile.am" "configure.in" "mylib/" "stamp-h1" "config.status" "config.log" "eibread/" "aclocal.m4" "./" "eibcommand/" "Makefile.in" "configure")
+
+ ("/home/dromar/projects/smart-meter-box/" (21775 64157 953348 585000) "start-eibnetmux.sh" "package.json" "eibnetmuxclientsamples/" "npm-debug.log" ".git/" "post-install" "../" "start_smbox.sh" "eibtrace" "src/" "index.js" "README.md" "lib/" "config/" "./" "node_modules/" "eibcommand")
+
+ ("/home/dromar/.scripts/" (21731 50432 336597 73000) "autoclick" "cpu" "typematrix" "git-cdc" "org-capture-note.sh" "zsh_install.sh" "../" ".scripts" "remote-salt" "rssh-sm" "rssh" "zsh_custom_files/" "download_mantis.sh" "./" "cpu_frequency.py" "copy_tmux.sh")
 
  ("/home/dromar/projects/crazyhorse/" (21805 29227 551287 974000) "com_bzccv/" "../" "administrator/" "old/" "components/" "./")
 

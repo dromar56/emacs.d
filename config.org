@@ -793,7 +793,7 @@
 
 #+end_src
 
-** Workspace
+** COMMENT Workspace
    #+begin_src emacs-lisp
 (require-package 'workgroups2)
 (require 'workgroups2)
