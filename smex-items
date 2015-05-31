@@ -1,10 +1,46 @@
 
 ;; ----- smex-history -----
 (
+ make-directory
  helm-M-x
- describe-key
- package-list-packages
+ magit-refresh
+ highlight-indentation-current-column-mode
+ highlight-indentation-mode
  set-frame-font-size
+ set-frame-font
+ helm-projectile-find-dir
+ js2r-log-this
+ toggle-truncate-lines
+ align-regexp
+ tern-find-definition
+ magit-blame-mode
+ js2-mode-toggle-element
+ js2-mode-toggle-hide-functions
+ js2-mode-hide-functions
+ js2-mode-hide-element
+ delete-trailing-whitespace
+ menu-bar-mode
+ tool-bar-mode
+ indent-whole-buffer
+ js2-mode
+ js2-mode-toggle-warnings-and-errors
+ js2-mode-display-warnings-and-errors
+ js2-mode-show-all
+ js2-mode-show-comments
+ js2-minor-mode
+ describe-face
+ package-list-packages
+ json-mode
+ customize-group
+ projectile-invalidate-cache
+ re-builder
+ clone-indirect-buffer-other-window
+ create-eshell
+ create-shell
+ shell
+ eww
+ eval-region
+ describe-key
  toggle-debug-on-error
  helm-org-agenda-files-headings
  org-insert-elisp-block
@@ -18,12 +54,8 @@
  elpy-doc
  elpy-disable
  magit-stash
- projectile-invalidate-cache
- magit-blame-mode
  iy-go-to-char
- shell
  js-mode
- customize-group
  tramp-bug
  profiler-start
  helm-mode
@@ -42,7 +74,6 @@
  dig
  erc
  ert
- eww
  ftp
  gdb
  irc
@@ -153,13 +184,11 @@
  sh-mode
  sldb-up
  sql-db2
- tpu-edt
  unrmail
  up-list
  vc-diff
  vc-pull
  version
- vi-mode
  webjump
  wg-help
  2C-split
@@ -200,7 +229,6 @@
  ido-mode
  ifconfig
  iwconfig
- js2-mode
  landmark
  lua-mode
  mh-nmail
@@ -235,7 +263,6 @@
  url-mail
  vc-ediff
  vc-merge
- vip-mode
  web-mode
  where-is
  xml-mode
@@ -315,7 +342,6 @@
  java-mode
  join-line
  js2r-kill
- json-mode
  kill-grep
  kill-line
  kill-sexp
@@ -397,7 +423,6 @@
  ag-project
  antlr-mode
  array-mode
- brief-mode
  browse-url
  browse-web
  c-awk-menu
@@ -407,7 +432,6 @@
  comint-bol
  comint-run
  cperl-mode
- crisp-mode
  cvs-status
  cvs-update
  cwarn-mode
@@ -478,7 +502,6 @@
  ps-despool
  quick-calc
  raise-sexp
- re-builder
  read-color
  right-char
  right-word
@@ -511,8 +534,6 @@
  sql-sqlite
  sql-sybase
  time-stamp
- tpu-edt-on
- tpu-mapper
  traceroute
  type-break
  ucs-insert
@@ -576,7 +597,6 @@
  erc-add-pal
  eshell-mode
  eval-buffer
- eval-region
  evil-a-WORD
  evil-a-word
  evil-append
@@ -696,7 +716,6 @@
  Info-history
  Info-summary
  align-entire
- align-regexp
  archive-mark
  archive-undo
  archive-view
@@ -717,7 +736,6 @@
  company-tern
  complete-tag
  compose-mail
- create-shell
  cvs-checkout
  cvs-quickdir
  delete-frame
@@ -874,7 +892,6 @@
  texinfo-mode
  timeclock-in
  tooltip-mode
- tpu-edt-mode
  url-view-url
  vc-mode-line
  vc-print-log
@@ -925,14 +942,12 @@
  conf-ppd-mode
  count-matches
  cperl-perldoc
- create-eshell
  cycle-spacing
  decipher-mode
  delete-region
  delete-window
  denato-region
  describe-char
- describe-face
  describe-font
  describe-mode
  desktop-clear
@@ -986,21 +1001,6 @@
  footnote-mode
  gnus-agentize
  gnus-msg-mail
- hanoi-unix-64
- helm-M-x-help
- helm-apt-help
- helm-do-zgrep
- helm-elscreen
- helm-esh-help
- helm-info-bfd
- helm-info-cvs
- js-gc
- js-eval
- 2C-command
- jade-indent
- vc-git-grep
- company-diag
- evil-ex-sort
 )
 
 ;; ----- smex-data -----
@@ -1019,19 +1019,19 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 1)
- (set-frame-font-size . 11)
- (projectile-invalidate-cache . 2)
+ (customize-group . 3)
+ (set-frame-font-size . 14)
+ (projectile-invalidate-cache . 5)
  (js-mode . 1)
- (shell . 1)
+ (shell . 2)
  (magit-stash . 4)
  (iy-go-to-char . 1)
- (helm-M-x . 2)
- (magit-blame-mode . 6)
+ (helm-M-x . 7)
+ (magit-blame-mode . 8)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 3)
+ (package-list-packages . 4)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1042,4 +1042,36 @@
  (toggle-debug-on-error . 8)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
+ (eval-region . 1)
+ (eww . 1)
+ (create-shell . 1)
+ (create-eshell . 1)
+ (clone-indirect-buffer-other-window . 1)
+ (re-builder . 1)
+ (indent-whole-buffer . 3)
+ (json-mode . 1)
+ (js2-mode . 3)
+ (js2-mode-toggle-warnings-and-errors . 2)
+ (describe-face . 1)
+ (js2r-log-this . 5)
+ (js2-minor-mode . 1)
+ (js2-mode-show-comments . 2)
+ (js2-mode-hide-functions . 3)
+ (js2-mode-show-all . 1)
+ (js2-mode-display-warnings-and-errors . 1)
+ (tern-find-definition . 5)
+ (menu-bar-mode . 3)
+ (tool-bar-mode . 2)
+ (delete-trailing-whitespace . 1)
+ (js2-mode-hide-element . 1)
+ (js2-mode-toggle-hide-functions . 1)
+ (js2-mode-toggle-element . 9)
+ (align-regexp . 1)
+ (toggle-truncate-lines . 2)
+ (helm-projectile-find-dir . 1)
+ (set-frame-font . 1)
+ (highlight-indentation-mode . 2)
+ (highlight-indentation-current-column-mode . 2)
+ (magit-refresh . 1)
+ (make-directory . 1)
 )

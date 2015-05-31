@@ -161,6 +161,24 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (newline)                             ; insert a newline
   (switch-to-buffer nil))               ; return to the initial buffer
 
+(require 'direx)
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+
+(require-package 'expand-region)
+(require 'expand-region)
+
+;; Magit Mode
+
+(setq magit-last-seen-setup-instructions "1.4.0")
+(global-set-key (kbd "C-x g") 'magit-status)
+
+(require-package 'multiple-cursors)
+(require 'multiple-cursors)
+
+(require-package 'iy-go-to-char)
+(require 'iy-go-to-char)
+(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+
 (require 'helm-config)
 ;; (setq helm-command-prefix-key "C-c h")
 (setq helm-quick-update t)
@@ -747,28 +765,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;;  (global-set-key (kbd "C-c M-x") 'smex-update)
 
-;; eshell prompt color
-(setq eshell-prompt-function (lambda nil
-                               (concat
-                                (propertize (eshell/pwd) 'face `(:foreground "cyan"))
-                                (propertize " $" 'face `(:foreground "cyan"))
-                                (propertize " " 'face `(:foreground "white"))
-                                )))
-(setq eshell-highlight-prompt nil)
-
-;; Create a new eshell with prompt
-(defun create-eshell ()
-  "creates a shell with a given name"
-  (interactive);; "Prompt\n eshell name:")
-  (let ((eshell-name (read-string "eshell name: " nil)))
-    (eshell (concat "Eshell/" eshell-name ))))
-
-(defun create-shell ()
-  "creates a shell with a given name"
-  (interactive);; "Prompt\n shell name:")
-  (let ((shell-name (read-string "shell name: " nil)))
-    (shell (concat "Shell/" shell-name))))
-
 (autoload
   'ace-jump-mode
   "ace-jump-mode"
@@ -818,27 +814,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
         (setq inhibit-startup-screen t)
 
-
-            ;;;;;;;
-        ;; MISC
-            ;;;;;;;
-
-        ;; (add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
-        ;; (require 'neotree)
-
-        ;; (require-package 'project-explorer)
-        ;; (after 'project-explorer
-        ;;   (setq pe/cache-directory (concat (concat user-emacs-directory ".cache/") "project-explorer/"))
-        ;;   (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
-        ;; (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
-
-        ;; Editing chrome areatext from emacs
-        ;; (require-package 'edit-server)
-        ;; (require 'edit-server)
-
-
-        (setq reb-re-syntax 'string) ;; fix backslash madness
-        (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
+(setq reb-re-syntax 'string) ;; fix backslash madness
+(add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
         (global-auto-revert-mode 1)
         (electric-indent-mode -1)
@@ -869,15 +846,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
         ;; (setq uniquify-buffer-name-style 'reverse)
 
         ;;todo
-        (require-package 'expand-region)
-        (require 'expand-region)
-
-        (require-package 'multiple-cursors)
-        (require 'multiple-cursors)
-
-        (require-package 'iy-go-to-char)
-        (require 'iy-go-to-char)
-        (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
         (defun my-find-file-check-make-large-file-read-only-hook ()
           "If a file is over a given size, make the buffer read only."
@@ -1063,6 +1031,166 @@ narrowed."
 
 (setq ido-default-buffer-method 'selected-window)
 
+;; eshell prompt color
+(setq eshell-prompt-function (lambda nil
+                               (concat
+                                (propertize (eshell/pwd) 'face `(:foreground "cyan"))
+                                (propertize " $" 'face `(:foreground "cyan"))
+                                (propertize " " 'face `(:foreground "white"))
+                                )))
+(setq eshell-highlight-prompt nil)
+
+;; Create a new eshell with prompt
+(defun create-eshell ()
+  "creates a shell with a given name"
+  (interactive);; "Prompt\n eshell name:")
+  (let ((eshell-name (read-string "eshell name: " nil)))
+    (eshell (concat "Eshell/" eshell-name ))))
+
+(defun create-shell ()
+  "creates a shell with a given name"
+  (interactive);; "Prompt\n shell name:")
+  (let ((shell-name (read-string "shell name: " nil)))
+    (shell (concat "Shell/" shell-name))))
+
+(global-set-key (kbd "C-h a") 'apropos)
+
+(global-set-key (kbd "M-n")     'forward-paragraph)
+(global-set-key (kbd "M-p")     'backward-paragraph)
+
+(global-set-key (kbd "C-c n")   'winner-redo)
+(global-set-key (kbd "C-c p")   'winner-undo)
+
+(global-set-key (kbd "C-x C-1") 'delete-other-windows)
+(global-set-key (kbd "C-x C-2") 'split-window-below)
+(global-set-key (kbd "C-x C-3") 'split-window-right)
+(global-set-key (kbd "C-x C-0") 'delete-window)
+
+(global-set-key (kbd "C-;") 'repeat)
+
+(global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
+
+;; Anzu
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+;; Font size
+(global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
+(global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
+
+;; A la carte Menu
+(global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
+
+;; helm-imenuu
+;; (global-set-key (kbd "C-t") 'transpose-chars)
+;; (global-set-key (kbd "M-t") 'transpose-words)
+;; (global-set-key (kbd "C-t") 'idomenu)
+;; (global-set-key (kbd "M-t") 'imenu-anywhere)
+
+;; Locked mode
+(global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
+
+;; Windows manipulation
+(global-set-key (kbd "C-x |")           'split-window-right)
+(global-set-key (kbd "C-x -")           'split-window-below)
+(global-set-key (kbd "C-x C-<right>")   'windmove-right)
+(global-set-key (kbd "C-x C-<left>")    'windmove-left)
+(global-set-key (kbd "C-x C-<down>")    'windmove-down)
+(global-set-key (kbd "C-x C-<up>")      'windmove-up)
+
+(global-set-key (kbd "C-x <left>")      'shrink-window-horizontally)
+(global-set-key (kbd "C-x <right>")     'enlarge-window-horizontally)
+(global-set-key (kbd "C-x <up>")        'enlarge-window)
+(global-set-key (kbd "C-x <down>")      'shrink-window)
+
+;; (global-set-key (kbd "M-<right>") 'other-window)
+;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
+;;                                           (interactive "P") (other-window -1)))
+
+(global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
+(global-set-key (kbd "C-<next>") 'end-of-buffer)
+(global-set-key (kbd "<prior>") 'scroll-down-command)
+(global-set-key (kbd "<next>") 'scroll-up-command)
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
+(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
+
+
+;; Undo Tree mode
+;; (global-set-key (kbd "C-+") 'undo-tree-redo)
+
+;; iy-go-to-char
+(global-set-key (kbd "C-M-.") 'iy-go-to-char)
+(global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
+
+;; multiple-cursors bindings
+(global-set-key (kbd "s-M") 'mc/edit-lines)
+(global-set-key (kbd "s-.") 'mc/mark-next-like-this)
+(global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
+(global-set-key (kbd "s->") 'mc/unmark-next-like-this)
+(global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
+(global-set-key (kbd "s-m") 'mc/mark-all-like-this)
+
+(global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
+
+
+;; Expand region by semantics units
+(global-set-key (kbd "s-\/") 'er/expand-region)
+(global-set-key (kbd "s-?") 'er/contract-region)
+
+;; Register Windows
+(global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
+                                (message "Windows disposition loaded")))
+(global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
+                                 (message "Windows disposition saved")))
+
+;; Projectile
+(global-set-key (kbd "s-d") 'projectile-find-dir)
+(global-set-key (kbd "s-p") 'helm-projectile-switch-project)
+
+;; Resize Windows
+(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-M-<down>") 'shrink-window)
+(global-set-key (kbd "C-M-<up>") 'enlarge-window)
+
+(global-set-key (kbd "<f11>") 'menu-bar-mode)
+(global-set-key (kbd "<f12>") 'indent-whole-buffer)
+
+
+;; Ace Jump Mode
+(define-key global-map (kbd "M-SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-/") 'ace-jump-mode)
+
+(define-key global-map (kbd "C-,") 'undo-tree-undo)
+
+
+;;Project Explorer
+;; (global-set-key (kbd "<f1>") 'project-explorer-open)
+
+
+;;Query Replace Regex
+(global-set-key (kbd "C-x C-r") 'query-replace-regexp)
+(global-set-key (kbd "s-O") 'my-projectile-multi-occur)
+
+;; Macro bindings
+;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
+
+;; Goto
+(global-set-key [(meta g)] 'goto-line)
+
+(global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
+
+;; (global-set-key (kbd "C-x b") 'ibuffer)
+;; (global-set-key (kbd "<M-up>") 'up-and-locate)
+;; (global-set-key (kbd "<M-down>") 'down-and-locate)
+(global-set-key [mouse-5] 'mouse-down-and-locate)
+(global-set-key [mouse-4] 'mouse-up-and-locate)
+
 (defun set-frame-font-size (size)
   (interactive "nSize:")
   (set-face-attribute 'default (selected-frame) :height size)
@@ -1077,8 +1205,6 @@ narrowed."
 ;; Multicolor parenthesis
 ;; (require-package 'rainbow-delimiters)
 ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-
 
 ;; (load-theme 'wombat t)
 ;; (if (daemonp)
@@ -1102,7 +1228,8 @@ narrowed."
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
-(menu-bar-mode 0)
+
+(menu-bar-mode t)
 (tool-bar-mode 0)
 
 (which-function-mode t)
@@ -1222,15 +1349,22 @@ narrowed."
 (add-hook 'jade-mode-hook 'my-jade-type-face)
 
 ;; Javascript improved mode js2-mode
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-;; eg. extract function with `C-c C-m ef`.
+     (require 'js2-refactor)
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
 
-(customize-set-variable 'js2-bounce-indent-p nil)
-(customize-set-variable 'js2-global-externs [global require])
-(customize-set-variable 'js2-include-node-externs t)
+     (js2r-add-keybindings-with-prefix "C-c C-m")
+     ;; eg. extract function with `C-c C-m ef`.
+
+     (customize-set-variable 'js2-bounce-indent-p nil)
+     (customize-set-variable 'js2-global-externs [global require])
+     (customize-set-variable 'js2-include-node-externs t)
+
+     (customize-set-variable 'js2-basic-offset 2)
+
+     (customize-set-variable 'js2-mode-show-parse-errors nil)
+     (customize-set-variable 'js2-mode-show-strict-warnings nil)
 
 ;; SLIME - SWANK-JS
 (require 'slime)
@@ -1341,146 +1475,6 @@ narrowed."
   (setq web-mode-markup-indent-offset 4)
 )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
-
-(global-set-key (kbd "C-h a") 'apropos)
-
-(global-set-key (kbd "M-n")     'forward-paragraph)
-(global-set-key (kbd "M-p")     'backward-paragraph)
-
-(global-set-key (kbd "C-c n")   'winner-redo)
-(global-set-key (kbd "C-c p")   'winner-undo)
-
-(global-set-key (kbd "C-x C-1") 'delete-other-windows)
-(global-set-key (kbd "C-x C-2") 'split-window-below)
-(global-set-key (kbd "C-x C-3") 'split-window-right)
-(global-set-key (kbd "C-x C-0") 'delete-window)
-
-(global-set-key (kbd "C-;") 'repeat)
-
-(global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
-
-;; Anzu
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-
-;; Font size
-(global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
-(global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
-(global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
-
-;; A la carte Menu
-(global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
-
-;; helm-imenuu
-;; (global-set-key (kbd "C-t") 'transpose-chars)
-;; (global-set-key (kbd "M-t") 'transpose-words)
-;; (global-set-key (kbd "C-t") 'idomenu)
-;; (global-set-key (kbd "M-t") 'imenu-anywhere)
-
-;; Locked mode
-(global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
-
-;; Windows manipulation
-(global-set-key (kbd "C-x |")           'split-window-right)
-(global-set-key (kbd "C-x -")           'split-window-below)
-(global-set-key (kbd "C-x C-<right>")   'windmove-right)
-(global-set-key (kbd "C-x C-<left>")    'windmove-left)
-(global-set-key (kbd "C-x C-<down>")    'windmove-down)
-(global-set-key (kbd "C-x C-<up>")      'windmove-up)
-
-(global-set-key (kbd "C-x <left>")      'shrink-window-horizontally)
-(global-set-key (kbd "C-x <right>")     'enlarge-window-horizontally)
-(global-set-key (kbd "C-x <up>")        'enlarge-window)
-(global-set-key (kbd "C-x <down>")      'shrink-window)
-
-;; (global-set-key (kbd "M-<right>") 'other-window)
-;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
-;;                                           (interactive "P") (other-window -1)))
-
-(global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
-(global-set-key (kbd "C-<next>") 'end-of-buffer)
-(global-set-key (kbd "<prior>") 'scroll-down-command)
-(global-set-key (kbd "<next>") 'scroll-up-command)
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
-(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
-
-;; Magit Mode
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; Undo Tree mode
-;; (global-set-key (kbd "C-+") 'undo-tree-redo)
-
-;; iy-go-to-char
-(global-set-key (kbd "C-M-.") 'iy-go-to-char)
-(global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
-
-;; multiple-cursors bindings
-(global-set-key (kbd "s-M") 'mc/edit-lines)
-(global-set-key (kbd "s-.") 'mc/mark-next-like-this)
-(global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
-(global-set-key (kbd "s->") 'mc/unmark-next-like-this)
-(global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
-(global-set-key (kbd "s-m") 'mc/mark-all-like-this)
-
-(global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
-
-
-;; Expand region by semantics units
-(global-set-key (kbd "s-\/") 'er/expand-region)
-(global-set-key (kbd "s-?") 'er/contract-region)
-
-;; Register Windows
-(global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
-                                (message "Windows disposition loaded")))
-(global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
-                                 (message "Windows disposition saved")))
-
-;; Projectile
-(global-set-key (kbd "s-d") 'projectile-find-dir)
-(global-set-key (kbd "s-p") 'helm-projectile-switch-project)
-
-;; Resize Windows
-(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-M-<down>") 'shrink-window)
-(global-set-key (kbd "C-M-<up>") 'enlarge-window)
-
-(global-set-key (kbd "<f11>") 'menu-bar-mode)
-(global-set-key (kbd "<f12>") 'indent-whole-buffer)
-
-
-;; Ace Jump Mode
-(define-key global-map (kbd "M-SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-/") 'ace-jump-mode)
-
-(define-key global-map (kbd "C-,") 'undo-tree-undo)
-
-
-;;Project Explorer
-;; (global-set-key (kbd "<f1>") 'project-explorer-open)
-
-
-;;Query Replace Regex
-(global-set-key (kbd "C-x C-r") 'query-replace-regexp)
-(global-set-key (kbd "s-O") 'my-projectile-multi-occur)
-
-;; Macro bindings
-;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
-
-;; Goto
-(global-set-key [(meta g)] 'goto-line)
-
-(global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
-
-;; (global-set-key (kbd "C-x b") 'ibuffer)
-;; (global-set-key (kbd "<M-up>") 'up-and-locate)
-;; (global-set-key (kbd "<M-down>") 'down-and-locate)
-(global-set-key [mouse-5] 'mouse-down-and-locate)
-(global-set-key [mouse-4] 'mouse-up-and-locate)
 
 (add-hook
  'after-init-hook

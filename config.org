@@ -187,6 +187,124 @@
   (switch-to-buffer nil))               ; return to the initial buffer
 #+end_src
 * Plugins
+** Direx
+#+begin_src emacs-lisp :tangle yes
+(require 'direx)
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+#+end_src
+** COMMENT Mu4e
+  Mail setup
+#+begin_src emacs-lisp :tangle yes
+    (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+
+    (require 'mu4e)
+
+    ;; default
+    (setq mu4e-maildir "~/.mail")
+
+  (setq mu4e-headers-skip-duplicates t)
+  (setq mu4e-headers-include-related t)
+  (setq mu4e-use-fancy-chars nil)
+  (setq mu4e-view-show-images t)
+  (setq mu4e-attachment-dir "~/Downloads")
+
+  (setq mu4e-view-prefer-html t)
+
+    ;; (setq mu4e-drafts-folder "/[Gmail].Drafts")
+    ;; (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+    ;; (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+
+    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+    (setq mu4e-sent-messages-behavior 'delete)
+
+    ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+    ;; additional non-Gmail addresses and want assign them different
+    ;; behavior.)
+
+    ;; setup some handy shortcuts
+    ;; you can quickly switch to your Inbox -- press ``ji''
+    ;; then, when you want archive some messages, move them to
+    ;; the 'All Mail' folder by pressing ``ma''.
+
+    ;; (setq mu4e-maildir-shortcuts
+    ;;     '( ("/INBOX"               . ?i)
+    ;;        ("/[Gmail].Sent Mail"   . ?s)
+    ;;        ("/[Gmail].Trash"       . ?t)
+    ;;        ("/[Gmail].All Mail"    . ?a)))
+
+    ;; allow for updating mail using 'U' in the main view:
+    (setq mu4e-get-mail-command "mbsync -a")
+
+    ;; something about ourselves
+    (setq
+     user-mail-address "dromar566@gmail.com"
+     user-full-name  "David Barrutia"
+     mu4e-compose-signature
+     (concat
+      "David Barrutia"
+      ""))
+
+    ;; sending mail -- replace USERNAME with your gmail username
+    ;; also, make sure the gnutls command line utils are installed
+    ;; package 'gnutls-bin' in Debian/Ubuntu
+
+    (require 'smtpmail)
+    (setq message-send-mail-function 'smtpmail-send-it
+       starttls-use-gnutls t
+       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+       smtpmail-auth-credentials
+       '(("smtp.gmail.com" 587 "dromar56@gmail.com" nil))
+       smtpmail-default-smtp-server "smtp.gmail.com"
+       smtpmail-smtp-server "smtp.gmail.com"
+       smtpmail-smtp-service 587)
+
+    ;; alternatively, for emacs-24 you can use:
+    ;;(setq message-send-mail-function 'smtpmail-send-it
+    ;;     smtpmail-stream-type 'starttls
+    ;;     smtpmail-default-smtp-server "smtp.gmail.com"
+    ;;     smtpmail-smtp-server "smtp.gmail.com"
+    ;;     smtpmail-smtp-service 587)
+
+    ;; don't keep message buffers around
+    (setq message-kill-buffer-on-exit t)
+
+  (defun mu4e-open-mail-in-browser (args)
+    (interactive "P")
+    (let ((mail-content (buffer-string)))
+        (save-excursion
+          (with-temp-file "/tmp/mu4e-tmp-file.html" 
+            (progn 
+              (insert mail-content)
+              (eww-open-file "/tmp/mu4e-tmp-file.html"))))))
+
+  (global-set-key (kbd "C-x m") 'mu4e)
+
+#+end_src
+** Expand Region
+#+begin_src emacs-lisp :tangle yes
+  (require-package 'expand-region)
+  (require 'expand-region)
+#+end_src
+** Magit
+#+begin_src emacs-lisp :tangle yes
+    ;; Magit Mode
+
+  (setq magit-last-seen-setup-instructions "1.4.0")
+  (global-set-key (kbd "C-x g") 'magit-status)
+
+#+end_src
+** Multiple Cursors
+#+begin_src emacs-lisp :tangle yes
+  (require-package 'multiple-cursors)
+  (require 'multiple-cursors)
+#+end_src
+** Iy go to char
+#+begin_src emacs-lisp :tangle yes
+  (require-package 'iy-go-to-char)
+  (require 'iy-go-to-char)
+  (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+#+end_src
 ** Helm
 *** Misc
    #+begin_src emacs-lisp
@@ -311,7 +429,7 @@
 
       (eval-after-load "org"
       '(progn
-         (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+	 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
       ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
       ;; (define-key org-mode-map (kbd "<C-left>") nil)
       ;; (define-key org-mode-map (kbd "<C-right>") nil)
@@ -328,16 +446,16 @@
 
 
       (defun org-insert-elisp-block (name beg end)
-        (interactive "sName:\nr")
-        (org-insert-heading-after-current)
-        (save-excursion
-          (insert name "\n")
-          (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-          (if (region-active-p)
-              (progn
-                (kill-region beg end)
-                (yank)))
-          (insert "#+end_src")))
+	(interactive "sName:\nr")
+	(org-insert-heading-after-current)
+	(save-excursion
+	  (insert name "\n")
+	  (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+	  (if (region-active-p)
+	      (progn
+		(kill-region beg end)
+		(yank)))
+	  (insert "#+end_src")))
 
       (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
@@ -360,57 +478,57 @@
       (define-key global-map (kbd "C-c c") 'org-capture)
       (define-key global-map (kbd "<f1>") 'org-capture)
       (define-key global-map (kbd "<S-f1>") (lambda () (interactive)
-                                              (let ((current-prefix-arg '(4)))
-                                                (call-interactively 'org-capture))))
+					      (let ((current-prefix-arg '(4)))
+						(call-interactively 'org-capture))))
 
       (defun llc-get-project-org-name ()
-        "Return the name of the projectile project"
-        (replace-regexp-in-string "[^[:alnum:]]" "-"
-                                  (car (last (split-string (projectile-project-root) "/" t)))))
+	"Return the name of the projectile project"
+	(replace-regexp-in-string "[^[:alnum:]]" "-"
+				  (car (last (split-string (projectile-project-root) "/" t)))))
 
       (defun llc-get-project-org-file ()
-        "Return the path to the project org file"
-        (concat org-directory "/projects/"
-                (llc-get-project-org-name)
-                ".org"))
+	"Return the path to the project org file"
+	(concat org-directory "/projects/"
+		(llc-get-project-org-name)
+		".org"))
 
       (defun llc-find-project-org-file-task ()
-        "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
-        (let ((project-file (llc-get-project-org-file))
-              (project-headline-regexp "^\\* Tasks")
-              (project-name (llc-get-project-org-name)))
-          (set-buffer (find-file-noselect project-file))
-          (goto-char (point-min))
-          (if (not (re-search-forward project-headline-regexp nil t))
-              (progn
-                (goto-char (point-max))
-                (if (not (eq (buffer-size) 0))
-                    (newline 2))
-                (insert (concat "* Tasks :project:" project-name ":"))))
-          (goto-char (point-min))
-          (re-search-forward project-headline-regexp)
-          (end-of-line)))
+	"Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
+	(let ((project-file (llc-get-project-org-file))
+	      (project-headline-regexp "^\\* Tasks")
+	      (project-name (llc-get-project-org-name)))
+	  (set-buffer (find-file-noselect project-file))
+	  (goto-char (point-min))
+	  (if (not (re-search-forward project-headline-regexp nil t))
+	      (progn
+		(goto-char (point-max))
+		(if (not (eq (buffer-size) 0))
+		    (newline 2))
+		(insert (concat "* Tasks :project:" project-name ":"))))
+	  (goto-char (point-min))
+	  (re-search-forward project-headline-regexp)
+	  (end-of-line)))
 
       (setq org-capture-templates
-            '(("p" "Project" entry (function llc-find-project-org-file-task)
-               "* TODO %?\n  %a\n  %i")
-              ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
-               "* TODO %?\n  %a\n  %i")
-              ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
-               "* %?\n  %a\n  %i")
-              ("j" "Journal" entry (file+datetree "~/org/journal.org")
-               "* %?\nEntered on %U\n  %a\n  %i")
-              ("J" "Journal - more options")
-              ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
-               "* %?\nEntered on %U\n  %x\n  %a")))
+	    '(("p" "Project" entry (function llc-find-project-org-file-task)
+	       "* TODO %?\n  %a\n  %i")
+	      ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
+	       "* TODO %?\n  %a\n  %i")
+	      ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
+	       "* %?\n  %a\n  %i")
+	      ("j" "Journal" entry (file+datetree "~/org/journal.org")
+	       "* %?\nEntered on %U\n  %a\n  %i")
+	      ("J" "Journal - more options")
+	      ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
+	       "* %?\nEntered on %U\n  %x\n  %a")))
 
       (setq org-capture-templates-contexts
-            '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
+	    '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
 
       ;; Close frame after org-capture only if a certain frame-parameter is set
       (defun llc-close-frame-after-org-capture ()
-        (if (frame-parameter nil 'llc-close-frame-after-org-capture)
-            (delete-frame)))
+	(if (frame-parameter nil 'llc-close-frame-after-org-capture)
+	    (delete-frame)))
       (add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
 
     #+end_src
@@ -1031,32 +1149,6 @@
 
 #+end_src
 
-* Shell
-#+begin_src emacs-lisp :tangle yes
-    ;; eshell prompt color
-    (setq eshell-prompt-function (lambda nil
-                                   (concat
-                                    (propertize (eshell/pwd) 'face `(:foreground "cyan"))
-                                    (propertize " $" 'face `(:foreground "cyan"))
-                                    (propertize " " 'face `(:foreground "white"))
-                                    )))
-    (setq eshell-highlight-prompt nil)
-
-    ;; Create a new eshell with prompt
-    (defun create-eshell ()
-      "creates a shell with a given name"
-      (interactive);; "Prompt\n eshell name:")
-      (let ((eshell-name (read-string "eshell name: " nil)))
-        (eshell (concat "Eshell/" eshell-name ))))
-
-    (defun create-shell ()
-      "creates a shell with a given name"
-      (interactive);; "Prompt\n shell name:")
-      (let ((shell-name (read-string "shell name: " nil)))
-        (shell (concat "Shell/" shell-name))))
-
-#+end_src
-* Navigation
 ** Ace jump
 #+begin_src emacs-lisp :tangle yes
   (autoload
@@ -1090,248 +1182,220 @@
 ** Misc
   #+begin_src emacs-lisp
 
-(setq save-interprogram-paste-before-kill t)
+    (setq save-interprogram-paste-before-kill t)
 
-(setq bookmark-saved-flag 1)
+    (setq bookmark-saved-flag 1)
 
-(setq suggest-key-binding 5)
+    (setq suggest-key-binding 5)
 
-    (window-numbering-mode t)
+        (window-numbering-mode t)
 
-    (setq help-window-select t)
+        (setq help-window-select t)
 
-        (customize-set-variable 'scroll-bar-mode (quote right))
-        (customize-set-variable 'scroll-conservatively 100000)
-        (customize-set-variable 'scroll-preserve-screen-position 1)
+            (customize-set-variable 'scroll-bar-mode (quote right))
+            (customize-set-variable 'scroll-conservatively 100000)
+            (customize-set-variable 'scroll-preserve-screen-position 1)
 
-        (customize-set-variable 'show-paren-delay 0)
-        (customize-set-variable 'show-paren-mode t)
-        (customize-set-variable 'smex-history-length 1000)
-        (customize-set-variable 'recentf-auto-cleanup (quote never))
-        (customize-set-variable 'recentf-max-saved-items 200000)
-
-
-
-        (setq inhibit-startup-screen t)
+            (customize-set-variable 'show-paren-delay 0)
+            (customize-set-variable 'show-paren-mode t)
+            (customize-set-variable 'smex-history-length 1000)
+            (customize-set-variable 'recentf-auto-cleanup (quote never))
+            (customize-set-variable 'recentf-max-saved-items 200000)
 
 
-            ;;;;;;;
-        ;; MISC
-            ;;;;;;;
 
-        ;; (add-to-list 'load-path (concat user-emacs-directory "/vendor/neotree"))
-        ;; (require 'neotree)
+            (setq inhibit-startup-screen t)
 
-        ;; (require-package 'project-explorer)
-        ;; (after 'project-explorer
-        ;;   (setq pe/cache-directory (concat (concat user-emacs-directory ".cache/") "project-explorer/"))
-        ;;   (setq pe/omit-regex (concat pe/omit-regex "\\|^node_modules$")))
-        ;; (add-hook 'project-explorer-mode-hook (lambda () (linum-mode -1)))
+    (setq reb-re-syntax 'string) ;; fix backslash madness
+    (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
-        ;; Editing chrome areatext from emacs
-        ;; (require-package 'edit-server)
-        ;; (require 'edit-server)
+            (global-auto-revert-mode 1)
+            (electric-indent-mode -1)
+            (transient-mark-mode 1)
+            (delete-selection-mode -1)
 
+            ;; Enable access to the clipboard
+            (setq x-select-enable-clipboard t)
 
-        (setq reb-re-syntax 'string) ;; fix backslash madness
-        (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
+            (defalias 'yes-or-no-p 'y-or-n-p)
 
-        (global-auto-revert-mode 1)
-        (electric-indent-mode -1)
-        (transient-mark-mode 1)
-        (delete-selection-mode -1)
+            ;; Try to fix the shell unicode problem
+            (defadvice ansi-term (after advise-ansi-term-coding-system)
+              (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+            (ad-activate 'ansi-term)
 
-        ;; Enable access to the clipboard
-        (setq x-select-enable-clipboard t)
+            (put 'narrow-to-region 'disabled nil)
 
-        (defalias 'yes-or-no-p 'y-or-n-p)
+            (require 'recentf)
+            ;; (recentf-mode 1)
+            (setq recentf-max-menu-items 10)
+            ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-        ;; Try to fix the shell unicode problem
-        (defadvice ansi-term (after advise-ansi-term-coding-system)
-          (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-        (ad-activate 'ansi-term)
+            (require 'uniquify)
+            (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
+            (customize-set-variable 'uniquify-strip-common-suffix t)
 
-        (put 'narrow-to-region 'disabled nil)
+            ;; (setq uniquify-buffer-name-style 'reverse)
 
-        (require 'recentf)
-        ;; (recentf-mode 1)
-        (setq recentf-max-menu-items 10)
-        ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+            ;;todo
 
-        (require 'uniquify)
-        (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
-        (customize-set-variable 'uniquify-strip-common-suffix t)
+            (defun my-find-file-check-make-large-file-read-only-hook ()
+              "If a file is over a given size, make the buffer read only."
+              (when (> (buffer-size) (* 1024 1024))
+                (setq buffer-read-only t)
+                (buffer-disable-undo)
+                (fundamental-mode)))
+            (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
 
-        ;; (setq uniquify-buffer-name-style 'reverse)
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Add prefix to Dired buffers
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-        ;;todo
-        (require-package 'expand-region)
-        (require 'expand-region)
+            (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
+            (defun ensure-buffer-name-ends-in-slash ()
+              "change buffer name to end with slash"
+              (let ((name (buffer-name)))
+                (if (not (string-match "^Dir/" name))
+                    (rename-buffer (concat "Dir/" name) t))))
 
-        (require-package 'multiple-cursors)
-        (require 'multiple-cursors)
+                       ;;;;;;;;;;;;;;;;;;;
+            ;; Eval and replace
+                       ;;;;;;;;;;;;;;;;;;;
 
-        (require-package 'iy-go-to-char)
-        (require 'iy-go-to-char)
-        (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+            (defun eval-and-replace ()
+              "Replace the preceding sexp with its value."
+              (interactive)
+              (backward-kill-sexp)
+              (condition-case nil
+                  (prin1 (eval (read (current-kill 0)))
+                         (current-buffer))
+                (error (message "Invalid expression")
+                       (insert (current-kill 0)))))
 
-        (defun my-find-file-check-make-large-file-read-only-hook ()
-          "If a file is over a given size, make the buffer read only."
-          (when (> (buffer-size) (* 1024 1024))
-            (setq buffer-read-only t)
-            (buffer-disable-undo)
-            (fundamental-mode)))
-        (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Emacs Backfup Files settings (those damn annoying ~ files !)
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Add prefix to Dired buffers
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            (setq backup-directory-alist `(("." . "~/.saves")))
+            (setq backup-by-copying t)
+            (setq delete-old-versions t
+                  kept-new-versions 6
+                  kept-old-versions 2
+                  version-control t)
 
-        (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
-        (defun ensure-buffer-name-ends-in-slash ()
-          "change buffer name to end with slash"
-          (let ((name (buffer-name)))
-            (if (not (string-match "^Dir/" name))
-                (rename-buffer (concat "Dir/" name) t))))
+            (setq auto-save-file-name-transforms
+                  `((".*" ,"~/.saves/" t)))
 
-                   ;;;;;;;;;;;;;;;;;;;
-        ;; Eval and replace
-                   ;;;;;;;;;;;;;;;;;;;
+            ;; remove those pesky lock files
+            (setq create-lockfiles nil)
 
-        (defun eval-and-replace ()
-          "Replace the preceding sexp with its value."
-          (interactive)
-          (backward-kill-sexp)
-          (condition-case nil
-              (prin1 (eval (read (current-kill 0)))
-                     (current-buffer))
-            (error (message "Invalid expression")
-                   (insert (current-kill 0)))))
+                       ;;;;;;;;;;;;;;;;;;;;;;
+            ;; Mouse/Wheel options
+                       ;;;;;;;;;;;;;;;;;;;;;;
 
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Emacs Backfup Files settings (those damn annoying ~ files !)
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            (defun up-and-locate()
+              (interactive)
+              (scroll-down 8)
+              )
 
-        (setq backup-directory-alist `(("." . "~/.saves")))
-        (setq backup-by-copying t)
-        (setq delete-old-versions t
-              kept-new-versions 6
-              kept-old-versions 2
-              version-control t)
+            (defun down-and-locate()
+              (interactive)
+              (scroll-down -8)
+              )
 
-        (setq auto-save-file-name-transforms
-              `((".*" ,"~/.saves/" t)))
+            (defun mouse-up-and-locate()
+              (interactive)
+              (scroll-down 3)
+              )
 
-        ;; remove those pesky lock files
-        (setq create-lockfiles nil)
-
-                   ;;;;;;;;;;;;;;;;;;;;;;
-        ;; Mouse/Wheel options
-                   ;;;;;;;;;;;;;;;;;;;;;;
-
-        (defun up-and-locate()
-          (interactive)
-          (scroll-down 8)
-          )
-
-        (defun down-and-locate()
-          (interactive)
-          (scroll-down -8)
-          )
-
-        (defun mouse-up-and-locate()
-          (interactive)
-          (scroll-down 3)
-          )
-
-        (defun mouse-down-and-locate()
-          (interactive)
-          (scroll-down -3)
-          )
+            (defun mouse-down-and-locate()
+              (interactive)
+              (scroll-down -3)
+              )
 
 
-                   ;;;;;;;;;;;;;;;;;;;;;;
-        ;; Indent Whole Buffer
-                   ;;;;;;;;;;;;;;;;;;;;;;
+                       ;;;;;;;;;;;;;;;;;;;;;;
+            ;; Indent Whole Buffer
+                       ;;;;;;;;;;;;;;;;;;;;;;
 
-        (defun indent-whole-buffer ()
-          "indent whole buffer and untabify it"
-          (interactive)
-          (delete-trailing-whitespace)
-          (indent-region (point-min) (point-max) nil))
+            (defun indent-whole-buffer ()
+              "indent whole buffer and untabify it"
+              (interactive)
+              (delete-trailing-whitespace)
+              (indent-region (point-min) (point-max) nil))
 
-        ;;todo
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; FIX FOR TERMINAL SHIFT+UP
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        (if (equal "xterm" (tty-type))
-            (define-key input-decode-map "\e[1;2A" [S-up]))
+            ;;todo
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; FIX FOR TERMINAL SHIFT+UP
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            (if (equal "xterm" (tty-type))
+                (define-key input-decode-map "\e[1;2A" [S-up]))
 
-        (defadvice terminal-init-xterm (after select-shift-up activate)
-          (define-key input-decode-map "\e[1;2A" [S-up]))
+            (defadvice terminal-init-xterm (after select-shift-up activate)
+              (define-key input-decode-map "\e[1;2A" [S-up]))
 
-                   ;;;;;;;;;;;;;;;;;;;;;
-        ;; Locked buffer mode
-                   ;;;;;;;;;;;;;;;;;;;;;
+                       ;;;;;;;;;;;;;;;;;;;;;
+            ;; Locked buffer mode
+                       ;;;;;;;;;;;;;;;;;;;;;
 
-        (define-minor-mode locked-buffer-mode
-          "Make the current window always display this buffer."
-          nil " locked" nil
-          (set-window-dedicated-p (selected-window) locked-buffer-mode))
-
-
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Save undo history when revert-buffer
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-        ;; emacs doesn't actually save undo history with revert-buffer
-        ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
-        ;; fix that.
-        (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
-          (interactive)
-
-          ;; tell Emacs the modtime is fine, so we can edit the buffer
-          (clear-visited-file-modtime)
-
-          ;; insert the current contents of the file on disk
-          (widen)
-          (delete-region (point-min) (point-max))
-          (insert-file-contents (buffer-file-name))
-
-          ;; mark the buffer as not modified
-          (not-modified)
-          (set-visited-file-modtime))
-
-        (setq revert-buffer-function 'revert-buffer-keep-history)
-        (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+            (define-minor-mode locked-buffer-mode
+              "Make the current window always display this buffer."
+              nil " locked" nil
+              (set-window-dedicated-p (selected-window) locked-buffer-mode))
 
 
-                   ;;;;;;;;;;;;;;;;;
-        ;; Search engines
-                   ;;;;;;;;;;;;;;;;;
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Save undo history when revert-buffer
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-        (defun prelude-search (query-url prompt)
-          "Open the search url constructed with the QUERY-URL.
-                   PROMPT sets the `read-string prompt."
-          (browse-url
-           (concat query-url
-                   (url-hexify-string
-                    (if mark-active
-                        (buffer-substring (region-beginning) (region-end))
-                      (read-string prompt))))))
+            ;; emacs doesn't actually save undo history with revert-buffer
+            ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
+            ;; fix that.
+            (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
+              (interactive)
 
-        (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
-          "Given some information regarding a search engine, install the interactive command to search through them"
-          `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-             ,(format "Search %s with a query or region if any." search-engine-name)
-             (interactive)
-             (prelude-search ,search-engine-url ,search-engine-prompt)))
+              ;; tell Emacs the modtime is fine, so we can edit the buffer
+              (clear-visited-file-modtime)
 
-        (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
-        (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
-        (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
-        (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
-        (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
+              ;; insert the current contents of the file on disk
+              (widen)
+              (delete-region (point-min) (point-max))
+              (insert-file-contents (buffer-file-name))
+
+              ;; mark the buffer as not modified
+              (not-modified)
+              (set-visited-file-modtime))
+
+            (setq revert-buffer-function 'revert-buffer-keep-history)
+            (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+
+
+                       ;;;;;;;;;;;;;;;;;
+            ;; Search engines
+                       ;;;;;;;;;;;;;;;;;
+
+            (defun prelude-search (query-url prompt)
+              "Open the search url constructed with the QUERY-URL.
+                       PROMPT sets the `read-string prompt."
+              (browse-url
+               (concat query-url
+                       (url-hexify-string
+                        (if mark-active
+                            (buffer-substring (region-beginning) (region-end))
+                          (read-string prompt))))))
+
+            (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+              "Given some information regarding a search engine, install the interactive command to search through them"
+              `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+                 ,(format "Search %s with a query or region if any." search-engine-name)
+                 (interactive)
+                 (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+            (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+            (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+            (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+            (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+            (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
 #+end_src
 ** Narrow or widen
@@ -1364,6 +1428,177 @@
 #+begin_src emacs-lisp :tangle yes
 (setq ido-default-buffer-method 'selected-window)
 #+end_src
+** Shell
+#+begin_src emacs-lisp :tangle yes
+    ;; eshell prompt color
+    (setq eshell-prompt-function (lambda nil
+                                   (concat
+                                    (propertize (eshell/pwd) 'face `(:foreground "cyan"))
+                                    (propertize " $" 'face `(:foreground "cyan"))
+                                    (propertize " " 'face `(:foreground "white"))
+                                    )))
+    (setq eshell-highlight-prompt nil)
+
+    ;; Create a new eshell with prompt
+    (defun create-eshell ()
+      "creates a shell with a given name"
+      (interactive);; "Prompt\n eshell name:")
+      (let ((eshell-name (read-string "eshell name: " nil)))
+        (eshell (concat "Eshell/" eshell-name ))))
+
+    (defun create-shell ()
+      "creates a shell with a given name"
+      (interactive);; "Prompt\n shell name:")
+      (let ((shell-name (read-string "shell name: " nil)))
+        (shell (concat "Shell/" shell-name))))
+
+#+end_src
+** General Bindings
+  #+begin_src emacs-lisp
+
+    (global-set-key (kbd "C-h a") 'apropos)
+
+    (global-set-key (kbd "M-n")     'forward-paragraph)
+    (global-set-key (kbd "M-p")     'backward-paragraph)
+
+    (global-set-key (kbd "C-c n")   'winner-redo)
+    (global-set-key (kbd "C-c p")   'winner-undo)
+
+    (global-set-key (kbd "C-x C-1") 'delete-other-windows)
+    (global-set-key (kbd "C-x C-2") 'split-window-below)
+    (global-set-key (kbd "C-x C-3") 'split-window-right)
+    (global-set-key (kbd "C-x C-0") 'delete-window)
+
+    (global-set-key (kbd "C-;") 'repeat)
+
+    (global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
+
+    ;; Anzu
+    (global-set-key (kbd "M-%") 'anzu-query-replace)
+    (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+    ;; Font size
+    (global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
+    (global-set-key (kbd "C-+") 'text-scale-increase)
+    (global-set-key (kbd "C-=") 'text-scale-increase)
+    (global-set-key (kbd "C--") 'text-scale-decrease)
+    (global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
+    (global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
+    (global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
+
+    ;; A la carte Menu
+    (global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
+
+    ;; helm-imenuu
+    ;; (global-set-key (kbd "C-t") 'transpose-chars)
+    ;; (global-set-key (kbd "M-t") 'transpose-words)
+    ;; (global-set-key (kbd "C-t") 'idomenu)
+    ;; (global-set-key (kbd "M-t") 'imenu-anywhere)
+
+    ;; Locked mode
+    (global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
+
+    ;; Windows manipulation
+    (global-set-key (kbd "C-x |")           'split-window-right)
+    (global-set-key (kbd "C-x -")           'split-window-below)
+    (global-set-key (kbd "C-x C-<right>")   'windmove-right)
+    (global-set-key (kbd "C-x C-<left>")    'windmove-left)
+    (global-set-key (kbd "C-x C-<down>")    'windmove-down)
+    (global-set-key (kbd "C-x C-<up>")      'windmove-up)
+
+    (global-set-key (kbd "C-x <left>")      'shrink-window-horizontally)
+    (global-set-key (kbd "C-x <right>")     'enlarge-window-horizontally)
+    (global-set-key (kbd "C-x <up>")        'enlarge-window)
+    (global-set-key (kbd "C-x <down>")      'shrink-window)
+
+    ;; (global-set-key (kbd "M-<right>") 'other-window)
+    ;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
+    ;;                                           (interactive "P") (other-window -1)))
+
+    (global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
+    (global-set-key (kbd "C-<next>") 'end-of-buffer)
+    (global-set-key (kbd "<prior>") 'scroll-down-command)
+    (global-set-key (kbd "<next>") 'scroll-up-command)
+    (global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
+    (global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
+
+
+    ;; Undo Tree mode
+    ;; (global-set-key (kbd "C-+") 'undo-tree-redo)
+
+    ;; iy-go-to-char
+    (global-set-key (kbd "C-M-.") 'iy-go-to-char)
+    (global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
+
+    ;; multiple-cursors bindings
+    (global-set-key (kbd "s-M") 'mc/edit-lines)
+    (global-set-key (kbd "s-.") 'mc/mark-next-like-this)
+    (global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "s->") 'mc/unmark-next-like-this)
+    (global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
+    (global-set-key (kbd "s-m") 'mc/mark-all-like-this)
+
+    (global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
+
+
+    ;; Expand region by semantics units
+    (global-set-key (kbd "s-\/") 'er/expand-region)
+    (global-set-key (kbd "s-?") 'er/contract-region)
+
+    ;; Register Windows
+    (global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
+                                    (message "Windows disposition loaded")))
+    (global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
+                                     (message "Windows disposition saved")))
+
+    ;; Projectile
+    (global-set-key (kbd "s-d") 'projectile-find-dir)
+    (global-set-key (kbd "s-p") 'helm-projectile-switch-project)
+
+    ;; Resize Windows
+    (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+    (global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
+    (global-set-key (kbd "C-M-<down>") 'shrink-window)
+    (global-set-key (kbd "C-M-<up>") 'enlarge-window)
+
+    (global-set-key (kbd "<f11>") 'menu-bar-mode)
+    (global-set-key (kbd "<f12>") 'indent-whole-buffer)
+
+
+    ;; Ace Jump Mode
+    (define-key global-map (kbd "M-SPC") 'ace-jump-mode)
+    (define-key global-map (kbd "C-/") 'ace-jump-mode)
+
+    (define-key global-map (kbd "C-,") 'undo-tree-undo)
+
+
+    ;;Project Explorer
+    ;; (global-set-key (kbd "<f1>") 'project-explorer-open)
+
+
+    ;;Query Replace Regex
+    (global-set-key (kbd "C-x C-r") 'query-replace-regexp)
+    (global-set-key (kbd "s-O") 'my-projectile-multi-occur)
+
+    ;; Macro bindings
+    ;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
+
+    ;; Goto
+    (global-set-key [(meta g)] 'goto-line)
+
+    (global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
+
+    ;; (global-set-key (kbd "C-x b") 'ibuffer)
+    ;; (global-set-key (kbd "<M-up>") 'up-and-locate)
+    ;; (global-set-key (kbd "<M-down>") 'down-and-locate)
+    (global-set-key [mouse-5] 'mouse-down-and-locate)
+    (global-set-key [mouse-4] 'mouse-up-and-locate)
+
+
+
+
+#+end_src
+
 * Appearance
 ** Misc
   #+begin_src emacs-lisp
@@ -1381,8 +1616,6 @@
     ;; Multicolor parenthesis
     ;; (require-package 'rainbow-delimiters)
     ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-
 
     ;; (load-theme 'wombat t)
     ;; (if (daemonp)
@@ -1406,7 +1639,8 @@
           scroll-conservatively 100000
           scroll-preserve-screen-position 1)
 
-    (menu-bar-mode 0)
+
+    (menu-bar-mode t)
     (tool-bar-mode 0)
 
     (which-function-mode t)
@@ -1608,16 +1842,24 @@
 
 ** javascript
    #+begin_src emacs-lisp
-;; Javascript improved mode js2-mode
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+     ;; Javascript improved mode js2-mode
+     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-;; eg. extract function with `C-c C-m ef`.
+     (require 'js2-refactor)
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
 
-(customize-set-variable 'js2-bounce-indent-p nil)
-(customize-set-variable 'js2-global-externs [global require])
-(customize-set-variable 'js2-include-node-externs t)
+     (js2r-add-keybindings-with-prefix "C-c C-m")
+     ;; eg. extract function with `C-c C-m ef`.
+
+     (customize-set-variable 'js2-bounce-indent-p nil)
+     (customize-set-variable 'js2-global-externs [global require])
+     (customize-set-variable 'js2-include-node-externs t)
+
+     (customize-set-variable 'js2-basic-offset 2)
+
+     (customize-set-variable 'js2-mode-show-parse-errors nil)
+     (customize-set-variable 'js2-mode-show-strict-warnings nil)
+
 
 
    #+end_src
@@ -1766,153 +2008,6 @@
 
 #+end_src
 
-* General Bindings
-  #+begin_src emacs-lisp
-
-    (global-set-key (kbd "C-h a") 'apropos)
-
-    (global-set-key (kbd "M-n")     'forward-paragraph)
-    (global-set-key (kbd "M-p")     'backward-paragraph)
-
-    (global-set-key (kbd "C-c n")   'winner-redo)
-    (global-set-key (kbd "C-c p")   'winner-undo)
-
-    (global-set-key (kbd "C-x C-1") 'delete-other-windows)
-    (global-set-key (kbd "C-x C-2") 'split-window-below)
-    (global-set-key (kbd "C-x C-3") 'split-window-right)
-    (global-set-key (kbd "C-x C-0") 'delete-window)
-
-    (global-set-key (kbd "C-;") 'repeat)
-
-    (global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
-
-    ;; Anzu
-    (global-set-key (kbd "M-%") 'anzu-query-replace)
-    (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-
-    ;; Font size
-    (global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
-    (global-set-key (kbd "C-+") 'text-scale-increase)
-    (global-set-key (kbd "C-=") 'text-scale-increase)
-    (global-set-key (kbd "C--") 'text-scale-decrease)
-    (global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
-    (global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
-    (global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
-
-    ;; A la carte Menu
-    (global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
-
-    ;; helm-imenuu
-    ;; (global-set-key (kbd "C-t") 'transpose-chars)
-    ;; (global-set-key (kbd "M-t") 'transpose-words)
-    ;; (global-set-key (kbd "C-t") 'idomenu)
-    ;; (global-set-key (kbd "M-t") 'imenu-anywhere)
-
-    ;; Locked mode
-    (global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
-
-    ;; Windows manipulation
-    (global-set-key (kbd "C-x |")           'split-window-right)
-    (global-set-key (kbd "C-x -")           'split-window-below)
-    (global-set-key (kbd "C-x C-<right>")   'windmove-right)
-    (global-set-key (kbd "C-x C-<left>")    'windmove-left)
-    (global-set-key (kbd "C-x C-<down>")    'windmove-down)
-    (global-set-key (kbd "C-x C-<up>")      'windmove-up)
-
-    (global-set-key (kbd "C-x <left>")      'shrink-window-horizontally)
-    (global-set-key (kbd "C-x <right>")     'enlarge-window-horizontally)
-    (global-set-key (kbd "C-x <up>")        'enlarge-window)
-    (global-set-key (kbd "C-x <down>")      'shrink-window)
-
-    ;; (global-set-key (kbd "M-<right>") 'other-window)
-    ;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
-    ;;                                           (interactive "P") (other-window -1)))
-
-    (global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
-    (global-set-key (kbd "C-<next>") 'end-of-buffer)
-    (global-set-key (kbd "<prior>") 'scroll-down-command)
-    (global-set-key (kbd "<next>") 'scroll-up-command)
-    (global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
-    (global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
-
-    ;; Magit Mode
-    (global-set-key (kbd "C-x g") 'magit-status)
-
-    ;; Undo Tree mode
-    ;; (global-set-key (kbd "C-+") 'undo-tree-redo)
-
-    ;; iy-go-to-char
-    (global-set-key (kbd "C-M-.") 'iy-go-to-char)
-    (global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
-
-    ;; multiple-cursors bindings
-    (global-set-key (kbd "s-M") 'mc/edit-lines)
-    (global-set-key (kbd "s-.") 'mc/mark-next-like-this)
-    (global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
-    (global-set-key (kbd "s->") 'mc/unmark-next-like-this)
-    (global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
-    (global-set-key (kbd "s-m") 'mc/mark-all-like-this)
-
-    (global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
-
-
-    ;; Expand region by semantics units
-    (global-set-key (kbd "s-\/") 'er/expand-region)
-    (global-set-key (kbd "s-?") 'er/contract-region)
-
-    ;; Register Windows
-    (global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
-                                    (message "Windows disposition loaded")))
-    (global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
-                                     (message "Windows disposition saved")))
-
-    ;; Projectile
-    (global-set-key (kbd "s-d") 'projectile-find-dir)
-    (global-set-key (kbd "s-p") 'helm-projectile-switch-project)
-
-    ;; Resize Windows
-    (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
-    (global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
-    (global-set-key (kbd "C-M-<down>") 'shrink-window)
-    (global-set-key (kbd "C-M-<up>") 'enlarge-window)
-
-    (global-set-key (kbd "<f11>") 'menu-bar-mode)
-    (global-set-key (kbd "<f12>") 'indent-whole-buffer)
-
-
-    ;; Ace Jump Mode
-    (define-key global-map (kbd "M-SPC") 'ace-jump-mode)
-    (define-key global-map (kbd "C-/") 'ace-jump-mode)
-
-    (define-key global-map (kbd "C-,") 'undo-tree-undo)
-
-
-    ;;Project Explorer
-    ;; (global-set-key (kbd "<f1>") 'project-explorer-open)
-
-
-    ;;Query Replace Regex
-    (global-set-key (kbd "C-x C-r") 'query-replace-regexp)
-    (global-set-key (kbd "s-O") 'my-projectile-multi-occur)
-
-    ;; Macro bindings
-    ;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
-
-    ;; Goto
-    (global-set-key [(meta g)] 'goto-line)
-
-    (global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
-
-    ;; (global-set-key (kbd "C-x b") 'ibuffer)
-    ;; (global-set-key (kbd "<M-up>") 'up-and-locate)
-    ;; (global-set-key (kbd "<M-down>") 'down-and-locate)
-    (global-set-key [mouse-5] 'mouse-down-and-locate)
-    (global-set-key [mouse-4] 'mouse-up-and-locate)
-
-
-
-#+end_src
-
 * Override
   #+begin_src emacs-lisp :tangle yes
     (add-hook
@@ -1928,94 +2023,5 @@
     ;; (global-set-key (kbd "C-f") 'forward-char)
     ;; (global-set-key (kbd "C-b") 'backward-char)
     ;; (global-set-key (kbd "C-j") 'newline-and-indent)
-
-#+end_src
-* COMMENT Mu4e
-  Mail setup
-#+begin_src emacs-lisp :tangle yes
-    (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
-
-    (require 'mu4e)
-
-    ;; default
-    (setq mu4e-maildir "~/.mail")
-
-  (setq mu4e-headers-skip-duplicates t)
-  (setq mu4e-headers-include-related t)
-  (setq mu4e-use-fancy-chars nil)
-  (setq mu4e-view-show-images t)
-  (setq mu4e-attachment-dir "~/Downloads")
-
-  (setq mu4e-view-prefer-html t)
-
-    ;; (setq mu4e-drafts-folder "/[Gmail].Drafts")
-    ;; (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-    ;; (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-
-    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-    (setq mu4e-sent-messages-behavior 'delete)
-
-    ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-    ;; additional non-Gmail addresses and want assign them different
-    ;; behavior.)
-
-    ;; setup some handy shortcuts
-    ;; you can quickly switch to your Inbox -- press ``ji''
-    ;; then, when you want archive some messages, move them to
-    ;; the 'All Mail' folder by pressing ``ma''.
-
-    ;; (setq mu4e-maildir-shortcuts
-    ;;     '( ("/INBOX"               . ?i)
-    ;;        ("/[Gmail].Sent Mail"   . ?s)
-    ;;        ("/[Gmail].Trash"       . ?t)
-    ;;        ("/[Gmail].All Mail"    . ?a)))
-
-    ;; allow for updating mail using 'U' in the main view:
-    (setq mu4e-get-mail-command "mbsync -a")
-
-    ;; something about ourselves
-    (setq
-     user-mail-address "dromar566@gmail.com"
-     user-full-name  "David Barrutia"
-     mu4e-compose-signature
-     (concat
-      "David Barrutia"
-      ""))
-
-    ;; sending mail -- replace USERNAME with your gmail username
-    ;; also, make sure the gnutls command line utils are installed
-    ;; package 'gnutls-bin' in Debian/Ubuntu
-
-    (require 'smtpmail)
-    (setq message-send-mail-function 'smtpmail-send-it
-       starttls-use-gnutls t
-       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-       smtpmail-auth-credentials
-       '(("smtp.gmail.com" 587 "dromar56@gmail.com" nil))
-       smtpmail-default-smtp-server "smtp.gmail.com"
-       smtpmail-smtp-server "smtp.gmail.com"
-       smtpmail-smtp-service 587)
-
-    ;; alternatively, for emacs-24 you can use:
-    ;;(setq message-send-mail-function 'smtpmail-send-it
-    ;;     smtpmail-stream-type 'starttls
-    ;;     smtpmail-default-smtp-server "smtp.gmail.com"
-    ;;     smtpmail-smtp-server "smtp.gmail.com"
-    ;;     smtpmail-smtp-service 587)
-
-    ;; don't keep message buffers around
-    (setq message-kill-buffer-on-exit t)
-
-  (defun mu4e-open-mail-in-browser (args)
-    (interactive "P")
-    (let ((mail-content (buffer-string)))
-        (save-excursion
-          (with-temp-file "/tmp/mu4e-tmp-file.html" 
-            (progn 
-              (insert mail-content)
-              (eww-open-file "/tmp/mu4e-tmp-file.html"))))))
-
-  (global-set-key (kbd "C-x m") 'mu4e)
 
 #+end_src

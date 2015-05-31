@@ -2,6 +2,32 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/Users/davidb/projects/early-birds/core.early-birds/lib/repositories/" . "generic/")
+ ("/Users/davidb/projects/early-birds/api.early-birds/" . "controllers/")
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/" . "list/")
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/profile/" . "statistics/")
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/activity/" . "statistics/")
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/" . "product/")
+ ("/Users/davidb/projects/early-birds/" . "console.early-birds/")
+ ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/" . "com_bzccv/")
+ ("/ftp:hotels.lecrazyhorseparis.com:/administrator/" . "components/")
+ ("/ftp:hotels.lecrazyhorseparis.com:/" . "administrator/")
+ ("/Applications/Karabiner.app/Contents/Resources/include/checkbox/" . "standards/")
+ ("/Applications/Karabiner.app/Contents/Resources/include/" . "checkbox/")
+ ("/Applications/Karabiner.app/Contents/Resources/" . "include/")
+ ("/Applications/Karabiner.app/Contents/" . "Resources/")
+ ("/Applications/Karabiner.app/" . "Contents/")
+ ("/Applications/" . "Karabiner.app/")
+ ("/Users/davidb/projects/console.early-birds/src/components/" . "daterange/")
+ ("/Users/davidb/projects/console.early-birds/" . "config/")
+ ("/Users/davidb/dotfiles/" . "zsh/")
+ ("/Users/davidb/.oh-my-zsh/custom/plugins/" . "example/")
+ ("/Users/davidb/.oh-my-zsh/custom/" . "plugins/")
+ ("/Users/davidb/.oh-my-zsh/" . "themes/")
+ ("/Users/davidb/projects/api.early-birds/" . "controllers/")
+ ("/Users/davidb/projects/core.early-birds/" . "config/")
+ ("/Users/davidb/projects/" . "early-birds/")
+ ("/Users/davidb/" . "projects/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" . "recipe2/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/" . "chapter5/")
  ("/home/dromar/tmp/" . "recipes-with-angular-js-examples/")
@@ -19,13 +45,46 @@
  ("/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/" . "administrator/")
  ("/lstock/backup/" . "etc/")
  ("/lstock/" . "backup/")
- ("/" . "tmp/")
+ ("/" . "Applications/")
  ("/sudo:root@localhost:/" . "etc/")
  ("/home/dromar/" . "tmp/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "/Users/davidb/bin/"
+ "/Users/davidb/projects/early-birds/console.early-birds/"
+ "/Users/davidb/"
+ "/Users/davidb/projects/early-birds/core.early-birds/lib/repositories/generic/"
+ "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/list/"
+ "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/show/"
+ "/Users/davidb/projects/early-birds/api.early-birds/"
+ "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/detail/"
+ "/tmp/"
+ "/ftp:hotels.lecrazyhorseparis.com:/"
+ "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/"
+ "/ftp:hotelscrazy@"
+ "/Users/davidb/Dropbox (Personal)/"
+ "/Users/davidb/.emacs.d/"
+ "/Applications/Karabiner.app/Contents/Resources/include/checkbox/standards/"
+ "/Applications/Karabiner.app/Contents/Resources/"
+ "/Users/davidb/projects/core.early-birds/"
+ "/Users/davidb/projects/api.early-birds/controllers/"
+ "/Users/davidb/projects/console.early-birds/config/"
+ "/Users/davidb/projects/console.early-birds/gulp/"
+ "/Users/davidb/projects/console.early-birds/"
+ "/Users/davidb/projects/console.early-birds/src/components/select-widget/"
+ "/Users/davidb/projects/console.early-birds/src/components/daterange/"
+ "/Users/davidb/projects/console.early-birds/src/components/header/"
+ "/Users/davidb/.oh-my-zsh/themes/"
+ "/Users/davidb/.oh-my-zsh/custom/"
+ "/Users/davidb/.oh-my-zsh/"
+ "/Users/davidb/.percol.d/"
+ "/sudo:root@localhost:/etc/"
+ "/sudo:root@localhost:/"
+ "/Users/davidb/projects/api.early-birds/config/"
+ "/Users/davidb/projects/core.early-birds/config/"
+ "/Users/davidb/projects/api.early-birds/"
  "/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/recipe2/"
  "/home/dromar/.scripts/"
  "/home/dromar/projects/smart-meter-box/eibnetmuxclientsamples/eibcommand/"
@@ -33,7 +92,6 @@
  "/home/dromar/tmp/"
  "/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:"
  "/tmp/asd/"
- "/tmp/"
  "/home/dromar/.emacs.d/"
  "/home/dromar/projects/PastaGag/controllers/users/"
  "/home/dromar/projects/PastaGag/controllers/"
@@ -44,27 +102,130 @@
  "/home/dromar/projects/smart-meter-webapp/public/js/modules/"
  "/home/dromar/projects/smart-meter-webapp/views/box/"
  "/home/dromar/"
- "/home/dromar/Downloads/"
- "/lstock/backup/etc/"
- "/sudo:root@localhost:/etc/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- "app.js"
- "rssh-sm"
- "eibcommand.c"
- "rss"
- "controller.php"
- "bzccv.php"
- "timeclickers_save_40.txt"
- "asd"
- "wget.py"
- "test.py"
+ "emacsc"
+ ".gitignore_global"
+ "mongo.js"
+ "list.jade"
+ "show.ctrl.js"
+ "hooks.js"
+ "show.jade"
+ "detail.jade"
+ "detail.ctrl.js"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/Users/davidb/" (21865 52517 0 0) "VirtualBox VMs/" "Snapshots/" "Public/" "projects/" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Applications/" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.3.28.73.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".ssh/" ".scripts/" ".saves/" ".percol.d/" ".oh-my-zsh/" ".npm/" ".node-gyp/" ".netrc" ".MacOSX/" ".local/" ".lesshst" ".jshintrc" ".ipython/" ".IntelliJIdea14/" ".htoprc" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".DS_Store" ".dropbox/" ".config/" ".CFUserTextEncoding" ".cache/" ".bash_history" ".android/" "../" "./")
+
+ ("/Users/davidb/projects/" (21865 35192 0 0) "navigate-paragraph/" "early-birds/" "crazyhorse/" "console.early-birds/" "../" "./")
+
+ ("/Users/davidb/.emacs.d/" (21863 17376 0 0) "vendor/" "tramp" "tangle_config.el~" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el~" "init.el" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".gitignore" ".git/" ".emacs_workgroups" "#config.el#" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/" (21863 16914 0 0) "early-birds.iml" "core.early-birds/" "console.early-birds/" "api.early-birds/" ".jshintrc" ".idea/" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/" (21864 16317 0 0) "views/" "src/" "routes/" "public/" "package.json" "node_modules/" "gulpfile.js" "gulp/" "dist/" "console.early-birds.iml" "config/" "bower_components/" "bower.json" "bin/" "app.js" ".sass-cache/" ".jshintrc" ".idea/" ".gitignore" ".git/" ".editorconfig" ".bowerrc" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/show/" (21864 14258 0 0) "show.jade" "show.ctrl.js" "_show.scss" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/core.early-birds/lib/repositories/generic/" (21861 41582 0 0) "redis.js" "mongo.js" "generic.js" "cassandra.js" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/core.early-birds/lib/repositories/" (21860 32391 0 0) "user.js" "tenant.js" "task.js" "recommendation.js" "profile.js" "product.js" "interest.js" "generic/" "favorite.js" "datasource.js" "application.js" "aggregate.js" "activity.js" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/api.early-birds/" (21864 11216 0 0) "routes.js" "README.md" "package.json" "node_modules/" "models/" "hooks.js" "controllers/" "config/" "app.js" ".idea/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/api.early-birds/controllers/" (21864 13172 0 0) "widget.js" "user.js" "tracker.js" "test.js" "tenant.js" "profile.js" "product.js" "payload.js" "generic.js" "aggregate.js" "activity.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/" (21864 12632 0 0) "show/" "list/" "_product.scss" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/recommendation/widgets/" (21864 12801 0 0) "widgets.jade" "widgets.ctrl.js" "show.jade" "show.ctrl.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/detail/" (21864 12585 0 0) "detail.jade" "detail.ctrl.js" "_detail.scss" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/dashboard/" (21855 8934 0 0) "dashboard.jade" "dashboard.ctrl.js" "_dashboard.scss" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/security/" (21855 8934 0 0) "logout/" "login/" "_security.scss" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/profile/statistics/" (21861 41310 0 0) "statistics.jade" "statistics.ctrl.js" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/profile/" (21855 8934 0 0) "statistics/" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/activity/statistics/" (21855 8934 0 0) "statistics.jade" "statistics.ctrl.js" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/activity/" (21855 8934 0 0) "statistics/" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/" (21863 16310 0 0) "security/" "recommendation/" "profile/" "product/" "index.jade" "dashboard/" "activity/" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/recommendation/" (21855 8934 0 0) "widgets/" "statistics/" "_recommendation.scss" "../" "./")
+
+ ("/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/list/" (21864 12256 0 0) "list.jade" "list.ctrl.js" "_list.scss" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/" (21861 55710 0 0) ".idea/" "../" "./")
+
+ ("/Users/davidb/dotfiles/" (21858 64487 0 0) "zsh/" "tmux/" "tern/" "scripts/" "README.md" "percol/" "mycolors/" "jshint/" "git/" "flake8/" ".git/" "../" "./")
+
+ ("/tmp/" (21857 32642 0 0) "wifi-bMSooO.log" "npm-7738-ead2f321/" "npm-24237-64a8c772/" "npm-11588-dc046220/" "npm-10495-9e5ad303/" "KSOutOfProcessFetcher.502.qQkpPp2uZLdVc5pukHmfJMR4bkM=/" "filecoordination_dump.txt" "com.apple.launchd.XA8a5CXQoN/" "com.apple.launchd.TdEifGEAw4/" "boost_interprocess/" ".vbox-davidb-ipc/" "../" "./")
+
+ ("/Users/davidb/Dropbox (Personal)/" (21854 60009 0 0) "vajra-yogini/" "rado/" "Public/" "Photos/" "Maquette site BPM/" "kalachakra/" "indoorgrowing/" "indepbox/" "Icon
+" "hemicycle/" "Drivers/" "ChefCloud Maquette/" "bpm/" "Apps/" "aellion/" "AAA/" ".DS_Store" ".dropbox.cache/" ".dropbox" "../" "./")
+
+ ("/Applications/Karabiner.app/Contents/Resources/include/checkbox/standards/" (21685 13411 0 0) "tab.xml" "space.xml" "slash.xml" "shift.xml" "semicolon.xml" "return.xml" "quote.xml" "power.xml" "pageup_pagedown.xml" "option.xml" "number.xml" "minus.xml" "keypad.xml" "help.xml" "function.xml" "forward_delete.xml" "fn.xml" "expose.xml" "escape.xml" "enter.xml" "eject.xml" "delete.xml" "control.xml" "command.xml" "capslock.xml" "bracket.xml" "backslash.xml" "backquote.xml" "arrow.xml" "../" "./")
+
+ ("/Applications/Karabiner.app/Contents/Resources/include/checkbox/" (21685 13411 0 0) "vim_emu.xml" "vim_emu/" "vi_mode.xml" "ubiquitous_vim_bindings.xml" "ubiquitous_vim_bindings/" "touchcursor.xml" "thumbsense.xml" "sticky_modifier.xml" "standards/" "snippets/" "simultaneouskeypresses_vi_mode.xml" "simultaneouskeypresses.xml" "samples.xml" "samples/" "programmer_settings.xml" "pointing_device.xml" "pass_through_mode.xml" "overtype_mode.xml" "overtype_mode/" "mouse_keys.xml" "launcher_mode.xml" "latin_american_iso_keyboard_layout.xml" "languages/" "keyboard_layouts.xml" "keyboard_layouts/" "ignore_apps_and_devices.xml" "homerow_numbers.xml" "homerow_mode.xml" "hjkl_arrow.xml" "grenouille.xml" "grenouille/" "general.xml" "for_pc_users.xml" "for_mission_control.xml" "for_dvorak_users.xml" "for_broken_keys.xml" "for_blind_users.xml" "flags.xml" "expose_mode2/" "engelbart.xml" "emacs_mode.xml" "diamond_cursor.xml" "devices/" "device_specific.xml" "custom_shortcuts.xml" "complete_vi_mode.xml" "commons/" "change_input_source_temporary.xml" "browsing_mode.xml" "asetniop.xml" "apps/" "../" "./")
+
+ ("/Applications/Karabiner.app/Contents/Resources/include/" (21685 13411 0 0) "checkbox/" "../" "./")
+
+ ("/Applications/Karabiner.app/Contents/Resources/" (21685 13411 0 0) "windownamedef.xml" "vkopenurldef.xml" "vkchangeinputsourcedef.xml" "uielementroledef.xml" "symbol_map.xml" "replacementdef.xml" "private.xml" "number.xml" "modifierdef.xml" "karabiner_pub.pem" "inputsourcedef.xml" "include/" "icon.statusbar.tif" "English.lproj/" "devicevendordef.xml" "deviceproductdef.xml" "devicelocationdef.xml" "checkbox.xml" "appdef.xml" "app.icns" "../" "./")
+
+ ("/Applications/Karabiner.app/Contents/" (21685 13416 0 0) "Resources/" "PkgInfo" "MacOS/" "Library/" "Info.plist" "Frameworks/" "Applications/" "_CodeSignature/" "../" "./")
+
+ ("/Applications/Karabiner.app/" (21853 54884 0 0) "Contents/" "../" "./")
+
+ ("/Applications/" (21855 39991 0 0) "WebStorm.app/" "VirtualBox.app/" "Utilities/" "Time Machine.app/" "TextEdit.app/" "System Preferences.app/" "Stickies.app/" "Safari.app/" "Robomongo.app/" "Reminders.app/" "QuickTime Player.app/" "Preview.app/" "Photos.app/" "Photo Booth.app/" "Notes.app/" "Mission Control.app/" "Messages.app/" "Maps.app/" "Mail.app/" "Launchpad.app/" "Karabiner.app/" "iTunes.app/" "Image Capture.app/" "iBooks.app/" "HyperSwitch.app/" "Hearthstone/" "googlechrome.dmg" "Google Chrome.app/" "Game Center.app/" "Font Book.app/" "Flux.app/" "FaceTime.app/" "Emacs.app/" "DVD Player.app/" "Dropbox.app/" "Dictionary.app/" "Dashboard.app/" "Contacts.app/" "Chess.app/" "Calendar.app/" "Calculator.app/" "Battle.net.app/" "Automator.app/" "App Store.app/" "Alfred 2.app/" ".localized" ".DS_Store" "../" "./")
+
+ ("/Users/davidb/Library/Application Support/Karabiner/" (21855 47458 0 0) "private.xml" ".DS_Store" "../" "./")
+
+ ("/Users/davidb/projects/api.early-birds/" (21855 13568 0 0) "routes.js" "README.md" "package.json" "node_modules/" "models/" "hooks.js" "controllers/" "config/" "app.js" ".idea/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/config/" (21855 12056 0 0) "parameters.yml.dist" "gulp.yml" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/gulp/" (21855 12056 0 0) "watch.js" "views.js" "vendor.js" "styles.js" "scripts.js" "jshint.js" "images.js" "fonts.js" "default.js" "clean.js" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/src/components/select-widget/" (21855 9151 0 0) "select-widget.jade" "select-widget.dir.js" "_select-widget.scss" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/src/components/daterange/" (21855 9073 0 0) "daterange.tpl.html" "daterange.jade" "daterange.dir.js" "_daterange.scss" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/src/components/" (21855 8934 0 0) "sidebar/" "select-widget/" "panel-stats/" "header/" "daterange/" "../" "./")
+
+ ("/Users/davidb/projects/console.early-birds/src/components/header/" (21855 9045 0 0) "header.tpl.html" "header.jade" "header.ctrl.js" "_header.scss" "../" "./")
+
+ ("/Users/davidb/.oh-my-zsh/custom/" (21854 58186 0 0) "themes/" "plugins/" "example.zsh" "../" "./")
+
+ ("/Users/davidb/.oh-my-zsh/custom/themes/" (21854 58192 0 0) "robbyrussell.zsh-theme" "../" "./")
+
+ ("/Users/davidb/.oh-my-zsh/themes/" (21854 27529 0 0) "zhann.zsh-theme" "ys.zsh-theme" "xiong-chiamiov.zsh-theme" "xiong-chiamiov-plus.zsh-theme" "wuffers.zsh-theme" "wezm.zsh-theme" "wezm+.zsh-theme" "wedisagree.zsh-theme" "trapd00r.zsh-theme" "tonotdo.zsh-theme" "tjkirch_mod.zsh-theme" "tjkirch.zsh-theme" "theunraveler.zsh-theme" "terminalparty.zsh-theme" "takashiyoshida.zsh-theme" "suvash.zsh-theme" "superjarin.zsh-theme" "sunrise.zsh-theme" "sunaku.zsh-theme" "steeef.zsh-theme" "sporty_256.zsh-theme" "sorin.zsh-theme" "sonicradish.zsh-theme" "Soliah.zsh-theme" "smt.zsh-theme" "skaro.zsh-theme" "simple.zsh-theme" "simonoff.zsh-theme" "sammy.zsh-theme" "robbyrussell.zsh-theme" "rkj.zsh-theme" "rkj-repos.zsh-theme" "rixius.zsh-theme" "risto.zsh-theme" "rgm.zsh-theme" "re5et.zsh-theme" "pygmalion.zsh-theme" "pure.zsh-theme" "pmcgee.zsh-theme" "philips.zsh-theme" "peepcode.zsh-theme" "obraun.zsh-theme" "norm.zsh-theme" "nicoulaj.zsh-theme" "nebirhos.zsh-theme" "nanotech.zsh-theme" "muse.zsh-theme" "murilasso.zsh-theme" "mrtazz.zsh-theme" "mortalscumbag.zsh-theme" "mira.zsh-theme" "minimal.zsh-theme" "miloshadzic.zsh-theme" "mikeh.zsh-theme" "michelebologna.zsh-theme" "mh.zsh-theme" "mgutz.zsh-theme" "maran.zsh-theme" "macovsky.zsh-theme" "macovsky-ruby.zsh-theme" "lukerandall.zsh-theme" "linuxonly.zsh-theme" "lambda.zsh-theme" "kphoen.zsh-theme" "kolo.zsh-theme" "kiwi.zsh-theme" "kennethreitz.zsh-theme" "kardan.zsh-theme" "kafeitu.zsh-theme" "junkfood.zsh-theme" "juanghurtado.zsh-theme" "jtriley.zsh-theme" "jreese.zsh-theme" "josh.zsh-theme" "jonathan.zsh-theme" "jnrowe.zsh-theme" "jispwoso.zsh-theme" "jbergantine.zsh-theme" "jaischeema.zsh-theme" "itchy.zsh-theme" "intheloop.zsh-theme" "imajes.zsh-theme" "humza.zsh-theme" "half-life.zsh-theme" "gozilla.zsh-theme" "gnzh.zsh-theme" "gianu.zsh-theme" "geoffgarside.zsh-theme" "gentoo.zsh-theme" "garyblessington.zsh-theme" "gallois.zsh-theme" "gallifrey.zsh-theme" "fwalch.zsh-theme" "funky.zsh-theme" "frontcube.zsh-theme" "frisk.zsh-theme" "fox.zsh-theme" "fletcherm.zsh-theme" "flazz.zsh-theme" "fishy.zsh-theme" "fino.zsh-theme" "fino-time.zsh-theme" "example.zsh-theme" "evan.zsh-theme" "essembeh.zsh-theme" "edvardm.zsh-theme" "eastwood.zsh-theme" "duellj.zsh-theme" "dstufft.zsh-theme" "dst.zsh-theme" "dpoggi.zsh-theme" "dogenpunk.zsh-theme" "dieter.zsh-theme" "daveverwer.zsh-theme" "darkblood.zsh-theme" "dallas.zsh-theme" "cypher.zsh-theme" "crunch.zsh-theme" "crcandy.zsh-theme" "cloud.zsh-theme" "clean.zsh-theme" "candy.zsh-theme" "candy-kingdom.zsh-theme" "bureau.zsh-theme" "blinks.zsh-theme" "bira.zsh-theme" "awesomepanda.zsh-theme" "avit.zsh-theme" "aussiegeek.zsh-theme" "arrow.zsh-theme" "apple.zsh-theme" "amuse.zsh-theme" "alanpeabody.zsh-theme" "agnoster.zsh-theme" "afowler.zsh-theme" "af-magic.zsh-theme" "adben.zsh-theme" "3den.zsh-theme" "../" "./")
+
+ ("/Users/davidb/dotfiles/zsh/" (21854 27423 0 0) ".zshrc" "../" "./")
+
+ ("/Users/davidb/.oh-my-zsh/custom/plugins/example/" (21854 27529 0 0) "example.plugin.zsh" "../" "./")
+
+ ("/Users/davidb/.oh-my-zsh/custom/plugins/" (21854 27529 0 0) "example/" "../" "./")
+
+ ("/Users/davidb/.oh-my-zsh/" (21854 27529 0 0) "tools/" "themes/" "templates/" "README.markdown" "plugins/" "oh-my-zsh.sh" "MIT-LICENSE.txt" "log/" "lib/" "custom/" "cache/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/.percol.d/" (21854 27687 0 0) "rc.py" "../" "./")
+
+ ("/Users/davidb/projects/api.early-birds/config/" (21854 387 0 0) "config.json.dist" "config.json" "../" "./")
+
+ ("/Users/davidb/projects/api.early-birds/controllers/" (21853 58824 0 0) "widget.js" "user.js" "tracker.js" "test.js" "tenant.js" "profile.js" "product.js" "payload.js" "generic.js" "aggregate.js" "activity.js" "../" "./")
+
+ ("/Users/davidb/projects/core.early-birds/config/" (21853 64094 0 0) "schema.json" "config.json.dist" "config.json" "../" "./")
+
+ ("/Users/davidb/projects/core.early-birds/" (21854 125 0 0) "Vagrantfile" "shell.js" "README.md" "package.json" "node_modules/" "logs/" "lib/" "install/" "index.js" "console.js" "config/" ".vagrant/" ".npmignore" ".gitignore" ".git/" "../" "./")
+
  ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/recipe2/" (21832 51435 843337 222000) "app.js" "package.json" "../" ".tern-port" "public/" "README.md" "./" "node_modules/" "views/")
 
  ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" (21832 49621 810002 42000) "../" "recipe2/" "recipe1/" "recipe4/" "./" "recipe5/" "recipe3/")
@@ -92,8 +253,6 @@
  ("/home/dromar/.emacs.d/" (21734 35060 513308 153000) "custom.el" "smex-items" "tangle_config.el" "elisp/" "ido.last~" "session.1013c143d3dc000138501931800000005160119" ".emacs_workgroups" "init.el" "session.1013c143d3dc000142261552200000295730169" "vendor/" "bookmarks" ".git/" "places" "../" "snippets/" "session.1013c143d3dc000140674561100000006140021" ".smex-items" "README.md" "projectile.cache" "session.1013c143d3dc000140673059500000006210027" "ede-projects.el" "auto-save-list/" "tramp" "session.105744ef1cc49cf4b1142213759372949900000225510034" ".mc-lists.el" "url/" "smex-items-backup" "session.1013c143d3dc000141312652400000006647560" "ac-comphist.dat" "recentf" "ido.last" "config/" ".cache/" ".org-id-locations" "elpa/" "eshell/" ".gitignore" "LICENSE.md" "./" "session.1013c143d3dc000141314661100000005670030" "config.el" "TAGS" "session.1013c143d3dc000138501759100000005160117" "config.org" "projectile-bookmarks.eld" "session.1013c143d3dc000140481139300000005390033")
 
  ("/tmp/asd/" (21730 25399 306575 772000) "test.py" "asd" "../" "./")
-
- ("/tmp/" (21730 25398 533242 440000) ".X11-unix/" ".ICE-unix/" ".font-unix/" ".Test-unix/" ".XIM-unix/" ".X0-lock" "systemd-private-bde0b9b3ad1c48f78473f5de017b2176-colord.service-BLFJce/" ".esd-120/" "ssh-uXaU4hhAFo9A/" "kde-dromar/" "xauth-1000-_0" "akonadi-dromar.uEsJPe/" ".esd-1000/" "tracker-extract-files.1000/" "tmux-1000/" ".com.google.Chrome.cAdCnK/" ".wine-1000/" "babel-25709s1/" "emacs1000/" ".org.chromium.Chromium.vkpOcZ/" "pacaurtmp-dromar/" "konsole-Y22233.history" "konsole-o22233.history" "konsole-X22233.history" "pip_build_dromar/" "pip_build_root/" "python/" "tmpxzi4nob_/" "asd/" "babel-32322tLc/" "sdf/" ".org.chromium.Chromium.KGo31p/" ".org.chromium.Chromium.OOzmWZ/" "Popcorn-Time/" "py2570WqQ" "py2570WxE" "py2570-XS" "py2570LiY" "py2570Mcr" "wget.py" "root@njs-03.bzctoons.net-28120" "root@njs-03.comwatt.com-28120" "../" "./")
 
  ("/home/dromar/projects/indepbox/indepbox/drivers/" (21730 25398 553242 439000) "zway/" "knx_x86/" "ipx.js" "knx.js" "../" "eco.js" "zway.js" "zstick.js" "migrations.js" "./" "knx_old.js" "ip/" "parse_xml.py")
 
