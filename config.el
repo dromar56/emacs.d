@@ -251,8 +251,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq helm-dash-browser-func 'browse-url)
 ;; (setq helm-dash-browser-func 'eww)
 
-;(global-set-key (kbd "<f1>") 'helm-spaces)
-(key-chord-define-global "e3" 'helm-spaces)
+(global-set-key (kbd "M-s") 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
 
 (require 'helm-projectile)
     (projectile-global-mode t)
@@ -321,7 +320,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq org-default-notes-file org-main-file)
 (define-key global-map (kbd "C-c c") 'org-capture)
-(define-key global-map (kbd "<f1>") 'org-capture)
+;;(define-key global-map (kbd "<f1>") 'org-capture)
 (define-key global-map (kbd "<S-f1>") (lambda () (interactive)
                                         (let ((current-prefix-arg '(4)))
                                           (call-interactively 'org-capture))))
@@ -493,203 +492,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (if (bolp)
       (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
 
-(require-package 'discover)
-(require-package 'discover-my-major)
-
-(require 'discover)
-(global-discover-mode 1)
-
-;; (setq makey-key-mode-keymaps nil)
-;; (discover-add-context-menu
-;;  :context-menu '(misc-functions
-;;                  (description "Misc functions")
-;;                  (actions
-;;                   ("Functions"
-;;                    ("`" "Insert `" (lambda () (interactive) (insert "`")))
-;;                    ("m" "Save macro" save-macro)
-;;                    ("u" "Undo tree" undo-tree-visualize)
-;;                    ("q" "helm-mini" helm-mini)
-;;                    ("d" "dired-jump" dired-jump)
-;;                    ("p" "switch projects" projectile-switch-project)
-;;                    ("c" "toggle company" company-auto-completion-toggle)
-;;                    ("y" "kill ring" helm-show-kill-ring)
-;;                    ("f" "helm projectile" helm-projectile)
-;;                    ("w" "helm projectile" helm-projectile)
-;;                    ("1" "ace jump" ace-jump-mode)
-;;                    ("r" "discover register" makey-key-mode-popup-register)
-;;                    ("s" "Font Size" set-frame-font-size)
-;;                    ("<tab>" "helm-mini" helm-mini)
-;;                    ("v" "Revert buffer" revert-buffer)
-;;                    )))
-
-;;  :bind "`")
-
-;; (global-unset-key (kbd "`"))
-
-;; (discover-add-context-menu
-;;  :context-menu '(js2-refactor
-;;               (description "JS2 Refactor2")
-;;               (actions
-;;                ("Functions"
-;;                 ("ef" "extract function" js2r-extract-function)
-;;                 ("em" "extract method" js2r-extract-method)
-;;                 ("ip" "introduce parameter" js2r-introduce-parameter)
-;;                 ("lp" "localize parameter" js2r-localize-parameter)
-;;                 ("ao" "Arguments to object" js2r-arguments-to-object))
-;;                ("Variables"
-;;                 ("ev" "Extract variable" js2r-extract-var)
-;;                 ("iv" "Inline variable" js2r-inline-var)
-;;                 ("rv" "Rename variable" (lambda () (interactive) (js2r-rename-var)))
-;;                 ("vt" "var to this" js2r-var-to-this)
-;;                 ("sv" "split var declaration" js2r-split-var-declaration))
-;;                ("Contract/Expand"
-;;                 ("cu" "contract function" js2r-contract-function)
-;;                 ("eu" "expand function" js2r-expand-function)
-;;                 ("ca" "contract array" js2r-contract-array)
-;;                 ("ea" "expand array" js2r-expand-array)
-;;                 ("co" "contract object" js2r-contract-object)
-;;                 ("eo" "expand object" js2r-expand-object))
-;;                ("Structure"
-;;                 ("3i" "ternary to if" js2r-ternary-to-if)
-;;                 ("uw" "unwrap" js2r-unwrap)
-;;                 ("ig" "inject global in iife" js2r-inject-global-in-iife)
-;;                 ("wi" "wrap buffer in iife" js2r-wrap-buffer-in-iife))
-;;                ("Misc"
-;;                 ("lt" "log this" js2r-log-this)
-;;                 ("sl" "forward slurp" js2r-forward-slurp)
-;;                 ("ba" "forward barf" js2r-forward-barf))))
-;;  :mode 'js2-mode
-;;  :mode-hook 'js2-mode-hook
-;;  :bind "C-c C-m")
-
-;; (discover-add-context-menu
-;;  :context-menu '(register
-;;                  (description "Register and rectangles")
-;;                  (actions
-;;                   ("Save to register"
-;;                    ("w" "window configuration to register" window-configuration-to-register)
-;;                    ("x" "copy to register" copy-to-register)
-;;                    ("SPC" "point to register" point-to-register)
-;;                    ("+" "increment register" increment-register)
-;;                    ("f" "frame configuration to register" frame-configuration-to-register)
-;;                    ;; this is technically not bound to a key but it's just too darn
-;;                    ;; useful to leave unbound.
-;;                    ("A" "append to register" append-to-register)
-;;                    )
-
-;;                   ("Load from register"
-;;                    ("l" "list registers" helm-register)
-;;                    ("i" "insert register" insert-register)
-;;                    ("j" "jump to register" jump-to-register)
-;;                    ("n" "number to register" number-to-register))
-
-;;                   ("Rectangle"
-;;                    ("M-w" "copy rectangle as kill" copy-rectangle-as-kill)
-;;                    ("N" "rectangle number lines" rectangle-number-lines)
-;;                    ("c" "clear rectangle" clear-rectangle)
-;;                    ("d" "delete rectangle" delete-rectangle)
-;;                    ("k" "kill rectangle" kill-rectangle)
-;;                    ("o" "open rectangle" open-rectangle)
-;;                    ("r" "copy rectangle to register" copy-rectangle-to-register)
-;;                    ("t" "string rectangle" string-rectangle)
-;;                    ("y" "yank rectangle" yank-rectangle))
-;;                   ))
-
-;;  :bind "C-x r")
-
-
-;; (discover-add-context-menu
-;;  :context-menu '(narrow
-;;                  (description "Narrow")
-;;                  (actions
-;;                   ("Narrow"
-;;                    ("n" "Narrow to region" narrow-to-region)
-;;                    ("d" "Narrow to defun" narrow-to-defun)
-;;                    ("p" "Narrow to page" narrow-to-page))
-;;                   ("Org narrow"
-;;                    ("b" "Org narrow to block" org-narrow-to-block)
-;;                    ("e" "Org narrow to element" org-narrow-to-element)
-;;                    ("s" "Org narrow to subtree" org-narrow-to-subtree))
-;;                   ("Widen" ("w" "Widen" widen))))
-
-;;  :bind "C-x n")
-
-
-(discover-add-context-menu
- :context-menu '(helpfunctions
-                 (description "Help Functions")
-                 (actions
-                  ("Help functions"
-
-                   ("C-a"       "about-emacs" about-emacs)
-                   ("C-c"       "describe-copying" describe-copying)
-                   ("C-d"       "view-emacs-debugging" view-emacs-debugging)
-                   ("C-e"       "view-external-packages" view-external-packages)
-                   ("C-f"       "view-emacs-FAQ" view-emacs-FAQ)
-                   ("C-h"       "help-for-help" help-for-help)
-                   ("RET"       "view-order-manuals" view-order-manuals)
-                   ("C-n"       "view-emacs-news" view-emacs-news)
-                   ("C-o"       "describe-distribution" describe-distribution)
-                   ("C-p"       "view-emacs-problems" view-emacs-problems)
-                   ("C-t"       "view-emacs-todo" view-emacs-todo)
-                   ("C-w"       "describe-no-warranty" describe-no-warranty)
-                   ("C-\\"      "describe-input-method" describe-input-method)
-                   ("."         "display-local-help" display-local-help)
-                   ("?"         "help-for-help" help-for-help)
-                   ("C"         "describe-coding-system" describe-coding-system)
-                   ("F"         "Info-goto-emacs-command-node" Info-goto-emacs-command-node)
-                   ("I"         "describe-input-method" describe-input-method)
-                   ("K"         "Info-goto-emacs-key-command-node" Info-goto-emacs-key-command-node)
-                   ("L"         "describe-language-environment" describe-language-environment)
-                   ("P"         "describe-package" describe-package)
-                   ("S"         "info-lookup-symbol" info-lookup-symbol)
-                   ("a"         "apropos-command" apropos-command)
-                   ("b"         "describe-bindings" describe-bindings)
-                   ("c"         "describe-key-briefly" describe-key-briefly)
-                   ("d"         "apropos-documentation" apropos-documentation)
-                   ("e"         "view-echo-area-messages" view-echo-area-messages)
-                   ("f"         "describe-function" describe-function)
-                   ("g"         "describe-gnu-project" describe-gnu-project)
-                   ("h"         "view-hello-file" view-hello-file)
-                   ("i"         "info" info)
-                   ("k"         "describe-key" describe-key)
-                   ("l"         "view-lossage" view-lossage)
-                   ("m"         "describe-mode" describe-mode)
-                   ("n"         "view-emacs-news" view-emacs-news)
-                   ("p"         "finder-by-keyword" finder-by-keyword)
-                   ("q"         "help-quit" help-quit)
-                   ("r"         "info-emacs-manual" info-emacs-manual)
-                   ("s"         "describe-syntax" describe-syntax)
-                   ("t"         "help-with-tutorial" help-with-tutorial)
-                   ("v"         "describe-variable" describe-variable)
-                   ("w"         "where-is" where-is)
-                   ("<f1>"      "help-for-help" help-for-help)
-                   ("<help>"    "help-for-help" help-for-help)
-
-
-                   )
-                  ))
-
- :bind "C-h h")
-
 (require-package 'evil)
 (require 'evil)
-
-(defun my-update-cursor ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'bar
-                      'box)))
-
-(add-hook 'god-mode-enabled-hook 'my-update-cursor)
-(add-hook 'god-mode-disabled-hook 'my-update-cursor)
-
-(global-set-key (kbd "<escape>") 'god-mode-all)
-(after 'god-mode
-  (define-key god-local-mode-map (kbd "i") 'god-mode)
-  (define-key god-local-mode-map (kbd "<right>")        'windmove-right)
-  (define-key god-local-mode-map (kbd "<left>") 'windmove-left)
-  (define-key god-local-mode-map (kbd "<down>") 'windmove-down)
-  (define-key god-local-mode-map (kbd "<up>")   'windmove-up))
 
 ;;==========
 ;; Undo tree
@@ -714,9 +518,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require-package 'diminish)
 (diminish 'visual-line-mode)
 (after 'autopair (diminish 'autopair-mode))
+(after 'js2 (diminish 'Javascript-IDE))
+(after 'js2r (diminish 'js2r-mode))
+(after 'skewer (diminish 'skewer-mode))
 (after 'undo-tree (diminish 'undo-tree-mode))
 (after 'auto-complete (diminish 'auto-complete-mode))
-(after 'projectile (diminish 'projectile-mode))
+;(after 'projectile (diminish 'projectile-mode))
 (after 'yasnippet (diminish 'yas-minor-mode))
 (after 'guide-key (diminish 'guide-key-mode))
 (after 'eldoc (diminish 'eldoc-mode))
@@ -790,220 +597,222 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
-(setq save-interprogram-paste-before-kill t)
+(setq indent-tabs-mode 'nil)
 
-(setq bookmark-saved-flag 1)
+    (setq save-interprogram-paste-before-kill t)
 
-(setq suggest-key-binding 5)
+    (setq bookmark-saved-flag 1)
 
-    (window-numbering-mode t)
+    (setq suggest-key-binding 5)
 
-    (setq help-window-select t)
+        (window-numbering-mode t)
 
-        (customize-set-variable 'scroll-bar-mode (quote right))
-        (customize-set-variable 'scroll-conservatively 100000)
-        (customize-set-variable 'scroll-preserve-screen-position 1)
+        (setq help-window-select t)
 
-        (customize-set-variable 'show-paren-delay 0)
-        (customize-set-variable 'show-paren-mode t)
-        (customize-set-variable 'smex-history-length 1000)
-        (customize-set-variable 'recentf-auto-cleanup (quote never))
-        (customize-set-variable 'recentf-max-saved-items 200000)
+            (customize-set-variable 'scroll-bar-mode (quote right))
+            (customize-set-variable 'scroll-conservatively 100000)
+            (customize-set-variable 'scroll-preserve-screen-position 1)
 
-
-
-        (setq inhibit-startup-screen t)
-
-(setq reb-re-syntax 'string) ;; fix backslash madness
-(add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
-
-        (global-auto-revert-mode 1)
-        (electric-indent-mode -1)
-        (transient-mark-mode 1)
-        (delete-selection-mode -1)
-
-        ;; Enable access to the clipboard
-        (setq x-select-enable-clipboard t)
-
-        (defalias 'yes-or-no-p 'y-or-n-p)
-
-        ;; Try to fix the shell unicode problem
-        (defadvice ansi-term (after advise-ansi-term-coding-system)
-          (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-        (ad-activate 'ansi-term)
-
-        (put 'narrow-to-region 'disabled nil)
-
-        (require 'recentf)
-        ;; (recentf-mode 1)
-        (setq recentf-max-menu-items 10)
-        ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
-        (require 'uniquify)
-        (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
-        (customize-set-variable 'uniquify-strip-common-suffix t)
-
-        ;; (setq uniquify-buffer-name-style 'reverse)
-
-        ;;todo
-
-        (defun my-find-file-check-make-large-file-read-only-hook ()
-          "If a file is over a given size, make the buffer read only."
-          (when (> (buffer-size) (* 1024 1024))
-            (setq buffer-read-only t)
-            (buffer-disable-undo)
-            (fundamental-mode)))
-        (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
-
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Add prefix to Dired buffers
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-        (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
-        (defun ensure-buffer-name-ends-in-slash ()
-          "change buffer name to end with slash"
-          (let ((name (buffer-name)))
-            (if (not (string-match "^Dir/" name))
-                (rename-buffer (concat "Dir/" name) t))))
-
-                   ;;;;;;;;;;;;;;;;;;;
-        ;; Eval and replace
-                   ;;;;;;;;;;;;;;;;;;;
-
-        (defun eval-and-replace ()
-          "Replace the preceding sexp with its value."
-          (interactive)
-          (backward-kill-sexp)
-          (condition-case nil
-              (prin1 (eval (read (current-kill 0)))
-                     (current-buffer))
-            (error (message "Invalid expression")
-                   (insert (current-kill 0)))))
-
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Emacs Backfup Files settings (those damn annoying ~ files !)
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-        (setq backup-directory-alist `(("." . "~/.saves")))
-        (setq backup-by-copying t)
-        (setq delete-old-versions t
-              kept-new-versions 6
-              kept-old-versions 2
-              version-control t)
-
-        (setq auto-save-file-name-transforms
-              `((".*" ,"~/.saves/" t)))
-
-        ;; remove those pesky lock files
-        (setq create-lockfiles nil)
-
-                   ;;;;;;;;;;;;;;;;;;;;;;
-        ;; Mouse/Wheel options
-                   ;;;;;;;;;;;;;;;;;;;;;;
-
-        (defun up-and-locate()
-          (interactive)
-          (scroll-down 8)
-          )
-
-        (defun down-and-locate()
-          (interactive)
-          (scroll-down -8)
-          )
-
-        (defun mouse-up-and-locate()
-          (interactive)
-          (scroll-down 3)
-          )
-
-        (defun mouse-down-and-locate()
-          (interactive)
-          (scroll-down -3)
-          )
+            (customize-set-variable 'show-paren-delay 0)
+            (customize-set-variable 'show-paren-mode t)
+            (customize-set-variable 'smex-history-length 1000)
+            (customize-set-variable 'recentf-auto-cleanup (quote never))
+            (customize-set-variable 'recentf-max-saved-items 200000)
 
 
-                   ;;;;;;;;;;;;;;;;;;;;;;
-        ;; Indent Whole Buffer
-                   ;;;;;;;;;;;;;;;;;;;;;;
 
-        (defun indent-whole-buffer ()
-          "indent whole buffer and untabify it"
-          (interactive)
-          (delete-trailing-whitespace)
-          (indent-region (point-min) (point-max) nil))
+            (setq inhibit-startup-screen t)
 
-        ;;todo
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; FIX FOR TERMINAL SHIFT+UP
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        (if (equal "xterm" (tty-type))
-            (define-key input-decode-map "\e[1;2A" [S-up]))
+    (setq reb-re-syntax 'string) ;; fix backslash madness
+    (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
-        (defadvice terminal-init-xterm (after select-shift-up activate)
-          (define-key input-decode-map "\e[1;2A" [S-up]))
+            (global-auto-revert-mode 1)
+            (electric-indent-mode -1)
+            (transient-mark-mode 1)
+            (delete-selection-mode -1)
 
-                   ;;;;;;;;;;;;;;;;;;;;;
-        ;; Locked buffer mode
-                   ;;;;;;;;;;;;;;;;;;;;;
+            ;; Enable access to the clipboard
+            (setq x-select-enable-clipboard t)
 
-        (define-minor-mode locked-buffer-mode
-          "Make the current window always display this buffer."
-          nil " locked" nil
-          (set-window-dedicated-p (selected-window) locked-buffer-mode))
+            (defalias 'yes-or-no-p 'y-or-n-p)
+
+            ;; Try to fix the shell unicode problem
+            (defadvice ansi-term (after advise-ansi-term-coding-system)
+              (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+            (ad-activate 'ansi-term)
+
+            (put 'narrow-to-region 'disabled nil)
+
+            (require 'recentf)
+            ;; (recentf-mode 1)
+            (setq recentf-max-menu-items 10)
+            ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+            (require 'uniquify)
+            (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
+            (customize-set-variable 'uniquify-strip-common-suffix t)
+
+            ;; (setq uniquify-buffer-name-style 'reverse)
+
+            ;;todo
+
+            (defun my-find-file-check-make-large-file-read-only-hook ()
+              "If a file is over a given size, make the buffer read only."
+              (when (> (buffer-size) (* 1024 1024))
+                (setq buffer-read-only t)
+                (buffer-disable-undo)
+                (fundamental-mode)))
+            (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
+
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Add prefix to Dired buffers
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+            (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
+            (defun ensure-buffer-name-ends-in-slash ()
+              "change buffer name to end with slash"
+              (let ((name (buffer-name)))
+                (if (not (string-match "^Dir/" name))
+                    (rename-buffer (concat "Dir/" name) t))))
+
+                       ;;;;;;;;;;;;;;;;;;;
+            ;; Eval and replace
+                       ;;;;;;;;;;;;;;;;;;;
+
+            (defun eval-and-replace ()
+              "Replace the preceding sexp with its value."
+              (interactive)
+              (backward-kill-sexp)
+              (condition-case nil
+                  (prin1 (eval (read (current-kill 0)))
+                         (current-buffer))
+                (error (message "Invalid expression")
+                       (insert (current-kill 0)))))
+
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Emacs Backfup Files settings (those damn annoying ~ files !)
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+            (setq backup-directory-alist `(("." . "~/.saves")))
+            (setq backup-by-copying t)
+            (setq delete-old-versions t
+                  kept-new-versions 6
+                  kept-old-versions 2
+                  version-control t)
+
+            (setq auto-save-file-name-transforms
+                  `((".*" ,"~/.saves/" t)))
+
+            ;; remove those pesky lock files
+            (setq create-lockfiles nil)
+
+                       ;;;;;;;;;;;;;;;;;;;;;;
+            ;; Mouse/Wheel options
+                       ;;;;;;;;;;;;;;;;;;;;;;
+
+            (defun up-and-locate()
+              (interactive)
+              (scroll-down 8)
+              )
+
+            (defun down-and-locate()
+              (interactive)
+              (scroll-down -8)
+              )
+
+            (defun mouse-up-and-locate()
+              (interactive)
+              (scroll-down 3)
+              )
+
+            (defun mouse-down-and-locate()
+              (interactive)
+              (scroll-down -3)
+              )
 
 
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;; Save undo history when revert-buffer
-                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                       ;;;;;;;;;;;;;;;;;;;;;;
+            ;; Indent Whole Buffer
+                       ;;;;;;;;;;;;;;;;;;;;;;
 
-        ;; emacs doesn't actually save undo history with revert-buffer
-        ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
-        ;; fix that.
-        (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
-          (interactive)
+            (defun indent-whole-buffer ()
+              "indent whole buffer and untabify it"
+              (interactive)
+              (delete-trailing-whitespace)
+              (indent-region (point-min) (point-max) nil))
 
-          ;; tell Emacs the modtime is fine, so we can edit the buffer
-          (clear-visited-file-modtime)
+            ;;todo
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; FIX FOR TERMINAL SHIFT+UP
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            (if (equal "xterm" (tty-type))
+                (define-key input-decode-map "\e[1;2A" [S-up]))
 
-          ;; insert the current contents of the file on disk
-          (widen)
-          (delete-region (point-min) (point-max))
-          (insert-file-contents (buffer-file-name))
+            (defadvice terminal-init-xterm (after select-shift-up activate)
+              (define-key input-decode-map "\e[1;2A" [S-up]))
 
-          ;; mark the buffer as not modified
-          (not-modified)
-          (set-visited-file-modtime))
+                       ;;;;;;;;;;;;;;;;;;;;;
+            ;; Locked buffer mode
+                       ;;;;;;;;;;;;;;;;;;;;;
 
-        (setq revert-buffer-function 'revert-buffer-keep-history)
-        (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+            (define-minor-mode locked-buffer-mode
+              "Make the current window always display this buffer."
+              nil " locked" nil
+              (set-window-dedicated-p (selected-window) locked-buffer-mode))
 
 
-                   ;;;;;;;;;;;;;;;;;
-        ;; Search engines
-                   ;;;;;;;;;;;;;;;;;
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;; Save undo history when revert-buffer
+                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-        (defun prelude-search (query-url prompt)
-          "Open the search url constructed with the QUERY-URL.
-                   PROMPT sets the `read-string prompt."
-          (browse-url
-           (concat query-url
-                   (url-hexify-string
-                    (if mark-active
-                        (buffer-substring (region-beginning) (region-end))
-                      (read-string prompt))))))
+            ;; emacs doesn't actually save undo history with revert-buffer
+            ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
+            ;; fix that.
+            (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
+              (interactive)
 
-        (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
-          "Given some information regarding a search engine, install the interactive command to search through them"
-          `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-             ,(format "Search %s with a query or region if any." search-engine-name)
-             (interactive)
-             (prelude-search ,search-engine-url ,search-engine-prompt)))
+              ;; tell Emacs the modtime is fine, so we can edit the buffer
+              (clear-visited-file-modtime)
 
-        (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
-        (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
-        (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
-        (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
-        (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
+              ;; insert the current contents of the file on disk
+              (widen)
+              (delete-region (point-min) (point-max))
+              (insert-file-contents (buffer-file-name))
+
+              ;; mark the buffer as not modified
+              (not-modified)
+              (set-visited-file-modtime))
+
+            (setq revert-buffer-function 'revert-buffer-keep-history)
+            (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+
+
+                       ;;;;;;;;;;;;;;;;;
+            ;; Search engines
+                       ;;;;;;;;;;;;;;;;;
+
+            (defun prelude-search (query-url prompt)
+              "Open the search url constructed with the QUERY-URL.
+                       PROMPT sets the `read-string prompt."
+              (browse-url
+               (concat query-url
+                       (url-hexify-string
+                        (if mark-active
+                            (buffer-substring (region-beginning) (region-end))
+                          (read-string prompt))))))
+
+            (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+              "Given some information regarding a search engine, install the interactive command to search through them"
+              `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+                 ,(format "Search %s with a query or region if any." search-engine-name)
+                 (interactive)
+                 (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+            (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+            (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+            (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+            (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+            (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
 (defun narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens. Otherwise, it narrows
@@ -1191,6 +1000,13 @@ narrowed."
 (global-set-key [mouse-5] 'mouse-down-and-locate)
 (global-set-key [mouse-4] 'mouse-up-and-locate)
 
+(dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]  
+             [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
+             [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
+             [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
+             [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5]))
+  (global-unset-key k))
+
 (defun set-frame-font-size (size)
   (interactive "nSize:")
   (set-face-attribute 'default (selected-frame) :height size)
@@ -1259,27 +1075,7 @@ narrowed."
                     :foreground "black"
                     :weight 'semi-bold )
 
-(load-theme 'sanityinc-tomorrow-eighties t)
-(setq default-frame-alist '((cursor-color . "#f2777a")))
-
-; (set-face-attribute 'org-level-1 nil :height 1.3)
-; (set-face-attribute 'org-level-2 nil :height 1.2)
-; (set-face-attribute 'org-level-3 nil :height 1.1 :foreground "#69C031")
-
- (set-face-attribute 'org-level-3 nil  :foreground "#69C031")
-
-;;;;;;;;;;;;;;;;;;
-;; Font lock speed
-;;;;;;;;;;;;;;;;;;
-
-(setq font-lock-support-mode 'jit-lock-mode)
-(setq jit-lock-stealth-time
-      16
-      jit-lock-defer-contextually nil
-      jit-lock-stealth-nice 0.5
-      jit-lock-defer-time 0.05)
-
-(setq font-lock-maximum-decoration 0)
+(load-theme 'leuven t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C count-lines-function
@@ -1349,22 +1145,28 @@ narrowed."
 (add-hook 'jade-mode-hook 'my-jade-type-face)
 
 ;; Javascript improved mode js2-mode
-     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
-     (require 'js2-refactor)
+
+
+(require 'js2-refactor)
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
-     (js2r-add-keybindings-with-prefix "C-c C-m")
-     ;; eg. extract function with `C-c C-m ef`.
+(js2r-add-keybindings-with-prefix "C-c C-m")
+;; eg. extract function with `C-c C-m ef`.
 
-     (customize-set-variable 'js2-bounce-indent-p nil)
-     (customize-set-variable 'js2-global-externs [global require])
-     (customize-set-variable 'js2-include-node-externs t)
+(customize-set-variable 'js2-bounce-indent-p nil)
+(customize-set-variable 'js2-global-externs [global require])
+(customize-set-variable 'js2-include-node-externs t)
 
-     (customize-set-variable 'js2-basic-offset 2)
+(customize-set-variable 'js2-basic-offset 2)
 
-     (customize-set-variable 'js2-mode-show-parse-errors nil)
-     (customize-set-variable 'js2-mode-show-strict-warnings nil)
+(customize-set-variable 'js2-mode-show-parse-errors nil)
+(customize-set-variable 'js2-mode-show-strict-warnings nil)
+
+
+
+(add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
 
 ;; SLIME - SWANK-JS
 (require 'slime)
