@@ -161,6 +161,33 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (newline)                             ; insert a newline
   (switch-to-buffer nil))               ; return to the initial buffer
 
+(global-git-gutter-mode t)
+
+(global-set-key (kbd "M-c") 'avy-goto-char-2)
+(setq avy-keys (number-sequence ?a ?z))
+
+(if (fboundp 'global-prettify-symbols-mode)
+    (progn
+      (global-prettify-symbols-mode)
+      (add-hook 'js2-mode-hook
+                (lambda ()
+                  (push '("function" . 955) prettify-symbols-alist)
+                  (push '("return" . 8592) prettify-symbols-alist))))
+  (progn
+    (require-package 'pretty-symbols)
+    (require 'pretty-symbols)
+    (diminish 'pretty-symbols-mode)
+    (add-to-list 'pretty-symbol-categories 'js)
+    (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
+    (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
+    (add-hook 'find-file-hook 'pretty-symbols-mode)))
+
+(require-package 'indent-guide)
+(require 'indent-guide)
+
+(require-package 'anzu)
+(global-anzu-mode 1)
+
 (require 'direx)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 
@@ -169,8 +196,15 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; Magit Mode
 
-(setq magit-last-seen-setup-instructions "1.4.0")
-(global-set-key (kbd "C-x g") 'magit-status)
+  (setq magit-last-seen-setup-instructions "1.4.0")
+  (global-set-key (kbd "C-x g") 'magit-status)
+
+
+(after 'magit (progn
+  (define-key magit-diff-mode-map (kbd "C-M-1") 'magit-show-level-1-all)
+  (define-key magit-diff-mode-map (kbd "C-M-2") 'magit-show-level-2-all)
+  (define-key magit-diff-mode-map (kbd "C-M-3") 'magit-show-level-3-all)
+  (define-key magit-diff-mode-map (kbd "C-M-4") 'magit-show-level-4-all)))
 
 (require-package 'multiple-cursors)
 (require 'multiple-cursors)
@@ -180,63 +214,63 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
 (require 'helm-config)
-;; (setq helm-command-prefix-key "C-c h")
-(setq helm-quick-update t)
-(setq helm-bookmark-show-location t)
-(setq helm-buffers-fuzzy-matching t)
-(customize-set-variable 'helm-truncate-lines t)
+    ;; (setq helm-command-prefix-key "C-c h")
+    (setq helm-quick-update t)
+    (setq helm-bookmark-show-location t)
+    (setq helm-buffers-fuzzy-matching t)
+    (customize-set-variable 'helm-truncate-lines t)
 
-(require-package 'helm)
-(require-package 'helm-swoop)
+    (require-package 'helm)
+    (require-package 'helm-swoop)
 
-; (helm-mode 1)
+    ; (helm-mode 1)
 
-(require-package 'wgrep-helm)
-;; (require 'wgrep-helm)
+    (require-package 'wgrep-helm)
+    ;; (require 'wgrep-helm)
 
-(defadvice helm-mini (before winner-skip-helm activate)
-  (winner-mode -1))
-(defadvice helm-mini (after winner-skip-helm activate)
-  (winner-mode 1))
+    (defadvice helm-mini (before winner-skip-helm activate)
+      (winner-mode -1))
+    (defadvice helm-mini (after winner-skip-helm activate)
+      (winner-mode 1))
 
-(defadvice helm-projectile (before winner-skip-helm activate)
-  (winner-mode -1))
-(defadvice helm-projectile (after winner-skip-helm activate)
-  (winner-mode 1))
+    (defadvice helm-projectile (before winner-skip-helm activate)
+      (winner-mode -1))
+    (defadvice helm-projectile (after winner-skip-helm activate)
+      (winner-mode 1))
 
-(customize-set-variable 'helm-boring-buffer-regexp-list
-                        (quote
-                         ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
-(customize-set-variable 'helm-buffer-max-length 30)
-(customize-set-variable 'helm-candidate-number-limit 200)
+    (customize-set-variable 'helm-boring-buffer-regexp-list
+                            (quote
+                             ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+    (customize-set-variable 'helm-buffer-max-length 30)
+    (customize-set-variable 'helm-candidate-number-limit 200)
 
-(setq helm-M-x-fuzzy-match t)
-(global-set-key (kbd "C-M-x") 'helm-M-x)
+    (setq helm-M-x-fuzzy-match t)
+(global-set-key (kbd "C-c x") 'helm-M-x)
 
-(global-set-key (kbd "C-z") 'helm-mini)
+    (global-set-key (kbd "C-z") 'helm-mini)
 
-(global-set-key (kbd "C-t") 'helm-imenu)
-(global-set-key (kbd "M-t") 'helm-etags-select)
-(global-set-key (kbd "C-M-t") 'projectile-regenerate-tags)
+    (global-set-key (kbd "C-t") 'helm-imenu)
+    (global-set-key (kbd "M-t") 'helm-etags-select)
+    (global-set-key (kbd "C-M-t") 'projectile-regenerate-tags)
 
-;; Occur
-(global-set-key (kbd "M-o") 'helm-occur)
-(global-set-key (kbd "C-M-o") 'helm-multi-occur)
+    ;; Occur
+    (global-set-key (kbd "M-o") 'helm-occur)
+    (global-set-key (kbd "C-M-o") 'helm-multi-occur)
 
-;; helm-etags
-;; (global-set-key (kbd "M-t") 'helm-etags-select)
+    ;; helm-etags
+    ;; (global-set-key (kbd "M-t") 'helm-etags-select)
 
-(global-set-key (kbd "<f2>") 'helm-all-mark-rings)
-(global-set-key (kbd "s-y") 'helm-show-kill-ring)
+    (global-set-key (kbd "<f2>") 'helm-all-mark-rings)
+    (global-set-key (kbd "s-y") 'helm-show-kill-ring)
 
-;; BOOKMARKS
-(global-set-key (kbd "s-b") 'helm-bookmarks)
+    ;; BOOKMARKS
+    (global-set-key (kbd "s-b") 'helm-bookmarks)
 
-(global-set-key (kbd "s-o") 'helm-swoop)
-;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
-;; (global-set-key (kbd "s-o") 'helm-occur)
+    (global-set-key (kbd "s-o") 'helm-swoop)
+    ;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
+    ;; (global-set-key (kbd "s-o") 'helm-occur)
 
-;; (global-set-key (kbd "s-O") 'helm-regexp)
+    ;; (global-set-key (kbd "s-O") 'helm-regexp)
 
 (require-package 'helm-ag)
 (setq helm-ag-thing-at-point 'symbol)
@@ -547,46 +581,30 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    ;;              (cons tramp-file-name-regexp nil))
 
 (ido-mode t)
-  (ido-ubiquitous-mode t)
-  (ido-vertical-mode t)
-  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-  (setq ido-auto-merge-work-directories-length -1)
+(ido-ubiquitous-mode t)
+(ido-vertical-mode t)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+(setq ido-auto-merge-work-directories-length -1)
 
 
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-max-prospects 30)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-max-prospects 30)
 
-  (setq ido-ignore-buffers
-        '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-          "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-          ;; "^\*"
-          )
+(setq ido-ignore-buffers
+      '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+        "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
+        ;; "^\*"
         )
+      )
 
-  (require 'flx-ido)
-  (ido-everywhere t)
-  (flx-ido-mode 1)
+(require 'flx-ido)
+(ido-everywhere t)
+(flx-ido-mode 1)
 
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;;  (global-set-key (kbd "C-c M-x") 'smex-update)
-
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-
-(autoload
-  'ace-jump-mode-pop-mark
-  "ace-jump-mode"
-  "Ace jump back:-)"
-  t)
-(eval-after-load "ace-jump-mode"
-  '(ace-jump-mode-enable-mark-sync))
-
-(key-chord-define-global "jk" 'ace-jump-word-mode)
 
 (when (executable-find "ag")
       (require-package 'ag)
@@ -597,222 +615,225 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
-(setq indent-tabs-mode 'nil)
+; Show full path in title
+(setq-default frame-title-format "%f")
 
-    (setq save-interprogram-paste-before-kill t)
+    (setq indent-tabs-mode 'nil)
 
-    (setq bookmark-saved-flag 1)
+        (setq save-interprogram-paste-before-kill t)
 
-    (setq suggest-key-binding 5)
+        (setq bookmark-saved-flag 1)
 
-        (window-numbering-mode t)
+        (setq suggest-key-binding 5)
 
-        (setq help-window-select t)
+            (window-numbering-mode t)
 
-            (customize-set-variable 'scroll-bar-mode (quote right))
-            (customize-set-variable 'scroll-conservatively 100000)
-            (customize-set-variable 'scroll-preserve-screen-position 1)
+            (setq help-window-select t)
 
-            (customize-set-variable 'show-paren-delay 0)
-            (customize-set-variable 'show-paren-mode t)
-            (customize-set-variable 'smex-history-length 1000)
-            (customize-set-variable 'recentf-auto-cleanup (quote never))
-            (customize-set-variable 'recentf-max-saved-items 200000)
+                (customize-set-variable 'scroll-bar-mode (quote right))
+                (customize-set-variable 'scroll-conservatively 100000)
+                (customize-set-variable 'scroll-preserve-screen-position 1)
 
-
-
-            (setq inhibit-startup-screen t)
-
-    (setq reb-re-syntax 'string) ;; fix backslash madness
-    (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
-
-            (global-auto-revert-mode 1)
-            (electric-indent-mode -1)
-            (transient-mark-mode 1)
-            (delete-selection-mode -1)
-
-            ;; Enable access to the clipboard
-            (setq x-select-enable-clipboard t)
-
-            (defalias 'yes-or-no-p 'y-or-n-p)
-
-            ;; Try to fix the shell unicode problem
-            (defadvice ansi-term (after advise-ansi-term-coding-system)
-              (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-            (ad-activate 'ansi-term)
-
-            (put 'narrow-to-region 'disabled nil)
-
-            (require 'recentf)
-            ;; (recentf-mode 1)
-            (setq recentf-max-menu-items 10)
-            ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
-            (require 'uniquify)
-            (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
-            (customize-set-variable 'uniquify-strip-common-suffix t)
-
-            ;; (setq uniquify-buffer-name-style 'reverse)
-
-            ;;todo
-
-            (defun my-find-file-check-make-large-file-read-only-hook ()
-              "If a file is over a given size, make the buffer read only."
-              (when (> (buffer-size) (* 1024 1024))
-                (setq buffer-read-only t)
-                (buffer-disable-undo)
-                (fundamental-mode)))
-            (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
-
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            ;; Add prefix to Dired buffers
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-            (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
-            (defun ensure-buffer-name-ends-in-slash ()
-              "change buffer name to end with slash"
-              (let ((name (buffer-name)))
-                (if (not (string-match "^Dir/" name))
-                    (rename-buffer (concat "Dir/" name) t))))
-
-                       ;;;;;;;;;;;;;;;;;;;
-            ;; Eval and replace
-                       ;;;;;;;;;;;;;;;;;;;
-
-            (defun eval-and-replace ()
-              "Replace the preceding sexp with its value."
-              (interactive)
-              (backward-kill-sexp)
-              (condition-case nil
-                  (prin1 (eval (read (current-kill 0)))
-                         (current-buffer))
-                (error (message "Invalid expression")
-                       (insert (current-kill 0)))))
-
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            ;; Emacs Backfup Files settings (those damn annoying ~ files !)
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-            (setq backup-directory-alist `(("." . "~/.saves")))
-            (setq backup-by-copying t)
-            (setq delete-old-versions t
-                  kept-new-versions 6
-                  kept-old-versions 2
-                  version-control t)
-
-            (setq auto-save-file-name-transforms
-                  `((".*" ,"~/.saves/" t)))
-
-            ;; remove those pesky lock files
-            (setq create-lockfiles nil)
-
-                       ;;;;;;;;;;;;;;;;;;;;;;
-            ;; Mouse/Wheel options
-                       ;;;;;;;;;;;;;;;;;;;;;;
-
-            (defun up-and-locate()
-              (interactive)
-              (scroll-down 8)
-              )
-
-            (defun down-and-locate()
-              (interactive)
-              (scroll-down -8)
-              )
-
-            (defun mouse-up-and-locate()
-              (interactive)
-              (scroll-down 3)
-              )
-
-            (defun mouse-down-and-locate()
-              (interactive)
-              (scroll-down -3)
-              )
+                (customize-set-variable 'show-paren-delay 0)
+                (customize-set-variable 'show-paren-mode t)
+                (customize-set-variable 'smex-history-length 1000)
+                (customize-set-variable 'recentf-auto-cleanup (quote never))
+                (customize-set-variable 'recentf-max-saved-items 200000)
 
 
-                       ;;;;;;;;;;;;;;;;;;;;;;
-            ;; Indent Whole Buffer
-                       ;;;;;;;;;;;;;;;;;;;;;;
 
-            (defun indent-whole-buffer ()
-              "indent whole buffer and untabify it"
-              (interactive)
-              (delete-trailing-whitespace)
-              (indent-region (point-min) (point-max) nil))
+                (setq inhibit-startup-screen t)
 
-            ;;todo
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            ;; FIX FOR TERMINAL SHIFT+UP
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            (if (equal "xterm" (tty-type))
-                (define-key input-decode-map "\e[1;2A" [S-up]))
+        (setq reb-re-syntax 'string) ;; fix backslash madness
+        (add-hook 'reb-mode-hook (lambda () (smartparens-strict-mode -1)))
 
-            (defadvice terminal-init-xterm (after select-shift-up activate)
-              (define-key input-decode-map "\e[1;2A" [S-up]))
+                (global-auto-revert-mode 1)
+                (electric-indent-mode -1)
+                (transient-mark-mode 1)
+                (delete-selection-mode -1)
 
-                       ;;;;;;;;;;;;;;;;;;;;;
-            ;; Locked buffer mode
-                       ;;;;;;;;;;;;;;;;;;;;;
+                ;; Enable access to the clipboard
+                (setq x-select-enable-clipboard t)
 
-            (define-minor-mode locked-buffer-mode
-              "Make the current window always display this buffer."
-              nil " locked" nil
-              (set-window-dedicated-p (selected-window) locked-buffer-mode))
+                (defalias 'yes-or-no-p 'y-or-n-p)
+
+                ;; Try to fix the shell unicode problem
+                (defadvice ansi-term (after advise-ansi-term-coding-system)
+                  (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+                (ad-activate 'ansi-term)
+
+                (put 'narrow-to-region 'disabled nil)
+
+                (require 'recentf)
+                ;; (recentf-mode 1)
+                (setq recentf-max-menu-items 10)
+                ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+                (require 'uniquify)
+                (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
+                (customize-set-variable 'uniquify-strip-common-suffix t)
+
+                ;; (setq uniquify-buffer-name-style 'reverse)
+
+                ;;todo
+
+                (defun my-find-file-check-make-large-file-read-only-hook ()
+                  "If a file is over a given size, make the buffer read only."
+                  (when (> (buffer-size) (* 1024 1024))
+                    (setq buffer-read-only t)
+                    (buffer-disable-undo)
+                    (fundamental-mode)))
+                (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
+
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                ;; Add prefix to Dired buffers
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+                (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
+                (defun ensure-buffer-name-ends-in-slash ()
+                  "change buffer name to end with slash"
+                  (let ((name (buffer-name)))
+                    (if (not (string-match "^Dir/" name))
+                        (rename-buffer (concat "Dir/" name) t))))
+
+                           ;;;;;;;;;;;;;;;;;;;
+                ;; Eval and replace
+                           ;;;;;;;;;;;;;;;;;;;
+
+                (defun eval-and-replace ()
+                  "Replace the preceding sexp with its value."
+                  (interactive)
+                  (backward-kill-sexp)
+                  (condition-case nil
+                      (prin1 (eval (read (current-kill 0)))
+                             (current-buffer))
+                    (error (message "Invalid expression")
+                           (insert (current-kill 0)))))
+
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                ;; Emacs Backfup Files settings (those damn annoying ~ files !)
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+                (setq backup-directory-alist `(("." . "~/.saves")))
+                (setq backup-by-copying t)
+                (setq delete-old-versions t
+                      kept-new-versions 6
+                      kept-old-versions 2
+                      version-control t)
+
+                (setq auto-save-file-name-transforms
+                      `((".*" ,"~/.saves/" t)))
+
+                ;; remove those pesky lock files
+                (setq create-lockfiles nil)
+
+                           ;;;;;;;;;;;;;;;;;;;;;;
+                ;; Mouse/Wheel options
+                           ;;;;;;;;;;;;;;;;;;;;;;
+
+                (defun up-and-locate()
+                  (interactive)
+                  (scroll-down 8)
+                  )
+
+                (defun down-and-locate()
+                  (interactive)
+                  (scroll-down -8)
+                  )
+
+                (defun mouse-up-and-locate()
+                  (interactive)
+                  (scroll-down 3)
+                  )
+
+                (defun mouse-down-and-locate()
+                  (interactive)
+                  (scroll-down -3)
+                  )
 
 
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            ;; Save undo history when revert-buffer
-                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                           ;;;;;;;;;;;;;;;;;;;;;;
+                ;; Indent Whole Buffer
+                           ;;;;;;;;;;;;;;;;;;;;;;
 
-            ;; emacs doesn't actually save undo history with revert-buffer
-            ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
-            ;; fix that.
-            (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
-              (interactive)
+                (defun indent-whole-buffer ()
+                  "indent whole buffer and untabify it"
+                  (interactive)
+                  (delete-trailing-whitespace)
+                  (indent-region (point-min) (point-max) nil))
 
-              ;; tell Emacs the modtime is fine, so we can edit the buffer
-              (clear-visited-file-modtime)
+                ;;todo
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                ;; FIX FOR TERMINAL SHIFT+UP
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                (if (equal "xterm" (tty-type))
+                    (define-key input-decode-map "\e[1;2A" [S-up]))
 
-              ;; insert the current contents of the file on disk
-              (widen)
-              (delete-region (point-min) (point-max))
-              (insert-file-contents (buffer-file-name))
+                (defadvice terminal-init-xterm (after select-shift-up activate)
+                  (define-key input-decode-map "\e[1;2A" [S-up]))
 
-              ;; mark the buffer as not modified
-              (not-modified)
-              (set-visited-file-modtime))
+                           ;;;;;;;;;;;;;;;;;;;;;
+                ;; Locked buffer mode
+                           ;;;;;;;;;;;;;;;;;;;;;
 
-            (setq revert-buffer-function 'revert-buffer-keep-history)
-            (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+                (define-minor-mode locked-buffer-mode
+                  "Make the current window always display this buffer."
+                  nil " locked" nil
+                  (set-window-dedicated-p (selected-window) locked-buffer-mode))
 
 
-                       ;;;;;;;;;;;;;;;;;
-            ;; Search engines
-                       ;;;;;;;;;;;;;;;;;
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                ;; Save undo history when revert-buffer
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-            (defun prelude-search (query-url prompt)
-              "Open the search url constructed with the QUERY-URL.
-                       PROMPT sets the `read-string prompt."
-              (browse-url
-               (concat query-url
-                       (url-hexify-string
-                        (if mark-active
-                            (buffer-substring (region-beginning) (region-end))
-                          (read-string prompt))))))
+                ;; emacs doesn't actually save undo history with revert-buffer
+                ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
+                ;; fix that.
+                (defun revert-buffer-keep-history (&optional IGNORE-AUTO NOCONFIRM PRESERVE-MODES)
+                  (interactive)
 
-            (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
-              "Given some information regarding a search engine, install the interactive command to search through them"
-              `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-                 ,(format "Search %s with a query or region if any." search-engine-name)
-                 (interactive)
-                 (prelude-search ,search-engine-url ,search-engine-prompt)))
+                  ;; tell Emacs the modtime is fine, so we can edit the buffer
+                  (clear-visited-file-modtime)
 
-            (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
-            (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
-            (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
-            (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
-            (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
+                  ;; insert the current contents of the file on disk
+                  (widen)
+                  (delete-region (point-min) (point-max))
+                  (insert-file-contents (buffer-file-name))
+
+                  ;; mark the buffer as not modified
+                  (not-modified)
+                  (set-visited-file-modtime))
+
+                (setq revert-buffer-function 'revert-buffer-keep-history)
+                (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
+
+
+                           ;;;;;;;;;;;;;;;;;
+                ;; Search engines
+                           ;;;;;;;;;;;;;;;;;
+
+                (defun prelude-search (query-url prompt)
+                  "Open the search url constructed with the QUERY-URL.
+                           PROMPT sets the `read-string prompt."
+                  (browse-url
+                   (concat query-url
+                           (url-hexify-string
+                            (if mark-active
+                                (buffer-substring (region-beginning) (region-end))
+                              (read-string prompt))))))
+
+                (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+                  "Given some information regarding a search engine, install the interactive command to search through them"
+                  `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+                     ,(format "Search %s with a query or region if any." search-engine-name)
+                     (interactive)
+                     (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+                (prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+                (prelude-install-search-engine "youtube"    "http://www.youtube.com/results?search_query=" "Search YouTube: ")
+                (prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+                (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
+                (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
 (defun narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens. Otherwise, it narrows
@@ -841,26 +862,36 @@ narrowed."
 (setq ido-default-buffer-method 'selected-window)
 
 ;; eshell prompt color
-(setq eshell-prompt-function (lambda nil
-                               (concat
-                                (propertize (eshell/pwd) 'face `(:foreground "cyan"))
-                                (propertize " $" 'face `(:foreground "cyan"))
-                                (propertize " " 'face `(:foreground "white"))
-                                )))
-(setq eshell-highlight-prompt nil)
+    (setq eshell-prompt-function (lambda nil
+                                   (concat
+                                    (propertize (eshell/pwd) 'face `(:foreground "cyan"))
+                                    (propertize " $" 'face `(:foreground "cyan"))
+                                    (propertize " " 'face `(:foreground "white"))
+                                    )))
+    (setq eshell-highlight-prompt nil)
 
-;; Create a new eshell with prompt
-(defun create-eshell ()
-  "creates a shell with a given name"
-  (interactive);; "Prompt\n eshell name:")
-  (let ((eshell-name (read-string "eshell name: " nil)))
-    (eshell (concat "Eshell/" eshell-name ))))
+    ;; Create a new eshell with prompt
+    (defun db-create-eshell ()
+      "creates a shell with a given name"
+      (interactive);; "Prompt\n eshell name:")
+      (let ((eshell-name (read-string "eshell name: " nil)))
+        (eshell (concat "Eshell/" eshell-name ))))
 
-(defun create-shell ()
-  "creates a shell with a given name"
-  (interactive);; "Prompt\n shell name:")
-  (let ((shell-name (read-string "shell name: " nil)))
-    (shell (concat "Shell/" shell-name))))
+    (defun db-create-shell ()
+      "creates a shell with a given name"
+      (interactive);; "Prompt\n shell name:")
+      (let ((shell-name (read-string "shell name: " nil)))
+        (shell (concat "Shell/" shell-name))))
+
+(defun db-execute-last-eshell-command ()
+  (interactive)
+  (let ((eshell-buffer "*eshell*"))
+    (if (get-buffer eshell-buffer)
+        (with-current-buffer eshell-buffer
+          (eshell-previous-input 1)
+          (eshell-send-input))
+      (message (concat "Eshell buffer " eshell-buffer " not found")))))
+(global-set-key (kbd "C-c e") 'db-execute-last-eshell-command)
 
 (global-set-key (kbd "C-h a") 'apropos)
 
@@ -1000,45 +1031,12 @@ narrowed."
 (global-set-key [mouse-5] 'mouse-down-and-locate)
 (global-set-key [mouse-4] 'mouse-up-and-locate)
 
-(dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]  
-             [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
-             [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
-             [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
-             [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5]))
-  (global-unset-key k))
-
 (defun set-frame-font-size (size)
   (interactive "nSize:")
   (set-face-attribute 'default (selected-frame) :height size)
   )
 
-;; Doesn't work ...
-;; (add-hook 'after-make-frame-functions (lambda () (interactive) (set-frame-font-size 100)))
-
-(require-package 'anzu)
-(global-anzu-mode 1)
-
-;; Multicolor parenthesis
-;; (require-package 'rainbow-delimiters)
-;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-;; (load-theme 'wombat t)
-;; (if (daemonp)
-;; (add-hook 'after-make-frame-functions
-;;           '(lambda (f)
-;;              (progn
-;;                (sml/setup)
-;;                (with-selected-frame f
-;;                  (when (window-system f)
-;;                    (set-cursor-color "white")))))))
-
-;; (set-cursor-color "#ffffff")
-;; (set-face-attribute 'default nil :height 100)
-
 ;; Show indentation
-(require-package 'indent-guide)
-(require 'indent-guide)
-
 ;; Nice scrolling
 (setq scroll-margin 0
       scroll-conservatively 100000
@@ -1054,28 +1052,12 @@ narrowed."
 ;; (global-linum-mode t)
 (setq linum-format " %2d ")
 
-(if (fboundp 'global-prettify-symbols-mode)
-    (progn
-      (global-prettify-symbols-mode)
-      (add-hook 'js2-mode-hook
-                (lambda ()
-                  (push '("function" . 955) prettify-symbols-alist)
-                  (push '("return" . 8592) prettify-symbols-alist))))
-  (progn
-    (require-package 'pretty-symbols)
-    (require 'pretty-symbols)
-    (diminish 'pretty-symbols-mode)
-    (add-to-list 'pretty-symbol-categories 'js)
-    (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
-    (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
-    (add-hook 'find-file-hook 'pretty-symbols-mode)))
-
 (set-face-attribute 'window-numbering-face nil 
                     :background "cyan" 
                     :foreground "black"
                     :weight 'semi-bold )
 
-(load-theme 'leuven t)
+(load-theme 'material)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C count-lines-function
@@ -1291,3 +1273,9 @@ narrowed."
 ;; (global-set-key (kbd "C-f") 'forward-char)
 ;; (global-set-key (kbd "C-b") 'backward-char)
 ;; (global-set-key (kbd "C-j") 'newline-and-indent)
+
+(defun db-read-with-eww ()
+  (interactive)
+  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
+    (write-region nil nil temp-file)
+    (eww-open-file temp-file)))

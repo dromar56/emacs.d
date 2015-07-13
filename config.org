@@ -1,5 +1,5 @@
 #+TLE: David's Emacs Configuration
-#+STARTUP: hideblocks
+#+STARTUP: showblocks
 #+PROPERTY: header-args :tangle yes
 
 * Initialisation
@@ -31,9 +31,8 @@
 
 
 #+end_src
-
 ** Util (lisp functions)
-  Some cleanup should be done... I'm not sure I use any of these functions.
+   Some cleanup should be done... I'm not sure I use any of these functions.
   #+begin_src emacs-lisp
    (if (fboundp 'with-eval-after-load)
        (defmacro after (feature &rest body)
@@ -186,12 +185,616 @@
   (newline)                             ; insert a newline
   (switch-to-buffer nil))               ; return to the initial buffer
 #+end_src
+
 * Plugins
+** Git Gutter
+#+begin_src emacs-lisp :tangle yes
+  (global-git-gutter-mode t)
+
+
+#+end_src
+** Avy
+#+begin_src emacs-lisp :tangle yes
+  (global-set-key (kbd "M-c") 'avy-goto-char-2)
+  (setq avy-keys (number-sequence ?a ?z))
+#+end_src
+
+** Pretty symbols
+#+begin_src emacs-lisp :tangle yes
+  (if (fboundp 'global-prettify-symbols-mode)
+      (progn
+        (global-prettify-symbols-mode)
+        (add-hook 'js2-mode-hook
+                  (lambda ()
+                    (push '("function" . 955) prettify-symbols-alist)
+                    (push '("return" . 8592) prettify-symbols-alist))))
+    
+    (progn
+      (require-package 'pretty-symbols)
+      (require 'pretty-symbols)
+      (diminish 'pretty-symbols-mode)
+      (add-to-list 'pretty-symbol-categories 'js)
+      (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
+      (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
+      (add-hook 'find-file-hook 'pretty-symbols-mode)))
+#+end_src
+
+** Indent Guide
+#+begin_src emacs-lisp :tangle yes
+    (require-package 'indent-guide)
+    (require 'indent-guide)
+#+end_src
+
+** Anzu
+#+begin_src emacs-lisp :tangle yes
+    (require-package 'anzu)
+    (global-anzu-mode 1)
+#+end_src
+
 ** Direx
 #+begin_src emacs-lisp :tangle yes
 (require 'direx)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+
 #+end_src
+
+** Expand Region
+#+begin_src emacs-lisp :tangle yes
+  (require-package 'expand-region)
+  (require 'expand-region)
+#+end_src
+
+** Magit
+#+begin_src emacs-lisp :tangle yes
+    ;; Magit Mode
+
+  (setq magit-last-seen-setup-instructions "1.4.0")
+  (global-set-key (kbd "C-x g") 'magit-status)
+
+
+(after 'magit (progn
+  (define-key magit-diff-mode-map (kbd "C-M-1") 'magit-show-level-1-all)
+  (define-key magit-diff-mode-map (kbd "C-M-2") 'magit-show-level-2-all)
+  (define-key magit-diff-mode-map (kbd "C-M-3") 'magit-show-level-3-all)
+  (define-key magit-diff-mode-map (kbd "C-M-4") 'magit-show-level-4-all)))
+
+
+#+end_src
+
+** Multiple Cursors
+#+begin_src emacs-lisp :tangle yes
+  (require-package 'multiple-cursors)
+  (require 'multiple-cursors)
+#+end_src
+
+** Iy go to char
+#+begin_src emacs-lisp :tangle yes
+  (require-package 'iy-go-to-char)
+  (require 'iy-go-to-char)
+  (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+#+end_src
+
+** Helm
+   
+*** Misc
+   #+begin_src emacs-lisp
+         (require 'helm-config)
+         ;; (setq helm-command-prefix-key "C-c h")
+         (setq helm-quick-update t)
+         (setq helm-bookmark-show-location t)
+         (setq helm-buffers-fuzzy-matching t)
+         (customize-set-variable 'helm-truncate-lines t)
+
+         (require-package 'helm)
+         (require-package 'helm-swoop)
+
+         ; (helm-mode 1)
+
+         (require-package 'wgrep-helm)
+         ;; (require 'wgrep-helm)
+
+         (defadvice helm-mini (before winner-skip-helm activate)
+           (winner-mode -1))
+         (defadvice helm-mini (after winner-skip-helm activate)
+           (winner-mode 1))
+
+         (defadvice helm-projectile (before winner-skip-helm activate)
+           (winner-mode -1))
+         (defadvice helm-projectile (after winner-skip-helm activate)
+           (winner-mode 1))
+
+         (customize-set-variable 'helm-boring-buffer-regexp-list
+                                 (quote
+                                  ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+         (customize-set-variable 'helm-buffer-max-length 30)
+         (customize-set-variable 'helm-candidate-number-limit 200)
+
+         (setq helm-M-x-fuzzy-match t)
+     (global-set-key (kbd "C-c x") 'helm-M-x)
+
+         (global-set-key (kbd "C-z") 'helm-mini)
+
+         (global-set-key (kbd "C-t") 'helm-imenu)
+         (global-set-key (kbd "M-t") 'helm-etags-select)
+         (global-set-key (kbd "C-M-t") 'projectile-regenerate-tags)
+
+         ;; Occur
+         (global-set-key (kbd "M-o") 'helm-occur)
+         (global-set-key (kbd "C-M-o") 'helm-multi-occur)
+
+         ;; helm-etags
+         ;; (global-set-key (kbd "M-t") 'helm-etags-select)
+
+         (global-set-key (kbd "<f2>") 'helm-all-mark-rings)
+         (global-set-key (kbd "s-y") 'helm-show-kill-ring)
+
+         ;; BOOKMARKS
+         (global-set-key (kbd "s-b") 'helm-bookmarks)
+
+         (global-set-key (kbd "s-o") 'helm-swoop)
+         ;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
+         ;; (global-set-key (kbd "s-o") 'helm-occur)
+
+         ;; (global-set-key (kbd "s-O") 'helm-regexp)
+
+#+end_src
+
+*** Helm Ag
+#+begin_src emacs-lisp :tangle yes
+(require-package 'helm-ag)
+(setq helm-ag-thing-at-point 'symbol)
+(defun helm-ag-projectile ()
+  (interactive)
+  (helm-ag (projectile-project-root)))
+
+ (customize-set-variable 'helm-ag-base-command "ag")
+ (customize-set-variable 'helm-ag-command-option
+   "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
+#+end_src
+
+*** Helm Dash
+    #+begin_src emacs-lisp :tangle yes
+      (setq helm-dash-browser-func 'browse-url)
+      ;; (setq helm-dash-browser-func 'eww)
+#+end_src
+
+*** Helm-Spaces
+#+begin_src emacs-lisp :tangle yes
+   (global-set-key (kbd "M-s") 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
+#+end_src
+
+** Projectile
+#+begin_src emacs-lisp :tangle yes
+(require 'helm-projectile)
+    (projectile-global-mode t)
+  (customize-set-variable 'projectile-globally-ignored-directories
+     (quote
+      (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
+  (customize-set-variable 'projectile-remember-window-configs nil)
+  (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
+  (customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
+
+#+end_src
+
+*** Helm Projectile
+#+begin_src emacs-lisp :tangle yes
+(after 'projectile
+  (require-package 'helm-projectile))
+
+  (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
+                                                          helm-source-projectile-files-list
+                                                          helm-source-projectile-recentf-list))
+
+    (global-set-key (kbd "M-z") 'helm-projectile)
+    (global-set-key (kbd "s-f") 'helm-projectile)
+    (global-set-key (kbd "s-g") 'helm-ag-projectile)
+
+#+end_src
+
+** Org
+*** Setup
+    #+begin_src emacs-lisp
+
+      (require 'org)
+      (define-key global-map "\C-cl" 'org-store-link)
+      (define-key global-map "\C-ca" 'org-agenda)
+      (setq org-log-done t)
+
+      ;; (global-set-key (kbd "<C-S-right>") 'helm-occur)
+
+      (eval-after-load "org"
+      '(progn
+	 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+      ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+      ;; (define-key org-mode-map (kbd "<C-left>") nil)
+      ;; (define-key org-mode-map (kbd "<C-right>") nil)
+      (define-key org-mode-map (kbd "M-<down>") 'nil)
+      (define-key org-mode-map (kbd "M-<up>") 'nil)))
+
+      (setq org-src-fontify-natively t)
+      (setq org-src-tab-acts-natively t)
+
+      (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+
+      (setq org-main-file "~/org/notes.org")
+      (setq org-directory "~/org")
+
+
+      (defun org-insert-elisp-block (name beg end)
+	(interactive "sName:\nr")
+	(org-insert-heading-after-current)
+	(save-excursion
+	  (insert name "\n")
+	  (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+	  (if (region-active-p)
+	      (progn
+		(kill-region beg end)
+		(yank)))
+	  (insert "#+end_src")))
+
+      (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+
+
+
+
+    #+end_src
+
+*** Org agenda
+    Main org file which will be added to the agenda and where notes will be captured (using C-c c).
+    #+begin_src emacs-lisp :tangle yes
+      (setq org-agenda-files '("~/org"))
+(load-library "find-lisp")
+(setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
+
+      ;; (setq org-agenda-files (list org-main-file))
+#+end_src
+
+*** Org capture
+    #+begin_src emacs-lisp :tangle yes
+      (setq org-default-notes-file org-main-file)
+      (define-key global-map (kbd "C-c c") 'org-capture)
+      ;;(define-key global-map (kbd "<f1>") 'org-capture)
+      (define-key global-map (kbd "<S-f1>") (lambda () (interactive)
+                                              (let ((current-prefix-arg '(4)))
+                                                (call-interactively 'org-capture))))
+
+      (defun llc-get-project-org-name ()
+        "Return the name of the projectile project"
+        (replace-regexp-in-string "[^[:alnum:]]" "-"
+                                  (car (last (split-string (projectile-project-root) "/" t)))))
+
+      (defun llc-get-project-org-file ()
+        "Return the path to the project org file"
+        (concat org-directory "/projects/"
+                (llc-get-project-org-name)
+                ".org"))
+
+      (defun llc-find-project-org-file-task ()
+        "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
+        (let ((project-file (llc-get-project-org-file))
+              (project-headline-regexp "^\\* Tasks")
+              (project-name (llc-get-project-org-name)))
+          (set-buffer (find-file-noselect project-file))
+          (goto-char (point-min))
+          (if (not (re-search-forward project-headline-regexp nil t))
+              (progn
+                (goto-char (point-max))
+                (if (not (eq (buffer-size) 0))
+                    (newline 2))
+                (insert (concat "* Tasks :project:" project-name ":"))))
+          (goto-char (point-min))
+          (re-search-forward project-headline-regexp)
+          (end-of-line)))
+
+      (setq org-capture-templates
+            '(("p" "Project" entry (function llc-find-project-org-file-task)
+               "* TODO %?\n  %a\n  %i")
+              ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
+               "* TODO %?\n  %a\n  %i")
+              ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
+               "* %?\n  %a\n  %i")
+              ("j" "Journal" entry (file+datetree "~/org/journal.org")
+               "* %?\nEntered on %U\n  %a\n  %i")
+              ("J" "Journal - more options")
+              ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
+               "* %?\nEntered on %U\n  %x\n  %a")))
+
+      (setq org-capture-templates-contexts
+            '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
+
+      ;; Close frame after org-capture only if a certain frame-parameter is set
+      (defun llc-close-frame-after-org-capture ()
+        (if (frame-parameter nil 'llc-close-frame-after-org-capture)
+            (delete-frame)))
+      (add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
+
+    #+end_src
+
+*** COMMENT org-bullets
+    #+begin_src emacs-lisp :tangle yes
+(require-package 'org-bullets)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** Key Chords
+#+begin_src emacs-lisp :tangle yes
+(key-chord-mode t)
+#+end_src
+
+** Company
+   #+begin_src emacs-lisp
+     (require-package 'company)
+     (require 'company)
+
+     (setq company-idle-delay 0)
+
+     (defun company-auto-completion-toggle ()
+       (interactive)
+       (if (eq company-idle-delay 0)
+           (setq company-idle-delay nil)
+         (setq company-idle-delay 0))
+       (message (format "company-idle-delay : %s" company-idle-delay)))
+
+     (global-set-key (kbd "C-M-c") 'company-auto-completion-toggle)
+
+     (setq company-minimum-prefix-length 1)
+     (setq company-show-numbers 1)
+     (setq company-tooltip-limit 10)
+
+     (setq company-dabbrev-downcase nil)
+     (setq company-dabbrev-ignore-case nil)
+
+     (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
+     (customize-set-variable 'company-selection-wrap-around t)
+
+
+     (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
+     (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
+     (set-face-attribute 'company-preview nil :background "black")
+     (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
+     (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
+     (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
+
+     (when (executable-find "tern")
+       (after "company-tern-autoloads"
+         (add-to-list 'company-backends 'company-tern)))
+     (add-to-list 'company-backends 'company-tern)
+
+     (setq company-global-modes
+           '(not
+             eshell-mode comint-mode org-mode))
+
+
+     (global-set-key (kbd "C-o") 'company-manual-begin)
+     (global-set-key (kbd "M-o") 'company-tern)
+     (global-set-key (kbd "M-?") 'company-dabbrev)
+
+     (defadvice company-complete-common (around advice-for-company-complete-common activate)
+       (when (null (yas-expand))
+         ad-do-it))
+
+     (add-hook 'after-init-hook 'global-company-mode)
+
+
+
+#+end_src
+
+** Yasnippet
+   #+begin_src emacs-lisp
+;;;;;;;;;;;;
+;; yasnippet
+;;;;;;;;;;;;
+
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+
+(require-package 'yasnippet)
+(require 'yasnippet)
+
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "C-<tab>") 'yas-expand)
+(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-insert-snippet)
+
+(yas-global-mode 1)
+
+
+
+
+#+end_src
+
+** Smartparens
+   #+begin_src emacs-lisp
+
+(require-package 'smartparens)
+;; (require 'smartparens-config)
+
+(setq sp-show-pair-delay 0)
+(setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
+
+(setq sp-autoescape-string-quote nil)
+(setq sp-autoinsert-if-followed-by-same 1)
+(setq sp-highlight-pair-overlay nil)
+
+(sp-use-smartparens-bindings)
+(smartparens-global-mode t)
+(smartparens-global-strict-mode t)
+
+(show-smartparens-global-mode t)
+(show-paren-mode 1)
+
+
+(sp-pair "`" nil :actions :rem)
+
+(sp-with-modes sp--lisp-modes
+  (sp-local-pair "'" nil :actions nil)
+  )
+
+
+(define-key sp-keymap (kbd "M-<right>") 'sp-forward-slurp-sexp)
+(define-key sp-keymap (kbd "M-<left>") 'sp-forward-barf-sexp)
+(define-key sp-keymap (kbd "C-<right>") 'nil)
+(define-key sp-keymap (kbd "C-<left>") 'nil)
+;; (define-key sp-keymap "`" 'nil)
+;; (define-key sp-keymap 96 'nil)
+
+;; (define-key smartparens-strict-mode-map [remap kill-line] 'nil)
+;; (define-key smartparens-strict-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
+(define-key smartparens-strict-mode-map [remap kill-line] 'sp-kill-hybrid-sexp)
+
+
+;; fix conflict where smartparens clobbers yas' key bindings
+(after 'yasnippet
+  (defadvice yas-expand (before advice-for-yas-expand activate)
+    (sp-remove-active-pair-overlay)))
+
+(defadvice sp-kill-hybrid-sexp (before kill-line-cleanup-whitespace activate)
+  "cleanup whitespace on sp-kill-hybrid-sexp"
+  (if (bolp)
+      (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
+
+
+
+#+end_src
+
+** Evil
+   #+begin_src emacs-lisp
+(require-package 'evil)
+(require 'evil)
+
+
+
+#+end_src
+
+** Undo-tree
+   #+begin_src emacs-lisp :tangle yes
+     ;;==========
+     ;; Undo tree
+     ;;==========
+
+     (require-package 'undo-tree)
+     (require 'undo-tree)
+     (global-undo-tree-mode)
+     ;; Unmap 'C-x r' to avoid conflict with discover
+     (after 'undo-tree
+       (define-key undo-tree-map (kbd "C-x r") nil))
+
+     (define-key undo-tree-map (kbd "C-/") 'nil)
+
+
+#+end_src
+
+** Flycheck
+   #+begin_src emacs-lisp :tangle yes
+(require-package 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
+(customize-set-variable 'flycheck-idle-change-delay 0.5)
+
+#+end_src
+
+** Diminish - clean.wrapper
+  #page-products-list
+    .content-wrapper. your modeline
+   #+begin_src emacs-lisp :tangle yes
+;; For a cleaner modeline
+(require-package 'diminish)
+(diminish 'visual-line-mode)
+(after 'autopair (diminish 'autopair-mode))
+(after 'js2 (diminish 'Javascript-IDE))
+(after 'js2r (diminish 'js2r-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'undo-tree (diminish 'undo-tree-mode))
+(after 'auto-complete (diminish 'auto-complete-mode))
+;(after 'projectile (diminish 'projectile-mode))
+(after 'yasnippet (diminish 'yas-minor-mode))
+(after 'guide-key (diminish 'guide-key-mode))
+(after 'eldoc (diminish 'eldoc-mode))
+(after 'smartparens (diminish 'smartparens-mode))
+(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
+(after 'git-gutter+ (diminish 'git-gutter+-mode))
+(after 'magit (diminish 'magit-auto-revert-mode))
+;; (after 'helm (diminish 'helm-mode))
+(after 'anzu (diminish 'anzu-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'tern (diminish 'tern-mode))
+;; (after 'company (diminish 'company-mode))
+#+end_src
+
+** Tramp
+#+begin_src emacs-lisp :tangle yes
+   (require 'tramp)
+   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
+  (setq tramp-default-method "sshx")
+
+(setq password-cache-expiry 'nil)
+
+   ;; (add-to-list 'backup-directory-alist
+   ;;              (cons tramp-file-name-regexp nil))
+#+end_src
+
+** Ido
+#+begin_src emacs-lisp :tangle yes
+  (ido-mode t)
+  (ido-ubiquitous-mode t)
+  (ido-vertical-mode t)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+  (setq ido-auto-merge-work-directories-length -1)
+
+
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-max-prospects 30)
+
+  (setq ido-ignore-buffers
+        '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+          "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
+          ;; "^\*"
+          )
+        )
+
+  (require 'flx-ido)
+  (ido-everywhere t)
+  (flx-ido-mode 1)
+
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  ;;  (global-set-key (kbd "C-c M-x") 'smex-update)
+
+#+end_src
+
+** Ag
+#+begin_src emacs-lisp :tangle yes
+    (when (executable-find "ag")
+      (require-package 'ag)
+      (setq ag-highlight-search t)
+      (require-package 'wgrep-ag))
+(customize-set-variable 'ag-arguments
+   (quote
+    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
+(customize-set-variable 'ag-highlight-search t)
+#+end_src
+
+** COMMENT Ace jump
+#+begin_src emacs-lisp :tangle yes
+  (autoload
+    'ace-jump-mode
+    "ace-jump-mode"
+    "Emacs quick move minor mode"
+    t)
+
+  (autoload
+    'ace-jump-mode-pop-mark
+    "ace-jump-mode"
+    "Ace jump back:-)"
+    t)
+  (eval-after-load "ace-jump-mode"
+    '(ace-jump-mode-enable-mark-sync))
+
+  (key-chord-define-global "jk" 'ace-jump-word-mode)
+#+end_src
+
 ** COMMENT Mu4e
   Mail setup
 #+begin_src emacs-lisp :tangle yes
@@ -281,323 +884,6 @@
   (global-set-key (kbd "C-x m") 'mu4e)
 
 #+end_src
-** Expand Region
-#+begin_src emacs-lisp :tangle yes
-  (require-package 'expand-region)
-  (require 'expand-region)
-#+end_src
-** Magit
-#+begin_src emacs-lisp :tangle yes
-    ;; Magit Mode
-
-  (setq magit-last-seen-setup-instructions "1.4.0")
-  (global-set-key (kbd "C-x g") 'magit-status)
-
-#+end_src
-** Multiple Cursors
-#+begin_src emacs-lisp :tangle yes
-  (require-package 'multiple-cursors)
-  (require 'multiple-cursors)
-#+end_src
-** Iy go to char
-#+begin_src emacs-lisp :tangle yes
-  (require-package 'iy-go-to-char)
-  (require 'iy-go-to-char)
-  (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-#+end_src
-** Helm
-*** Misc
-   #+begin_src emacs-lisp
-      (require 'helm-config)
-      ;; (setq helm-command-prefix-key "C-c h")
-      (setq helm-quick-update t)
-      (setq helm-bookmark-show-location t)
-      (setq helm-buffers-fuzzy-matching t)
-      (customize-set-variable 'helm-truncate-lines t)
-
-      (require-package 'helm)
-      (require-package 'helm-swoop)
-
-      ; (helm-mode 1)
-
-      (require-package 'wgrep-helm)
-      ;; (require 'wgrep-helm)
-
-      (defadvice helm-mini (before winner-skip-helm activate)
-        (winner-mode -1))
-      (defadvice helm-mini (after winner-skip-helm activate)
-        (winner-mode 1))
-
-      (defadvice helm-projectile (before winner-skip-helm activate)
-        (winner-mode -1))
-      (defadvice helm-projectile (after winner-skip-helm activate)
-        (winner-mode 1))
-
-      (customize-set-variable 'helm-boring-buffer-regexp-list
-                              (quote
-                               ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
-      (customize-set-variable 'helm-buffer-max-length 30)
-      (customize-set-variable 'helm-candidate-number-limit 200)
-
-      (setq helm-M-x-fuzzy-match t)
-      (global-set-key (kbd "C-M-x") 'helm-M-x)
-
-      (global-set-key (kbd "C-z") 'helm-mini)
-
-      (global-set-key (kbd "C-t") 'helm-imenu)
-      (global-set-key (kbd "M-t") 'helm-etags-select)
-      (global-set-key (kbd "C-M-t") 'projectile-regenerate-tags)
-
-      ;; Occur
-      (global-set-key (kbd "M-o") 'helm-occur)
-      (global-set-key (kbd "C-M-o") 'helm-multi-occur)
-
-      ;; helm-etags
-      ;; (global-set-key (kbd "M-t") 'helm-etags-select)
-
-      (global-set-key (kbd "<f2>") 'helm-all-mark-rings)
-      (global-set-key (kbd "s-y") 'helm-show-kill-ring)
-
-      ;; BOOKMARKS
-      (global-set-key (kbd "s-b") 'helm-bookmarks)
-
-      (global-set-key (kbd "s-o") 'helm-swoop)
-      ;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
-      ;; (global-set-key (kbd "s-o") 'helm-occur)
-
-      ;; (global-set-key (kbd "s-O") 'helm-regexp)
-
-#+end_src
-*** Helm Ag
-#+begin_src emacs-lisp :tangle yes
-(require-package 'helm-ag)
-(setq helm-ag-thing-at-point 'symbol)
-(defun helm-ag-projectile ()
-  (interactive)
-  (helm-ag (projectile-project-root)))
-
- (customize-set-variable 'helm-ag-base-command "ag")
- (customize-set-variable 'helm-ag-command-option
-   "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
-#+end_src
-*** Helm Dash
-    #+begin_src emacs-lisp :tangle yes
-      (setq helm-dash-browser-func 'browse-url)
-      ;; (setq helm-dash-browser-func 'eww)
-#+end_src
-*** Helm-Spaces
-#+begin_src emacs-lisp :tangle yes
-   (global-set-key (kbd "M-s") 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
-#+end_src
-** Projectile
-#+begin_src emacs-lisp :tangle yes
-(require 'helm-projectile)
-    (projectile-global-mode t)
-  (customize-set-variable 'projectile-globally-ignored-directories
-     (quote
-      (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
-  (customize-set-variable 'projectile-remember-window-configs nil)
-  (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
-  (customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
-
-#+end_src
-*** Helm Projectile
-#+begin_src emacs-lisp :tangle yes
-(after 'projectile
-  (require-package 'helm-projectile))
-
-  (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
-                                                          helm-source-projectile-files-list
-                                                          helm-source-projectile-recentf-list))
-
-    (global-set-key (kbd "M-z") 'helm-projectile)
-    (global-set-key (kbd "s-f") 'helm-projectile)
-    (global-set-key (kbd "s-g") 'helm-ag-projectile)
-
-#+end_src
-** Org
-*** Setup
-    #+begin_src emacs-lisp
-
-      (require 'org)
-      (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda)
-      (setq org-log-done t)
-
-      ;; (global-set-key (kbd "<C-S-right>") 'helm-occur)
-
-      (eval-after-load "org"
-      '(progn
-	 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-      ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-      ;; (define-key org-mode-map (kbd "<C-left>") nil)
-      ;; (define-key org-mode-map (kbd "<C-right>") nil)
-      (define-key org-mode-map (kbd "M-<down>") 'nil)
-      (define-key org-mode-map (kbd "M-<up>") 'nil)))
-
-      (setq org-src-fontify-natively t)
-      (setq org-src-tab-acts-natively t)
-
-      (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
-
-      (setq org-main-file "~/org/notes.org")
-      (setq org-directory "~/org")
-
-
-      (defun org-insert-elisp-block (name beg end)
-	(interactive "sName:\nr")
-	(org-insert-heading-after-current)
-	(save-excursion
-	  (insert name "\n")
-	  (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-	  (if (region-active-p)
-	      (progn
-		(kill-region beg end)
-		(yank)))
-	  (insert "#+end_src")))
-
-      (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
-
-
-
-
-    #+end_src
-*** Org agenda
-    Main org file which will be added to the agenda and where notes will be captured (using C-c c).
-    #+begin_src emacs-lisp :tangle yes
-      (setq org-agenda-files '("~/org"))
-(load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
-
-      ;; (setq org-agenda-files (list org-main-file))
-#+end_src
-*** Org capture
-    #+begin_src emacs-lisp :tangle yes
-      (setq org-default-notes-file org-main-file)
-      (define-key global-map (kbd "C-c c") 'org-capture)
-      ;;(define-key global-map (kbd "<f1>") 'org-capture)
-      (define-key global-map (kbd "<S-f1>") (lambda () (interactive)
-                                              (let ((current-prefix-arg '(4)))
-                                                (call-interactively 'org-capture))))
-
-      (defun llc-get-project-org-name ()
-        "Return the name of the projectile project"
-        (replace-regexp-in-string "[^[:alnum:]]" "-"
-                                  (car (last (split-string (projectile-project-root) "/" t)))))
-
-      (defun llc-get-project-org-file ()
-        "Return the path to the project org file"
-        (concat org-directory "/projects/"
-                (llc-get-project-org-name)
-                ".org"))
-
-      (defun llc-find-project-org-file-task ()
-        "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
-        (let ((project-file (llc-get-project-org-file))
-              (project-headline-regexp "^\\* Tasks")
-              (project-name (llc-get-project-org-name)))
-          (set-buffer (find-file-noselect project-file))
-          (goto-char (point-min))
-          (if (not (re-search-forward project-headline-regexp nil t))
-              (progn
-                (goto-char (point-max))
-                (if (not (eq (buffer-size) 0))
-                    (newline 2))
-                (insert (concat "* Tasks :project:" project-name ":"))))
-          (goto-char (point-min))
-          (re-search-forward project-headline-regexp)
-          (end-of-line)))
-
-      (setq org-capture-templates
-            '(("p" "Project" entry (function llc-find-project-org-file-task)
-               "* TODO %?\n  %a\n  %i")
-              ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
-               "* TODO %?\n  %a\n  %i")
-              ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
-               "* %?\n  %a\n  %i")
-              ("j" "Journal" entry (file+datetree "~/org/journal.org")
-               "* %?\nEntered on %U\n  %a\n  %i")
-              ("J" "Journal - more options")
-              ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
-               "* %?\nEntered on %U\n  %x\n  %a")))
-
-      (setq org-capture-templates-contexts
-            '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
-
-      ;; Close frame after org-capture only if a certain frame-parameter is set
-      (defun llc-close-frame-after-org-capture ()
-        (if (frame-parameter nil 'llc-close-frame-after-org-capture)
-            (delete-frame)))
-      (add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
-
-    #+end_src
-*** COMMENT org-bullets
-    #+begin_src emacs-lisp :tangle yes
-(require-package 'org-bullets)
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+end_src
-** Key Chords
-#+begin_src emacs-lisp :tangle yes
-(key-chord-mode t)
-#+end_src
-** Company
-   #+begin_src emacs-lisp
-     (require-package 'company)
-     (require 'company)
-
-     (setq company-idle-delay 0)
-
-     (defun company-auto-completion-toggle ()
-       (interactive)
-       (if (eq company-idle-delay 0)
-           (setq company-idle-delay nil)
-         (setq company-idle-delay 0))
-       (message (format "company-idle-delay : %s" company-idle-delay)))
-
-     (global-set-key (kbd "C-M-c") 'company-auto-completion-toggle)
-
-     (setq company-minimum-prefix-length 1)
-     (setq company-show-numbers 1)
-     (setq company-tooltip-limit 10)
-
-     (setq company-dabbrev-downcase nil)
-     (setq company-dabbrev-ignore-case nil)
-
-     (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
-     (customize-set-variable 'company-selection-wrap-around t)
-
-
-     (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
-     (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
-     (set-face-attribute 'company-preview nil :background "black")
-     (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
-     (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
-     (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
-
-     (when (executable-find "tern")
-       (after "company-tern-autoloads"
-         (add-to-list 'company-backends 'company-tern)))
-     (add-to-list 'company-backends 'company-tern)
-
-     (setq company-global-modes
-           '(not
-             eshell-mode comint-mode org-mode))
-
-
-     (global-set-key (kbd "C-o") 'company-manual-begin)
-     (global-set-key (kbd "M-o") 'company-tern)
-     (global-set-key (kbd "M-?") 'company-dabbrev)
-
-     (defadvice company-complete-common (around advice-for-company-complete-common activate)
-       (when (null (yas-expand))
-         ad-do-it))
-
-     (add-hook 'after-init-hook 'global-company-mode)
-
-
-
-#+end_src
 
 ** COMMENT Auto-complete
    #+begin_src emacs-lisp :tangle yes
@@ -641,81 +927,12 @@
 
 #+end_src
 
-** Yasnippet
-   #+begin_src emacs-lisp
-;;;;;;;;;;;;
-;; yasnippet
-;;;;;;;;;;;;
-
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"))
-
-(require-package 'yasnippet)
-(require 'yasnippet)
-
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "C-<tab>") 'yas-expand)
-(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-insert-snippet)
-
-(yas-global-mode 1)
-
-
-
-
-#+end_src
-
-** Smartparens
-   #+begin_src emacs-lisp
-
-(require-package 'smartparens)
-;; (require 'smartparens-config)
-
-(setq sp-show-pair-delay 0)
-(setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
-
-(setq sp-autoescape-string-quote nil)
-(setq sp-autoinsert-if-followed-by-same 1)
-(setq sp-highlight-pair-overlay nil)
-
-(sp-use-smartparens-bindings)
-(smartparens-global-mode t)
-(smartparens-global-strict-mode t)
-
-(show-smartparens-global-mode t)
-(show-paren-mode 1)
-
-
-(sp-pair "`" nil :actions :rem)
-
-(sp-with-modes sp--lisp-modes
-  (sp-local-pair "'" nil :actions nil)
-  )
-
-
-(define-key sp-keymap (kbd "M-<right>") 'sp-forward-slurp-sexp)
-(define-key sp-keymap (kbd "M-<left>") 'sp-forward-barf-sexp)
-(define-key sp-keymap (kbd "C-<right>") 'nil)
-(define-key sp-keymap (kbd "C-<left>") 'nil)
-;; (define-key sp-keymap "`" 'nil)
-;; (define-key sp-keymap 96 'nil)
-
-;; (define-key smartparens-strict-mode-map [remap kill-line] 'nil)
-;; (define-key smartparens-strict-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
-(define-key smartparens-strict-mode-map [remap kill-line] 'sp-kill-hybrid-sexp)
-
-
-;; fix conflict where smartparens clobbers yas' key bindings
-(after 'yasnippet
-  (defadvice yas-expand (before advice-for-yas-expand activate)
-    (sp-remove-active-pair-overlay)))
-
-(defadvice sp-kill-hybrid-sexp (before kill-line-cleanup-whitespace activate)
-  "cleanup whitespace on sp-kill-hybrid-sexp"
-  (if (bolp)
-      (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
-
-
-
+** COMMENT Window-number
+   #+begin_src emacs-lisp :tangle yes
+(require 'cl)
+(require-package 'window-number)
+(require 'window-number)
+(window-number-mode 1)
 #+end_src
 
 ** COMMENT Discover
@@ -901,15 +1118,6 @@
 
 #+end_src
 
-** Evil
-   #+begin_src emacs-lisp
-(require-package 'evil)
-(require 'evil)
-
-
-
-#+end_src
-
 ** COMMENT Workspace
    #+begin_src emacs-lisp
 (require-package 'workgroups2)
@@ -1048,141 +1256,12 @@
 
 #+end_src
 
-** Undo-tree
-   #+begin_src emacs-lisp :tangle yes
-     ;;==========
-     ;; Undo tree
-     ;;==========
-
-     (require-package 'undo-tree)
-     (require 'undo-tree)
-     (global-undo-tree-mode)
-     ;; Unmap 'C-x r' to avoid conflict with discover
-     (after 'undo-tree
-       (define-key undo-tree-map (kbd "C-x r") nil))
-
-     (define-key undo-tree-map (kbd "C-/") 'nil)
-
-
-#+end_src
-
-** Flycheck
-   #+begin_src emacs-lisp :tangle yes
-(require-package 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
-(customize-set-variable 'flycheck-idle-change-delay 0.5)
-
-#+end_src
-
-** Diminish - clean your modeline
-   #+begin_src emacs-lisp :tangle yes
-;; For a cleaner modeline
-(require-package 'diminish)
-(diminish 'visual-line-mode)
-(after 'autopair (diminish 'autopair-mode))
-(after 'js2 (diminish 'Javascript-IDE))
-(after 'js2r (diminish 'js2r-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'undo-tree (diminish 'undo-tree-mode))
-(after 'auto-complete (diminish 'auto-complete-mode))
-;(after 'projectile (diminish 'projectile-mode))
-(after 'yasnippet (diminish 'yas-minor-mode))
-(after 'guide-key (diminish 'guide-key-mode))
-(after 'eldoc (diminish 'eldoc-mode))
-(after 'smartparens (diminish 'smartparens-mode))
-(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
-(after 'git-gutter+ (diminish 'git-gutter+-mode))
-(after 'magit (diminish 'magit-auto-revert-mode))
-;; (after 'helm (diminish 'helm-mode))
-(after 'anzu (diminish 'anzu-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'tern (diminish 'tern-mode))
-;; (after 'company (diminish 'company-mode))
-#+end_src
-
-** COMMENT Window-number
-   #+begin_src emacs-lisp :tangle yes
-(require 'cl)
-(require-package 'window-number)
-(require 'window-number)
-(window-number-mode 1)
-#+end_src
-
-** Tramp
-#+begin_src emacs-lisp :tangle yes
-   (require 'tramp)
-   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
-  (setq tramp-default-method "sshx")
-
-(setq password-cache-expiry 'nil)
-
-   ;; (add-to-list 'backup-directory-alist
-   ;;              (cons tramp-file-name-regexp nil))
-#+end_src
-** Ido
-#+begin_src emacs-lisp :tangle yes
-  (ido-mode t)
-  (ido-ubiquitous-mode t)
-  (ido-vertical-mode t)
-  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-  (setq ido-auto-merge-work-directories-length -1)
-
-
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-max-prospects 30)
-
-  (setq ido-ignore-buffers
-        '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-          "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-          ;; "^\*"
-          )
-        )
-
-  (require 'flx-ido)
-  (ido-everywhere t)
-  (flx-ido-mode 1)
-
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;;  (global-set-key (kbd "C-c M-x") 'smex-update)
-
-#+end_src
-
-** Ace jump
-#+begin_src emacs-lisp :tangle yes
-  (autoload
-    'ace-jump-mode
-    "ace-jump-mode"
-    "Emacs quick move minor mode"
-    t)
-
-  (autoload
-    'ace-jump-mode-pop-mark
-    "ace-jump-mode"
-    "Ace jump back:-)"
-    t)
-  (eval-after-load "ace-jump-mode"
-    '(ace-jump-mode-enable-mark-sync))
-
-  (key-chord-define-global "jk" 'ace-jump-word-mode)
-#+end_src
-** Ag
-#+begin_src emacs-lisp :tangle yes
-    (when (executable-find "ag")
-      (require-package 'ag)
-      (setq ag-highlight-search t)
-      (require-package 'wgrep-ag))
-(customize-set-variable 'ag-arguments
-   (quote
-    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
-(customize-set-variable 'ag-highlight-search t)
-#+end_src
 * Core
 ** Misc
   #+begin_src emacs-lisp
+
+; Show full path in title
+(setq-default frame-title-format "%f")
 
     (setq indent-tabs-mode 'nil)
 
@@ -1402,6 +1481,7 @@
                 (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
 #+end_src
+
 ** Narrow or widen
    #+begin_src emacs-lisp :tangle yes
      (defun narrow-or-widen-dwim (p)
@@ -1428,35 +1508,48 @@
              ((derived-mode-p 'prog-mode) (narrow-to-defun))
              (t (error "Please select a region to narrow to"))))
    #+end_src
+
 ** Don't switch frames when switching buffers
 #+begin_src emacs-lisp :tangle yes
 (setq ido-default-buffer-method 'selected-window)
 #+end_src
+
 ** Shell
 #+begin_src emacs-lisp :tangle yes
-    ;; eshell prompt color
-    (setq eshell-prompt-function (lambda nil
-                                   (concat
-                                    (propertize (eshell/pwd) 'face `(:foreground "cyan"))
-                                    (propertize " $" 'face `(:foreground "cyan"))
-                                    (propertize " " 'face `(:foreground "white"))
-                                    )))
-    (setq eshell-highlight-prompt nil)
+      ;; eshell prompt color
+      (setq eshell-prompt-function (lambda nil
+                                     (concat
+                                      (propertize (eshell/pwd) 'face `(:foreground "cyan"))
+                                      (propertize " $" 'face `(:foreground "cyan"))
+                                      (propertize " " 'face `(:foreground "white"))
+                                      )))
+      (setq eshell-highlight-prompt nil)
 
-    ;; Create a new eshell with prompt
-    (defun create-eshell ()
-      "creates a shell with a given name"
-      (interactive);; "Prompt\n eshell name:")
-      (let ((eshell-name (read-string "eshell name: " nil)))
-        (eshell (concat "Eshell/" eshell-name ))))
+      ;; Create a new eshell with prompt
+      (defun db-create-eshell ()
+        "creates a shell with a given name"
+        (interactive);; "Prompt\n eshell name:")
+        (let ((eshell-name (read-string "eshell name: " nil)))
+          (eshell (concat "Eshell/" eshell-name ))))
 
-    (defun create-shell ()
-      "creates a shell with a given name"
-      (interactive);; "Prompt\n shell name:")
-      (let ((shell-name (read-string "shell name: " nil)))
-        (shell (concat "Shell/" shell-name))))
+      (defun db-create-shell ()
+        "creates a shell with a given name"
+        (interactive);; "Prompt\n shell name:")
+        (let ((shell-name (read-string "shell name: " nil)))
+          (shell (concat "Shell/" shell-name))))
+
+  (defun db-execute-last-eshell-command ()
+    (interactive)
+    (let ((eshell-buffer "*eshell*"))
+      (if (get-buffer eshell-buffer)
+          (with-current-buffer eshell-buffer
+            (eshell-previous-input 1)
+            (eshell-send-input))
+        (message (concat "Eshell buffer " eshell-buffer " not found")))))
+  (global-set-key (kbd "C-c e") 'db-execute-last-eshell-command)
 
 #+end_src
+
 ** General Bindings
   #+begin_src emacs-lisp
 
@@ -1603,15 +1696,17 @@
 
 #+end_src
 
-** Disable mouse
+** COMMENT Disable mouse
 #+begin_src emacs-lisp :tangle yes
-(dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]  
-             [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
-             [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
-             [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
-             [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5]))
-  (global-unset-key k))
+  (dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]  
+               [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
+               [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
+               [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
+               [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5] 
+               [M-mouse-2]))
+   (global-unset-key k))
 #+end_src
+
 * Appearance
 ** Misc
   #+begin_src emacs-lisp
@@ -1620,33 +1715,7 @@
       (set-face-attribute 'default (selected-frame) :height size)
       )
 
-    ;; Doesn't work ...
-    ;; (add-hook 'after-make-frame-functions (lambda () (interactive) (set-frame-font-size 100)))
-
-    (require-package 'anzu)
-    (global-anzu-mode 1)
-
-    ;; Multicolor parenthesis
-    ;; (require-package 'rainbow-delimiters)
-    ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-    ;; (load-theme 'wombat t)
-    ;; (if (daemonp)
-    ;; (add-hook 'after-make-frame-functions
-    ;;           '(lambda (f)
-    ;;              (progn
-    ;;                (sml/setup)
-    ;;                (with-selected-frame f
-    ;;                  (when (window-system f)
-    ;;                    (set-cursor-color "white")))))))
-
-    ;; (set-cursor-color "#ffffff")
-    ;; (set-face-attribute 'default nil :height 100)
-
     ;; Show indentation
-    (require-package 'indent-guide)
-    (require 'indent-guide)
-
     ;; Nice scrolling
     (setq scroll-margin 0
           scroll-conservatively 100000
@@ -1662,26 +1731,10 @@
     ;; (global-linum-mode t)
     (setq linum-format " %2d ")
 
-    (if (fboundp 'global-prettify-symbols-mode)
-        (progn
-          (global-prettify-symbols-mode)
-          (add-hook 'js2-mode-hook
-                    (lambda ()
-                      (push '("function" . 955) prettify-symbols-alist)
-                      (push '("return" . 8592) prettify-symbols-alist))))
-      (progn
-        (require-package 'pretty-symbols)
-        (require 'pretty-symbols)
-        (diminish 'pretty-symbols-mode)
-        (add-to-list 'pretty-symbol-categories 'js)
-        (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
-        (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
-        (add-hook 'find-file-hook 'pretty-symbols-mode)))
-
-
 
 
 #+end_src
+
 ** ModeLine
 *** Face for window-numbering
 #+begin_src emacs-lisp :tangle yes
@@ -1690,6 +1743,7 @@
                           :foreground "black"
                           :weight 'semi-bold )
 #+end_src
+
 *** COMMENT SmartModeline
 #+begin_src emacs-lisp :tangle yes
       (require-package 'smart-mode-line)
@@ -1705,6 +1759,7 @@
 
 
 #+end_src
+
 ** Themes
 *** COMMENT Moe-dark
 #+begin_src emacs-lisp :tangle yes
@@ -1740,6 +1795,7 @@
     (set-face-attribute 'js2-external-variable nil :foreground "orange red"))
 
 #+end_src
+
 *** COMMENT Tomorrow
 #+begin_src emacs-lisp :tangle yes
 (load-theme 'sanityinc-tomorrow-eighties t)
@@ -1752,15 +1808,22 @@
 (set-face-attribute 'org-level-3 nil  :foreground "#69C031")
 
 #+end_src
+
 *** COMMENT Atelier Dune Light
 #+begin_src emacs-lisp :tangle yes
 (load-theme 'base16-atelierdune-light t)
 (load-theme 'smart-mode-line-light t)
 ; (load-theme 'base16-solarized-light t)
 #+end_src
-*** Leuven
+
+*** COMMENT Leuven
 #+begin_src emacs-lisp :tangle yes
 (load-theme 'leuven t)
+#+end_src
+
+*** Material
+#+begin_src emacs-lisp :tangle yes
+  (load-theme 'material)
 #+end_src
 
 ** COMMENT Font Lock speed (performance improvements with big files )
@@ -1778,7 +1841,17 @@
 
     (setq font-lock-maximum-decoration 0)
 #+end_src
+
 * Languages modes
+** scala
+#+begin_src emacs-lisp :tangle yes
+  (use-package scala-mode2
+    :ensure t)
+
+  (use-package ensime
+    :ensure t)
+
+#+end_src
 ** c
    #+begin_src emacs-lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1812,7 +1885,7 @@
 
 
 #+end_src
-   
+
 ** coffeescript
    #+begin_src emacs-lisp
      ;; coffeescript
@@ -1890,6 +1963,7 @@
 
      (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
    #+end_src
+
 *** Repl modes (skank, slimejs, ...)
     #+begin_src emacs-lisp :tangle yes
 ;; SLIME - SWANK-JS
@@ -1915,6 +1989,7 @@
 (add-hook 'css-mode-hook 'skewer-css-mode)
 (add-hook 'html-mode-hook 'skewer-html-mode)
 #+end_src
+
 *** Tern
     #+begin_src emacs-lisp :tangle yes
 ;; TERN
@@ -1935,6 +2010,7 @@
     (after 'tern
       ))
 #+end_src
+
 ** livescript
    #+begin_src emacs-lisp
 (load "~/.emacs.d/vendor/livescript-mode.el")
@@ -1950,6 +2026,7 @@
 
 
 #+end_src
+
 ** lua
    #+begin_src emacs-lisp
 
@@ -1959,6 +2036,7 @@
 
 
 #+end_src
+
 ** php
    #+begin_src emacs-lisp
 (autoload 'php-mode "php-mode.el" "Php mode." t)
@@ -2050,5 +2128,17 @@
     ;; (global-set-key (kbd "C-f") 'forward-char)
     ;; (global-set-key (kbd "C-b") 'backward-char)
     ;; (global-set-key (kbd "C-j") 'newline-and-indent)
+
+#+end_src
+
+  
+* Elisp functions
+#+begin_src emacs-lisp :tangle yes
+
+(defun db-read-with-eww ()
+  (interactive)
+  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
+    (write-region nil nil temp-file)
+    (eww-open-file temp-file)))
 
 #+end_src

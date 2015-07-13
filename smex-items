@@ -1,12 +1,26 @@
 
 ;; ----- smex-history -----
 (
+ scala-mode
+ set-frame-font-size
+ flycheck-next-error
+ eshell
+ term
+ eval-region
+ shell-backward-command
+ revert-buffer
+ web-mode
+ scss-mode
+ avy-goto-char-2
+ avy-goto-subword-1
+ avy-goto-word-1
+ package-list-packages
+ package-install
  load-theme
+ diff-buffer-with-file
+ php-mode
  describe-font
  jade-mode
- set-frame-font-size
- web-mode
- web-mode-buffer-indent
  set-variable
  indent-whole-buffer
  align-regexp
@@ -17,52 +31,35 @@
  pop-global-mark
  helm-global-mark-ring
  discover-mode
- js2r-contract-function
- js2r-introduce-parameter
  view-mode
  restclient-mode
  ediff-current-file
- package-install
  eval-expression
  js2-mode
  diminish
  direx:find-directory
  capitalize-region
  magit-blame-mode
- js2-mode-reset
  helm-spaces
  delete-file
- package-list-packages
  make-directory
  helm-M-x
  highlight-indentation-current-column-mode
  highlight-indentation-mode
  set-frame-font
  helm-projectile-find-dir
- js2r-log-this
  toggle-truncate-lines
- js2-mode-toggle-element
- js2-mode-toggle-hide-functions
- js2-mode-hide-functions
- js2-mode-hide-element
  delete-trailing-whitespace
  menu-bar-mode
  tool-bar-mode
- js2-mode-toggle-warnings-and-errors
- js2-mode-display-warnings-and-errors
- js2-mode-show-all
- js2-mode-show-comments
  js2-minor-mode
  describe-face
  json-mode
  projectile-invalidate-cache
  re-builder
  clone-indirect-buffer-other-window
- create-eshell
- create-shell
  shell
  eww
- eval-region
  describe-key
  toggle-debug-on-error
  helm-org-agenda-files-headings
@@ -74,15 +71,12 @@
  delete-other-frames
  company-mode
  elpy-enable
- elpy-doc
- elpy-disable
  magit-stash
  iy-go-to-char
  js-mode
  tramp-bug
  profiler-start
  helm-mode
- php-mode
  projectile-mode
  ido-ubiquitous-mode
  fundamental-mode
@@ -125,7 +119,6 @@
  pong
  smex
  talk
- term
  undo
  yank
  zone
@@ -161,7 +154,6 @@
  ediff3
  edirs3
  epatch
- eshell
  finger
  getenv
  gomoku
@@ -204,7 +196,6 @@
  ps-mode
  run-dig
  sh-mode
- sldb-up
  sql-db2
  unrmail
  up-list
@@ -225,7 +216,6 @@
  bat-mode
  blackbox
  c++-mode
- c-c-menu
  calendar
  checkdoc
  css-mode
@@ -271,8 +261,6 @@
  run-lisp
  ses-mode
  show-all
- sldb-out
- slime-cd
  speedbar
  sql-mode
  srt-mode
@@ -304,7 +292,6 @@
  backtrace
  benchmark
  butterfly
- c-version
  calc-undo
  conf-mode
  copy-file
@@ -315,10 +302,7 @@
  dired-why
  down-list
  ebuffers3
- elpy-menu
  elpy-mode
- elpy-news
- elpy-test
  eregistry
  erevision
  evil-copy
@@ -360,7 +344,6 @@
  indent-to
  java-mode
  join-line
- js2r-kill
  kill-grep
  kill-line
  kill-sexp
@@ -396,15 +379,7 @@
  ruby-mode
  sass-mode
  scroll-up
- scss-mode
  sgml-mode
- sldb-down
- sldb-mode
- sldb-next
- sldb-quit
- sldb-step
- slime-nop
- slime-pwd
  sml/setup
  snmp-mode
  solitaire
@@ -443,9 +418,6 @@
  array-mode
  browse-url
  browse-web
- c-awk-menu
- c-c++-menu
- c-idl-menu
  calculator
  comint-bol
  comint-run
@@ -462,7 +434,6 @@
  dsssl-mode
  elide-head
  elint-file
- elpy-check
  emr-c-mode
  erc-select
  eval-defun
@@ -533,12 +504,7 @@
  shell-mode
  show-entry
  sieve-mode
- sldb-abort
- sldb-break
- sldb-cycle
- slime-info
  slime-mode
- slime-ping
  sort-lines
  sort-pages
  sp-comment
@@ -582,9 +548,6 @@
  buffer-menu
  bury-buffer
  c-add-style
- c-java-menu
- c-objc-menu
- c-pike-menu
  c-set-style
  calc-keypad
  center-line
@@ -651,7 +614,6 @@
  iso-spanish
  iso-tex2iso
  ispell-word
- js2r-unwrap
  kill-buffer
  kill-region
  lower-frame
@@ -681,9 +643,7 @@
  pr-txt-name
  prolog-mode
  push-button
- python-menu
  python-mode
- pyvenv-menu
  pyvenv-mode
  quit-window
  raise-frame
@@ -703,9 +663,6 @@
  simula-mode
  skewer-mode
  skewer-repl
- slime-reset
- slime-setup
- slime-space
  slitex-mode
  smerge-mode
  smex-update
@@ -731,15 +688,9 @@
  Info-history
  Info-summary
  align-entire
- archive-mark
- archive-undo
- archive-view
  autoarg-mode
  bookmark-set
  bs-customize
- c-defun-name
- c-guess-view
- c-indent-exp
  c-set-offset
  check-parens
  clone-buffer
@@ -843,7 +794,6 @@
  message-mode
  message-news
  morse-region
- move-line-up
  not-modified
  opascal-mode
  org-add-note
@@ -871,7 +821,6 @@
  pr-interface
  print-buffer
  print-region
- python-check
  quickurl-ask
  rainbow-mode
  recentf-mode
@@ -899,7 +848,6 @@
  strokes-help
  strokes-mode
  subword-mode
- sws-at-bol-p
  t-mouse-mode
  table-insert
  tags-apropos
@@ -979,7 +927,6 @@
  ediff-buffers
  ediff-version
  eieio-version
- elpy-refactor
  emacs-version
  end-kbd-macro
  end-of-buffer
@@ -991,16 +938,69 @@
  epatch-buffer
  er/mark-defun
  er/mark-email
- er/mark-js-if
  erc-fill-mode
  erc-menu-mode
  erc-ring-mode
+ sh-if
+ sh-add
+ sh-for
+ neotree
+ sh-case
+ sh-until
+ sh-while
+ sh-repeat
+ sh-select
+ 2C-command
+ git-gutter
+ sh-cd-here
+ avy-isearch
+ neotree-dir
+ sh-function
+ sh-get-word
+ sh-tmp-file
+ smie-edebug
+ company-diag
+ evil-ex-sort
+ helm-ag-mode
+ neotree-find
+ neotree-hide
+ neotree-show
+ ns-find-file
+ rmail-output
+ sh-prev-stmt
+ sh-set-shell
+ avy-copy-line
+ avy-goto-char
+ avy-goto-line
+ avy-move-line
+ direx:mouse-1
+ direx:mouse-2
+ direx:up-item
  evil-a-symbol
  evil-an-angle
  evil-downcase
  evil-quit-all
  eww-open-file
  exit-calendar
+ expand-abbrev
+ ffap-at-mouse
+ ffap-bindings
+ ffap-next-url
+ find-function
+ find-variable
+ flycheck-info
+ flycheck-mode
+ flyspell-mode
+ font-show-log
+ footnote-mode
+ gnus-agentize
+ gnus-msg-mail
+ hanoi-unix-64
+ helm-M-x-help
+ helm-apt-help
+ js2-mode-toggle-element
+ js2r-log-this
+ js2r-contract-function
 )
 
 ;; ----- smex-data -----
@@ -1015,12 +1015,12 @@
  (set-variable . 7)
  (tramp-bug . 2)
  (projectile-mode . 1)
- (php-mode . 1)
+ (php-mode . 2)
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 5)
- (set-frame-font-size . 22)
+ (set-frame-font-size . 24)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 5)
+ (package-list-packages . 6)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1042,7 +1042,7 @@
  (toggle-debug-on-error . 8)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
- (eval-region . 1)
+ (eval-region . 6)
  (eww . 1)
  (create-shell . 1)
  (create-eshell . 1)
@@ -1082,7 +1082,7 @@
  (direx:find-directory . 1)
  (diminish . 1)
  (eval-expression . 1)
- (package-install . 1)
+ (package-install . 2)
  (ediff-current-file . 1)
  (restclient-mode . 1)
  (view-mode . 2)
@@ -1090,11 +1090,23 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 2)
- (load-theme . 18)
+ (load-theme . 22)
  (column-number-mode . 1)
  (yas-describe-tables . 1)
- (web-mode . 2)
+ (web-mode . 7)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
  (describe-font . 1)
+ (diff-buffer-with-file . 4)
+ (avy-goto-subword-1 . 3)
+ (avy-goto-word-or-subword-1 . 3)
+ (avy-goto-word-1 . 2)
+ (avy-goto-char-2 . 5)
+ (scss-mode . 1)
+ (revert-buffer . 2)
+ (shell-backward-command . 1)
+ (eshell . 2)
+ (term . 2)
+ (flycheck-next-error . 3)
+ (scala-mode . 1)
 )
