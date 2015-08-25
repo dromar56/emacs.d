@@ -12,4 +12,6 @@
       (shell-command-to-string (concat emacs-binary " -q --script ~/.emacs.d/tangle_config.el"))))
 
 (require 'org)
+(require 'use-package)
 (load-file (expand-file-name "~/.emacs.d/config.el"))
+(put 'upcase-region 'disabled nil)

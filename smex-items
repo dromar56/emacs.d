@@ -1,20 +1,21 @@
 
 ;; ----- smex-history -----
 (
- scala-mode
  set-frame-font-size
+ web-mode
+ server-start
+ align-regexp
+ package-list-packages
  flycheck-next-error
  eshell
  term
  eval-region
  shell-backward-command
  revert-buffer
- web-mode
  scss-mode
  avy-goto-char-2
  avy-goto-subword-1
  avy-goto-word-1
- package-list-packages
  package-install
  load-theme
  diff-buffer-with-file
@@ -23,7 +24,6 @@
  jade-mode
  set-variable
  indent-whole-buffer
- align-regexp
  customize-group
  yas-describe-tables
  column-number-mode
@@ -828,7 +828,6 @@
  rot13-region
  scroll-right
  select-frame
- server-start
  show-subtree
  sieve-manage
  sieve-upload
@@ -966,7 +965,6 @@
  neotree-hide
  neotree-show
  ns-find-file
- rmail-output
  sh-prev-stmt
  sh-set-shell
  avy-copy-line
@@ -998,9 +996,11 @@
  hanoi-unix-64
  helm-M-x-help
  helm-apt-help
+ sbt-grep
  js2-mode-toggle-element
  js2r-log-this
  js2r-contract-function
+ js2-mode-hide-functions
 )
 
 ;; ----- smex-data -----
@@ -1020,7 +1020,7 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 5)
- (set-frame-font-size . 24)
+ (set-frame-font-size . 28)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 6)
+ (package-list-packages . 7)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1066,7 +1066,7 @@
  (js2-mode-hide-element . 1)
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
- (align-regexp . 2)
+ (align-regexp . 3)
  (toggle-truncate-lines . 2)
  (helm-projectile-find-dir . 1)
  (set-frame-font . 1)
@@ -1093,7 +1093,7 @@
  (load-theme . 22)
  (column-number-mode . 1)
  (yas-describe-tables . 1)
- (web-mode . 7)
+ (web-mode . 9)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
  (describe-font . 1)
@@ -1108,5 +1108,6 @@
  (eshell . 2)
  (term . 2)
  (flycheck-next-error . 3)
- (scala-mode . 1)
+ (sp-switch-space . 1)
+ (server-start . 2)
 )
