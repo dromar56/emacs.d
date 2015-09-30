@@ -163,7 +163,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (global-git-gutter-mode t)
 
-(global-set-key (kbd "M-c") 'avy-goto-char-2)
+(bind-key (kbd "M-c") 'avy-goto-char-2)
 (setq avy-keys (number-sequence ?a ?z))
 
 (if (fboundp 'global-prettify-symbols-mode)
@@ -173,7 +173,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                 (lambda ()
                   (push '("function" . 955) prettify-symbols-alist)
                   (push '("return" . 8592) prettify-symbols-alist))))
-  
+
   (progn
     (require-package 'pretty-symbols)
     (require 'pretty-symbols)
@@ -186,11 +186,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require-package 'indent-guide)
 (require 'indent-guide)
 
-(require-package 'anzu)
-(global-anzu-mode 1)
-
-(require 'direx)
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+(use-package anzu
+  :ensure t
+  
+  :config
+  (setq anzu-cons-mode-line-p nil)
+  (global-anzu-mode 1)
+  )
 
 (require-package 'expand-region)
 (require 'expand-region)
@@ -198,7 +200,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; Magit Mode
 
   (setq magit-last-seen-setup-instructions "1.4.0")
-  (global-set-key (kbd "C-x g") 'magit-status)
+(bind-key "C-x g" #'magit-status)
 
 
 (after 'magit (progn
@@ -246,32 +248,32 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (customize-set-variable 'helm-candidate-number-limit 200)
 
     (setq helm-M-x-fuzzy-match t)
-(global-set-key (kbd "C-c x") 'helm-M-x)
+(bind-key (kbd "C-c x") 'helm-M-x)
 
-    (global-set-key (kbd "C-z") 'helm-mini)
+    (bind-key (kbd "C-z") 'helm-mini)
 
-    (global-set-key (kbd "C-t") 'helm-imenu)
-    (global-set-key (kbd "M-t") 'helm-etags-select)
-    (global-set-key (kbd "C-M-t") 'projectile-regenerate-tags)
+    (bind-key (kbd "C-t") 'helm-imenu)
+    (bind-key (kbd "M-t") 'helm-etags-select)
+    (bind-key (kbd "C-M-t") 'projectile-regenerate-tags)
 
     ;; Occur
-    (global-set-key (kbd "M-o") 'helm-occur)
-    (global-set-key (kbd "C-M-o") 'helm-multi-occur)
+    (bind-key (kbd "M-o") 'helm-occur)
+    (bind-key (kbd "C-M-o") 'helm-multi-occur)
 
     ;; helm-etags
-    ;; (global-set-key (kbd "M-t") 'helm-etags-select)
+    ;; (bind-key (kbd "M-t") 'helm-etags-select)
 
-    (global-set-key (kbd "<f2>") 'helm-all-mark-rings)
-    (global-set-key (kbd "s-y") 'helm-show-kill-ring)
+    (bind-key (kbd "<f2>") 'helm-all-mark-rings)
+    (bind-key (kbd "s-y") 'helm-show-kill-ring)
 
     ;; BOOKMARKS
-    (global-set-key (kbd "s-b") 'helm-bookmarks)
+    (bind-key (kbd "s-b") 'helm-bookmarks)
 
-    (global-set-key (kbd "s-o") 'helm-swoop)
-    ;; (global-set-key (kbd "s-O") 'helm-multi-swoop)
-    ;; (global-set-key (kbd "s-o") 'helm-occur)
+    (bind-key (kbd "s-o") 'helm-swoop)
+    ;; (bind-key (kbd "s-O") 'helm-multi-swoop)
+    ;; (bind-key (kbd "s-o") 'helm-occur)
 
-    ;; (global-set-key (kbd "s-O") 'helm-regexp)
+    ;; (bind-key (kbd "s-O") 'helm-regexp)
 
 (require-package 'helm-ag)
 (setq helm-ag-thing-at-point 'symbol)
@@ -286,7 +288,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq helm-dash-browser-func 'browse-url)
 ;; (setq helm-dash-browser-func 'eww)
 
-(global-set-key (kbd "M-s") 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
+(bind-key (kbd "M-s") 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
 
 (require 'helm-projectile)
     (projectile-global-mode t)
@@ -304,9 +306,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                                                           helm-source-projectile-files-list
                                                           helm-source-projectile-recentf-list))
 
-    (global-set-key (kbd "M-z") 'helm-projectile)
-    (global-set-key (kbd "s-f") 'helm-projectile)
-    (global-set-key (kbd "s-g") 'helm-ag-projectile)
+    (bind-key (kbd "M-z") 'helm-projectile)
+    (bind-key (kbd "s-f") 'helm-projectile)
+    (bind-key (kbd "s-g") 'helm-ag-projectile)
 
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
@@ -315,7 +317,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq org-tag-alist nil)
 
-;; (global-set-key (kbd "<C-S-right>") 'helm-occur)
+;; (bind-key (kbd "<C-S-right>") 'helm-occur)
 
 (eval-after-load "org"
 '(progn
@@ -441,7 +443,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (setq company-idle-delay 0))
   (message (format "company-idle-delay : %s" company-idle-delay)))
 
-(global-set-key (kbd "C-M-c") 'company-auto-completion-toggle)
+(bind-key (kbd "C-M-c") 'company-auto-completion-toggle)
 
 (setq company-minimum-prefix-length 1)
 (setq company-show-numbers 1)
@@ -471,9 +473,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
         eshell-mode comint-mode org-mode))
 
 
-(global-set-key (kbd "C-o") 'company-manual-begin)
-(global-set-key (kbd "M-o") 'company-tern)
-(global-set-key (kbd "M-?") 'company-dabbrev)
+(bind-key (kbd "C-o") 'company-manual-begin)
+(bind-key (kbd "M-o") 'company-tern)
+(bind-key (kbd "M-?") 'company-dabbrev)
 
 (defadvice company-complete-common (around advice-for-company-complete-common activate)
   (when (null (yas-expand))
@@ -544,9 +546,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (if (bolp)
       (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
 
-(require-package 'evil)
-(require 'evil)
-
 ;;==========
 ;; Undo tree
 ;;==========
@@ -582,7 +581,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (after 'smartparens (diminish 'smartparens-mode))
 (after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
-(after 'magit (diminish 'magit-auto-revert-mode))
 ;; (after 'helm (diminish 'helm-mode))
 (after 'anzu (diminish 'anzu-mode))
 (after 'skewer (diminish 'skewer-mode))
@@ -620,9 +618,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (ido-everywhere t)
 (flx-ido-mode 1)
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;;  (global-set-key (kbd "C-c M-x") 'smex-update)
+(bind-key (kbd "M-x") 'smex)
+(bind-key (kbd "M-X") 'smex-major-mode-commands)
+;;  (bind-key (kbd "C-c M-x") 'smex-update)
 
 (when (executable-find "ag")
       (require-package 'ag)
@@ -694,7 +692,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
        (require 'recentf)
        ;; (recentf-mode 1)
        (setq recentf-max-menu-items 10)
-       ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+       ;; (bind-key "\C-x\ \C-r" 'recentf-open-files)
 
        (require 'uniquify)
        (customize-set-variable 'uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -918,115 +916,120 @@ narrowed."
           (eshell-previous-input 1)
           (eshell-send-input))
       (message (concat "Eshell buffer " eshell-buffer " not found")))))
-(global-set-key (kbd "C-c e") 'db-execute-last-eshell-command)
+(bind-key (kbd "C-c e") 'db-execute-last-eshell-command)
 
-(global-set-key (kbd "C-h a") 'apropos)
+(bind-key (kbd "C-h a") 'apropos)
 
-(global-set-key (kbd "M-n")     'forward-paragraph)
-(global-set-key (kbd "M-p")     'backward-paragraph)
+(bind-key (kbd "M-n")     'forward-paragraph)
+(bind-key (kbd "M-p")     'backward-paragraph)
 
-(global-set-key (kbd "C-c n")   'winner-redo)
-(global-set-key (kbd "C-c p")   'winner-undo)
+(bind-key (kbd "C-c n")   'winner-redo)
+(bind-key (kbd "C-c p")   'winner-undo)
 
-(global-set-key (kbd "C-x C-1") 'delete-other-windows)
-(global-set-key (kbd "C-x C-2") 'split-window-below)
-(global-set-key (kbd "C-x C-3") 'split-window-right)
-(global-set-key (kbd "C-x C-0") 'delete-window)
+(bind-key (kbd "C-x C-1") 'delete-other-windows)
+(bind-key (kbd "C-x C-2") 'split-window-below)
+(bind-key (kbd "C-x C-3") 'split-window-right)
+(bind-key (kbd "C-x C-0") 'delete-window)
 
-(global-set-key (kbd "C-;") 'repeat)
+(bind-key (kbd "C-;") 'repeat)
 
-(global-set-key (kbd "s-n") 'narrow-or-widen-dwim)
+(bind-key (kbd "s-n") 'narrow-or-widen-dwim)
 
 ;; Anzu
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+(bind-key (kbd "M-%") 'anzu-query-replace)
+(bind-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 
 ;; Font size
-(global-set-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
-(global-set-key (kbd "C-<kp-add>") 'text-scale-increase)
-(global-set-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
+(bind-key (kbd "C-0") '(lambda ()  (interactive) (text-scale-set 0)))
+(bind-key (kbd "C-+") 'text-scale-increase)
+(bind-key (kbd "C-=") 'text-scale-increase)
+(bind-key (kbd "C--") 'text-scale-decrease)
+(bind-key (kbd "C-<kb-0>") '(lambda ()  (interactive) (text-scale-set 0)))
+(bind-key (kbd "C-<kp-add>") 'text-scale-increase)
+(bind-key (kbd "C-<kp-subtract>") 'text-scale-decrease)
 
 ;; A la carte Menu
-(global-set-key (kbd "C-x c") 'lacarte-execute-menu-command)
+(bind-key (kbd "C-x c") 'lacarte-execute-menu-command)
 
 ;; helm-imenuu
-;; (global-set-key (kbd "C-t") 'transpose-chars)
-;; (global-set-key (kbd "M-t") 'transpose-words)
-;; (global-set-key (kbd "C-t") 'idomenu)
-;; (global-set-key (kbd "M-t") 'imenu-anywhere)
+;; (bind-key (kbd "C-t") 'transpose-chars)
+;; (bind-key (kbd "M-t") 'transpose-words)
+;; (bind-key (kbd "C-t") 'idomenu)
+;; (bind-key (kbd "M-t") 'imenu-anywhere)
 
 ;; Locked mode
-(global-set-key (kbd "C-c C-l") 'locked-buffer-mode)
+(bind-key (kbd "C-c C-l") 'locked-buffer-mode)
 
 ;; Windows manipulation
-(global-set-key (kbd "C-x |")           'split-window-right)
-(global-set-key (kbd "C-x -")           'split-window-below)
-(global-set-key (kbd "C-x C-<right>")   'windmove-right)
-(global-set-key (kbd "C-x C-<left>")    'windmove-left)
-(global-set-key (kbd "C-x C-<down>")    'windmove-down)
-(global-set-key (kbd "C-x C-<up>")      'windmove-up)
+(bind-key (kbd "C-x |")           'split-window-right)
+(bind-key (kbd "C-x -")           'split-window-below)
+(bind-key (kbd "C-x C-<right>")   'windmove-right)
+(bind-key (kbd "C-x C-<left>")    'windmove-left)
+(bind-key (kbd "C-x C-<down>")    'windmove-down)
+(bind-key (kbd "C-x C-<up>")      'windmove-up)
 
-(global-set-key (kbd "C-x <left>")      'shrink-window-horizontally)
-(global-set-key (kbd "C-x <right>")     'enlarge-window-horizontally)
-(global-set-key (kbd "C-x <up>")        'enlarge-window)
-(global-set-key (kbd "C-x <down>")      'shrink-window)
+; (bind-key (kbd "C-x C-l")   'windmove-right)
+; (bind-key (kbd "C-x C-j")    'windmove-left)
+; (bind-key (kbd "C-x C-<down>")    'windmove-down)
+; (bind-key (kbd "C-x C-<up>")      'windmove-up)
 
-;; (global-set-key (kbd "M-<right>") 'other-window)
-;; (global-set-key (kbd "M-<left>") '(lambda (&optional n)
+(bind-key (kbd "C-x <left>")      'shrink-window-horizontally)
+(bind-key (kbd "C-x <right>")     'enlarge-window-horizontally)
+(bind-key (kbd "C-x <up>")        'enlarge-window)
+(bind-key (kbd "C-x <down>")      'shrink-window)
+
+;; (bind-key (kbd "M-<right>") 'other-window)
+;; (bind-key (kbd "M-<left>") '(lambda (&optional n)
 ;;                                           (interactive "P") (other-window -1)))
 
-(global-set-key (kbd "C-<prior>") 'beginning-of-buffer)
-(global-set-key (kbd "C-<next>") 'end-of-buffer)
-(global-set-key (kbd "<prior>") 'scroll-down-command)
-(global-set-key (kbd "<next>") 'scroll-up-command)
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
-(global-set-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
+(bind-key (kbd "C-<prior>") 'beginning-of-buffer)
+(bind-key (kbd "C-<next>") 'end-of-buffer)
+(bind-key (kbd "<prior>") 'scroll-down-command)
+(bind-key (kbd "<next>") 'scroll-up-command)
+(bind-key (kbd "M-<down>") (lambda () (interactive) (scroll-down -4)))
+(bind-key (kbd "M-<up>") (lambda () (interactive) (scroll-down 4)))
 
 
 ;; Undo Tree mode
-;; (global-set-key (kbd "C-+") 'undo-tree-redo)
+;; (bind-key (kbd "C-+") 'undo-tree-redo)
 
 ;; iy-go-to-char
-(global-set-key (kbd "C-M-.") 'iy-go-to-char)
-(global-set-key (kbd "C-M-,") 'iy-go-to-char-backward)
+(bind-key (kbd "C-M-.") 'iy-go-to-char)
+(bind-key (kbd "C-M-,") 'iy-go-to-char-backward)
 
 ;; multiple-cursors bindings
-(global-set-key (kbd "s-M") 'mc/edit-lines)
-(global-set-key (kbd "s-.") 'mc/mark-next-like-this)
-(global-set-key (kbd "s-,") 'mc/mark-previous-like-this)
-(global-set-key (kbd "s->") 'mc/unmark-next-like-this)
-(global-set-key (kbd "s-<") 'mc/unmark-previous-like-this)
-(global-set-key (kbd "s-m") 'mc/mark-all-like-this)
+(bind-key (kbd "s-M") 'mc/edit-lines)
+(bind-key (kbd "s-.") 'mc/mark-next-like-this)
+(bind-key (kbd "s-,") 'mc/mark-previous-like-this)
+(bind-key (kbd "s->") 'mc/unmark-next-like-this)
+(bind-key (kbd "s-<") 'mc/unmark-previous-like-this)
+(bind-key (kbd "s-m") 'mc/mark-all-like-this)
 
-(global-set-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
+(bind-key (kbd "<C-down-mouse-1>") 'mc/add-cursor-on-click)
 
 
 ;; Expand region by semantics units
-(global-set-key (kbd "s-\/") 'er/expand-region)
-(global-set-key (kbd "s-?") 'er/contract-region)
+(bind-key (kbd "s-\/") 'er/expand-region)
+(bind-key (kbd "s-?") 'er/contract-region)
 
 ;; Register Windows
-(global-set-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
+(bind-key (kbd "<f9>") '(lambda () (interactive) (jump-to-register 9)
                                 (message "Windows disposition loaded")))
-(global-set-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
+(bind-key (kbd "<f10>") '(lambda () (interactive) (window-configuration-to-register 9)
                                  (message "Windows disposition saved")))
 
 ;; Projectile
-(global-set-key (kbd "s-d") 'projectile-find-dir)
-(global-set-key (kbd "s-p") 'helm-projectile-switch-project)
+(bind-key (kbd "s-d") 'projectile-find-dir)
+(bind-key (kbd "s-p") 'helm-projectile-switch-project)
 
 ;; Resize Windows
-(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-M-<down>") 'shrink-window)
-(global-set-key (kbd "C-M-<up>") 'enlarge-window)
+(bind-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+(bind-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
+(bind-key (kbd "C-M-<down>") 'shrink-window)
+(bind-key (kbd "C-M-<up>") 'enlarge-window)
 
-(global-set-key (kbd "<f11>") 'menu-bar-mode)
-(global-set-key (kbd "<f12>") 'indent-whole-buffer)
+(bind-key (kbd "<f11>") 'menu-bar-mode)
+(bind-key (kbd "<f12>") 'indent-whole-buffer)
 
 
 ;; Ace Jump Mode
@@ -1037,26 +1040,26 @@ narrowed."
 
 
 ;;Project Explorer
-;; (global-set-key (kbd "<f1>") 'project-explorer-open)
+;; (bind-key (kbd "<f1>") 'project-explorer-open)
 
 
 ;;Query Replace Regex
-(global-set-key (kbd "C-x C-r") 'query-replace-regexp)
-(global-set-key (kbd "s-O") 'my-projectile-multi-occur)
+(bind-key (kbd "C-x C-r") 'query-replace-regexp)
+(bind-key (kbd "s-O") 'my-projectile-multi-occur)
 
 ;; Macro bindings
-;; (global-set-key (kbd "<f2>") 'apply-macro-to-region-lines)
+;; (bind-key (kbd "<f2>") 'apply-macro-to-region-lines)
 
 ;; Goto
-(global-set-key [(meta g)] 'goto-line)
+(bind-key [(meta g)] 'goto-line)
 
-(global-set-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
+(bind-key (kbd "C-x C-b") 'projectile-switch-to-buffer)
 
-;; (global-set-key (kbd "C-x b") 'ibuffer)
-;; (global-set-key (kbd "<M-up>") 'up-and-locate)
-;; (global-set-key (kbd "<M-down>") 'down-and-locate)
-(global-set-key [mouse-5] 'mouse-down-and-locate)
-(global-set-key [mouse-4] 'mouse-up-and-locate)
+;; (bind-key (kbd "C-x b") 'ibuffer)
+;; (bind-key (kbd "<M-up>") 'up-and-locate)
+;; (bind-key (kbd "<M-down>") 'down-and-locate)
+(bind-key [mouse-5] 'mouse-down-and-locate)
+(bind-key [mouse-4] 'mouse-up-and-locate)
 
 (defun set-frame-font-size (size)
   (interactive "nSize:")
@@ -1079,25 +1082,20 @@ narrowed."
 ;; (global-linum-mode t)
 (setq linum-format " %2d ")
 
-(set-face-attribute 'window-numbering-face nil 
-                    :background "cyan" 
-                    :foreground "black"
-                    :weight 'semi-bold )
+(use-package spaceline-config
+  :ensure spaceline
+  :init
+  (setq ns-use-srgb-colorspace nil)
+  :config
+  (spaceline-spacemacs-theme))
 
-(setq solarized-use-less-bold t)
-(setq solarized-high-contrast-mode-line t)
-
-  (load-theme 'solarized-light)
+(load-theme 'material)
 
 (use-package scala-mode2
   :ensure t)
 
 (use-package ensime
   :ensure t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C count-lines-function
-;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun count-lines-function ()
   "count number of lines and characters beetwen matched parenthesis"
@@ -1113,16 +1111,14 @@ narrowed."
       (count-lines-region start end)))
   (forward-char -1))
 ;;  Ligne ubercool
- (save-excursion (let ((start (point)) (end (progn (forward-list) (point)))) (count-lines-region start end)))
+(save-excursion (let ((start (point)) (end (progn (forward-list) (point)))) (count-lines-region start end)))
 
 ;; Add count-lines-function to c-mode
 (defun my-c-mode-hook ()
   (local-set-key (kbd "C-c C-w") 'count-lines-function)
   )
 (add-hook 'c-mode-hook 'my-c-mode-hook)
-;; (add-hook 'c-mode-common-hook   (lambda () (highlight-80+-mode t) ) )
 
-;; coffeescript
 (eval-after-load "coffee-mode"
   '(progn
      (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
@@ -1202,7 +1198,7 @@ narrowed."
 
 
 ;;SWANK-JS MODE IS FUCKING AWESOME
-(global-set-key [f5] 'slime-js-reload)
+(bind-key [f5] 'slime-js-reload)
 
 ;; ;; SKEWER
 (add-hook 'js2-mode-hook 'skewer-mode)
@@ -1243,6 +1239,7 @@ narrowed."
 (setq auto-mode-alist (append '(("/*.\.php[345]?$" . php-mode)) auto-mode-alist))
 
 ;; (require 'elpy nil t)
+
 (elpy-enable)
 (elpy-use-ipython "ipython3")
 ;; (elpy-clean-modeline)
@@ -1283,17 +1280,13 @@ narrowed."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-
 (add-to-list 'auto-mode-alist '("\\.dust?\\'" . web-mode))
-
-
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 4)
-)
+  )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 (add-hook
@@ -1303,12 +1296,11 @@ narrowed."
      (ac-set-trigger-key nil))
    ))
 
-
 (define-key  emacs-lisp-mode-map (kbd "C-M-x") nil)
 
-;; (global-set-key (kbd "C-f") 'forward-char)
-;; (global-set-key (kbd "C-b") 'backward-char)
-;; (global-set-key (kbd "C-j") 'newline-and-indent)
+;; (bind-key (kbd "C-f") 'forward-char)
+;; (bind-key (kbd "C-b") 'backward-char)
+;; (bind-key (kbd "C-j") 'newline-and-indent)
 
 (defun db4go-toggle-productivity ()
   (interactive)

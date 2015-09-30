@@ -1,22 +1,35 @@
 
 ;; ----- smex-history -----
 (
+ package-list-packages
+ list-packages
+ package-install
  set-frame-font-size
+ save-buffer
+ kill-buffer
+ eval-region
+ revert-buffer
+ magit-blame-mode
+ eval-expression
+ describe-personal-keybindings
+ js2-mode
+ view-lossage
+ customize-group
+ org-babel-open-src-block-result
+ visual-line-mode
+ tramp-cleanup-all-buffers
+ tramp-cleanup-all-connections
  web-mode
  server-start
  align-regexp
- package-list-packages
  flycheck-next-error
  eshell
  term
- eval-region
  shell-backward-command
- revert-buffer
  scss-mode
  avy-goto-char-2
  avy-goto-subword-1
  avy-goto-word-1
- package-install
  load-theme
  diff-buffer-with-file
  php-mode
@@ -24,7 +37,6 @@
  jade-mode
  set-variable
  indent-whole-buffer
- customize-group
  yas-describe-tables
  column-number-mode
  tern-find-definition
@@ -34,12 +46,8 @@
  view-mode
  restclient-mode
  ediff-current-file
- eval-expression
- js2-mode
  diminish
- direx:find-directory
  capitalize-region
- magit-blame-mode
  helm-spaces
  delete-file
  make-directory
@@ -81,7 +89,6 @@
  ido-ubiquitous-mode
  fundamental-mode
  org-export-dispatch
- visual-line-mode
  ag
  cd
  5x5
@@ -181,7 +188,6 @@
  c-guess
  compile
  erc-tls
- evil-ex
  fortune
  go-mode
  gud-gdb
@@ -225,7 +231,6 @@
  dired-vm
  dns-mode
  ebuffers
- evil-ret
  f90-mode
  ffap-bug
  find-tag
@@ -305,18 +310,7 @@
  elpy-mode
  eregistry
  erevision
- evil-copy
- evil-edit
- evil-fill
- evil-join
- evil-line
- evil-make
  evil-mode
- evil-move
- evil-quit
- evil-read
- evil-save
- evil-yank
  ffap-menu
  ffap-next
  find-file
@@ -437,9 +431,6 @@
  emr-c-mode
  erc-select
  eval-defun
- evil-a-tag
- evil-rot13
- evil-write
  find-dired
  forms-mode
  gnus-slave
@@ -576,17 +567,6 @@
  erc-add-pal
  eshell-mode
  eval-buffer
- evil-a-WORD
- evil-a-word
- evil-append
- evil-buffer
- evil-change
- evil-delete
- evil-indent
- evil-insert
- evil-lookup
- evil-repeat
- evil-upcase
  fill-region
  first-error
  flush-lines
@@ -614,7 +594,6 @@
  iso-spanish
  iso-tex2iso
  ispell-word
- kill-buffer
  kill-region
  lower-frame
  magit-fetch
@@ -654,7 +633,6 @@
  reveal-mode
  rmail-input
  run-at-time
- save-buffer
  scheme-mode
  scroll-down
  scroll-left
@@ -730,10 +708,6 @@
  erc-log-mode
  es-jump-line
  es-push-line
- evil-a-curly
- evil-a-paren
- evil-replace
- evil-version
  find-library
  flx-ido-mode
  flymake-mode
@@ -859,7 +833,6 @@
  vc-print-log
  vc-root-diff
  verilog-mode
- view-lossage
  visible-mode
  w3m-download
  w3m-goto-url
@@ -959,7 +932,6 @@
  sh-tmp-file
  smie-edebug
  company-diag
- evil-ex-sort
  helm-ag-mode
  neotree-find
  neotree-hide
@@ -971,13 +943,6 @@
  avy-goto-char
  avy-goto-line
  avy-move-line
- direx:mouse-1
- direx:mouse-2
- direx:up-item
- evil-a-symbol
- evil-an-angle
- evil-downcase
- evil-quit-all
  eww-open-file
  exit-calendar
  expand-abbrev
@@ -997,15 +962,50 @@
  helm-M-x-help
  helm-apt-help
  sbt-grep
+ ensime
+ run-scala
+ sbt-start
+ scala-mode
+ vc-git-grep
+ winner-redo
+ winner-undo
+ vc-git-stash
+ ensime-remote
+ helm-do-zgrep
+ helm-elscreen
+ helm-esh-help
+ helm-info-bfd
+ helm-info-cvs
+ helm-info-gdb
+ helm-info-org
+ helm-info-sed
+ helm-info-zsh
+ helm-mark-all
+ helm-register
  js2-mode-toggle-element
+ db4go-toggle-productivity
  js2r-log-this
  js2r-contract-function
  js2-mode-hide-functions
+ js2-mode-show-comments
+ js2r-introduce-parameter
+ js2-mode-toggle-warnings-and-errors
+ elpy-doc
+ elpy-disable
+ js2-mode-reset
+ js2-mode-show-all
+ js2-mode-hide-element
+ web-mode-buffer-indent
+ js2-mode-toggle-hide-functions
+ js2-mode-display-warnings-and-errors
+ js-gc
+ avy-goto-word-or-subword-1
+ magit-stash-pop
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 2)
+ (visual-line-mode . 3)
  (org-export-dispatch . 2)
  (profiler-start . 3)
  (profiler-report . 4)
@@ -1019,19 +1019,19 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 5)
- (set-frame-font-size . 28)
+ (customize-group . 6)
+ (set-frame-font-size . 36)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
  (magit-stash . 4)
  (iy-go-to-char . 1)
  (helm-M-x . 7)
- (magit-blame-mode . 10)
+ (magit-blame-mode . 14)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 7)
+ (package-list-packages . 8)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1042,7 +1042,7 @@
  (toggle-debug-on-error . 8)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
- (eval-region . 6)
+ (eval-region . 7)
  (eww . 1)
  (create-shell . 1)
  (create-eshell . 1)
@@ -1050,7 +1050,7 @@
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 1)
- (js2-mode . 4)
+ (js2-mode . 5)
  (js2-mode-toggle-warnings-and-errors . 2)
  (describe-face . 1)
  (js2r-log-this . 5)
@@ -1081,8 +1081,8 @@
  (capitalize-region . 1)
  (direx:find-directory . 1)
  (diminish . 1)
- (eval-expression . 1)
- (package-install . 2)
+ (eval-expression . 2)
+ (package-install . 3)
  (ediff-current-file . 1)
  (restclient-mode . 1)
  (view-mode . 2)
@@ -1103,11 +1103,20 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 1)
- (revert-buffer . 2)
+ (revert-buffer . 4)
  (shell-backward-command . 1)
  (eshell . 2)
  (term . 2)
  (flycheck-next-error . 3)
  (sp-switch-space . 1)
  (server-start . 2)
+ (tramp-cleanup-all-connections . 3)
+ (tramp-cleanup-all-buffers . 3)
+ (db4go-toggle-productivity . 7)
+ (org-babel-open-src-block-result . 1)
+ (view-lossage . 1)
+ (describe-personal-keybindings . 1)
+ (kill-buffer . 1)
+ (save-buffer . 2)
+ (list-packages . 1)
 )
