@@ -1,23 +1,34 @@
 
 ;; ----- smex-history -----
 (
+ db4go-toggle-productivity
+ set-frame-font-size
+ magit-blame-mode
+ magit-blame
+ visual-line-mode
+ text-mode
+ undo-tree-visualizer-mode
+ revert-buffer
+ magit-status
+ magit-log
+ tramp-cleanup-all-buffers
+ set-variable
+ spaceline-toggle-flycheck-warning
+ spaceline-toggle-flycheck-info
+ describe-minor-mode-from-symbol
+ spaceline-toggle-version-control
  package-list-packages
  list-packages
  package-install
- set-frame-font-size
  save-buffer
  kill-buffer
  eval-region
- revert-buffer
- magit-blame-mode
  eval-expression
  describe-personal-keybindings
  js2-mode
  view-lossage
  customize-group
  org-babel-open-src-block-result
- visual-line-mode
- tramp-cleanup-all-buffers
  tramp-cleanup-all-connections
  web-mode
  server-start
@@ -35,7 +46,6 @@
  php-mode
  describe-font
  jade-mode
- set-variable
  indent-whole-buffer
  yas-describe-tables
  column-number-mode
@@ -347,7 +357,6 @@
  lisp-mode
  list-tags
  load-file
- magit-log
  magit-tag
  mail-mode
  make-face
@@ -381,7 +390,6 @@
  sql-solid
  tern-mode
  texi2info
- text-mode
  todo-mode
  todo-show
  top-level
@@ -456,7 +464,6 @@
  magit-init
  magit-pull
  magit-push
- magit-show
  make-frame
  man-follow
  mark-defun
@@ -726,7 +733,6 @@
  helm-apropos
  helm-dabbrev
  helm-do-grep
- helm-ff-help
  helm-info-as
  helm-info-cl
  helm-info-ld
@@ -759,8 +765,6 @@
  magit-cherry
  magit-commit
  magit-reflog
- magit-status
- magit-wazzup
  manual-entry
  mc/mmlte--up
  mercury-mode
@@ -913,32 +917,17 @@
  erc-fill-mode
  erc-menu-mode
  erc-ring-mode
- sh-if
- sh-add
- sh-for
  neotree
- sh-case
- sh-until
- sh-while
- sh-repeat
- sh-select
  2C-command
  git-gutter
- sh-cd-here
  avy-isearch
  neotree-dir
- sh-function
- sh-get-word
- sh-tmp-file
- smie-edebug
  company-diag
  helm-ag-mode
  neotree-find
  neotree-hide
  neotree-show
  ns-find-file
- sh-prev-stmt
- sh-set-shell
  avy-copy-line
  avy-goto-char
  avy-goto-line
@@ -959,21 +948,16 @@
  gnus-agentize
  gnus-msg-mail
  hanoi-unix-64
- helm-M-x-help
- helm-apt-help
  sbt-grep
  ensime
  run-scala
  sbt-start
  scala-mode
- vc-git-grep
  winner-redo
  winner-undo
- vc-git-stash
  ensime-remote
  helm-do-zgrep
  helm-elscreen
- helm-esh-help
  helm-info-bfd
  helm-info-cvs
  helm-info-gdb
@@ -983,7 +967,6 @@
  helm-mark-all
  helm-register
  js2-mode-toggle-element
- db4go-toggle-productivity
  js2r-log-this
  js2r-contract-function
  js2-mode-hide-functions
@@ -1000,19 +983,36 @@
  js2-mode-display-warnings-and-errors
  js-gc
  avy-goto-word-or-subword-1
- magit-stash-pop
+ ac-help
+ ac-next
+ ac-stop
+ js-eval
+ run-lua
+ sldb-up
+ ac-start
+ c-c-menu
+ gud-mode
+ helm-gid
+ sbt-mode
+ sldb-out
+ slime-cd
+ ac-expand
+ ac-ignore
+ c-version
+ elpy-menu
+ elpy-news
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 3)
+ (visual-line-mode . 5)
  (org-export-dispatch . 2)
  (profiler-start . 3)
  (profiler-report . 4)
  (fundamental-mode . 1)
  (company-mode . 2)
  (ido-ubiquitous-mode . 2)
- (set-variable . 7)
+ (set-variable . 11)
  (tramp-bug . 2)
  (projectile-mode . 1)
  (php-mode . 2)
@@ -1020,14 +1020,14 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 6)
- (set-frame-font-size . 36)
+ (set-frame-font-size . 48)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
  (magit-stash . 4)
  (iy-go-to-char . 1)
  (helm-M-x . 7)
- (magit-blame-mode . 14)
+ (magit-blame-mode . 15)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
@@ -1103,7 +1103,7 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 1)
- (revert-buffer . 4)
+ (revert-buffer . 5)
  (shell-backward-command . 1)
  (eshell . 2)
  (term . 2)
@@ -1111,12 +1111,22 @@
  (sp-switch-space . 1)
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
- (tramp-cleanup-all-buffers . 3)
- (db4go-toggle-productivity . 7)
+ (tramp-cleanup-all-buffers . 4)
+ (db4go-toggle-productivity . 10)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
  (describe-personal-keybindings . 1)
  (kill-buffer . 1)
  (save-buffer . 2)
  (list-packages . 1)
+ (magit-status . 2)
+ (spaceline-toggle-version-control . 4)
+ (describe-minor-mode-from-symbol . 1)
+ (spaceline-toggle-flycheck-info . 2)
+ (spaceline-toggle-flycheck-warning . 2)
+ (magit-log . 1)
+ (magit-process . 1)
+ (undo-tree-visualizer-mode . 3)
+ (text-mode . 1)
+ (magit-blame . 1)
 )

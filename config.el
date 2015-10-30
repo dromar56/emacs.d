@@ -161,10 +161,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (newline)                             ; insert a newline
   (switch-to-buffer nil))               ; return to the initial buffer
 
-(global-git-gutter-mode t)
-
-(bind-key (kbd "M-c") 'avy-goto-char-2)
-(setq avy-keys (number-sequence ?a ?z))
+(use-package avy
+  :ensure t
+  :bind ("M-c" . avy-goto-char-2)
+  :config
+  (setq avy-keys (number-sequence ?a ?z)))
 
 (if (fboundp 'global-prettify-symbols-mode)
     (progn
@@ -1083,11 +1084,17 @@ narrowed."
 (setq linum-format " %2d ")
 
 (use-package spaceline-config
-  :ensure spaceline
-  :init
-  (setq ns-use-srgb-colorspace nil)
-  :config
-  (spaceline-spacemacs-theme))
+    :ensure spaceline
+    :init
+    (setq ns-use-srgb-colorspace nil)
+    :config
+    (spaceline-spacemacs-theme)
+    (setq powerline-default-separator 'arrow)
+;    (setq powerline-default-separator 'wave)
+;    (setq powerline-height 20)
+    (setq spaceline-workspace-numbers-unicode t)
+    (setq spaceline-window-numbers-unicode t)
+    )
 
 (load-theme 'material)
 

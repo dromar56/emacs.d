@@ -30,7 +30,7 @@
     (package-install package)))
 
 
-#+end_src
+   #+end_src
 ** Util (lisp functions)
    Some cleanup should be done... I'm not sure I use any of these functions.
   #+begin_src emacs-lisp
@@ -187,18 +187,21 @@
 #+end_src
 
 * Plugins
-** Git Gutter
+** COMMENT Git Gutter
 #+begin_src emacs-lisp :tangle yes
-  (global-git-gutter-mode t)
-
-
+  (use-package git-gutter
+    :ensure t
+    :config
+    (global-git-gutter-mode t))
 #+end_src
 ** Avy
 #+begin_src emacs-lisp :tangle yes
-  (bind-key (kbd "M-c") 'avy-goto-char-2)
-  (setq avy-keys (number-sequence ?a ?z))
+  (use-package avy
+    :ensure t
+    :bind ("M-c" . avy-goto-char-2)
+    :config
+    (setq avy-keys (number-sequence ?a ?z)))
 #+end_src
-
 ** Pretty symbols
 #+begin_src emacs-lisp :tangle yes
   (if (fboundp 'global-prettify-symbols-mode)
@@ -1779,7 +1782,13 @@
     :init
     (setq ns-use-srgb-colorspace nil)
     :config
-    (spaceline-spacemacs-theme))
+    (spaceline-spacemacs-theme)
+    (setq powerline-default-separator 'arrow)
+;    (setq powerline-default-separator 'wave)
+;    (setq powerline-height 20)
+    (setq spaceline-workspace-numbers-unicode t)
+    (setq spaceline-window-numbers-unicode t)
+    )
 #+end_src
 *** COMMENT Face for window-numbering
 #+begin_src emacs-lisp :tangle yes
