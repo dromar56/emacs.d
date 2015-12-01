@@ -1,9 +1,11 @@
 
 ;; ----- smex-history -----
 (
- db4go-toggle-productivity
+ execute-extended-command
+ magit-file-delete
+ magit-delete-thing
  set-frame-font-size
- magit-blame-mode
+ db4go-toggle-productivity
  magit-blame
  visual-line-mode
  text-mode
@@ -999,8 +1001,6 @@
  ac-expand
  ac-ignore
  c-version
- elpy-menu
- elpy-news
 )
 
 ;; ----- smex-data -----
@@ -1020,7 +1020,7 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 6)
- (set-frame-font-size . 48)
+ (set-frame-font-size . 49)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
@@ -1129,4 +1129,7 @@
  (undo-tree-visualizer-mode . 3)
  (text-mode . 1)
  (magit-blame . 1)
+ (magit-delete-thing . 1)
+ (magit-file-delete . 1)
+ (execute-extended-command . 1)
 )

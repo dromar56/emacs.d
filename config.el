@@ -995,8 +995,8 @@ narrowed."
 ;; (bind-key (kbd "C-+") 'undo-tree-redo)
 
 ;; iy-go-to-char
-(bind-key (kbd "C-M-.") 'iy-go-to-char)
-(bind-key (kbd "C-M-,") 'iy-go-to-char-backward)
+(bind-key (kbd "C-M-<right>") 'iy-go-to-char)
+(bind-key (kbd "C-M-<left>") 'iy-go-to-char-backward)
 
 ;; multiple-cursors bindings
 (bind-key (kbd "s-M") 'mc/edit-lines)

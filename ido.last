@@ -73,6 +73,7 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/manage/tmpl/"
@@ -122,11 +123,11 @@
  "/Users/davidb/projects/early-birds/api.early-birds/"
  "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/detail/"
  "/tmp/"
- "/ftp:hotelscrazy@"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ ".iron-node.js"
  "product-rules.jade"
  "step1.jade"
  "product-rules.dir.js"
@@ -135,27 +136,25 @@
  "view.html.php"
  "controller.php"
  "configuration.php"
- ".zshrc"
- "config"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" (22108 27773 0 0) "routes.js" "README.md" "package.json" "node_modules/" "newrelic_agent.log" "newrelic.js.dist" "newrelic.js" "models/" "lib/" "hooks.js" "controllers/" "config/" "app.js" ".tern-port" ".jshintrc" ".jscsrc" ".iron-node.js" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/" (22108 6570 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "Public/" "projects/" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "bin/" "backup/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".adobe/" "../" "./")
+
  ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/" (22062 20421 0 0) "widget_log.js" "widget.js" "variable_category.js" "variable.js" "user.js" "tracker.js" "test.js" "tenant.js" "template.js" "profile.js" "product_category.js" "product.js" "payload.js" "log.js" "location.js" "generic/" "dev.js" "aggregate.js" "activity.js" "abWidget.js" ".tern-port" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/" (22062 16494 0 0) "product-rules.scss" "product-rules.jade" "product-rules.dir.js" ".tern-port" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/" (22062 15198 0 0) "step4.jade" "step3.jade" "step2.jade" "step1.jade" "mixin.jade" "config.scss" "config.jade" "config.ctrl.js" ".tern-port" "../" "./")
 
- ("/Users/davidb/" (22027 55117 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "Public/" "projects/" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "bin/" "backup/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".ssh/" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".oh-my-zsh/" ".npm/" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".DS_Store" ".dropbox/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".adobe/" "../" "./")
-
  ("/Users/davidb/.ssh/" (21958 28906 0 0) "known_hosts" "id_rsa.pub" "id_rsa" "id_boot2docker.pub" "id_boot2docker" "google_compute_engine.pub" "google_compute_engine" "config" "../" "./")
 
  ("/Users/davidb/.tmuxinator/" (21969 39270 0 0) "smartmeter.yml" "mini-early-birds.yml" "indepbox_remote_sessions.yml" "early-birds.yml" "chefcloud.yml" "blackjuice.yml" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/fixtures/data/mongo/" (21932 60719 0 0) "widget.js" "user.js" "tenant.js" "predictor.js" "datasource.js" "application.js" "abWidget.js" "abPredictor.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" (21929 2429 0 0) "routes.js" "README.md" "package.json" "node_modules/" "models/" "hooks.js" "controllers/" "config/" "app.js" ".jshintrc" ".gitignore" ".git/" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/" (21901 25679 0 0) "Vagrantfile" "README.md" "projects/" "package.json" "node_modules/" "install/" "config/" ".vagrant/" ".jshintrc" ".gitignore" ".git/" ".DS_Store" "../" "./")
 
