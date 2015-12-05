@@ -1710,7 +1710,7 @@
                                      (message "Windows disposition saved")))
 
     ;; Projectile
-    (bind-key (kbd "s-d") 'projectile-find-dir)
+    (bind-key (kbd "C-M-d") 'projectile-find-dir)
     (bind-key (kbd "s-p") 'helm-projectile-switch-project)
 
     ;; Resize Windows

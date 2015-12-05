@@ -2,17 +2,22 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/" . "dist/")
+ ("/Users/davidb/.emacs.d/" . "elpa/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/" . "ui-select/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/" . "bower_components/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/" . "activity/")
  ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/repair/" . "tmpl/")
  ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/bzccv/" . "tmpl/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" . "controllers/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" . "lib/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/" . "api.early-birds/")
  ("/Users/davidb/projects/vagrant.early-birds/" . "projects/")
  ("/Users/davidb/.emacs.d/elpa/" . "spaces-20130610.49/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/" . "generic/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/" . "repositories/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/product/" . "list/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/" . "keys/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" . "lib/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/" . "bash/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" . "install/")
  ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/sepa2/" . "tmpl/")
  ("/ftp:hotels.lecrazyhorseparis.com:/components/com_bzccv/views/manage/" . "tmpl/")
  ("/ftp:hotels.lecrazyhorseparis.com:/components/com_bzccv/views/" . "manage/")
@@ -48,7 +53,7 @@
  ("/Users/davidb/projects/api.early-birds/" . "controllers/")
  ("/Users/davidb/projects/core.early-birds/" . "config/")
  ("/Users/davidb/projects/" . "early-birds/")
- ("/Users/davidb/" . ".ssh/")
+ ("/Users/davidb/" . ".tmuxinator/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" . "recipe2/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/" . "chapter5/")
  ("/home/dromar/tmp/" . "recipes-with-angular-js-examples/")
@@ -73,9 +78,19 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/bash/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/"
+ "/Users/davidb/.emacs.d/"
+ "/Users/davidb/.tmuxinator/"
+ "/Users/davidb/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/dist/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/rules-engine/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/lib/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/angular-ui-select/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/angular-bootstrap/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/manage/tmpl/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/manage/"
@@ -86,10 +101,8 @@
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/recap/tmpl/"
  "/ftp:hotels.lecrazyhorseparis.com:/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/repair/tmpl/"
- "/Users/davidb/"
  "/root@dse-5.europe-west1-c.eb-main-2013:/"
  "/Users/davidb/.ssh/"
- "/Users/davidb/.tmuxinator/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/bzccv/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/bzccv/tmpl/"
@@ -101,7 +114,6 @@
  "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/generic/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/product/list/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/distributions/"
- "/Users/davidb/.emacs.d/"
  "/Users/davidb/Downloads/"
  "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/commands/"
  "/Users/davidb/.scripts/early-birds/"
@@ -116,39 +128,72 @@
  "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/list/"
  "/Users/davidb/projects/early-birds/core.early-birds/lib/repositories/"
  "/Users/davidb/projects/early-birds/core.early-birds/lib/"
- "/Users/davidb/bin/"
- "/Users/davidb/projects/early-birds/console.early-birds/"
- "/Users/davidb/projects/early-birds/core.early-birds/lib/repositories/generic/"
- "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/show/"
- "/Users/davidb/projects/early-birds/api.early-birds/"
- "/Users/davidb/projects/early-birds/console.early-birds/src/pages/product/detail/"
- "/tmp/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- ".iron-node.js"
- "product-rules.jade"
- "step1.jade"
+ "importMongo.sh"
+ "step2.jade"
+ "mini-early-birds.yml"
+ ".histfile"
+ "select.js"
+ "rules-engine.dir.js"
  "product-rules.dir.js"
- "default.php"
- "helper_sepa.php"
- "view.html.php"
- "controller.php"
- "configuration.php"
+ "recommendation.js"
+ "bower.json"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" (22108 27773 0 0) "routes.js" "README.md" "package.json" "node_modules/" "newrelic_agent.log" "newrelic.js.dist" "newrelic.js" "models/" "lib/" "hooks.js" "controllers/" "config/" "app.js" ".tern-port" ".jshintrc" ".jscsrc" ".iron-node.js" ".gitignore" ".git/" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/bash/" (22015 48532 0 0) "importMongo.sh" "gcloud.sh" "bootstrap.sh" "../" "./")
 
- ("/Users/davidb/" (22108 6570 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "Public/" "projects/" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "bin/" "backup/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".adobe/" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/" (22098 56292 0 0) "lib/" "index.js" "commands/" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/" (22062 20421 0 0) "widget_log.js" "widget.js" "variable_category.js" "variable.js" "user.js" "tracker.js" "test.js" "tenant.js" "template.js" "profile.js" "product_category.js" "product.js" "payload.js" "log.js" "location.js" "generic/" "dev.js" "aggregate.js" "activity.js" "abWidget.js" ".tern-port" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/commands/" (22113 30806 0 0) "updateUser.js" "updateCassandra.js" "timeuuid.js" "slugTenants.js" "refresh.js" "profiles.js" "objectId.js" "mergeWeather.js" "importMongo.js" "importCassandra.js" "generateProfiles.js" "fixtures.js" "createUser.js" "createTenant.js" "cloneTenant.js" ".tern-port" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/" (22062 16494 0 0) "product-rules.scss" "product-rules.jade" "product-rules.dir.js" ".tern-port" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/" (22112 6706 0 0) "step4.jade" "step3.jade" "step2.jade" "step1.jade" "mixin.jade" "config.scss" "config.jade" "config.ctrl.js" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/" (22062 15198 0 0) "step4.jade" "step3.jade" "step2.jade" "step1.jade" "mixin.jade" "config.scss" "config.jade" "config.ctrl.js" ".tern-port" "../" "./")
+ ("/Users/davidb/.emacs.d/" (22112 13391 0 0) "vendor/" "url/" "tramp" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el~" "init.el" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".mc-lists.el" ".gitignore" ".git/" ".emacs_workgroups" "../" "./")
+
+ ("/Users/davidb/" (22112 20680 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "Public/" "projects/" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "bin/" "backup/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.8" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile_big_backup" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".adobe/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/" (22111 8335 0 0) "src/" "package.json" "node_modules/" "gulpfile.js" "gulp/" "dist/" "config/" "bower_components/" "bower.json" ".sass-cache/" ".jshintrc" ".jscsrc" ".gitignore" ".git/" ".editorconfig" ".bowerrc" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/dist/" (22039 56972 0 0) "select.min.js" "select.min.css" "select.js" "select.css" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/" (22109 53158 0 0) "README.md" "package.json" "LICENSE" "dist/" "CHANGELOG.md" "bower.json" ".bower.json" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/" (22109 53158 0 0) "ui-select/" "twix/" "seiyria-bootstrap-slider/" "ngstorage/" "ng-table/" "moment/" "lodash/" "jquery/" "highcharts-ng/" "font-awesome/" "bootstrap-switch/" "bootstrap-daterangepicker/" "bootstrap/" "AngularJS-Toaster/" "angular-utils-ui-breadcrumbs/" "angular-ui-tree/" "angular-ui-router/" "angular-ui-ace/" "angular-translate/" "angular-touch/" "angular-sanitize/" "angular-recursion/" "angular-http-auth/" "angular-gravatar/" "angular-dialog-service/" "angular-cookies/" "angular-bootstrap-switch/" "angular-bootstrap-slider/" "angular-bootstrap/" "angular-base64/" "angular-animate/" "angular/" "ace-builds/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/" (22109 53340 0 0) "vendor/" "ressources/" "pages/" "components/" "common/" "app.run.js" "app.mdl.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/.emacs.d/elpa/" (22102 8195 0 0) "zenburn-theme-20150831.716/" "yasnippet-readme.txt" "yasnippet-20150927.1716/" "yaml-mode-20150816.2235/" "workgroups2-20141102.1122/" "with-editor-20150921.1018/" "window-numbering-20150228.1247/" "window-number-20140124.302/" "wgrep-helm-20140528.1427/" "wgrep-ag-20141012.311/" "wgrep-20141016.1656/" "web-mode-20150929.1438/" "w3m-20150929.409/" "use-package-20150926.846/" "undo-tree-20140509.522/" "tracking-20150724.1403/" "tern-auto-complete-20150611.639/" "tern-20150830.1256/" "tabbar-20141109.143/" "sws-mode-20150317.1245/" "sublime-themes-20150915.3/" "spinner-1.4/" "spaces-20130610.49/" "spaceline-20150929.726/" "solarized-theme-20150916.504/" "smex-20150822.1146/" "smartparens-20150927.727/" "smart-mode-line-20150803.338/" "slime-20150830.1446/" "skewer-mode-20150914.1304/" "simple-httpd-20150430.1755/" "shorten-20131201.620/" "seq-20151121.1017/" "scss-mode-20150107.1400/" "scss-mode-20130105.1411/" "scala-mode2-20150617.2350/" "sbt-mode-20150720.148/" "sass-mode-20150508.2012/" "s-20150924.406/" "rich-minority-20150305.516/" "restclient-20150818.807/" "req-package-20150922.1541/" "register-list-readme.txt" "redshank-20120510.1230/" "rainbow-mode-0.11.signed" "rainbow-mode-0.11/" "rainbow-delimiters-20150320.17/" "queue-0.1.1/" "pyvenv-20150822.739/" "python-environment-readme.txt" "python-environment-20150310.153/" "projectile-readme.txt" "projectile-20150911.844/" "project-explorer-20150503.1714/" "pretty-symbols-20140814.259/" "powerline-20150922.1143/" "popwin-20150315.600/" "popup-20150626.711/" "pkg-info-20150517.443/" "php-mode-20150926.816/" "paredit-20150217.713/" "paredit-20141206.954/" "org-bullets-20140918.1137/" "nose-20140520.948/" "neotree-20150911.2204/" "multiple-cursors-20150710.456/" "multi-term-20150220.1320/" "monokai-theme-20150521.2257/" "molokai-theme-20150922.1926/" "moe-theme-readme.txt" "moe-theme-20150918.1814/" "mmm-mode-20150828.1716/" "material-theme-readme.txt" "material-theme-20150925.1312/" "markdown-mode-20150910.836/" "makey-readme.txt" "makey-20131231.630/" "magit-popup-20150920.646/" "magit-20150928.1706/" "lui-20150129.40/" "lui-20141107.407/" "lua-mode-readme.txt" "lua-mode-20150804.2302/" "love-minor-mode-20130429.1759/" "log4e-20150105.505/" "log4e-20130514.912/" "list-utils-20140508.1341/" "leuven-theme-20150922.1101/" "let-alist-1.0.4/" "lcs-20150129.40/" "lcs-20121201.1455/" "lacarte-20150104.2350/" "lacarte-20141128.2014/" "key-chord-20150808.1005/" "json-snatcher-20150511.2047/" "json-reformat-20150930.17/" "json-mode-20150413.1948/" "js2-refactor-20150913.2126/" "js2-mode-20150911.116/" "jenkins-watch-readme.txt" "jedi-readme.txt" "jade-mode-20150801.944/" "iy-go-to-char-20141029.1549/" "isearch+-20150901.741/" "indent-guide-20150713.2327/" "imenu-anywhere-20150904.1742/" "iedit-20150915.2022/" "idomenu-20141123.1320/" "ido-vertical-mode-20150914.1142/" "ido-ubiquitous-20150914.1003/" "ido-completing-read+-20150630.926/" "idle-highlight-mode-20120920.1848/" "ht-20150830.1115/" "highlight-indentation-20150307.208/" "helm-themes-readme.txt" "helm-swoop-20150922.842/" "helm-spaces-20130605.900/" "helm-projectile-20150917.551/" "helm-dash-20150907.320/" "helm-css-scss-readme.txt" "helm-core-20150929.2303/" "helm-ag-readme.txt" "helm-ag-r-readme.txt" "helm-ag-20150924.731/" "helm-ack-readme.txt" "helm-20150930.11/" "haml-mode-20150508.2011/" "guru-mode-20140905.702/" "goto-chg-20131228.1459/" "god-mode-20150628.213/" "go-mode-20150817.2318/" "go-eldoc-20150821.2326/" "gnupg/" "git-gutter-20150915.50/" "git-commit-20150903.1204/" "fuzzy-20150729.2037/" "flycheck-readme.txt" "flycheck-20150929.1155/" "flx-ido-20140821.2033/" "flx-20140921.739/" "find-file-in-project-20150910.1848/" "f-20150605.927/" "expand-region-20150902.558/" "exec-path-from-shell-20150801.104/" "evil-20150928.737/" "es-windows-20140211.104/" "es-lib-20141111.1030/" "epl-20150517.433/" "epc-20140609.2234/" "ensime-20150929.848/" "emr-readme.txt" "emr-20140817.1604/" "elscreen-20140421.414/" "elpy-readme.txt" "elpy-20150830.510/" "edit-server-20141231.1358/" "edit-server-20141018.1903/" "discover-readme.txt" "discover-my-major-20140510.1007/" "discover-20140103.1339/" "direx-grep-20140515.806/" "direx-20150805.143/" "dired-subtree-20150908.1033/" "dired-hacks-utils-20150819.948/" "diminish-20091203.1012/" "deferred-20150309.2052/" "dash-functional-20150828.413/" "dash-20150829.433/" "cyberpunk-theme-20150828.508/" "ctable-20140304.1659/" "concurrent-20150309.2052/" "company-tern-20150525.216/" "company-go-20150903.1944/" "company-20150919.1933/" "color-theme-solarized-20150619.1734/" "color-theme-sanityinc-tomorrow-20150803.1419/" "color-theme-approximate-20140227.2036/" "color-theme-20080305.834/" "coffee-mode-20150906.2225/" "clojure-mode-20151115.312/" "circe-20150910.823/" "cider-20151125.913/" "busybee-theme-20130920.1742/" "bind-key-20150321.213/" "base16-theme-20150429.1737/" "avy-20150922.251/" "auto-complete-20150618.1949/" "async-20150909.2257/" "archives/" "anzu-20150928.1932/" "angular-snippets-readme.txt" "anaphora-20140728.1536/" "ag-20150814.1655/" "ack-and-a-half-20130815.1917/" "ace-jump-mode-20140616.115/" "ac-dabbrev-20130906.518/" "../" "./")
+
+ ("/Users/davidb/.emacs.d/elisp/" (21853 41978 0 0) "macro.el" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/rules-engine/" (22109 46797 0 0) "rules-engine.scss" "rules-engine.jade" "rules-engine.dir.js" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" (22109 46721 0 0) "Vagrantfile" "test/" "shell.js" "ressources/" "README.md" "package.json" "node_modules/" "lib/" "install/" "index.js" "config/" "cli/" ".vagrant/" ".tern-port" ".npmignore" ".jscsrc" ".idea/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/" (22109 34833 0 0) "product-rules.scss" "product-rules.jade" "product-rules.dir.js" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/lib/" (22103 14681 0 0) "xlsx.js" "recommendation.js" "aggregate.js" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" (22108 32114 0 0) "routes.js" "README.md" "package.json" "node_modules/" "newrelic_agent.log" "newrelic.js.dist" "newrelic.js" "models/" "lib/" "hooks.js" "controllers/" "config/" "app.js" ".jshintrc" ".jscsrc" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/" (22109 35663 0 0) "widget_log.js" "widget.js" "variable_category.js" "variable.js" "user.js" "tracker.js" "test.js" "tenant.js" "template.js" "profile.js" "product_category.js" "product.js" "payload.js" "log.js" "location.js" "generic/" "dev.js" "aggregate.js" "activity.js" "abWidget.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/angular-ui-select/" (22071 38463 0 0) "README.md" "package.json" "LICENSE" "dist/" "CHANGELOG.md" "bower.json" ".bower.json" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/angular-bootstrap/" (22071 38462 0 0) "ui-bootstrap.min.js" "ui-bootstrap.js" "ui-bootstrap-tpls.min.js" "ui-bootstrap-tpls.js" "bower.json" ".bower.json" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/activity/" (21972 56676 0 0) "statistics/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/" (22095 22024 0 0) "variable/" "user/" "security/" "sandbox/" "recommendation/" "profile/" "product/" "index.jade" "dashboard/" "activity/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/" (21973 41125 0 0) "widgets/" "statistics/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/" (22100 24617 0 0) "widgets.scss" "widgets.jade" "widgets.ctrl.js" "template/" "stats.jade" "stats.ctrl.js" "show.jade" "show.ctrl.js" "save-widget-dialog/" "location/" "generalStats.jade" "generalStats.ctrl.js" "config/" "abtests/" "_show.scss" "../" "./")
 
  ("/Users/davidb/.ssh/" (21958 28906 0 0) "known_hosts" "id_rsa.pub" "id_rsa" "id_boot2docker.pub" "id_boot2docker" "google_compute_engine.pub" "google_compute_engine" "config" "../" "./")
 
@@ -170,15 +215,9 @@
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/fixtures/models/" (21914 37903 0 0) "recommendation.js" "profile.js" "product.js" "identify.js" "activity.js" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/commands/" (21914 37703 0 0) "updateCassandra.js" "timeuuid.js" "profiles.js" "objectId.js" "importMongo.js" "generateProfiles.js" "fixtures.js" "../" "./")
-
  ("/Users/davidb/.emacs.d/elpa/spaces-20130610.49/" (21853 41978 0 0) "spaces.el" "spaces-pkg.el" "spaces-autoloads.el" "../" "./")
 
- ("/Users/davidb/.emacs.d/elpa/" (21924 788 0 0) "zenburn-theme-20150428.944/" "yasnippet-readme.txt" "yasnippet-20150415.244/" "yaml-mode-20141125.37/" "workgroups2-20141102.1122/" "window-numbering-20150228.1247/" "window-number-20140124.302/" "wgrep-helm-20140528.1427/" "wgrep-ag-20141012.311/" "wgrep-20141016.1656/" "web-mode-20150430.714/" "w3m-20150426.1916/" "use-package-20150622.1044/" "use-package-20150325.1614/" "undo-tree-20140509.522/" "tracking-20150406.214/" "tern-auto-complete-20150429.435/" "tern-20150410.410/" "tabbar-20141109.143/" "sws-mode-20150317.1245/" "sublime-themes-20150328.131/" "spaces-20130610.49/" "solarized-theme-20150424.53/" "smex-20141210.1422/" "smex-20141027.245/" "smartparens-20150501.356/" "smart-mode-line-20150426.910/" "slime-20150501.137/" "skewer-mode-20150422.1818/" "simple-httpd-20150430.1755/" "shorten-20131201.620/" "scss-mode-20150107.1400/" "scss-mode-20130105.1411/" "scala-mode2-20150617.2350/" "sbt-mode-20150616.1207/" "sass-mode-20141219.324/" "sass-mode-20141010.1236/" "s-20140910.334/" "rich-minority-20150305.516/" "restclient-20150513.131/" "req-package-20141109.1208/" "register-list-readme.txt" "redshank-20120510.1230/" "rainbow-mode-0.11.signed" "rainbow-mode-0.11/" "rainbow-delimiters-20150320.17/" "pyvenv-20150502.1108/" "python-environment-readme.txt" "python-environment-20150310.153/" "projectile-readme.txt" "projectile-20150428.158/" "project-explorer-20150416.1546/" "pretty-symbols-20140814.259/" "popwin-20150315.600/" "popup-20150315.612/" "pkg-info-20140610.630/" "php-mode-20150414.707/" "paredit-20150217.713/" "paredit-20141206.954/" "org-bullets-20140918.1137/" "nose-20140520.948/" "neotree-20150427.259/" "multiple-cursors-20150307.2322/" "multi-term-20150220.1320/" "monokai-theme-20150112.442/" "monokai-theme-20141121.1202/" "molokai-theme-20130828.1600/" "moe-theme-readme.txt" "moe-theme-20150307.1907/" "mmm-mode-20150325.15/" "material-theme-readme.txt" "material-theme-20150613.1234/" "markdown-mode-20150121.1229/" "markdown-mode-20140914.1012/" "makey-readme.txt" "makey-20131231.630/" "magit-20150424.1706/" "lui-20150129.40/" "lui-20141107.407/" "lua-mode-readme.txt" "lua-mode-20150303.1303/" "love-minor-mode-20130429.1759/" "log4e-20150105.505/" "log4e-20130514.912/" "list-utils-20140508.1341/" "leuven-theme-20150612.512/" "let-alist-1.0.3.signed" "let-alist-1.0.3/" "lcs-20150129.40/" "lcs-20121201.1455/" "lacarte-20150104.2350/" "lacarte-20141128.2014/" "key-chord-20140929.2246/" "json-snatcher-20140527.2147/" "json-reformat-20150406.1705/" "json-mode-20150413.1948/" "js2-refactor-20150425.227/" "js2-mode-20150501.550/" "jenkins-watch-readme.txt" "jedi-readme.txt" "jade-mode-20150402.2053/" "iy-go-to-char-20141029.1549/" "isearch+-20150412.1814/" "indent-guide-20150224.206/" "imenu-anywhere-20150204.50/" "imenu-anywhere-20140817.1015/" "iedit-20150415.1804/" "idomenu-20141123.1320/" "ido-vertical-mode-20150418.944/" "ido-ubiquitous-20150423.1037/" "ido-completing-read+-20150423.1037/" "idle-highlight-mode-20120920.1848/" "highlight-indentation-20150307.208/" "helm-themes-readme.txt" "helm-swoop-20150425.635/" "helm-spaces-20130605.900/" "helm-projectile-20150427.2348/" "helm-dash-20150410.128/" "helm-css-scss-readme.txt" "helm-ag-readme.txt" "helm-ag-r-readme.txt" "helm-ag-20150502.802/" "helm-ack-readme.txt" "helm-20150502.2337/" "haml-mode-20150420.1125/" "guru-mode-20140905.702/" "goto-chg-20131228.1459/" "god-mode-20150401.1027/" "go-mode-20150503.258/" "go-eldoc-20150403.233/" "gnupg/" "git-rebase-mode-20150122.1114/" "git-rebase-mode-20140928.1547/" "git-gutter-20150501.756/" "git-commit-mode-20150330.1048/" "fuzzy-20150315.619/" "flycheck-readme.txt" "flycheck-20150412.242/" "flx-ido-20140821.2033/" "flx-20140921.739/" "find-file-in-project-20150421.436/" "f-20150217.328/" "f-20140828.716/" "expand-region-20150414.908/" "exec-path-from-shell-20141212.846/" "evil-20150426.1455/" "es-windows-20140211.104/" "es-lib-20141111.1030/" "epl-20150326.1212/" "epc-20140609.2234/" "ensime-20150712.1418/" "emr-readme.txt" "emr-20140817.1604/" "elscreen-20140421.414/" "elpy-readme.txt" "elpy-20150502.740/" "edit-server-20141231.1358/" "edit-server-20141018.1903/" "discover-readme.txt" "discover-my-major-20140510.1007/" "discover-20140103.1339/" "direx-grep-20140515.806/" "direx-20150315.302/" "dired-subtree-20150325.1034/" "dired-hacks-utils-20150213.1523/" "diminish-20091203.1012/" "deferred-20150309.2052/" "dash-functional-20150311.2358/" "dash-20150311.2355/" "cyberpunk-theme-20150326.1914/" "ctable-20140304.1659/" "concurrent-20150309.2052/" "company-tern-20150115.1101/" "company-tern-20141110.1220/" "company-go-20150109.2051/" "company-go-20141024.2248/" "company-20150428.2002/" "color-theme-solarized-20150427.1931/" "color-theme-sanityinc-tomorrow-20150328.1259/" "color-theme-approximate-20140227.2036/" "color-theme-20080305.834/" "coffee-mode-20150318.1623/" "circe-20150502.1435/" "busybee-theme-20130920.1742/" "bind-key-20150321.213/" "base16-theme-20150429.1737/" "avy-20150615.1048/" "auto-complete-20150408.1132/" "async-20150412.2207/" "archives/" "anzu-20150305.553/" "angular-snippets-readme.txt" "anaphora-20140728.1536/" "ag-20150105.1314/" "ack-and-a-half-20130815.1917/" "ace-jump-mode-20140616.115/" "ac-dabbrev-20130906.518/" "../" "./")
-
  ("/Users/davidb/.emacs.d/elpa/helm-spaces-20130605.900/" (21929 9733 0 0) "helm-spaces.el" "helm-spaces-pkg.el" "helm-spaces-autoloads.el" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" (21918 19988 0 0) "Vagrantfile" "shell.js" "README.md" "package.json" "node_modules/" "lib/" "install/" "index.js" "config/" "cli/" ".vagrant/" ".npmignore" ".jshintrc" ".gitignore" ".git/" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/generic/" (21928 56354 0 0) "redis.js" "mongo.js" "generic.js" "cassandra.js" "../" "./")
 
@@ -189,8 +228,6 @@
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/product/show/" (21926 57546 0 0) "show.jade" "show.ctrl.js" "_show.scss" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/distributions/" (21927 36614 0 0) "distributions.scss" "distributions.jade" "distributions.dir.js" "../" "./")
-
- ("/Users/davidb/.emacs.d/" (21924 770 0 0) "vendor/" "url/" "tramp" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el~" "init.el" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".mc-lists.el" ".gitignore" ".git/" ".emacs_workgroups" "../" "./")
 
  ("/Users/davidb/Downloads/" (21914 15553 0 0) "WebStorm-10.0.3-custom-jdk-bundled.dmg" "WebStorm-10.0.2.dmg" "WebStorm-10.0.2-custom-jdk-bundled.dmg" "webplayer-mini.dmg" "vlc-2.2.1.dmg" "vlc-2.2.1 (2).dmg" "vlc-2.2.1 (1).dmg" "VirtualBox-4.3.28-100309-OSX.dmg" "vagrant_1.7.2.dmg" "Untitled Document.html" "trim 2 2015 gratifications CrazyHorse.csv" "Transmission-2.84.dmg" "TotalTerminal-1.5.4.dmg" "TotalTerminal-1.5.4 (1).dmg" "The Second Best Exotic Marigold Hotel (2015) [1080p] YIFY - YTS.torrent" "The Second Best Exotic Marigold Hotel (2015) [1080p]/" "test2" "test1" "steam.dmg" "Spectacle.app/" "Spectacle+0.8.10.zip" "SourceTree_2.0.5.2.dmg" "sketch.zip" "Sketch.app/" "sequel-pro-1.0.2.dmg" "SelfControl-2.0.2.zip" "Seil-11.1.0.dmg" "Seeking a Friend for the End of the World - Comedy Eng Subs 1080p [H264-mp4]/" "Robomongo-0.8.5-x86_64.dmg" "RIB_david_barrutia.pdf" "Popcorn-Time-0.3.7.2-Mac.dmg" "pixy-dizzy - To Become a Suitable Heroine.txt" "pixy-dizzy - To Become a Suitable Heroine.epub" "PhpStorm-EAP-141.1306-custom-jdk-bundled.dmg" "PhpStorm-8.0.3.dmg" "passport_david_barrutia.pdf" "org-mode capture.alfredworkflow" "nobody103 - Mother of Learning.epub" "musicmanager.dmg" "musicmanager (1).dmg" "lighter_by_habanero-scans.html" "Karabiner-10.6.0.dmg" "jquery-tabledit-1.2.3.zip" "jquery-tabledit-1.2.3/" "JavaForOSX2014-001.dmg" "iTerm2-2_9_20150523-nightly.zip" "ip-address.alfredworkflow" "installgoogledrive.dmg" "ideaIU-141.1192.2-custom-jdk-bundled.dmg" "ideaIU-14.0.4-jdk-bundled.dmg" "HyperSwitch.zip" "handson/" "GitUp.zip" "gfxCardStatus.app/" "gfxCardStatus-2.3.zip" "Game.of.Thrones.S05E10.720p.HDTV.x264-0SEC[rarbg]/" "Game.of.Thrones.S05E10.1080p.HDTV.x264-BATV[rartv]/" "Game.of.Thrones.S05E08.720p.HDTV.x264-0SEC[rarbg]/" "Game.of.Thrones.S05E08.1080p.HDTV.x264-BATV[rarbg]/" "FTL.1.5.13.dmg" "Focus T25/" "Flux34-3.zip" "Firefox 38.0.1.dmg" "export_sepa_20150121153137.xml" "Emacs-24.5-1-universal.dmg" "Ebook Series - Scifan - Patrick Ness - Chaos Walking - (4 Ebooks)/" "download.html" "download (6).html" "download (5).html" "download (4).html" "download (3).html" "download (2).html" "download (1).html" "download" "DoubleCommand-1.7.dmg" "Doit.im_todo.alfredworkflow" "DevCenter-1.3.1-macosx-x86_64.tar.gz" "Dash.zip" "CreativeCloudInstaller.dmg" "CreativeCloudInstaller (1).dmg" "course/" "Console-02.psd" "codelab/" "Cinderella (2015) [1080p]/" "c2d264db7a1446fdc29e3d4b082220a8.torrent" "bioshock infinite complete edition/" "BetterTouchTool.app/" "BetterTouchTool (1).zip" "Beachbody Insanity Max 30 with Ab Maximizer - x264 - MP4/" "Bartender.zip" "Bartender (1).zip" "Atom.app/" "atom-mac.zip" "AppPolice.dmg" "Alfred_2.7.1_387.zip" "Alfred 2.7.1 (387)/" "Airmail_Beta.app.zip" "Airmail Beta.app/" "AdobeFlashPlayer_17_ta_install.dmg" "AdobeFlashPlayer_17_ta_install-1.dmg" "AccessMenuBarApps2.4.dmg" "AccessMenuBarApps2.4 (1).dmg" "05.David.pdf" ".localized" ".DS_Store" ".com.apple.timemachine.supported" "../" "./")
 
@@ -308,8 +345,6 @@
  ("/Users/davidb/projects/api.early-birds/config/" (21854 387 0 0) "config.json.dist" "config.json" "../" "./")
 
  ("/Users/davidb/projects/api.early-birds/controllers/" (21853 58824 0 0) "widget.js" "user.js" "tracker.js" "test.js" "tenant.js" "profile.js" "product.js" "payload.js" "generic.js" "aggregate.js" "activity.js" "../" "./")
-
- ("/Users/davidb/projects/core.early-birds/config/" (21853 64094 0 0) "schema.json" "config.json.dist" "config.json" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----

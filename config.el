@@ -321,13 +321,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (bind-key (kbd "<C-S-right>") 'helm-occur)
 
 (eval-after-load "org"
-'(progn
-   (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-;; (define-key org-mode-map (kbd "<C-left>") nil)
-;; (define-key org-mode-map (kbd "<C-right>") nil)
-(define-key org-mode-map (kbd "M-<down>") 'nil)
-(define-key org-mode-map (kbd "M-<up>") 'nil)))
+  '(progn
+     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+     ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+     ;; (define-key org-mode-map (kbd "<C-left>") nil)
+     ;; (define-key org-mode-map (kbd "<C-right>") nil)
+     (define-key org-mode-map (kbd "M-<down>") 'nil)
+     (define-key org-mode-map (kbd "M-<up>") 'nil)))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
@@ -336,7 +337,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq org-main-file "~/org/notes.org")
 (setq org-directory "~/org")
-
 
 (defun org-insert-elisp-block (name beg end)
   (interactive "sName:\nr")
@@ -632,6 +632,49 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
+(defun db4go-toggle-productivity ()
+  (interactive)
+  (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
+    (let (beg)
+      (goto-char (point-min))
+      (search-forward-regexp "^#PRODUCTIVITY")
+      (setq beg (point))
+      (search-forward-regexp "^#END_PRODUCTIVITY")
+      (beginning-of-line)
+      (comment-or-uncomment-region beg (point)))
+    (save-buffer))
+  (message "Productivity toggled"))
+
+(defun db-read-with-eww ()
+  (interactive)
+  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
+    (write-region nil nil temp-file)
+    (eww-open-file temp-file)))
+
+(defun narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows
+intelligently.  Intelligently means: region, org-src-block,
+org-subtree, or defun, whichever applies first.  Narrowing to
+org-src-block actually calls `org-edit-src-code'.
+
+With prefix P, don't widen, just narrow even if buffer is already
+narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((and (boundp 'org-src-mode) org-src-mode (not p))
+         (org-edit-src-exit))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode)
+         (cond ((ignore-errors (org-edit-src-code))
+                (delete-other-windows))
+               ((org-at-block-p)
+                (org-narrow-to-block))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'prog-mode) (narrow-to-defun))
+        (t (error "Please select a region to narrow to"))))
+
 (winner-mode 1)
 
 ; (setq mac-command-modifier 'meta)
@@ -861,30 +904,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
        (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
        (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
-(defun narrow-or-widen-dwim (p)
-  "If the buffer is narrowed, it widens. Otherwise, it narrows
-intelligently.  Intelligently means: region, org-src-block,
-org-subtree, or defun, whichever applies first.  Narrowing to
-org-src-block actually calls `org-edit-src-code'.
-
-With prefix P, don't widen, just narrow even if buffer is already
-narrowed."
-  (interactive "P")
-  (declare (interactive-only))
-  (cond ((and (buffer-narrowed-p) (not p)) (widen))
-        ((and (boundp 'org-src-mode) org-src-mode (not p))
-         (org-edit-src-exit))
-        ((region-active-p)
-         (narrow-to-region (region-beginning) (region-end)))
-        ((derived-mode-p 'org-mode)
-         (cond ((ignore-errors (org-edit-src-code))
-                (delete-other-windows))
-               ((org-at-block-p)
-                (org-narrow-to-block))
-               (t (org-narrow-to-subtree))))
-        ((derived-mode-p 'prog-mode) (narrow-to-defun))
-        (t (error "Please select a region to narrow to"))))
-
 (setq ido-default-buffer-method 'selected-window)
 
 ;; eshell prompt color
@@ -1020,7 +1039,7 @@ narrowed."
                                  (message "Windows disposition saved")))
 
 ;; Projectile
-(bind-key (kbd "s-d") 'projectile-find-dir)
+(bind-key (kbd "C-M-d") 'projectile-find-dir)
 (bind-key (kbd "s-p") 'helm-projectile-switch-project)
 
 ;; Resize Windows
@@ -1308,22 +1327,3 @@ narrowed."
 ;; (bind-key (kbd "C-f") 'forward-char)
 ;; (bind-key (kbd "C-b") 'backward-char)
 ;; (bind-key (kbd "C-j") 'newline-and-indent)
-
-(defun db4go-toggle-productivity ()
-  (interactive)
-  (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
-    (let (beg)
-      (goto-char (point-min))
-      (search-forward-regexp "^#PRODUCTIVITY")
-      (setq beg (point))
-      (search-forward-regexp "^#END_PRODUCTIVITY")
-      (beginning-of-line)
-      (comment-or-uncomment-region beg (point)))
-    (save-buffer))
-  (message "Productivity toggled"))
-
-(defun db-read-with-eww ()
-  (interactive)
-  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
-    (write-region nil nil temp-file)
-    (eww-open-file temp-file)))
