@@ -1,15 +1,32 @@
 
 ;; ----- smex-history -----
 (
- proced
+ js2-jsx-mode
  package-list-packages
- db4go-toggle-productivity
- toggle-truncate-lines
+ flycheck-info
  global-unset-key
+ hydra-winner/body
+ hydra-yasnippet/body
+ subword-mode
+ js2-mode
+ tern-get-docs
+ hide-body
+ hs-minor-mode
+ set-frame-font-size
+ describe-personal-keybindings
+ count-words
+ org-mode
+ db4go-toggle-productivity
+ my-create-header
+ replace-regexp
+ toggle-input-method
+ projectile-find-dir
+ describe-variable
+ proced
+ toggle-truncate-lines
  helm-dash-at-point
  helm-dash-install-docset
  helm-dash
- set-frame-font-size
  set-buffer-file-coding-system
  revert-buffer
  iy-go-to-char
@@ -35,8 +52,6 @@
  kill-buffer
  eval-region
  eval-expression
- describe-personal-keybindings
- js2-mode
  view-lossage
  customize-group
  org-babel-open-src-block-result
@@ -272,7 +287,6 @@
  org-copy
  org-goto
  org-info
- org-mode
  org-sort
  org-todo
  org-yank
@@ -346,7 +360,6 @@
  help-mode
  help-quit
  hexl-mode
- hide-body
  html-mode
  html2text
  icon-mode
@@ -559,7 +572,6 @@
  comint-mode
  comment-box
  company-css
- count-words
  custom-mode
  cvs-examine
  delete-char
@@ -829,7 +841,6 @@
  sql-postgres
  strokes-help
  strokes-mode
- subword-mode
  t-mouse-mode
  table-insert
  tags-apropos
@@ -923,7 +934,6 @@
  erc-menu-mode
  erc-ring-mode
  neotree
- 2C-command
  git-gutter
  avy-isearch
  neotree-dir
@@ -945,7 +955,6 @@
  ffap-next-url
  find-function
  find-variable
- flycheck-info
  flycheck-mode
  flyspell-mode
  font-show-log
@@ -992,15 +1001,6 @@
  ac-next
  ac-stop
  js-eval
- run-lua
- sldb-up
- ac-start
- c-c-menu
- gud-mode
- helm-gid
- sbt-mode
- sldb-out
- slime-cd
 )
 
 ;; ----- smex-data -----
@@ -1020,7 +1020,7 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 6)
- (set-frame-font-size . 57)
+ (set-frame-font-size . 67)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 9)
+ (package-list-packages . 10)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1050,7 +1050,7 @@
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 1)
- (js2-mode . 5)
+ (js2-mode . 6)
  (js2-mode-toggle-warnings-and-errors . 2)
  (describe-face . 1)
  (js2r-log-this . 5)
@@ -1112,10 +1112,10 @@
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 4)
- (db4go-toggle-productivity . 16)
+ (db4go-toggle-productivity . 24)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
- (describe-personal-keybindings . 1)
+ (describe-personal-keybindings . 2)
  (kill-buffer . 1)
  (save-buffer . 2)
  (list-packages . 1)
@@ -1138,6 +1138,21 @@
  (helm-dash . 1)
  (helm-dash-install-docset . 1)
  (helm-dash-at-point . 1)
- (global-unset-key . 1)
+ (global-unset-key . 2)
  (proced . 1)
+ (describe-variable . 1)
+ (subword-mode . 2)
+ (projectile-find-dir . 2)
+ (toggle-input-method . 1)
+ (replace-regexp . 1)
+ (my-create-header . 1)
+ (org-mode . 2)
+ (count-words . 4)
+ (hs-minor-mode . 1)
+ (hide-body . 1)
+ (tern-get-docs . 3)
+ (hydra-yasnippet/body . 1)
+ (hydra-winner/body . 1)
+ (flycheck-info . 1)
+ (js2-jsx-mode . 1)
 )
