@@ -175,12 +175,19 @@
 #+end_src
 
 * Plugins
-** COMMENT Git Gutter
+** abo-abo
 #+begin_src emacs-lisp :tangle yes
-  (use-package git-gutter
+  (use-package swiper
     :ensure t
-    :config
-    (global-git-gutter-mode t))
+    :pin melpa
+    )
+
+  (use-package counsel
+    :ensure t
+    :pin melpa
+    :bind ("M-x" . counsel-M-x)
+    )
+
 #+end_src
 ** Hydra
 #+begin_src emacs-lisp :tangle yes
@@ -397,12 +404,12 @@
 
 ** Projectile
 #+begin_src emacs-lisp :tangle yes
-(require 'helm-projectile)
-    (projectile-global-mode t)
+  (projectile-global-mode t)
   (customize-set-variable 'projectile-globally-ignored-directories
-     (quote
-      (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
+                          (quote
+                           (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
   (customize-set-variable 'projectile-remember-window-configs nil)
+  (customize-set-variable 'projectile-completion-system 'ivy)
   (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
   (customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
 
@@ -568,15 +575,6 @@
 
 #+end_src
 
-** COMMENT Evil
-   #+begin_src emacs-lisp
-(use-package evil :ensure t)
-(require 'evil)
-
-
-
-#+end_src
-
 ** Undo-tree
    #+begin_src emacs-lisp :tangle yes
      ;;==========
@@ -644,7 +642,28 @@
    ;;              (cons tramp-file-name-regexp nil))
 #+end_src
 
-** Ido
+** Ag
+#+begin_src emacs-lisp :tangle yes
+    (when (executable-find "ag")
+      (use-package ag :ensure t)
+      (setq ag-highlight-search t)
+      (use-package wgrep-ag) :ensure t)
+(customize-set-variable 'ag-arguments
+   (quote
+    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
+(customize-set-variable 'ag-highlight-search t)
+#+end_src
+
+** COMMENT Evil
+   #+begin_src emacs-lisp
+(use-package evil :ensure t)
+(require 'evil)
+
+
+
+#+end_src
+
+** COMMENT Ido
 #+begin_src emacs-lisp :tangle yes
   (ido-mode t)
   (ido-ubiquitous-mode t)
@@ -668,22 +687,10 @@
   (ido-everywhere t)
   (flx-ido-mode 1)
 
-  (bind-key "M-x" 'smex)
-  (bind-key "M-X" 'smex-major-mode-commands)
+  ;; (bind-key "M-x" 'smex)
+  ;; (bind-key "M-X" 'smex-major-mode-commands)
   ;;  (bind-key "C-c M-x" 'smex-update)
 
-#+end_src
-
-** Ag
-#+begin_src emacs-lisp :tangle yes
-    (when (executable-find "ag")
-      (use-package ag :ensure t)
-      (setq ag-highlight-search t)
-      (use-package wgrep-ag) :ensure t)
-(customize-set-variable 'ag-arguments
-   (quote
-    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
-(customize-set-variable 'ag-highlight-search t)
 #+end_src
 
 ** COMMENT Ace jump
@@ -705,8 +712,7 @@
   (key-chord-define-global "jk" 'ace-jump-word-mode)
 #+end_src
 
-** COMMENT Mu4e
-  Mail setup
+x** COMMENT Mu4e
 #+begin_src emacs-lisp :tangle yes
     (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 
@@ -1145,54 +1151,37 @@
 
 ** COMMENT Elscreen
    #+begin_src emacs-lisp :tangle yes
-;; (elscreen-start)
-;;Elscreen
+(elscreen-start)
 
-;; (elscreen-set-prefix-key "\M-e") ;; kbd
-;; (define-key elscreen-map (kbd  "t"		)  'elscreen-toggle-display-tab)
-;; (define-key elscreen-map (kbd  "<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
-;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
-;; (define-key elscreen-map (kbd  "r"		)  'elscreen-screen-nickname)
-;; (define-key elscreen-map (kbd  "c"		)  'elscreen-create)
-;; (define-key elscreen-map (kbd  "k"		)  'elscreen-kill)
-;; (define-key elscreen-map (kbd  "s"		)  'elscreen-swap)
-;; (define-key elscreen-map (kbd  "t"		)  'elscreen-toggle-display-tab)
-;; (define-key elscreen-map (kbd  "<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "<left>"		)  'elscreen-previous)
-;; (define-key elscreen-map (kbd  "C-<right>"	)  'elscreen-next)
-;; (define-key elscreen-map (kbd  "C-<left>"	)  'elscreen-previous)
+;; Elscreen
+(elscreen-set-prefix-key "\M-e")  ;; kbd
+  (define-key elscreen-map (kbd  "t"             )  'elscreen-toggle-display-tab)
+  (define-key elscreen-map (kbd  "<right>"       )  'elscreen-next)
+  (define-key elscreen-map (kbd  "<left>"                )  'elscreen-previous)
+  (define-key elscreen-map (kbd  "C-<right>"     )  'elscreen-next)
+  (define-key elscreen-map (kbd  "C-<left>"      )  'elscreen-previous)
+  (define-key elscreen-map (kbd  "r"             )  'elscreen-screen-nickname)
+  (define-key elscreen-map (kbd  "c"             )  'elscreen-create)
+  (define-key elscreen-map (kbd  "k"             )  'elscreen-kill)
+  (define-key elscreen-map (kbd  "s"             )  'elscreen-swap)
+  (define-key elscreen-map (kbd  "t"             )  'elscreen-toggle-display-tab)
+  (define-key elscreen-map (kbd  "<right>"       )  'elscreen-next)
+  (define-key elscreen-map (kbd  "<left>"                )  'elscreen-previous)
+  (define-key elscreen-map (kbd  "C-<right>"     )  'elscreen-next)
+  (define-key elscreen-map (kbd  "C-<left>"      )  'elscreen-previous)
 
 #+end_src
 
+** COMMENT Git Gutter
+#+begin_src emacs-lisp :tangle yes
+  (use-package git-gutter
+    :ensure t
+    :config
+    (global-git-gutter-mode t))
+#+end_src
 * Elisp functions
-** db4go-toggle-productivity
 #+begin_src emacs-lisp :tangle yes
 
-  (defun db4go-toggle-productivity ()
-    (interactive)
-    (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
-      (let (beg)
-        (goto-char (point-min))
-        (search-forward-regexp "^#PRODUCTIVITY")
-        (setq beg (point))
-        (search-forward-regexp "^#END_PRODUCTIVITY")
-        (beginning-of-line)
-        (comment-or-uncomment-region beg (point)))
-      (save-buffer))
-    (message "Productivity toggled"))
-
-  (defun db-read-with-eww ()
-    (interactive)
-    (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
-      (write-region nil nil temp-file)
-      (eww-open-file temp-file)))
-
-#+end_src
-  
-** Narrow or widen
-   #+begin_src emacs-lisp :tangle yes
      (defun narrow-or-widen-dwim (p)
        "If the buffer is narrowed, it widens. Otherwise, it narrows
      intelligently.  Intelligently means: region, org-src-block,
@@ -1216,7 +1205,27 @@
                     (t (org-narrow-to-subtree))))
              ((derived-mode-p 'prog-mode) (narrow-to-defun))
              (t (error "Please select a region to narrow to"))))
-   #+end_src
+
+  (defun db4go-toggle-productivity ()
+    (interactive)
+    (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
+      (let (beg)
+        (goto-char (point-min))
+        (search-forward-regexp "^#PRODUCTIVITY")
+        (setq beg (point))
+        (search-forward-regexp "^#END_PRODUCTIVITY")
+        (beginning-of-line)
+        (comment-or-uncomment-region beg (point)))
+      (save-buffer))
+    (message "Productivity toggled"))
+
+  (defun db-read-with-eww ()
+    (interactive)
+    (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
+      (write-region nil nil temp-file)
+      (eww-open-file temp-file)))
+
+#+end_src
 * Languages modes
 ** scala
 #+begin_src emacs-lisp :tangle yes

@@ -148,35 +148,49 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 
+(use-package swiper
+  :ensure t
+  :pin melpa
+  )
+
+(use-package counsel
+  :ensure t
+  :pin melpa
+  :bind ("M-x" . counsel-M-x)
+  )
+
 (use-package hydra :ensure t)
 
-(defhydra hydra-yasnippet (:color blue :hint nil)
+  (defhydra hydra-yasnippet (:color blue :hint nil)
+    "
+                ^YASnippets^
+  --------------------------------------------
+    Modes:    Load/Visit:    Actions:
+
+   _g_lobal  _d_irectory    _i_nsert
+   _m_inor   _f_ile         _t_ryout
+   _e_xtra   _l_ist         _n_ew
+           _a_ll
   "
-              ^YASnippets^
---------------------------------------------
-  Modes:    Load/Visit:    Actions:
-
- _g_lobal  _d_irectory    _i_nsert
- _m_inor   _f_ile         _t_ryout
- _e_xtra   _l_ist         _n_ew
-         _a_ll
-"
-  ("d" yas-load-directory)
-  ("e" yas-activate-extra-mode)
-  ("i" yas-insert-snippet)
-  ("f" yas-visit-snippet-file :color blue)
-  ("n" yas-new-snippet)
-  ("t" yas-tryout-snippet)
-  ("l" yas-describe-tables)
-  ("g" yas/global-mode)
-  ("m" yas/minor-mode)
-  ("a" yas-reload-all))
-
+    ("d" yas-load-directory)
+    ("e" yas-activate-extra-mode)
+    ("i" yas-insert-snippet)
+    ("f" yas-visit-snippet-file :color blue)
+    ("n" yas-new-snippet)
+    ("t" yas-tryout-snippet)
+    ("l" yas-describe-tables)
+    ("g" yas/global-mode)
+    ("m" yas/minor-mode)
+    ("a" yas-reload-all))
 
 (defhydra hydra-winner (global-map "C-c")
-  "Winner mode"
-  ("<left>" winner-undo "undo")
-  ("<right>" winner-redo "redo"))
+  "Winner"
+  ("<left>" (progn
+         (winner-undo)
+         (setq this-command 'winner-undo))
+       "back")
+  ("<right>" winner-redo "forward"
+       ))
 
 (use-package avy
   :ensure t
@@ -308,14 +322,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (bind-key "M-s" 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
 
-(require 'helm-projectile)
-    (projectile-global-mode t)
-  (customize-set-variable 'projectile-globally-ignored-directories
-     (quote
-      (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
-  (customize-set-variable 'projectile-remember-window-configs nil)
-  (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
-  (customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
+(projectile-global-mode t)
+(customize-set-variable 'projectile-globally-ignored-directories
+                        (quote
+                         (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
+(customize-set-variable 'projectile-remember-window-configs nil)
+(customize-set-variable 'projectile-completion-system 'ivy)
+(customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
+(customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
 
 (after 'projectile
   (use-package helm-projectile) :ensure t)
@@ -500,32 +514,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    ;; (add-to-list 'backup-directory-alist
    ;;              (cons tramp-file-name-regexp nil))
 
-(ido-mode t)
-(ido-ubiquitous-mode t)
-(ido-vertical-mode t)
-(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-(setq ido-auto-merge-work-directories-length -1)
-
-
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-max-prospects 30)
-
-(setq ido-ignore-buffers
-      '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-        "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-        ;; "^\*"
-        )
-      )
-
-(require 'flx-ido)
-(ido-everywhere t)
-(flx-ido-mode 1)
-
-(bind-key "M-x" 'smex)
-(bind-key "M-X" 'smex-major-mode-commands)
-;;  (bind-key "C-c M-x" 'smex-update)
-
 (when (executable-find "ag")
       (use-package ag :ensure t)
       (setq ag-highlight-search t)
@@ -534,6 +522,30 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    (quote
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
+
+(defun narrow-or-widen-dwim (p)
+     "If the buffer is narrowed, it widens. Otherwise, it narrows
+   intelligently.  Intelligently means: region, org-src-block,
+   org-subtree, or defun, whichever applies first.  Narrowing to
+   org-src-block actually calls `org-edit-src-code'.
+
+   With prefix P, don't widen, just narrow even if buffer is already
+   narrowed."
+     (interactive "P")
+     (declare (interactive-only))
+     (cond ((and (buffer-narrowed-p) (not p)) (widen))
+           ((and (boundp 'org-src-mode) org-src-mode (not p))
+            (org-edit-src-exit))
+           ((region-active-p)
+            (narrow-to-region (region-beginning) (region-end)))
+           ((derived-mode-p 'org-mode)
+            (cond ((ignore-errors (org-edit-src-code))
+                   (delete-other-windows))
+                  ((org-at-block-p)
+                   (org-narrow-to-block))
+                  (t (org-narrow-to-subtree))))
+           ((derived-mode-p 'prog-mode) (narrow-to-defun))
+           (t (error "Please select a region to narrow to"))))
 
 (defun db4go-toggle-productivity ()
   (interactive)
@@ -553,30 +565,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
     (write-region nil nil temp-file)
     (eww-open-file temp-file)))
-
-(defun narrow-or-widen-dwim (p)
-  "If the buffer is narrowed, it widens. Otherwise, it narrows
-intelligently.  Intelligently means: region, org-src-block,
-org-subtree, or defun, whichever applies first.  Narrowing to
-org-src-block actually calls `org-edit-src-code'.
-
-With prefix P, don't widen, just narrow even if buffer is already
-narrowed."
-  (interactive "P")
-  (declare (interactive-only))
-  (cond ((and (buffer-narrowed-p) (not p)) (widen))
-        ((and (boundp 'org-src-mode) org-src-mode (not p))
-         (org-edit-src-exit))
-        ((region-active-p)
-         (narrow-to-region (region-beginning) (region-end)))
-        ((derived-mode-p 'org-mode)
-         (cond ((ignore-errors (org-edit-src-code))
-                (delete-other-windows))
-               ((org-at-block-p)
-                (org-narrow-to-block))
-               (t (org-narrow-to-subtree))))
-        ((derived-mode-p 'prog-mode) (narrow-to-defun))
-        (t (error "Please select a region to narrow to"))))
 
 (use-package scala-mode2
   :ensure t)
