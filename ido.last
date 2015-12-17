@@ -93,7 +93,7 @@
  "/Users/davidb/.scripts/"
  "/Users/davidb/"
  "/Users/davidb/.percol.d/"
- #("/tmp/" 1 4 (face flx-highlight-face))
+ "/tmp/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/predictors/ab-predictors/edit/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/predictors/ab-predictors/list/"

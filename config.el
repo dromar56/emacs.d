@@ -148,15 +148,145 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 
+(ido-mode t)
+(ido-ubiquitous-mode t)
+(ido-vertical-mode t)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+(setq ido-auto-merge-work-directories-length -1)
+
+
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-max-prospects 30)
+
+(setq ido-ignore-buffers
+      '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+        "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
+        ;; "^\*"
+        )
+      )
+
+(require 'flx-ido)
+(ido-everywhere t)
+(flx-ido-mode 1)
+
+;; (bind-key "M-x" 'smex)
+;; (bind-key "M-X" 'smex-major-mode-commands)
+;;  (bind-key "C-c M-x" 'smex-update)
+
+(require 'helm-config)
+(use-package helm
+  :ensure t
+  :bind (("C-c x" . helm-M-x)
+         ("C-z"   . helm-mini)
+         ("C-t"   . helm-imenu)
+         ("M-t"   . helm-etags-select)
+         ("M-o"   . helm-occur)
+         ("C-M-o" . helm-multi-occur)
+         ("s-y"   . helm-show-kill-ring)
+         ("s-b"   . helm-bookmarks)
+         )
+
+  :config
+  (customize-set-variable 'helm-boring-buffer-regexp-list
+                          (quote
+                           ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+  (customize-set-variable 'helm-buffer-max-length 30)
+  (customize-set-variable 'helm-candidate-number-limit 100)
+  (setq helm-M-x-fuzzy-match t)
+  (setq helm-quick-update t)
+  (setq helm-bookmark-show-location t)
+  (setq helm-buffers-fuzzy-matching t)
+  (customize-set-variable 'helm-truncate-lines t)
+  )
+
+(use-package helm-swoop
+  :ensure t
+  :pin melpa
+  :bind ("s-o" . helm-swoop)
+  )
+
+(use-package wgrep-helm
+  :ensure t)
+
+(bind-key "C-M-t" 'projectile-regenerate-tags)
+
+(use-package helm-ag 
+  :ensure t
+  :config 
+  (setq helm-ag-thing-at-point 'symbol)
+  (customize-set-variable 'helm-ag-base-command "ag")
+  (customize-set-variable 'helm-ag-command-option
+                          "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
+
+  (defun helm-do-ag-projectile ()
+    (interactive)
+    (helm-do-ag (projectile-project-root)))
+  (bind-key "s-g" 'helm-ag-projectile)
+
+  (defun helm-ag-projectile ()
+    (interactive)
+    (helm-ag (projectile-project-root)))
+  (bind-key "s-S-g" 'helm-ag-projectile))
+
+
+(use-package helm-projectile :ensure t
+  :bind ("M-z" . helm-projectile)
+  :config
+  (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
+                                                          helm-source-projectile-files-list
+                                                          helm-source-projectile-recentf-list)))
+
+(use-package helm-dash 
+  :ensure t 
+  :pin melpa
+  :config
+  (setq helm-dash-browser-func 'browse-url))
+
+
+(use-package helm-spaces
+  :ensure t 
+  :pin melpa
+  :bind ("M-s" . helm-spaces)
+  )
+
+(use-package helm-c-yasnippet
+  :ensure t 
+  :pin melpa
+  :bind ("s-s" . helm-yas-complete-or-create)
+  :config
+  
+  (setq helm-source-yasnippet-create-new-snippet
+        '((name . "Create")
+          (dummy)
+          (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text))))))) 
+
+  (defun helm-yas-complete-or-create ()
+    "List of yasnippet snippets using `helm' interface."
+    (interactive)
+    (helm :sources '(helm-source-yasnippet-create-new-snippet helm-source-yasnippet)))
+  )
+
 (use-package swiper
   :ensure t
   :pin melpa
+  :bind ("C-s" . swiper)
+  :config
+  (bind-key "C-S-s" 'isearch-forward)
+  (bind-key "C-w" 'ivy-yank-word swiper-map)
+  (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
   )
 
 (use-package counsel
   :ensure t
   :pin melpa
   :bind ("M-x" . counsel-M-x)
+  )
+
+(use-package ivy
+  :config
+  (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
+
   )
 
 (use-package hydra :ensure t)
@@ -198,6 +328,20 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (setq avy-keys (number-sequence ?a ?z)))
 
+(use-package yasnippet 
+  :ensure t
+  :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"))
+  (yas-global-mode 1)
+
+  (bind-keys :map yas-minor-mode-map 
+             ;; ("<tab>" . nil)
+             ;; ("TAB" . nil)
+             ("C-<tab>" . yas-expand)
+             ("C-c TAB" . yas-insert-snippet ))
+  )
+
 (if (fboundp 'global-prettify-symbols-mode)
     (progn
       (global-prettify-symbols-mode)
@@ -207,8 +351,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                   (push '("return" . 8592) prettify-symbols-alist))))
 
   (progn
-    (use-package pretty-symbols :ensure t)
-    (require 'pretty-symbols)
+    (use-package pretty-symbols :ensure t :pin melpa)
     (diminish 'pretty-symbols-mode)
     (add-to-list 'pretty-symbol-categories 'js)
     (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
@@ -216,201 +359,93 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (add-hook 'find-file-hook 'pretty-symbols-mode)))
 
 (use-package indent-guide :ensure t)
-(require 'indent-guide)
 
 (use-package anzu
   :ensure t
-  
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
   :config
   (setq anzu-cons-mode-line-p nil)
-  (global-anzu-mode 1)
-  )
+  (global-anzu-mode 1))
 
 (use-package expand-region :ensure t)
-(require 'expand-region)
 
-;; Magit Mode
-
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status)
+  :config
   (setq magit-last-seen-setup-instructions "1.4.0")
-(bind-key "C-x g" #'magit-status)
 
-
-(after 'magit (progn
-  (define-key magit-diff-mode-map (kbd "C-M-1") 'magit-show-level-1-all)
-  (define-key magit-diff-mode-map (kbd "C-M-2") 'magit-show-level-2-all)
-  (define-key magit-diff-mode-map (kbd "C-M-3") 'magit-show-level-3-all)
-  (define-key magit-diff-mode-map (kbd "C-M-4") 'magit-show-level-4-all)))
+  (bind-key "C-M-1" 'magit-show-level-1-all  magit-diff-mode-map)
+  (bind-key "C-M-2" 'magit-show-level-2-all  magit-diff-mode-map)
+  (bind-key "C-M-3" 'magit-show-level-3-all  magit-diff-mode-map)
+  (bind-key "C-M-4" 'magit-show-level-4-all  magit-diff-mode-map))
 
 (use-package multiple-cursors :ensure t)
-(require 'multiple-cursors)
 
-(use-package iy-go-to-char :ensure t)
-(require 'iy-go-to-char)
-(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+(use-package iy-go-to-char :ensure t
+  :config (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos))
 
-(require 'helm-config)
-    ;; (setq helm-command-prefix-key "C-c h")
-    (setq helm-quick-update t)
-    (setq helm-bookmark-show-location t)
-    (setq helm-buffers-fuzzy-matching t)
-    (customize-set-variable 'helm-truncate-lines t)
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode t)
+  (customize-set-variable 'projectile-globally-ignored-directories
+                          '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa"))
+  (customize-set-variable 'projectile-remember-window-configs nil)
+  (customize-set-variable 'projectile-completion-system 'ivy)
+  (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
+  (customize-set-variable 'projectile-tags-command 
+                          "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -"))
 
-    (use-package helm :ensure t)
-    (use-package helm-swoop :ensure t)
+(use-package company
+  :ensure t
+  :pin melpa
+  :config
+  (setq company-idle-delay 0.3)
+  (setq company-minimum-prefix-length 1)
+  (setq company-show-numbers 1)
+  (setq company-tooltip-limit 10)
 
-    ; (helm-mode 1)
+  (setq company-dabbrev-downcase nil)
+  (setq company-dabbrev-ignore-case nil)
 
-    (use-package wgrep-helm :ensure t)
-    ;; (require 'wgrep-helm)
+  (setq company-global-modes
+        '(not eshell-mode comint-mode org-mode))
 
-   ;; (defadvice helm-mini (before winner-skip-helm activate)
-   ;;   (winner-mode -1))
-   ;; (defadvice helm-mini (after winner-skip-helm activate)
-   ;;   (winner-mode 1))
+  (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
+  (customize-set-variable 'company-selection-wrap-around t)
 
-   ;; (defadvice helm-projectile (before winner-skip-helm activate)
-   ;;   (winner-mode -1))
-   ;; (defadvice helm-projectile (after winner-skip-helm activate)
-   ;;   (winner-mode 1))
+  (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
+  (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
+  (set-face-attribute 'company-preview nil :background "black")
+  (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
+  (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
+  (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
 
-    (customize-set-variable 'helm-boring-buffer-regexp-list
-                            (quote
-                             ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
-    (customize-set-variable 'helm-buffer-max-length 30)
-    (customize-set-variable 'helm-candidate-number-limit 200)
+  (when (executable-find "tern")
+    (after "company-tern-autoloads"
+      (add-to-list 'company-backends 'company-tern)))
+  (add-to-list 'company-backends 'company-tern)
 
-    (setq helm-M-x-fuzzy-match t)
-(bind-key "C-c x" 'helm-M-x)
+  (defun company-auto-completion-toggle ()
+    (interactive)
+    (if (eq company-idle-delay 0)
+        (setq company-idle-delay 0.3)
+      (setq company-idle-delay 0))
+    (message (format "company-idle-delay : %s" company-idle-delay)))
 
-    (bind-key "C-z" 'helm-mini)
+  (bind-key "C-M-c" 'company-auto-completion-toggle)
 
-    (bind-key "C-t" 'helm-imenu)
-    (bind-key "M-t" 'helm-etags-select)
-    (bind-key "C-M-t" 'projectile-regenerate-tags)
+  (bind-key "C-o" 'company-manual-begin)
+  (bind-key "M-o" 'company-tern)
+  (bind-key "M-?" 'company-dabbrev)
 
-    ;; Occur
-    (bind-key "M-o" 'helm-occur)
-    (bind-key "C-M-o" 'helm-multi-occur)
+  (defadvice company-complete-common (around advice-for-company-complete-common activate)
+    (when (null (yas-expand))
+      ad-do-it))
 
-    ;; helm-etags
-    ;; (bind-key "M-t" 'helm-etags-select)
-
-    ;; (bind-key "<f2>" 'helm-all-mark-rings)
-    (bind-key "s-y" 'helm-show-kill-ring)
-
-    ;; BOOKMARKS
-    (bind-key "s-b" 'helm-bookmarks)
-
-    (bind-key "s-o" 'helm-swoop)
-    ;; (bind-key "s-O" 'helm-multi-swoop)
-    ;; (bind-key "s-o" 'helm-occur)
-
-    ;; (bind-key "s-O" 'helm-regexp)
-
-(use-package helm-ag :ensure t)
-(setq helm-ag-thing-at-point 'symbol)
-(defun helm-ag-projectile ()
-  (interactive)
-  (helm-ag (projectile-project-root)))
-
- (customize-set-variable 'helm-ag-base-command "ag")
- (customize-set-variable 'helm-ag-command-option
-   "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
-
-(setq helm-dash-browser-func 'browse-url)
-;; (setq helm-dash-browser-func 'eww)
-
-(bind-key "M-s" 'helm-spaces) ; (key-chord-define-global "e3" 'helm-spaces)
-
-(projectile-global-mode t)
-(customize-set-variable 'projectile-globally-ignored-directories
-                        (quote
-                         (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
-(customize-set-variable 'projectile-remember-window-configs nil)
-(customize-set-variable 'projectile-completion-system 'ivy)
-(customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
-(customize-set-variable 'projectile-tags-command "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -")
-
-(after 'projectile
-  (use-package helm-projectile) :ensure t)
-
-  (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
-                                                          helm-source-projectile-files-list
-                                                          helm-source-projectile-recentf-list))
-
-    (bind-key "M-z" 'helm-projectile)
-    (bind-key "s-f" 'helm-projectile)
-    (bind-key "s-g" 'helm-ag-projectile)
-
-(key-chord-mode t)
-
-(use-package company :ensure t)
-(require 'company)
-
-(setq company-idle-delay 0)
-
-(defun company-auto-completion-toggle ()
-  (interactive)
-  (if (eq company-idle-delay 0)
-      (setq company-idle-delay nil)
-    (setq company-idle-delay 0))
-  (message (format "company-idle-delay : %s" company-idle-delay)))
-
-(bind-key "C-M-c" 'company-auto-completion-toggle)
-
-(setq company-minimum-prefix-length 1)
-(setq company-show-numbers 1)
-(setq company-tooltip-limit 10)
-
-(setq company-dabbrev-downcase nil)
-(setq company-dabbrev-ignore-case nil)
-
-(customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
-(customize-set-variable 'company-selection-wrap-around t)
-
-
-(set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
-(set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
-(set-face-attribute 'company-preview nil :background "black")
-(set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
-(set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
-(set-face-attribute 'company-scrollbar-fg nil :background "gray40")
-
-(when (executable-find "tern")
-  (after "company-tern-autoloads"
-    (add-to-list 'company-backends 'company-tern)))
-(add-to-list 'company-backends 'company-tern)
-
-(setq company-global-modes
-      '(not
-        eshell-mode comint-mode org-mode))
-
-
-(bind-key "C-o" 'company-manual-begin)
-(bind-key "M-o" 'company-tern)
-(bind-key "M-?" 'company-dabbrev)
-
-(defadvice company-complete-common (around advice-for-company-complete-common activate)
-  (when (null (yas-expand))
-    ad-do-it))
-
-(add-hook 'after-init-hook 'global-company-mode)
-
-;;;;;;;;;;;;
-;; yasnippet
-;;;;;;;;;;;;
-
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"))
-
-(use-package yasnippet :ensure t)
-(require 'yasnippet)
-
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "C-<tab>") 'yas-expand)
-(define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-insert-snippet)
-
-(yas-global-mode 1)
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package smartparens 
   :ensure t
@@ -1146,6 +1181,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (message (concat "Eshell buffer " eshell-buffer " not found")))))
 (bind-key "C-c e" 'db-execute-last-eshell-command)
 
+(bind-key "<f7>" 'kmacro-start-macro-or-insert-counter)
+(bind-key "<f8>" 'kmacro-end-or-call-macro)
+
 (bind-key "C-h a" 'apropos)
 
 (bind-key "M-n"     'forward-paragraph)
@@ -1162,10 +1200,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (bind-key "C-;" 'repeat)
 
 (bind-key "s-n" 'narrow-or-widen-dwim)
-
-;; Anzu
-(bind-key "M-%" 'anzu-query-replace)
-(bind-key "C-M-%" 'anzu-query-replace-regexp)
 
 ;; Font size
 (bind-key "C-0" '(lambda ()  (interactive) (text-scale-set 0)))
@@ -1261,11 +1295,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 
 ;; Ace Jump Mode
-(define-key global-map (kbd "M-SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-/") 'ace-jump-mode)
-
-(define-key global-map (kbd "C-,") 'undo-tree-undo)
-
+;; (define-key global-map (kbd "M-SPC") 'ace-jump-mode)
+;; (define-key global-map (kbd "C-/") 'ace-jump-mode)
 
 ;;Project Explorer
 ;; (bind-key "<f1>" 'project-explorer-open)

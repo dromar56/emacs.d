@@ -142,7 +142,7 @@ earlier versions of Emacs."
           (const :tag "Plain" nil)
           (const :tag "Fancy" fancy)))
 
-(defcustom ivy-on-del-error-function 'minibuffer-keyboard-quit
+(defcustom ivy-on-del-error-function 'minibuffer-keyboard-symquit
   "The handler for when `ivy-backward-delete-char' throws.
 Usually a quick exit out of the minibuffer."
   :type 'function)

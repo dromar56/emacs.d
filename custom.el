@@ -5,13 +5,13 @@
  ;; If there is more than one, they won't work right.
  '(ag-arguments
    (quote
-    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")) t)
- '(ag-highlight-search t t)
+    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
+ '(ag-highlight-search t)
  '(avy-background t)
  '(avy-highlight-first t)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
- '(company-dabbrev-char-regexp "[a-zA-Z0-9-_]" t)
+ '(company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
  '(company-selection-wrap-around t)
  '(css-indent-offset 2)
  '(custom-safe-themes
@@ -22,19 +22,21 @@
  '(elpy-rpc-python-command "python")
  '(elscreen-display-screen-number t)
  '(elscreen-tab-display-kill-screen nil)
- '(flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)) t)
- '(flycheck-idle-change-delay 0.5 t)
- '(helm-ag-base-command "ag" t)
+ '(flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
+ '(flycheck-idle-change-delay 0.5)
+ '(helm-ag-base-command "ag")
  '(helm-ag-command-option
-   "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa" t)
+   "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
+ '(helm-always-two-windows nil)
  '(helm-boring-buffer-regexp-list
    (quote
     ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
  '(helm-buffer-max-length 30)
- '(helm-candidate-number-limit 200)
+ '(helm-candidate-number-limit 100)
  '(helm-projectile-sources-list
    (quote
     (helm-source-projectile-buffers-list helm-source-projectile-files-list helm-source-projectile-recentf-list)))
+ '(helm-split-window-in-side-p t)
  '(helm-truncate-lines t t)
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
@@ -50,6 +52,7 @@
     ("/Users/davidb/org/todo.org" "/Users/davidb/org/projects/google-cloud-platform.org" "/Users/davidb/org/projects/console-early-birds.org" "/Users/davidb/org/loadbalancer.org" "/Users/davidb/org/google_meeting.org")))
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(pe/directory-tree-function (quote pe/get-directory-tree-async))
+ '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa")))
@@ -68,7 +71,14 @@
  '(scss-compile-at-save nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(smex-history-length 1000 t)
+ '(smex-history-length 1000)
+ '(sp-hybrid-kill-excessive-whitespace nil)
+ '(sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
+ '(sp-show-pair-from-inside t)
+ '(sp-successive-kill-preserve-whitespace 2)
+ '(swiper-faces
+   (quote
+    (swiper-match-face-1 swiper-match-face-2 swiper-match-face-3 swiper-match-face-4)))
  '(tool-bar-mode nil)
  '(tree-widget-image-enable nil)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
@@ -80,6 +90,7 @@
  '(wg-mode-line-disable nil)
  '(wgrep-enable-key "")
  '(winner-boring-buffers (quote ("*Completions*" "*helm mini*" "*helm projectile*")))
+ '(winner-dont-bind-my-keys t)
  '(yas-choose-tables-first nil)
  '(yas-new-snippet-default
    "# -*- mode: snippet -*-
@@ -100,4 +111,5 @@ $0")
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil))))
- '(highlight-indentation-face ((t (:background "#eee8d5" :width condensed)))))
+ '(highlight-indentation-face ((t (:background "#eee8d5" :width condensed))))
+ '(swiper-line-face ((t (:inherit highlight :background "black")))))

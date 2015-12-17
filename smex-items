@@ -1,6 +1,31 @@
 
 ;; ----- smex-history -----
 (
+ helm-yas-complete-or-create
+ company-bbdb
+ customize-group
+ eldoc-mode
+ yas-reload-all
+ projectile-find-dir
+ eval-region
+ swiper
+ ivy-reverse-i-search
+ helm-yas-visit-snippet-file
+ helm-do-ag
+ align-regexp
+ helm-filtered-bookmarks
+ rename-file
+ eval-print-last-sexp
+ describe-personal-keybindings
+ yas-describe-tables
+ counsel-describe-function
+ my-goto-scratch-buffer
+ js2-mode
+ ivy-mode
+ projectile-find-file
+ counsel-ag
+ counsel-M-x
+ make-indirect-buffer
  js2-jsx-mode
  package-list-packages
  flycheck-info
@@ -8,19 +33,16 @@
  hydra-winner/body
  hydra-yasnippet/body
  subword-mode
- js2-mode
  tern-get-docs
  hide-body
  hs-minor-mode
  set-frame-font-size
- describe-personal-keybindings
  count-words
  org-mode
  db4go-toggle-productivity
  my-create-header
  replace-regexp
  toggle-input-method
- projectile-find-dir
  describe-variable
  proced
  toggle-truncate-lines
@@ -50,15 +72,12 @@
  package-install
  save-buffer
  kill-buffer
- eval-region
  eval-expression
  view-lossage
- customize-group
  org-babel-open-src-block-result
  tramp-cleanup-all-connections
  web-mode
  server-start
- align-regexp
  flycheck-next-error
  eshell
  term
@@ -73,7 +92,6 @@
  describe-font
  jade-mode
  indent-whole-buffer
- yas-describe-tables
  column-number-mode
  tern-find-definition
  pop-global-mark
@@ -91,7 +109,6 @@
  highlight-indentation-current-column-mode
  highlight-indentation-mode
  set-frame-font
- helm-projectile-find-dir
  delete-trailing-whitespace
  menu-bar-mode
  tool-bar-mode
@@ -107,7 +124,6 @@
  toggle-debug-on-error
  helm-org-agenda-files-headings
  org-insert-elisp-block
- eldoc-mode
  org-insert-heading-after-current
  org-insert-heading
  elpy-config
@@ -260,7 +276,6 @@
  cua-mode
  dcl-mode
  decipher
- dired-vm
  dns-mode
  ebuffers
  f90-mode
@@ -334,7 +349,6 @@
  copyright
  customize
  diff-mode
- dired-man
  dired-why
  down-list
  ebuffers3
@@ -448,7 +462,6 @@
  cwarn-mode
  diary-mode
  dired-diff
- dired-info
  dired-jump
  dired-mark
  dired-undo
@@ -462,7 +475,6 @@
  forms-mode
  gnus-slave
  hanoi-unix
- helm-do-ag
  helm-imenu
  helm-occur
  helm-swoop
@@ -578,7 +590,6 @@
  delete-pair
  delphi-mode
  diff-backup
- dired-rmail
  disassemble
  doctex-mode
  double-mode
@@ -653,7 +664,6 @@
  raise-frame
  refill-mode
  reftex-mode
- rename-file
  replace-amp
  reveal-mode
  rmail-input
@@ -699,7 +709,6 @@
  clone-buffer
  comment-dwim
  comment-kill
- company-bbdb
  company-capf
  company-nxml
  company-tern
@@ -751,10 +760,6 @@
  helm-apropos
  helm-dabbrev
  helm-do-grep
- helm-info-as
- helm-info-cl
- helm-info-ld
- helm-info-m4
  helm-recentf
  helm-surfraw
  help-go-back
@@ -910,7 +915,6 @@
  dired-do-load
  dired-summary
  dired-tree-up
- dired-virtual
  dirtrack-mode
  disable-theme
  doc-view-mode
@@ -972,14 +976,14 @@
  ensime-remote
  helm-do-zgrep
  helm-elscreen
- helm-info-bfd
- helm-info-cvs
- helm-info-gdb
- helm-info-org
- helm-info-sed
- helm-info-zsh
  helm-mark-all
  helm-register
+ elpy-doc
+ elpy-disable
+ web-mode-buffer-indent
+ js-gc
+ avy-goto-word-or-subword-1
+ ac-help
  js2-mode-toggle-element
  js2r-log-this
  js2r-contract-function
@@ -987,19 +991,15 @@
  js2-mode-show-comments
  js2r-introduce-parameter
  js2-mode-toggle-warnings-and-errors
- elpy-doc
- elpy-disable
  js2-mode-reset
  js2-mode-show-all
  js2-mode-hide-element
- web-mode-buffer-indent
  js2-mode-toggle-hide-functions
  js2-mode-display-warnings-and-errors
- js-gc
- avy-goto-word-or-subword-1
- ac-help
  ac-next
  ac-stop
+ ag-mode
+ ivy-avy
  js-eval
 )
 
@@ -1019,7 +1019,7 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 6)
+ (customize-group . 11)
  (set-frame-font-size . 67)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
@@ -1038,11 +1038,11 @@
  (org-insert-heading . 2)
  (org-insert-heading-after-current . 1)
  (org-insert-elisp-block . 25)
- (eldoc-mode . 2)
+ (eldoc-mode . 3)
  (toggle-debug-on-error . 8)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
- (eval-region . 7)
+ (eval-region . 8)
  (eww . 1)
  (create-shell . 1)
  (create-eshell . 1)
@@ -1050,7 +1050,7 @@
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 1)
- (js2-mode . 6)
+ (js2-mode . 7)
  (js2-mode-toggle-warnings-and-errors . 2)
  (describe-face . 1)
  (js2r-log-this . 5)
@@ -1066,9 +1066,9 @@
  (js2-mode-hide-element . 1)
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
- (align-regexp . 3)
+ (align-regexp . 6)
  (toggle-truncate-lines . 4)
- (helm-projectile-find-dir . 1)
+ (helm-projectile-find-dir . 2)
  (set-frame-font . 1)
  (highlight-indentation-mode . 2)
  (highlight-indentation-current-column-mode . 2)
@@ -1092,7 +1092,7 @@
  (pop-global-mark . 2)
  (load-theme . 22)
  (column-number-mode . 1)
- (yas-describe-tables . 1)
+ (yas-describe-tables . 2)
  (web-mode . 9)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
@@ -1115,7 +1115,7 @@
  (db4go-toggle-productivity . 24)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
- (describe-personal-keybindings . 2)
+ (describe-personal-keybindings . 3)
  (kill-buffer . 1)
  (save-buffer . 2)
  (list-packages . 1)
@@ -1142,7 +1142,7 @@
  (proced . 1)
  (describe-variable . 1)
  (subword-mode . 2)
- (projectile-find-dir . 2)
+ (projectile-find-dir . 3)
  (toggle-input-method . 1)
  (replace-regexp . 1)
  (my-create-header . 1)
@@ -1155,4 +1155,23 @@
  (hydra-winner/body . 1)
  (flycheck-info . 1)
  (js2-jsx-mode . 1)
+ (make-indirect-buffer . 1)
+ (counsel-M-x . 2)
+ (counsel-ag . 2)
+ (projectile-find-file . 1)
+ (ivy-mode . 1)
+ (swiper . 6)
+ (my-goto-scratch-buffer . 2)
+ (counsel-describe-function . 2)
+ (eval-print-last-sexp . 3)
+ (rename-file . 2)
+ (helm-filtered-bookmarks . 1)
+ (helm-do-ag . 1)
+ (helm-c-yas-complete . 2)
+ (helm-yas-visit-snippet-file . 1)
+ (ivy-reverse-i-search . 1)
+ (swiper-with-region . 4)
+ (yas-reload-all . 1)
+ (company-bbdb . 1)
+ (helm-yas-complete-or-create . 3)
 )
