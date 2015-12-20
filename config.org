@@ -361,7 +361,7 @@
        (defun helm-yas-complete-or-create ()
          "List of yasnippet snippets using `helm' interface."
          (interactive)
-         (helm :sources '(helm-source-yasnippet-create-new-snippet helm-source-yasnippet)))
+         (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet)))
        )
 
 #+end_src
