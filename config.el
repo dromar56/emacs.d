@@ -13,7 +13,7 @@
 
 (if (fboundp 'with-eval-after-load)
     (defmacro after (feature &rest body)
-      "After FEATURE is loaded, evaluate BODY."
+      "After FEATUR. i. loaded, evaluate BODY."
       (declare (indent defun))
       `(with-eval-after-load ,feature ,@body))
   (defmacro after (feature &rest body)
@@ -148,12 +148,64 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 
+(defun unpop-to-mark-command ()
+  "Unpop off mark ring. Does nothing if mark ring is empty."
+  (interactive)
+  (when mark-ring
+    (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+    (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
+    (when (null (mark t)) (ding))
+    (setq mark-ring (nbutlast mark-ring))
+    (goto-char (marker-position (car (last mark-ring))))))
+
+(defun narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows
+   intelligently.  Intelligently means: region, org-src-block,
+   org-subtree, or defun, whichever applies first.  Narrowing to
+   org-src-block actually calls `org-edit-src-code'.
+
+   With prefix P, don't widen, just narrow even if buffer is already
+   narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((and (boundp 'org-src-mode) org-src-mode (not p))
+         (org-edit-src-exit))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode)
+         (cond ((ignore-errors (org-edit-src-code))
+                (delete-other-windows))
+               ((org-at-block-p)
+                (org-narrow-to-block))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'prog-mode) (narrow-to-defun))
+        (t (error "Please select a region to narrow to"))))
+
+(defun db4go-toggle-productivity ()
+  (interactive)
+  (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
+    (let (beg)
+      (goto-char (point-min))
+      (search-forward-regexp "^#PRODUCTIVITY")
+      (setq beg (point))
+      (search-forward-regexp "^#END_PRODUCTIVITY")
+      (beginning-of-line)
+      (comment-or-uncomment-region beg (point)))
+    (save-buffer))
+  (message "Productivity toggled"))
+
+(defun db-read-with-eww ()
+  (interactive)
+  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
+    (write-region nil nil temp-file)
+    (eww-open-file temp-file)))
+
 (ido-mode t)
 (ido-ubiquitous-mode t)
 (ido-vertical-mode t)
 (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 (setq ido-auto-merge-work-directories-length -1)
-
 
 (setq ido-enable-prefix nil
       ido-enable-flex-matching t
@@ -211,55 +263,62 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (bind-key "C-M-t" 'projectile-regenerate-tags)
 
-(use-package helm-ag 
+(use-package helm-ag
   :ensure t
-  :config 
+  :config
   (setq helm-ag-thing-at-point 'symbol)
   (customize-set-variable 'helm-ag-base-command "ag")
   (customize-set-variable 'helm-ag-command-option
                           "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
 
-  (defun helm-do-ag-projectile ()
+  (defun helm-ag-projectile ()
     (interactive)
-    (helm-do-ag (projectile-project-root)))
+    (if (projectile-project-p)
+        (helm-ag (projectile-project-root))
+      (helm-ag)))
   (bind-key "s-g" 'helm-ag-projectile)
 
   (defun helm-ag-projectile ()
     (interactive)
-    (helm-ag (projectile-project-root)))
-  (bind-key "s-S-g" 'helm-ag-projectile))
-
+    (if (projectile-project-p)
+        (helm-do-ag (projectile-project-root))
+      (helm-do-ag)))
+  (bind-key "s-S-g" 'helm-ag-do-projectile))
 
 (use-package helm-projectile :ensure t
-  :bind ("M-z" . helm-projectile)
+  :bind (("M-z" . helm-projectile)
+         ("s-p" . helm-projectile-switch-project))
   :config
   (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
                                                           helm-source-projectile-files-list
                                                           helm-source-projectile-recentf-list)))
 
-(use-package helm-dash 
-  :ensure t 
+
+
+(use-package helm-dash
+  :ensure t
   :pin melpa
   :config
   (setq helm-dash-browser-func 'browse-url))
 
 
 (use-package helm-spaces
-  :ensure t 
+  :ensure t
   :pin melpa
+  :commands (helm-spaces)
   :bind ("M-s" . helm-spaces)
   )
 
 (use-package helm-c-yasnippet
-  :ensure t 
+  :ensure t
   :pin melpa
   :bind ("s-s" . helm-yas-complete-or-create)
   :config
-  
+
   (setq helm-source-yasnippet-create-new-snippet
         '((name . "Create")
           (dummy)
-          (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text))))))) 
+          (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text)))))))
 
   (defun helm-yas-complete-or-create ()
     "List of yasnippet snippets using `helm' interface."
@@ -270,11 +329,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package swiper
   :ensure t
   :pin melpa
-  :bind ("C-s" . swiper)
+  :bind ("M-s" . swiper)
   :config
-  (bind-key "C-S-s" 'isearch-forward)
+  ;; (bind-key "C-S-s" 'isearch-forward)
   (bind-key "C-w" 'ivy-yank-word swiper-map)
   (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
+  )
+
+(use-package auto-yasnippet
+  :ensure t
+  :pin melpa
+  :commands (aya-create
+             aya-expand
+             aya-open-line
+             aya-persist-snippet)
+  :config
   )
 
 (use-package counsel
@@ -286,13 +355,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package ivy
   :config
   (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-
   )
 
 (use-package hydra :ensure t)
 
-  (defhydra hydra-yasnippet (:color blue :hint nil)
-    "
+(defhydra hydra-yasnippet (:color blue :hint nil)
+  "
                 ^YASnippets^
   --------------------------------------------
     Modes:    Load/Visit:    Actions:
@@ -302,25 +370,32 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    _e_xtra   _l_ist         _n_ew
            _a_ll
   "
-    ("d" yas-load-directory)
-    ("e" yas-activate-extra-mode)
-    ("i" yas-insert-snippet)
-    ("f" yas-visit-snippet-file :color blue)
-    ("n" yas-new-snippet)
-    ("t" yas-tryout-snippet)
-    ("l" yas-describe-tables)
-    ("g" yas/global-mode)
-    ("m" yas/minor-mode)
-    ("a" yas-reload-all))
+  ("d" yas-load-directory)
+  ("e" yas-activate-extra-mode)
+  ("i" yas-insert-snippet)
+  ("f" yas-visit-snippet-file :color blue)
+  ("n" yas-new-snippet)
+  ("t" yas-tryout-snippet)
+  ("l" yas-describe-tables)
+  ("g" yas/global-mode)
+  ("m" yas/minor-mode)
+  ("a" yas-reload-all))
 
 (defhydra hydra-winner (global-map "C-c")
   "Winner"
   ("<left>" (progn
-         (winner-undo)
-         (setq this-command 'winner-undo))
-       "back")
-  ("<right>" winner-redo "forward"
-       ))
+              (winner-undo)
+              (setq this-command 'winner-undo))
+   "back")
+  ("<right>" winner-redo "forward"))
+
+(defhydra hydra-mark (global-map "C-c")
+  "Mark"
+  ("," (lambda () (interactive)
+         (setq current-prefix-arg '(4)) ; C-u
+         (call-interactively 'set-mark-command))
+   "Pop mark")
+  ("." unpop-to-mark-command "Unpop mark"))
 
 (use-package avy
   :ensure t
@@ -328,14 +403,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (setq avy-keys (number-sequence ?a ?z)))
 
-(use-package yasnippet 
+(use-package yasnippet
   :ensure t
   :config
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"))
   (yas-global-mode 1)
 
-  (bind-keys :map yas-minor-mode-map 
+  (bind-keys :map yas-minor-mode-map
              ;; ("<tab>" . nil)
              ;; ("TAB" . nil)
              ("C-<tab>" . yas-expand)
@@ -395,7 +470,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (customize-set-variable 'projectile-remember-window-configs nil)
   (customize-set-variable 'projectile-completion-system 'ivy)
   (customize-set-variable 'projectile-switch-project-action (quote projectile-dired))
-  (customize-set-variable 'projectile-tags-command 
+  (customize-set-variable 'projectile-tags-command
                           "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -"))
 
 (use-package company
@@ -447,7 +522,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package smartparens 
+(use-package smartparens
   :ensure t
   :config
 
@@ -495,8 +570,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (customize-set-variable 'sp-hybrid-kill-excessive-whitespace nil)
   (customize-set-variable 'sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
   (customize-set-variable 'sp-show-pair-from-inside t)
-  (customize-set-variable 'sp-successive-kill-preserve-whitespace 2)  
-  
+  (customize-set-variable 'sp-successive-kill-preserve-whitespace 2)
+
 )
 
 ;;==========
@@ -557,49 +632,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    (quote
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
-
-(defun narrow-or-widen-dwim (p)
-     "If the buffer is narrowed, it widens. Otherwise, it narrows
-   intelligently.  Intelligently means: region, org-src-block,
-   org-subtree, or defun, whichever applies first.  Narrowing to
-   org-src-block actually calls `org-edit-src-code'.
-
-   With prefix P, don't widen, just narrow even if buffer is already
-   narrowed."
-     (interactive "P")
-     (declare (interactive-only))
-     (cond ((and (buffer-narrowed-p) (not p)) (widen))
-           ((and (boundp 'org-src-mode) org-src-mode (not p))
-            (org-edit-src-exit))
-           ((region-active-p)
-            (narrow-to-region (region-beginning) (region-end)))
-           ((derived-mode-p 'org-mode)
-            (cond ((ignore-errors (org-edit-src-code))
-                   (delete-other-windows))
-                  ((org-at-block-p)
-                   (org-narrow-to-block))
-                  (t (org-narrow-to-subtree))))
-           ((derived-mode-p 'prog-mode) (narrow-to-defun))
-           (t (error "Please select a region to narrow to"))))
-
-(defun db4go-toggle-productivity ()
-  (interactive)
-  (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
-    (let (beg)
-      (goto-char (point-min))
-      (search-forward-regexp "^#PRODUCTIVITY")
-      (setq beg (point))
-      (search-forward-regexp "^#END_PRODUCTIVITY")
-      (beginning-of-line)
-      (comment-or-uncomment-region beg (point)))
-    (save-buffer))
-  (message "Productivity toggled"))
-
-(defun db-read-with-eww ()
-  (interactive)
-  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
-    (write-region nil nil temp-file)
-    (eww-open-file temp-file)))
 
 (use-package scala-mode2
   :ensure t)
@@ -793,7 +825,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package js2-mode
   :mode "\\.js\\'"
-  :config 
+  :config
   (customize-set-variable 'js2-bounce-indent-p nil)
   (customize-set-variable 'js2-global-externs [global require])
   (customize-set-variable 'js2-include-node-externs t)
@@ -812,7 +844,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (use-package tern
     :ensure t
     :if (executable-find "tern")
-    :config 
+    :config
     (add-hook 'js2-mode-hook 'tern-mode)
     (use-package company-tern :ensure t))
 
@@ -917,6 +949,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
+(setq dired-dwim-target t)
 (customize-set-variable 'winner-dont-bind-my-keys t)
 (winner-mode 1)
 
@@ -1183,13 +1216,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (bind-key "<f7>" 'kmacro-start-macro-or-insert-counter)
 (bind-key "<f8>" 'kmacro-end-or-call-macro)
+(bind-key "S-<f8>" 'apply-macro-to-region-lines)
 
 (bind-key "C-h a" 'apropos)
 
 (bind-key "M-n"     'forward-paragraph)
 (bind-key "M-p"     'backward-paragraph)
 
-(bind-key "C-c n"   'winner-redo)4
+(bind-key "C-c n"   'winner-redo)
 (bind-key "C-c p"   'winner-undo)
 
 (bind-key "C-x C-1" 'delete-other-windows)
@@ -1282,7 +1316,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; Projectile
 (bind-key "C-M-d" 'projectile-find-dir)
-(bind-key "s-p" 'helm-projectile-switch-project)
+
 
 ;; Resize Windows
 (bind-key "C-M-<left>" 'shrink-window-horizontally)

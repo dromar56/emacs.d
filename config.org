@@ -28,8 +28,8 @@
    (if (fboundp 'with-eval-after-load)
        (defmacro after (feature &rest body)
          "After FEATUR. i. loaded, evaluate BODY."
-         (declare (indent defun))				   .				      .	 . .			   .  .	..
-         `(with-eval-after-load ,feature ,@body))						 . .
+         (declare (indent defun))
+         `(with-eval-after-load ,feature ,@body))
      (defmacro after (feature &rest body)
        "After FEATURE is loaded, evaluate BODY."
        (declare (indent defun))
@@ -181,7 +181,7 @@
     (interactive)
     (when mark-ring
       (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
-      (set-marker (mark-marker) (car (last margk-ring)) (current-buffer))
+      (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
       (when (null (mark t)) (ding))
       (setq mark-ring (nbutlast mark-ring))
       (goto-char (marker-position (car (last mark-ring))))))
@@ -240,7 +240,6 @@
   (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
   (setq ido-auto-merge-work-directories-length -1)
 
-
   (setq ido-enable-prefix nil
         ido-enable-flex-matching t
         ido-max-prospects 30)
@@ -265,98 +264,105 @@
 ** Helm
    #+begin_src emacs-lisp
 
-          (require 'helm-config)
-          (use-package helm
-            :ensure t
-            :bind (("C-c x" . helm-M-x)
-                   ("C-z"   . helm-mini)
-                   ("C-t"   . helm-imenu)
-                   ("M-t"   . helm-etags-select)
-                   ("M-o"   . helm-occur)
-                   ("C-M-o" . helm-multi-occur)
-                   ("s-y"   . helm-show-kill-ring)
-                   ("s-b"   . helm-bookmarks)
-                   )
+     (require 'helm-config)
+     (use-package helm
+       :ensure t
+       :bind (("C-c x" . helm-M-x)
+              ("C-z"   . helm-mini)
+              ("C-t"   . helm-imenu)
+              ("M-t"   . helm-etags-select)
+              ("M-o"   . helm-occur)
+              ("C-M-o" . helm-multi-occur)
+              ("s-y"   . helm-show-kill-ring)
+              ("s-b"   . helm-bookmarks)
+              )
 
-            :config
-            (customize-set-variable 'helm-boring-buffer-regexp-list
-                                    (quote
-                                     ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
-            (customize-set-variable 'helm-buffer-max-length 30)
-            (customize-set-variable 'helm-candidate-number-limit 100)
-            (setq helm-M-x-fuzzy-match t)
-            (setq helm-quick-update t)
-            (setq helm-bookmark-show-location t)
-            (setq helm-buffers-fuzzy-matching t)
-            (customize-set-variable 'helm-truncate-lines t)
-            )
+       :config
+       (customize-set-variable 'helm-boring-buffer-regexp-list
+                               (quote
+                                ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+       (customize-set-variable 'helm-buffer-max-length 30)
+       (customize-set-variable 'helm-candidate-number-limit 100)
+       (setq helm-M-x-fuzzy-match t)
+       (setq helm-quick-update t)
+       (setq helm-bookmark-show-location t)
+       (setq helm-buffers-fuzzy-matching t)
+       (customize-set-variable 'helm-truncate-lines t)
+       )
 
-          (use-package helm-swoop
-            :ensure t
-            :pin melpa
-            :bind ("s-o" . helm-swoop)
-            )
+     (use-package helm-swoop
+       :ensure t
+       :pin melpa
+       :bind ("s-o" . helm-swoop)
+       )
 
-          (use-package wgrep-helm
-            :ensure t)
+     (use-package wgrep-helm
+       :ensure t)
 
-          (bind-key "C-M-t" 'projectile-regenerate-tags)
+     (bind-key "C-M-t" 'projectile-regenerate-tags)
 
-          (use-package helm-ag
-            :ensure t
-            :config
-            (setq helm-ag-thing-at-point 'symbol)
-            (customize-set-variable 'helm-ag-base-command "ag")
-            (customize-set-variable 'helm-ag-command-option
-                                    "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
+     (use-package helm-ag
+       :ensure t
+       :config
+       (setq helm-ag-thing-at-point 'symbol)
+       (customize-set-variable 'helm-ag-base-command "ag")
+       (customize-set-variable 'helm-ag-command-option
+                               "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
 
-            (defun helm-do-ag-projectile ()
-              (interactive)
-              (helm-do-ag (projectile-project-root)))
-            (bind-key "s-g" 'helm-ag-projectile)
+       (defun helm-ag-projectile ()
+         (interactive)
+         (if (projectile-project-p)
+             (helm-ag (projectile-project-root))
+           (helm-ag)))
+       (bind-key "s-g" 'helm-ag-projectile)
 
-            (defun helm-ag-projectile ()
-              (interactive)
-              (helm-ag (projectile-project-root)))
-            (bind-key "s-S-g" 'helm-ag-projectile))
+       (defun helm-ag-projectile ()
+         (interactive)
+         (if (projectile-project-p)
+             (helm-do-ag (projectile-project-root))
+           (helm-do-ag)))
+       (bind-key "s-S-g" 'helm-ag-do-projectile))
 
-
-          (use-package helm-projectile :ensure t
-            :bind ("M-z" . helm-projectile)
-            :config
-            (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
-                                                                    helm-source-projectile-files-list
-                                                                    helm-source-projectile-recentf-list)))
-
-          (use-package helm-dash
-            :ensure t
-            :pin melpa
-            :config
-            (setq helm-dash-browser-func 'browse-url))
+     (use-package helm-projectile :ensure t
+       :bind (("M-z" . helm-projectile)
+              ("s-p" . helm-projectile-switch-project))
+       :config
+       (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
+                                                               helm-source-projectile-files-list
+                                                               helm-source-projectile-recentf-list)))
 
 
-          (use-package helm-spaces
-            :ensure t
-            :pin melpa
-            :bind ("M-s" . helm-spaces)
-            )
 
-          (use-package helm-c-yasnippet
-            :ensure t
-            :pin melpa
-            :bind ("s-s" . helm-yas-complete-or-create)
-            :config
+     (use-package helm-dash
+       :ensure t
+       :pin melpa
+       :config
+       (setq helm-dash-browser-func 'browse-url))
 
-            (setq helm-source-yasnippet-create-new-snippet
-                  '((name . "Create")
-                    (dummy)
-                    (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text)))))))
 
-            (defun helm-yas-complete-or-create ()
-              "List of yasnippet snippets using `helm' interface."
-              (interactive)
-              (helm :sources '(helm-source-yasnippet-create-new-snippet helm-source-yasnippet)))
-            )
+     (use-package helm-spaces
+       :ensure t
+       :pin melpa
+       :commands (helm-spaces)
+       :bind ("M-s" . helm-spaces)
+       )
+
+     (use-package helm-c-yasnippet
+       :ensure t
+       :pin melpa
+       :bind ("s-s" . helm-yas-complete-or-create)
+       :config
+
+       (setq helm-source-yasnippet-create-new-snippet
+             '((name . "Create")
+               (dummy)
+               (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text)))))))
+
+       (defun helm-yas-complete-or-create ()
+         "List of yasnippet snippets using `helm' interface."
+         (interactive)
+         (helm :sources '(helm-source-yasnippet-create-new-snippet helm-source-yasnippet)))
+       )
 
 #+end_src
 
@@ -365,11 +371,21 @@
   (use-package swiper
     :ensure t
     :pin melpa
-    :bind ("C-s" . swiper)
+    :bind ("M-s" . swiper)
     :config
-    (bind-key "C-S-s" 'isearch-forward)
+    ;; (bind-key "C-S-s" 'isearch-forward)
     (bind-key "C-w" 'ivy-yank-word swiper-map)
     (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
+    )
+
+  (use-package auto-yasnippet
+    :ensure t
+    :pin melpa
+    :commands (aya-create
+               aya-expand
+               aya-open-line
+               aya-persist-snippet)
+    :config
     )
 
   (use-package counsel
@@ -381,16 +397,15 @@
   (use-package ivy
     :config
     (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-
     )
 
 #+end_src
 ** Hydra
 #+begin_src emacs-lisp :tangle yes
-    (use-package hydra :ensure t)
+  (use-package hydra :ensure t)
 
-    (defhydra hydra-yasnippet (:color blue :hint nil)
-      "
+  (defhydra hydra-yasnippet (:color blue :hint nil)
+    "
                   ^YASnippets^
     --------------------------------------------
       Modes:    Load/Visit:    Actions:
@@ -400,34 +415,32 @@
      _e_xtra   _l_ist         _n_ew
              _a_ll
     "
-      ("d" yas-load-directory)
-      ("e" yas-activate-extra-mode)
-      ("i" yas-insert-snippet)
-      ("f" yas-visit-snippet-file :color blue)
-      ("n" yas-new-snippet)
-      ("t" yas-tryout-snippet)
-      ("l" yas-describe-tables)
-      ("g" yas/global-mode)
-      ("m" yas/minor-mode)
-      ("a" yas-reload-all))
+    ("d" yas-load-directory)
+    ("e" yas-activate-extra-mode)
+    ("i" yas-insert-snippet)
+    ("f" yas-visit-snippet-file :color blue)
+    ("n" yas-new-snippet)
+    ("t" yas-tryout-snippet)
+    ("l" yas-describe-tables)
+    ("g" yas/global-mode)
+    ("m" yas/minor-mode)
+    ("a" yas-reload-all))
 
   (defhydra hydra-winner (global-map "C-c")
     "Winner"
-    ("" (progn
-           (winner-undo)
-           (setq this-command 'winner-undo))
-         "back")
+    ("<left>" (progn
+                (winner-undo)
+                (setq this-command 'winner-undo))
+     "back")
     ("<right>" winner-redo "forward"))
 
   (defhydra hydra-mark (global-map "C-c")
     "Mark"
     ("," (lambda () (interactive)
-                    (setq current-prefix-arg '(4)) ; C-u
-                    (call-interactively 'set-mark-command))
-         "Pop mark")
+           (setq current-prefix-arg '(4)) ; C-u
+           (call-interactively 'set-mark-command))
+     "Pop mark")
     ("." unpop-to-mark-command "Unpop mark"))
-
-
 
 #+end_src
 ** Avy
@@ -1624,6 +1637,8 @@ x** COMMENT Mu4e
 * Core
 ** Misc
 #+begin_src emacs-lisp
+
+  (setq dired-dwim-target t)
   (customize-set-variable 'winner-dont-bind-my-keys t)
   (winner-mode 1)
 
@@ -1903,7 +1918,7 @@ x** COMMENT Mu4e
     (bind-key "<f8>" 'kmacro-end-or-call-macro)
     (bind-key "S-<f8>" 'apply-macro-to-region-lines)
 
-    (bibiteind-key 0 "C-h a" 'apropos)
+    (bind-key "C-h a" 'apropos)
 
     (bind-key "M-n"     'forward-paragraph)
     (bind-key "M-p"     'backward-paragraph)
@@ -2001,7 +2016,7 @@ x** COMMENT Mu4e
 
     ;; Projectile
     (bind-key "C-M-d" 'projectile-find-dir)
-    (bind-key "s-p" 'helm-projectile-switch-project)
+    
 
     ;; Resize Windows
     (bind-key "C-M-<left>" 'shrink-window-horizontally)

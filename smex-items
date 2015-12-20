@@ -1,10 +1,35 @@
 
 ;; ----- smex-history -----
 (
- helm-yas-complete-or-create
- company-bbdb
- customize-group
+ set-frame-font-size
+ info-emacs-manual
+ apropos
  eldoc-mode
+ counsel-find-file
+ yas-load-directory
+ global-anzu-mode
+ anzu-mode
+ ivy-mode
+ ido-ubiquitous-mode
+ tramp-cleanup-all-buffers
+ load-theme
+ info
+ pop-global-mark
+ artist-mode
+ repeat-complex-command
+ ag
+ helm-ag
+ pp-macroexpand-last-sexp
+ helm-execute-kmacro
+ helm-documentation
+ helm-find-files
+ helm-buffers-list
+ ivy-resume
+ ivy-switch-buffer
+ customize-group
+ smex
+ helm-yas-complete
+ company-bbdb
  yas-reload-all
  projectile-find-dir
  eval-region
@@ -21,7 +46,6 @@
  counsel-describe-function
  my-goto-scratch-buffer
  js2-mode
- ivy-mode
  projectile-find-file
  counsel-ag
  counsel-M-x
@@ -36,7 +60,6 @@
  tern-get-docs
  hide-body
  hs-minor-mode
- set-frame-font-size
  count-words
  org-mode
  db4go-toggle-productivity
@@ -62,7 +85,6 @@
  undo-tree-visualizer-mode
  magit-status
  magit-log
- tramp-cleanup-all-buffers
  set-variable
  spaceline-toggle-flycheck-warning
  spaceline-toggle-flycheck-info
@@ -86,7 +108,6 @@
  avy-goto-char-2
  avy-goto-subword-1
  avy-goto-word-1
- load-theme
  diff-buffer-with-file
  php-mode
  describe-font
@@ -94,7 +115,6 @@
  indent-whole-buffer
  column-number-mode
  tern-find-definition
- pop-global-mark
  helm-global-mark-ring
  discover-mode
  view-mode
@@ -135,10 +155,8 @@
  profiler-start
  helm-mode
  projectile-mode
- ido-ubiquitous-mode
  fundamental-mode
  org-export-dispatch
- ag
  cd
  5x5
  arp
@@ -167,13 +185,11 @@
  grep
  help
  ielm
- info
  life
  mail
  mpuz
  ping
  pong
- smex
  talk
  undo
  yank
@@ -229,7 +245,6 @@
  vc-dir
  zrgrep
  Info-up
- apropos
  battery
  bs-show
  bubbles
@@ -239,7 +254,6 @@
  fortune
  go-mode
  gud-gdb
- helm-ag
  ibuffer
  idomenu
  m2-mode
@@ -338,7 +352,6 @@
  ad-update
  ag-regexp
  ansi-term
- anzu-mode
  asdf-mode
  backtrace
  benchmark
@@ -571,7 +584,6 @@
  ad-activate
  ad-unadvise
  allout-mode
- artist-mode
  auto-insert
  bibtex-mode
  buffer-menu
@@ -984,18 +996,6 @@
  js-gc
  avy-goto-word-or-subword-1
  ac-help
- js2-mode-toggle-element
- js2r-log-this
- js2r-contract-function
- js2-mode-hide-functions
- js2-mode-show-comments
- js2r-introduce-parameter
- js2-mode-toggle-warnings-and-errors
- js2-mode-reset
- js2-mode-show-all
- js2-mode-hide-element
- js2-mode-toggle-hide-functions
- js2-mode-display-warnings-and-errors
  ac-next
  ac-stop
  ag-mode
@@ -1011,7 +1011,7 @@
  (profiler-report . 4)
  (fundamental-mode . 1)
  (company-mode . 3)
- (ido-ubiquitous-mode . 2)
+ (ido-ubiquitous-mode . 4)
  (set-variable . 11)
  (tramp-bug . 2)
  (projectile-mode . 1)
@@ -1019,8 +1019,8 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 11)
- (set-frame-font-size . 67)
+ (customize-group . 14)
+ (set-frame-font-size . 69)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 2)
@@ -1038,7 +1038,7 @@
  (org-insert-heading . 2)
  (org-insert-heading-after-current . 1)
  (org-insert-elisp-block . 25)
- (eldoc-mode . 3)
+ (eldoc-mode . 6)
  (toggle-debug-on-error . 8)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
@@ -1089,8 +1089,8 @@
  (js2r-introduce-parameter . 2)
  (js2r-contract-function . 3)
  (discover-mode . 1)
- (pop-global-mark . 2)
- (load-theme . 22)
+ (pop-global-mark . 4)
+ (load-theme . 23)
  (column-number-mode . 1)
  (yas-describe-tables . 2)
  (web-mode . 9)
@@ -1111,7 +1111,7 @@
  (sp-switch-space . 1)
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
- (tramp-cleanup-all-buffers . 4)
+ (tramp-cleanup-all-buffers . 5)
  (db4go-toggle-productivity . 24)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
@@ -1159,7 +1159,7 @@
  (counsel-M-x . 2)
  (counsel-ag . 2)
  (projectile-find-file . 1)
- (ivy-mode . 1)
+ (ivy-mode . 5)
  (swiper . 6)
  (my-goto-scratch-buffer . 2)
  (counsel-describe-function . 2)
@@ -1173,5 +1173,24 @@
  (swiper-with-region . 4)
  (yas-reload-all . 1)
  (company-bbdb . 1)
- (helm-yas-complete-or-create . 3)
+ (helm-yas-complete . 1)
+ (smex . 5)
+ (counsel-find-file . 4)
+ (ivy-switch-buffer . 1)
+ (ivy-resume . 1)
+ (helm-buffers-list . 1)
+ (helm-find-files . 3)
+ (helm-documentation . 1)
+ (helm-execute-kmacro . 2)
+ (pp-macroexpand-last-sexp . 3)
+ (helm-ag . 1)
+ (ag . 1)
+ (repeat-complex-command . 1)
+ (artist-mode . 2)
+ (info . 1)
+ (apropos . 2)
+ (anzu-mode . 2)
+ (global-anzu-mode . 2)
+ (yas-load-directory . 1)
+ (info-emacs-manual . 1)
 )
