@@ -38,6 +38,8 @@
     (helm-source-projectile-buffers-list helm-source-projectile-files-list helm-source-projectile-recentf-list)))
  '(helm-split-window-in-side-p t)
  '(helm-truncate-lines t t)
+ '(helm-yas-display-key-on-candidate t)
+ '(helm-yas-not-display-dups t)
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])

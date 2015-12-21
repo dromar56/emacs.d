@@ -1,6 +1,8 @@
 
 ;; ----- smex-history -----
 (
+ helm-yas-all-complete-or-create
+ helm-yas-complete-or-create
  set-frame-font-size
  info-emacs-manual
  apropos
@@ -999,8 +1001,6 @@
  ac-next
  ac-stop
  ag-mode
- ivy-avy
- js-eval
 )
 
 ;; ----- smex-data -----
@@ -1193,4 +1193,6 @@
  (global-anzu-mode . 2)
  (yas-load-directory . 1)
  (info-emacs-manual . 1)
+ (helm-yas-complete-or-create . 5)
+ (helm-yas-all-complete-or-create . 1)
 )

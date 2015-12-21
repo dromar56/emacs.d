@@ -312,8 +312,19 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package helm-c-yasnippet
   :ensure t
   :pin melpa
-  :bind ("s-s" . helm-yas-complete-or-create)
+  :bind (("s-s" . helm-yas-complete-or-create)
+         ("s-S" . helm-yas-all-complete-or-create))
   :config
+
+  (defun helm-yas-get-file-by-template (template alist) ;str template
+    "Return key"
+    (assoc-default template (assoc-default 'template-file-alist alist)))
+
+  (defun helm-yas-get-mode-by-template (template alist) ;str template
+    "Return key"
+    (file-name-nondirectory
+     (directory-file-name
+      (file-name-directory (assoc-default template (assoc-default 'template-file-alist alist))))))
 
   (setq helm-source-yasnippet-create-new-snippet
         '((name . "Create")
@@ -323,7 +334,56 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (defun helm-yas-complete-or-create ()
     "List of yasnippet snippets using `helm' interface."
     (interactive)
-    (helm :sources '(helm-source-yasnippet-create-new-snippet helm-source-yasnippet)))
+    (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet)))
+
+  (defun helm-yas-all-complete-or-create ()
+    "List of yasnippet snippets using `helm' interface."
+    (interactive)
+    (flet ((yas--get-snippet-tables ()
+                                    (let ((tables ()))
+                                      (maphash
+                                       (lambda (kk vv) (push vv tables))
+                                       yas--tables)
+                                      tables)))
+      (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet))))
+
+
+  (defun helm-yas-get-transformed-list (alist initial-input)
+    "Return list of dotlist, (DISPLAY . REAL) DISPLAY is name of snippet, REAL is template of snippet"
+
+    (let ((initial-input "")
+          (transformed-list (assoc-default 'transformed alist 'eq)))
+
+      (cond
+       ;; display key on candidate ex: [for] for (...) { ... }
+       (helm-yas-display-key-on-candidate
+        (setq transformed-list (cl-remove-if-not (lambda (lst)
+                                                   (string-match (concat "^" (regexp-quote initial-input)) (car lst)))
+                                                 transformed-list))
+        (setq transformed-list (cl-loop for dotlst in transformed-list
+                                        for name = (car dotlst)
+                                        for template = (cdr dotlst)
+                                        for key = (helm-yas-get-key-by-template template alist)
+                                        for mode = (helm-yas-get-mode-by-template template alist)
+                                        for name-inc-key = (format
+                                                            "%-20s %-40s %s"
+                                                            (propertize key 'face 'helm-yas-key)
+                                                            name
+                                                            (propertize mode 'face 'helm-buffer-size))
+                                        collect `(,name-inc-key . ,template))))
+
+       ;; default ex: for (...) { ... }
+       (t
+        (setq transformed-list (cl-remove-if-not (lambda (lst)
+                                                   (string-match (concat "^" (regexp-quote initial-input)) (car lst)))
+                                                 transformed-list))))
+      (when helm-yas-not-display-dups
+        (setq transformed-list (delete-dups transformed-list)))
+      ;; sort
+      (setq transformed-list (cl-sort transformed-list 'string< :key 'car))
+      transformed-list))
+
+  ;; End of helm-c-yasnippet
   )
 
 (use-package swiper
@@ -354,6 +414,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package ivy
   :config
+  (ivy-mode t)
   (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
   )
 
