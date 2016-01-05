@@ -5,11 +5,20 @@
 * Initialisation
 ** Custom file (load custom file)
    #+begin_src emacs-lisp
-    (setq custom-file (concat user-emacs-directory "custom.el"))
-    (when (file-exists-p custom-file)
-      (load custom-file))
+     (setq custom-file (concat user-emacs-directory "custom.el"))
+     (when (file-exists-p custom-file)
+       (load custom-file))
    #+end_src
 
+** OSX
+#+begin_src emacs-lisp :tangle yes
+  ;; key bindings
+  (when (eq system-type 'darwin) ;; mac specific settings
+    (setq mac-option-modifier 'super)
+    (setq mac-right-option-modifier 'meta)
+    (setq mac-command-modifier 'meta)
+    (setq mac-right-command-modifier 'super))
+#+end_src
 ** Packages (init packages repositories)
    Initialize packages and provide the very useful =use-package= function, who installs the package from the repositories if it doesn't exist :ensure t.
    #+begin_src emacs-lisp
@@ -24,7 +33,7 @@
    #+end_src
 ** Util (lisp functions)
    Some cleanup should be done... I'm not sure I use any of these functions.
-  #+begin_src emacs-lisp
+ #+begin_src emacs-lisp
    (if (fboundp 'with-eval-after-load)
        (defmacro after (feature &rest body)
          "After FEATUR. i. loaded, evaluate BODY."
@@ -176,6 +185,31 @@
 
 * Elisp functions
 #+begin_src emacs-lisp :tangle yes
+  (defun toggle-window-split ()
+    (interactive)
+    (if (= (count-windows) 2)
+        (let* ((this-win-buffer (window-buffer))
+               (next-win-buffer (window-buffer (next-window)))
+               (this-win-edges (window-edges (selected-window)))
+               (next-win-edges (window-edges (next-window)))
+               (this-win-2nd (not (and (<= (car this-win-edges)
+                                           (car next-win-edges))
+                                       (<= (cadr this-win-edges)
+                                           (cadr next-win-edges)))))
+               (splitter
+                (if (= (car this-win-edges)
+                       (car (window-edges (next-window))))
+                    'split-window-horizontally
+                  'split-window-vertically)))
+          (delete-other-windows)
+          (let ((first-win (selected-window)))
+            (funcall splitter)
+            (if this-win-2nd (other-window 1))
+            (set-window-buffer (selected-window) this-win-buffer)
+            (set-window-buffer (next-window) next-win-buffer)
+            (select-window first-win)
+            (if this-win-2nd (other-window 1))))))
+
   (defun unpop-to-mark-command ()
     "Unpop off mark ring. Does nothing if mark ring is empty."
     (interactive)
@@ -274,7 +308,7 @@
               ("M-o"   . helm-occur)
               ("C-M-o" . helm-multi-occur)
               ("s-y"   . helm-show-kill-ring)
-              ("s-b"   . helm-bookmarks)
+              ("C-c b"   . helm-bookmarks)
               )
 
        :config
@@ -316,7 +350,7 @@
            (helm-ag)))
        (bind-key "s-g" 'helm-ag-projectile)
 
-       (defun helm-ag-projectile ()
+       (defun helm-ag-do-projectile ()
          (interactive)
          (if (projectile-project-p)
              (helm-do-ag (projectile-project-root))
@@ -325,13 +359,12 @@
 
      (use-package helm-projectile :ensure t
        :bind (("M-z" . helm-projectile)
-              ("s-p" . helm-projectile-switch-project))
+              ("s-p" . helm-projectile-switch-project)
+              ("s-d" . helm-projectile-find-dir))
        :config
        (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
                                                                helm-source-projectile-files-list
                                                                helm-source-projectile-recentf-list)))
-
-
 
      (use-package helm-dash
        :ensure t
@@ -347,118 +380,161 @@
        :bind ("M-s" . helm-spaces)
        )
 
-     (use-package helm-c-yasnippet
-       :ensure t
-       :pin melpa
-       :bind (("s-s" . helm-yas-complete-or-create)
-              ("s-S" . helm-yas-all-complete-or-create))
-       :config
 
-       (defun helm-yas-get-file-by-template (template alist) ;str template
-         "Return key"
-         (assoc-default template (assoc-default 'template-file-alist alist)))
-
-       (defun helm-yas-get-mode-by-template (template alist) ;str template
-         "Return key"
-         (file-name-nondirectory
-          (directory-file-name
-           (file-name-directory (assoc-default template (assoc-default 'template-file-alist alist))))))
-
-       (setq helm-source-yasnippet-create-new-snippet
-             '((name . "Create")
-               (dummy)
-               (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text)))))))
-
-       (defun helm-yas-complete-or-create ()
-         "List of yasnippet snippets using `helm' interface."
-         (interactive)
-         (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet)))
-
-       (defun helm-yas-all-complete-or-create ()
-         "List of yasnippet snippets using `helm' interface."
-         (interactive)
-         (flet ((yas--get-snippet-tables ()
-                                         (let ((tables ()))
-                                           (maphash
-                                            (lambda (kk vv) (push vv tables))
-                                            yas--tables)
-                                           tables)))
-           (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet))))
-
-
-       (defun helm-yas-get-transformed-list (alist initial-input)
-         "Return list of dotlist, (DISPLAY . REAL) DISPLAY is name of snippet, REAL is template of snippet"
-
-         (let ((initial-input "")
-               (transformed-list (assoc-default 'transformed alist 'eq)))
-
-           (cond
-            ;; display key on candidate ex: [for] for (...) { ... }
-            (helm-yas-display-key-on-candidate
-             (setq transformed-list (cl-remove-if-not (lambda (lst)
-                                                        (string-match (concat "^" (regexp-quote initial-input)) (car lst)))
-                                                      transformed-list))
-             (setq transformed-list (cl-loop for dotlst in transformed-list
-                                             for name = (car dotlst)
-                                             for template = (cdr dotlst)
-                                             for key = (helm-yas-get-key-by-template template alist)
-                                             for mode = (helm-yas-get-mode-by-template template alist)
-                                             for name-inc-key = (format
-                                                                 "%-20s %-40s %s"
-                                                                 (propertize key 'face 'helm-yas-key)
-                                                                 name
-                                                                 (propertize mode 'face 'helm-buffer-size))
-                                             collect `(,name-inc-key . ,template))))
-
-            ;; default ex: for (...) { ... }
-            (t
-             (setq transformed-list (cl-remove-if-not (lambda (lst)
-                                                        (string-match (concat "^" (regexp-quote initial-input)) (car lst)))
-                                                      transformed-list))))
-           (when helm-yas-not-display-dups
-             (setq transformed-list (delete-dups transformed-list)))
-           ;; sort
-           (setq transformed-list (cl-sort transformed-list 'string< :key 'car))
-           transformed-list))
-
-       ;; End of helm-c-yasnippet
-       )
 
 #+end_src
+** helm-c-yasnippet
+#+begin_src emacs-lisp :tangle yes
+  (use-package helm-c-yasnippet
+    :ensure t
+    :pin melpa
+    :bind (("s-s" . helm-yas-complete-or-create)
+           ("s-S" . helm-yas-all-complete-or-create))
+    :config
 
+    (defun helm-yas-get-file-by-template (template alist) ;str template
+      "Return key"
+      (assoc-default template (assoc-default 'template-file-alist alist)))
+
+    (defun helm-yas-get-mode-by-template (template alist) ;str template
+      "Return key"
+      (let* ((yas-dir "snippets/")
+             (yas-length (length yas-dir))
+             (path (file-name-directory (assoc-default template (assoc-default 'template-file-alist alist)))))
+        (substring path (+ yas-length (s-index-of yas-dir path)) (- (length path) 1))))
+
+    (setq helm-source-yasnippet-create-new-snippet
+          '((name . "Create")
+            (dummy)
+            (action . (("Create" . (lambda (candidate) (helm-yas-create-new-snippet helm-yas-selected-text candidate)))))))
+
+    (defun helm-yas-complete-or-create ()
+      "List of yasnippet snippets using `helm' interface."
+      (interactive)
+      (helm :sources '(helm-source-yasnippet
+                       helm-source-yasnippet-create-new-snippet)))
+
+    (defun helm-yas-all-complete-or-create ()
+      "List of yasnippet snippets using `helm' interface."
+      (interactive)
+      (flet ((yas--get-snippet-tables ()
+                                      (let ((tables ()))
+                                        (maphash
+                                         (lambda (kk vv) (push vv tables))
+                                         yas--tables)
+                                        tables)))
+        (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet))))
+
+
+    (defun helm-yas-get-transformed-list (alist initial-input)
+      "Return list of dotlist, (DISPLAY . REAL) DISPLAY is name of snippet, REAL is template of snippet"
+
+      (let ((initial-input "")
+            (transformed-list (assoc-default 'transformed alist 'eq)))
+
+        (cond
+         ;; display key on candidate ex: [for] for (...) { ... }
+         (helm-yas-display-key-on-candidate
+          (setq transformed-list (cl-remove-if-not (lambda (lst)
+                                                     (string-match (concat "^" (regexp-quote initial-input)) (car lst)))
+                                                   transformed-list))
+          (setq transformed-list (cl-loop for dotlst in transformed-list
+                                          for name = (car dotlst)
+                                          for template = (cdr dotlst)
+                                          for key = (helm-yas-get-key-by-template template alist)
+                                          for mode = (helm-yas-get-mode-by-template template alist)
+                                          for name-inc-key = (format
+                                                              "%-20s %-40s %s"
+                                                              (propertize key 'face 'helm-yas-key)
+                                                              name
+                                                              (propertize mode 'face 'helm-buffer-size))
+                                          collect `(,name-inc-key . ,template))))
+
+         ;; default ex: for (...) { ... }
+         (t
+          (setq transformed-list (cl-remove-if-not (lambda (lst)
+                                                     (string-match (concat "^" (regexp-quote initial-input)) (car lst)))
+                                                   transformed-list))))
+        (when helm-yas-not-display-dups
+          (setq transformed-list (delete-dups transformed-list)))
+        ;; sort
+        (setq transformed-list (cl-sort transformed-list 'string< :key 'car))
+        transformed-list))
+
+
+    (defun helm-yas-create-new-snippet (selected-text &optional snippet-file)
+      "Create snippet from SELECTED-TEXT into SNIPPET-FILE.
+  If SNIPPET-FILE is nil, asks file name.
+  If SNIPPET-FILE does not contain directory, it is placed in default snippet directory."
+      (let* ((major-mode-dir (regexp-quote (symbol-name major-mode)))
+             (yas-dir (expand-file-name (or (car-safe yas-snippet-dirs) yas-snippet-dirs)))
+             (snippet-dir
+              (or (helm-yas-find-recursively major-mode-dir yas-dir 'snippet-file)
+                  (let ((target-dir (format "%s/%s/" yas-dir major-mode-dir)))
+                    (if (yes-or-no-p (format "%s doesn't exist. Would you like to create this directory?" target-dir))
+                        (progn
+                          (make-directory target-dir)
+                          target-dir)
+                      (deactivate-mark)
+                      (error "Snippet creation failed"))))))
+        (let ((snippet-name snippet-file))
+          (setq snippet-file (read-file-name "create snippet : " snippet-dir nil 'confirm (s-dashed-words snippet-file)))
+          (when (file-exists-p snippet-file)
+            (error "can't create file [%s] already exists" (file-name-nondirectory snippet-file)))
+          (helm-yas-create-new-snippet-file selected-text snippet-file snippet-name))))
+
+    (defun helm-yas-create-new-snippet-file (selected-text snippet-file snippet-name)
+      "Create snippet file with inserted SELECTED-TEXT into SNIPPET-FILE."
+      (with-current-buffer (find-file snippet-file)
+        (snippet-mode)
+        (funcall helm-yas-create-new-snippet-insert-function selected-text snippet-name)))
+
+    (defun helm-yas-create-new-snippet-insert (selected-text snippet-file)
+      "Insert SELECTED-TEXT into SNIPPET-FILE."
+      (let* ((name (file-name-sans-extension
+                    (file-name-nondirectory
+                     (directory-file-name snippet-file))))
+             (string-format "# -*- mode: snippet -*-\n#name : %s\n#key : %s\n#contributor : %s\n# --\n"))
+        (insert (format string-format name (s-dashed-words name) user-full-name) selected-text)))
+
+    ;; End of helm-c-yasnippet
+    )
+#+end_src
 ** abo-abo
 #+begin_src emacs-lisp :tangle yes
-    (use-package swiper
-      :ensure t
-      :pin melpa
-      :bind ("M-s" . swiper)
-      :config
-      ;; (bind-key "C-S-s" 'isearch-forward)
-      (bind-key "C-w" 'ivy-yank-word swiper-map)
-      (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
-      )
+  (use-package swiper
+    :ensure t
+    :pin melpa
+    :bind ("M-s" . swiper)
+    :config
+    ;; (bind-key "C-S-s" 'isearch-forward)
+    (bind-key "C-w" 'ivy-yank-word swiper-map)
+    (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
+    )
 
-    (use-package auto-yasnippet
-      :ensure t
-      :pin melpa
-      :commands (aya-create
-                 aya-expand
-                 aya-open-line
-                 aya-persist-snippet)
-      :config
-      )
+  (use-package auto-yasnippet
+    :ensure t
+    :pin melpa
+    :commands (aya-create
+               aya-expand
+               aya-open-line
+               aya-persist-snippet)
+    :config
+    )
 
-    (use-package counsel
-      :ensure t
-      :pin melpa
-      :bind ("M-x" . counsel-M-x)
-      )
+  (use-package counsel
+    :ensure t
+    :pin melpa
+    :bind ("M-x" . counsel-M-x)
+    )
 
-    (use-package ivy
-      :config
-      (ivy-mode t)
-      (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-      )
+  (use-package ivy
+    :config
+    (ivy-mode t)
+    (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
+    (setq ivy-re-builders-alist
+          '((t . ivy--regex-fuzzy)))  
+    )
 
 #+end_src
 ** Hydra
@@ -1552,19 +1628,24 @@ x** COMMENT Mu4e
        (customize-set-variable 'js2-mode-show-strict-warnings nil)
 
        (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
+       (add-hook 'js2-mode-hook #'hs-minor-mode)
+       (add-hook 'js2-mode-hook #'eldoc-mode)
+       (add-hook 'js2-mode-hook #'subword-mode)
 
        (use-package js2-refactor
          :config
          ;; eg. extract function with `C-c C-m ef`.
          (js2r-add-keybindings-with-prefix "C-c C-m")
-         (add-hook 'js2-mode-hook #'js2-refactor-mode))
+         (add-hook 'js2-mode-hook #'js2-refactor-mode)
+         )
 
        (use-package tern
          :ensure t
          :if (executable-find "tern")
          :config
          (add-hook 'js2-mode-hook 'tern-mode)
-         (use-package company-tern :ensure t))
+         (use-package company-tern :ensure t)
+         )
 
      )
 
@@ -1698,13 +1779,22 @@ x** COMMENT Mu4e
 * Core
 ** Misc
 #+begin_src emacs-lisp
+  (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
+  (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
+  (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
+  (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
+  (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
+
+  (bind-key "s-h" 'mark-paragraph)
+
+  (setq search-whitespace-regexp ".*?")
+
+  (setq eldoc-idle-delay 0)
 
   (setq dired-dwim-target t)
+
   (customize-set-variable 'winner-dont-bind-my-keys t)
   (winner-mode 1)
-
-                                          ; (setq mac-command-modifier 'meta)
-                                          ; (setq mac-option-modifier 'super)
 
   (setq mac-command-modifier 'super)
   (setq mac-option-modifier 'meta)
@@ -1997,13 +2087,13 @@ x** COMMENT Mu4e
     (bind-key "s-n" 'narrow-or-widen-dwim)
 
     ;; Font size
-    (bind-key "C-0" '(lambda ()  (interactive) (text-scale-set 0)))
-    (bind-key "C-+" 'text-scale-increase)
-    (bind-key "C-=" 'text-scale-increase)
-    (bind-key "C--" 'text-scale-decrease)
-    (bind-key "C-<kb-0>" '(lambda ()  (interactive) (text-scale-set 0)))
-    (bind-key "C-<kp-add>" 'text-scale-increase)
-    (bind-key "C-<kp-subtract>" 'text-scale-decrease)
+    (bind-key "s-0" '(lambda ()  (interactive) (text-scale-set 0)))
+    (bind-key "s-+" 'text-scale-increase)
+    (bind-key "s-=" 'text-scale-increase)
+    (bind-key "s--" 'text-scale-decrease)
+    (bind-key "s-<kb-0>" '(lambda ()  (interactive) (text-scale-set 0)))
+    (bind-key "s-<kp-add>" 'text-scale-increase)
+    (bind-key "s-<kp-subtract>" 'text-scale-decrease)
 
     ;; A la carte Menu
     (bind-key "C-x c" 'lacarte-execute-menu-command)

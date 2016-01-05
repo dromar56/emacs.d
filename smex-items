@@ -1,20 +1,56 @@
 
 ;; ----- smex-history -----
 (
- helm-yas-all-complete-or-create
- helm-yas-complete-or-create
+ yas-insert-snippet
  set-frame-font-size
+ load-theme
+ package-list-packages
+ smex-major-mode-commands
+ package-install
+ js2-jsx-mode
+ revert-buffer
+ magit-checkout
+ shell
+ org-mode
+ orgtbl-mode
+ subword-mode
+ company-mode
+ my-goto-scratch-buffer
+ yas-describe-tables
+ yas-reload-all
+ toggle-debug-on-error
+ eldoc-mode
+ yas-tryout-snippet
+ helm-projectile-find-dir
+ eval-defun
+ helm-yas-all-complete-or-create
+ eval-print-last-sexp
+ describe-face
+ smex
+ counsel-find-file
+ helm-describe-helm-attribute
+ helm-documentation
+ helm-help
+ customize-group
+ ediff-buffers
+ er/mark-defun
+ er/mark-symbol
+ transpose-words
+ aya-persist-snippet
+ aya-expand
+ aya-create
+ ivy-mode
+ global-anzu-mode
+ ivy-toggle-fuzzy
+ swiper-all
+ swiper-multi
+ recenter
  info-emacs-manual
  apropos
- eldoc-mode
- counsel-find-file
  yas-load-directory
- global-anzu-mode
  anzu-mode
- ivy-mode
  ido-ubiquitous-mode
  tramp-cleanup-all-buffers
- load-theme
  info
  pop-global-mark
  artist-mode
@@ -23,16 +59,12 @@
  helm-ag
  pp-macroexpand-last-sexp
  helm-execute-kmacro
- helm-documentation
  helm-find-files
  helm-buffers-list
  ivy-resume
  ivy-switch-buffer
- customize-group
- smex
  helm-yas-complete
  company-bbdb
- yas-reload-all
  projectile-find-dir
  eval-region
  swiper
@@ -42,28 +74,21 @@
  align-regexp
  helm-filtered-bookmarks
  rename-file
- eval-print-last-sexp
  describe-personal-keybindings
- yas-describe-tables
  counsel-describe-function
- my-goto-scratch-buffer
  js2-mode
  projectile-find-file
  counsel-ag
  counsel-M-x
  make-indirect-buffer
- js2-jsx-mode
- package-list-packages
  flycheck-info
  global-unset-key
  hydra-winner/body
  hydra-yasnippet/body
- subword-mode
  tern-get-docs
  hide-body
  hs-minor-mode
  count-words
- org-mode
  db4go-toggle-productivity
  my-create-header
  replace-regexp
@@ -75,9 +100,7 @@
  helm-dash-install-docset
  helm-dash
  set-buffer-file-coding-system
- revert-buffer
  iy-go-to-char
- company-mode
  rainbow-delimiters-mode
  rainbow-mode
  execute-extended-command
@@ -93,7 +116,6 @@
  describe-minor-mode-from-symbol
  spaceline-toggle-version-control
  list-packages
- package-install
  save-buffer
  kill-buffer
  eval-expression
@@ -135,15 +157,12 @@
  menu-bar-mode
  tool-bar-mode
  js2-minor-mode
- describe-face
  json-mode
  projectile-invalidate-cache
  re-builder
  clone-indirect-buffer-other-window
- shell
  eww
  describe-key
- toggle-debug-on-error
  helm-org-agenda-files-headings
  org-insert-elisp-block
  org-insert-heading-after-current
@@ -322,7 +341,6 @@
  org-todo
  org-yank
  quickurl
- recenter
  remember
  rst-mode
  run-lisp
@@ -384,7 +402,6 @@
  haml-mode
  handwrite
  helm-find
- helm-help
  helm-mini
  help-mode
  help-quit
@@ -485,7 +502,6 @@
  elint-file
  emr-c-mode
  erc-select
- eval-defun
  find-dired
  forms-mode
  gnus-slave
@@ -665,7 +681,6 @@
  org-shiftup
  org-switchb
  org-version
- orgtbl-mode
  other-frame
  pascal-mode
  pr-txt-mode
@@ -934,7 +949,6 @@
  doc-view-mode
  downcase-word
  ebnf-eps-file
- ediff-buffers
  ediff-version
  eieio-version
  emacs-version
@@ -946,7 +960,6 @@
  epa-mail-sign
  epa-sign-file
  epatch-buffer
- er/mark-defun
  er/mark-email
  erc-fill-mode
  erc-menu-mode
@@ -988,19 +1001,6 @@
  winner-redo
  winner-undo
  ensime-remote
- helm-do-zgrep
- helm-elscreen
- helm-mark-all
- helm-register
- elpy-doc
- elpy-disable
- web-mode-buffer-indent
- js-gc
- avy-goto-word-or-subword-1
- ac-help
- ac-next
- ac-stop
- ag-mode
 )
 
 ;; ----- smex-data -----
@@ -1010,7 +1010,7 @@
  (profiler-start . 3)
  (profiler-report . 4)
  (fundamental-mode . 1)
- (company-mode . 3)
+ (company-mode . 4)
  (ido-ubiquitous-mode . 4)
  (set-variable . 11)
  (tramp-bug . 2)
@@ -1019,11 +1019,11 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 14)
- (set-frame-font-size . 69)
+ (customize-group . 16)
+ (set-frame-font-size . 82)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
- (shell . 2)
+ (shell . 3)
  (magit-stash . 4)
  (iy-go-to-char . 3)
  (helm-M-x . 7)
@@ -1031,15 +1031,15 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 10)
+ (package-list-packages . 11)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
  (org-insert-heading . 2)
  (org-insert-heading-after-current . 1)
  (org-insert-elisp-block . 25)
- (eldoc-mode . 6)
- (toggle-debug-on-error . 8)
+ (eldoc-mode . 10)
+ (toggle-debug-on-error . 11)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 8)
@@ -1052,7 +1052,7 @@
  (json-mode . 1)
  (js2-mode . 7)
  (js2-mode-toggle-warnings-and-errors . 2)
- (describe-face . 1)
+ (describe-face . 5)
  (js2r-log-this . 5)
  (js2-minor-mode . 1)
  (js2-mode-show-comments . 2)
@@ -1068,7 +1068,7 @@
  (js2-mode-toggle-element . 9)
  (align-regexp . 6)
  (toggle-truncate-lines . 4)
- (helm-projectile-find-dir . 2)
+ (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
  (highlight-indentation-mode . 2)
  (highlight-indentation-current-column-mode . 2)
@@ -1082,7 +1082,7 @@
  (direx:find-directory . 1)
  (diminish . 1)
  (eval-expression . 2)
- (package-install . 3)
+ (package-install . 4)
  (ediff-current-file . 1)
  (restclient-mode . 1)
  (view-mode . 2)
@@ -1090,9 +1090,9 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 4)
- (load-theme . 23)
+ (load-theme . 29)
  (column-number-mode . 1)
- (yas-describe-tables . 2)
+ (yas-describe-tables . 6)
  (web-mode . 9)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
@@ -1103,7 +1103,7 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 1)
- (revert-buffer . 6)
+ (revert-buffer . 7)
  (shell-backward-command . 1)
  (eshell . 2)
  (term . 2)
@@ -1141,12 +1141,12 @@
  (global-unset-key . 2)
  (proced . 1)
  (describe-variable . 1)
- (subword-mode . 2)
+ (subword-mode . 3)
  (projectile-find-dir . 3)
  (toggle-input-method . 1)
  (replace-regexp . 1)
  (my-create-header . 1)
- (org-mode . 2)
+ (org-mode . 3)
  (count-words . 4)
  (hs-minor-mode . 1)
  (hide-body . 1)
@@ -1154,16 +1154,16 @@
  (hydra-yasnippet/body . 1)
  (hydra-winner/body . 1)
  (flycheck-info . 1)
- (js2-jsx-mode . 1)
+ (js2-jsx-mode . 2)
  (make-indirect-buffer . 1)
  (counsel-M-x . 2)
  (counsel-ag . 2)
  (projectile-find-file . 1)
- (ivy-mode . 5)
+ (ivy-mode . 6)
  (swiper . 6)
- (my-goto-scratch-buffer . 2)
+ (my-goto-scratch-buffer . 3)
  (counsel-describe-function . 2)
- (eval-print-last-sexp . 3)
+ (eval-print-last-sexp . 5)
  (rename-file . 2)
  (helm-filtered-bookmarks . 1)
  (helm-do-ag . 1)
@@ -1171,16 +1171,16 @@
  (helm-yas-visit-snippet-file . 1)
  (ivy-reverse-i-search . 1)
  (swiper-with-region . 4)
- (yas-reload-all . 1)
+ (yas-reload-all . 10)
  (company-bbdb . 1)
  (helm-yas-complete . 1)
- (smex . 5)
- (counsel-find-file . 4)
+ (smex . 6)
+ (counsel-find-file . 7)
  (ivy-switch-buffer . 1)
  (ivy-resume . 1)
  (helm-buffers-list . 1)
  (helm-find-files . 3)
- (helm-documentation . 1)
+ (helm-documentation . 2)
  (helm-execute-kmacro . 2)
  (pp-macroexpand-last-sexp . 3)
  (helm-ag . 1)
@@ -1190,9 +1190,27 @@
  (info . 1)
  (apropos . 2)
  (anzu-mode . 2)
- (global-anzu-mode . 2)
+ (global-anzu-mode . 4)
  (yas-load-directory . 1)
  (info-emacs-manual . 1)
- (helm-yas-complete-or-create . 5)
+ (recenter . 4)
+ (swiper-all . 5)
+ (swiper-multi . 5)
+ (ivy-toggle-fuzzy . 4)
+ (aya-create . 2)
+ (aya-expand . 4)
+ (aya-persist-snippet . 1)
+ (transpose-words . 3)
+ (er/mark-symbol . 1)
+ (er/mark-defun . 1)
+ (ediff-buffers . 1)
+ (helm-describe-helm-attribute . 4)
+ (helm-help . 1)
+ (yas-insert-snippet . 2)
+ (eval-defun . 20)
  (helm-yas-all-complete-or-create . 1)
+ (yas-tryout-snippet . 1)
+ (orgtbl-mode . 2)
+ (magit-checkout . 1)
+ (smex-major-mode-commands . 1)
 )

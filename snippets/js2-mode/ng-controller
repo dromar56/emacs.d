@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : ng-controller
+#key : ng-controller
+#contributor : David B
+# --
+angular.module('${1:ebConsole}').controller('$2', function (${3:$scope}) {
+  $0
+});

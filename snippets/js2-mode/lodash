@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : lodash
+#key : _
+#contributor : David B
+# --
+_.$1($0)

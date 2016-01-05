@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : lodash foreach
+#key : _for
+#contributor : David B
+# --
+_.forEach($1, function(v, k) {$0})

@@ -2,6 +2,13 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; key bindings
+(when (eq system-type 'darwin) ;; mac specific settings
+  (setq mac-option-modifier 'super)
+  (setq mac-right-option-modifier 'meta)
+  (setq mac-command-modifier 'meta)
+  (setq mac-right-command-modifier 'super))
+
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ; ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -236,7 +243,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
          ("M-o"   . helm-occur)
          ("C-M-o" . helm-multi-occur)
          ("s-y"   . helm-show-kill-ring)
-         ("s-b"   . helm-bookmarks)
+         ("C-c b"   . helm-bookmarks)
          )
 
   :config
@@ -278,7 +285,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (helm-ag)))
   (bind-key "s-g" 'helm-ag-projectile)
 
-  (defun helm-ag-projectile ()
+  (defun helm-ag-do-projectile ()
     (interactive)
     (if (projectile-project-p)
         (helm-do-ag (projectile-project-root))
@@ -287,13 +294,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package helm-projectile :ensure t
   :bind (("M-z" . helm-projectile)
-         ("s-p" . helm-projectile-switch-project))
+         ("s-p" . helm-projectile-switch-project)
+         ("s-d" . helm-projectile-find-dir))
   :config
   (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
                                                           helm-source-projectile-files-list
                                                           helm-source-projectile-recentf-list)))
-
-
 
 (use-package helm-dash
   :ensure t
@@ -322,19 +328,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   (defun helm-yas-get-mode-by-template (template alist) ;str template
     "Return key"
-    (file-name-nondirectory
-     (directory-file-name
-      (file-name-directory (assoc-default template (assoc-default 'template-file-alist alist))))))
+    (let* ((yas-dir "snippets/")
+           (yas-length (length yas-dir))
+           (path (file-name-directory (assoc-default template (assoc-default 'template-file-alist alist)))))
+      (substring path (+ yas-length (s-index-of yas-dir path)) (- (length path) 1))))
 
   (setq helm-source-yasnippet-create-new-snippet
         '((name . "Create")
           (dummy)
-          (action . (("Create" . (lambda (template) (helm-yas-create-new-snippet helm-yas-selected-text)))))))
+          (action . (("Create" . (lambda (candidate) (helm-yas-create-new-snippet helm-yas-selected-text candidate)))))))
 
   (defun helm-yas-complete-or-create ()
     "List of yasnippet snippets using `helm' interface."
     (interactive)
-    (helm :sources '(helm-source-yasnippet helm-source-yasnippet-create-new-snippet)))
+    (helm :sources '(helm-source-yasnippet
+                     helm-source-yasnippet-create-new-snippet)))
 
   (defun helm-yas-all-complete-or-create ()
     "List of yasnippet snippets using `helm' interface."
@@ -383,6 +391,42 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (setq transformed-list (cl-sort transformed-list 'string< :key 'car))
       transformed-list))
 
+
+  (defun helm-yas-create-new-snippet (selected-text &optional snippet-file)
+    "Create snippet from SELECTED-TEXT into SNIPPET-FILE.
+If SNIPPET-FILE is nil, asks file name.
+If SNIPPET-FILE does not contain directory, it is placed in default snippet directory."
+    (let* ((major-mode-dir (regexp-quote (symbol-name major-mode)))
+           (yas-dir (expand-file-name (or (car-safe yas-snippet-dirs) yas-snippet-dirs)))
+           (snippet-dir
+            (or (helm-yas-find-recursively major-mode-dir yas-dir 'snippet-file)
+                (let ((target-dir (format "%s/%s/" yas-dir major-mode-dir)))
+                  (if (yes-or-no-p (format "%s doesn't exist. Would you like to create this directory?" target-dir))
+                      (progn
+                        (make-directory target-dir)
+                        target-dir)
+                    (deactivate-mark)
+                    (error "Snippet creation failed"))))))
+      (let ((snippet-name snippet-file))
+        (setq snippet-file (read-file-name "create snippet : " snippet-dir nil 'confirm (s-dashed-words snippet-file)))
+        (when (file-exists-p snippet-file)
+          (error "can't create file [%s] already exists" (file-name-nondirectory snippet-file)))
+        (helm-yas-create-new-snippet-file selected-text snippet-file snippet-name))))
+
+  (defun helm-yas-create-new-snippet-file (selected-text snippet-file snippet-name)
+    "Create snippet file with inserted SELECTED-TEXT into SNIPPET-FILE."
+    (with-current-buffer (find-file snippet-file)
+      (snippet-mode)
+      (funcall helm-yas-create-new-snippet-insert-function selected-text snippet-name)))
+
+  (defun helm-yas-create-new-snippet-insert (selected-text snippet-file)
+    "Insert SELECTED-TEXT into SNIPPET-FILE."
+    (let* ((name (file-name-sans-extension
+                  (file-name-nondirectory
+                   (directory-file-name snippet-file))))
+           (string-format "# -*- mode: snippet -*-\n#name : %s\n#key : %s\n#contributor : %s\n# --\n"))
+      (insert (format string-format name (s-dashed-words name) user-full-name) selected-text)))
+
   ;; End of helm-c-yasnippet
   )
 
@@ -416,6 +460,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (ivy-mode t)
   (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-fuzzy)))  
   )
 
 (use-package hydra :ensure t)
@@ -1010,12 +1056,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
+(setq search-whitespace-regexp ".*?")
+
 (setq dired-dwim-target t)
+
 (customize-set-variable 'winner-dont-bind-my-keys t)
 (winner-mode 1)
-
-                                        ; (setq mac-command-modifier 'meta)
-                                        ; (setq mac-option-modifier 'super)
 
 (setq mac-command-modifier 'super)
 (setq mac-option-modifier 'meta)

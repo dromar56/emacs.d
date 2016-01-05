@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : ng-service
+#key : ng-service
+#contributor : David B
+# --
+angular.module('${1:ebConsole}').service('$2', function($3) {
+  this.foo = 'bar';
+});
