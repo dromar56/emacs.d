@@ -1,14 +1,27 @@
 
 ;; ----- smex-history -----
 (
- yas-insert-snippet
+ benchmark-init/show-durations-tabulated
+ benchmark-init/show-durations-tree
+ hippie-expand
+ tooltip-mode
+ eval-region
+ helm-M-x
+ smex
+ ffap
+ iimage-mode
+ turn-on-iimage-mode
  set-frame-font-size
+ eldoc-mode
+ set-variable
+ flycheck-mode
+ revert-buffer
+ yas-insert-snippet
  load-theme
  package-list-packages
  smex-major-mode-commands
  package-install
  js2-jsx-mode
- revert-buffer
  magit-checkout
  shell
  org-mode
@@ -19,14 +32,12 @@
  yas-describe-tables
  yas-reload-all
  toggle-debug-on-error
- eldoc-mode
  yas-tryout-snippet
  helm-projectile-find-dir
  eval-defun
  helm-yas-all-complete-or-create
  eval-print-last-sexp
  describe-face
- smex
  counsel-find-file
  helm-describe-helm-attribute
  helm-documentation
@@ -66,7 +77,6 @@
  helm-yas-complete
  company-bbdb
  projectile-find-dir
- eval-region
  swiper
  ivy-reverse-i-search
  helm-yas-visit-snippet-file
@@ -110,7 +120,6 @@
  undo-tree-visualizer-mode
  magit-status
  magit-log
- set-variable
  spaceline-toggle-flycheck-warning
  spaceline-toggle-flycheck-info
  describe-minor-mode-from-symbol
@@ -149,7 +158,6 @@
  helm-spaces
  delete-file
  make-directory
- helm-M-x
  highlight-indentation-current-column-mode
  highlight-indentation-mode
  set-frame-font
@@ -200,7 +208,6 @@
  calc
  diff
  dirs
- ffap
  ffip
  gnus
  grep
@@ -648,7 +655,6 @@
  hide-leaves
  httpd-start
  ido-pop-dir
- iimage-mode
  image-dired
  indent-sexp
  info-finder
@@ -881,7 +887,6 @@
  talk-connect
  texinfo-mode
  timeclock-in
- tooltip-mode
  url-view-url
  vc-mode-line
  vc-print-log
@@ -973,7 +978,6 @@
  neotree-find
  neotree-hide
  neotree-show
- ns-find-file
  avy-copy-line
  avy-goto-char
  avy-goto-line
@@ -986,7 +990,6 @@
  ffap-next-url
  find-function
  find-variable
- flycheck-mode
  flyspell-mode
  font-show-log
  footnote-mode
@@ -998,9 +1001,6 @@
  run-scala
  sbt-start
  scala-mode
- winner-redo
- winner-undo
- ensime-remote
 )
 
 ;; ----- smex-data -----
@@ -1012,7 +1012,7 @@
  (fundamental-mode . 1)
  (company-mode . 4)
  (ido-ubiquitous-mode . 4)
- (set-variable . 11)
+ (set-variable . 12)
  (tramp-bug . 2)
  (projectile-mode . 1)
  (php-mode . 2)
@@ -1020,13 +1020,13 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 16)
- (set-frame-font-size . 82)
+ (set-frame-font-size . 86)
  (projectile-invalidate-cache . 5)
  (js-mode . 1)
  (shell . 3)
  (magit-stash . 4)
  (iy-go-to-char . 3)
- (helm-M-x . 7)
+ (helm-M-x . 8)
  (magit-blame-mode . 15)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
@@ -1038,11 +1038,11 @@
  (org-insert-heading . 2)
  (org-insert-heading-after-current . 1)
  (org-insert-elisp-block . 25)
- (eldoc-mode . 10)
+ (eldoc-mode . 13)
  (toggle-debug-on-error . 11)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
- (eval-region . 8)
+ (eval-region . 9)
  (eww . 1)
  (create-shell . 1)
  (create-eshell . 1)
@@ -1103,7 +1103,7 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 1)
- (revert-buffer . 7)
+ (revert-buffer . 8)
  (shell-backward-command . 1)
  (eshell . 2)
  (term . 2)
@@ -1174,7 +1174,7 @@
  (yas-reload-all . 10)
  (company-bbdb . 1)
  (helm-yas-complete . 1)
- (smex . 6)
+ (smex . 7)
  (counsel-find-file . 7)
  (ivy-switch-buffer . 1)
  (ivy-resume . 1)
@@ -1213,4 +1213,13 @@
  (orgtbl-mode . 2)
  (magit-checkout . 1)
  (smex-major-mode-commands . 1)
+ (flycheck-mode . 1)
+ (iimage-mode . 4)
+ (turn-on-iimage-mode . 1)
+ (ffap . 1)
+ (insert-image-from-url . 1)
+ (tooltip-mode . 2)
+ (hippie-expand . 1)
+ (benchmark-init/show-durations-tree . 1)
+ (benchmark-init/show-durations-tabulated . 2)
 )

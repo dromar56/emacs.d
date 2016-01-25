@@ -30,8 +30,8 @@
  '(helm-always-two-windows nil)
  '(helm-boring-buffer-regexp-list
    (quote
-    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
- '(helm-buffer-max-length 30)
+    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")) t)
+ '(helm-buffer-max-length 30 t)
  '(helm-candidate-number-limit 100)
  '(helm-projectile-sources-list
    (quote
@@ -67,13 +67,12 @@
  '(recentf-max-saved-items 200000)
  '(rm-blacklist (quote (" hl-p" " Helm" " skewer")))
  '(rm-excluded-modes (quote (" hl-p" " Helm" " skewer")))
- '(scroll-bar-mode (quote right))
  '(scroll-conservatively 100000)
  '(scroll-preserve-screen-position 1)
  '(scss-compile-at-save nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(smex-history-length 1000)
+ '(smex-history-length 1000 t)
  '(sp-hybrid-kill-excessive-whitespace nil)
  '(sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
  '(sp-show-pair-from-inside t)
@@ -83,7 +82,6 @@
     (swiper-match-face-1 swiper-match-face-2 swiper-match-face-3 swiper-match-face-4)))
  '(tool-bar-mode nil)
  '(tree-widget-image-enable nil)
- '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
  '(uniquify-strip-common-suffix t)
  '(vc-follow-symlinks nil)
  '(web-mode-code-indent-offset 1)
@@ -112,6 +110,6 @@ $0")
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
+ '(default ((t (:background nil :family "Source Code Pro" :foundry "nil" :slant normal :weight normal :height 120 :width normal))))
  '(highlight-indentation-face ((t (:background "#eee8d5" :width condensed))))
  '(swiper-line-face ((t (:inherit highlight :background "black")))))

@@ -10,15 +10,6 @@
        (load custom-file))
    #+end_src
 
-** OSX
-#+begin_src emacs-lisp :tangle yes
-  ;; key bindings
-  (when (eq system-type 'darwin) ;; mac specific settings
-    (setq mac-option-modifier 'super)
-    (setq mac-right-option-modifier 'meta)
-    (setq mac-command-modifier 'meta)
-    (setq mac-right-command-modifier 'super))
-#+end_src
 ** Packages (init packages repositories)
    Initialize packages and provide the very useful =use-package= function, who installs the package from the repositories if it doesn't exist :ensure t.
    #+begin_src emacs-lisp
@@ -308,7 +299,7 @@
               ("M-o"   . helm-occur)
               ("C-M-o" . helm-multi-occur)
               ("s-y"   . helm-show-kill-ring)
-              ("C-c b"   . helm-bookmarks)
+              ("s-b"   . helm-bookmarks)
               )
 
        :config
@@ -532,8 +523,8 @@
     :config
     (ivy-mode t)
     (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-    (setq ivy-re-builders-alist
-          '((t . ivy--regex-fuzzy)))  
+    ;; (setq ivy-re-builders-alist
+    ;;       '((t . ivy--regex-fuzzy)))  
     )
 
 #+end_src
@@ -642,13 +633,6 @@
 
 #+end_src
 
-** COMMENT Direx
-#+begin_src emacs-lisp :tangle yes
-(require 'direx)
-(bind-key "C-x C-j" 'direx:jump-to-directory)
-
-#+end_src
-
 ** Expand Region
 #+begin_src emacs-lisp :tangle yes
   (use-package expand-region :ensure t)
@@ -695,14 +679,6 @@
     (customize-set-variable 'projectile-tags-command
                             "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -"))
 #+end_src
-** COMMENT Key Chords
-#+begin_src emacs-lisp :tangle yes
-    (use-package key-chord
-      :ensure t
-      :config (key-chord-mode t))
-
-#+end_src
-
 ** Company
    #+begin_src emacs-lisp
      (use-package company
@@ -892,6 +868,21 @@
    (quote
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
+#+end_src
+
+** COMMENT Key Chords
+#+begin_src emacs-lisp :tangle yes
+    (use-package key-chord
+      :ensure t
+      :config (key-chord-mode t))
+
+#+end_src
+
+** COMMENT Direx
+#+begin_src emacs-lisp :tangle yes
+(require 'direx)
+(bind-key "C-x C-j" 'direx:jump-to-directory)
+
 #+end_src
 
 ** COMMENT Evil
@@ -1758,34 +1749,43 @@ x** COMMENT Mu4e
 
 ** web
    #+begin_src emacs-lisp
-     (require 'web-mode)
-     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.dust?\\'" . web-mode))
+     (use-package web-mode
+       :mode (("\\.phtml\\'" . web-mode)
+              ("\\.tpl\\.php\\'" . web-mode)
+              ("\\.[gj]sp\\'" . web-mode)
+              ("\\.as[cp]x\\'" . web-mode)
+              ("\\.erb\\'" . web-mode)
+              ("\\.mustache\\'" . web-mode)
+              ("\\.djhtml\\'" . web-mode)
+              ("\\.html?\\'" . web-mode)
+              ("\\.dust?\\'" . web-mode))
 
-     (defun my-web-mode-hook ()
-       "Hooks for Web mode."
-       (setq web-mode-markup-indent-offset 4)
+       :init
+       
+       :config
+       (defun my-web-mode-hook ()
+         "Hooks for Web mode."
+         (setq web-mode-markup-indent-offset 20)
+         )
+       (add-hook 'web-mode-hook  'my-web-mode-hook)
        )
-     (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+
+
    #+end_src
 
 * Core
 ** Misc
 #+begin_src emacs-lisp
+  (setq scroll-margin 5)
+
   (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
   (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
   (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
   (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
   (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
 
-  (bind-key "s-h" 'mark-paragraph)
+  ;; (bind-key "s-h" 'mark-paragraph)
 
   (setq search-whitespace-regexp ".*?")
 
@@ -1824,8 +1824,6 @@ x** COMMENT Mu4e
   (customize-set-variable 'smex-history-length 1000)
   (customize-set-variable 'recentf-auto-cleanup (quote never))
   (customize-set-variable 'recentf-max-saved-items 200000)
-
-
 
   (setq inhibit-startup-screen t)
 
@@ -2065,6 +2063,9 @@ x** COMMENT Mu4e
 
 ** General Bindings
   #+begin_src emacs-lisp
+    (bind-key "<home>" 'beginning-of-buffer)
+    (bind-key "<end>" 'end-of-buffer)
+
     (bind-key "<f7>" 'kmacro-start-macro-or-insert-counter)
     (bind-key "<f8>" 'kmacro-end-or-call-macro)
     (bind-key "S-<f8>" 'apply-macro-to-region-lines)
@@ -2167,7 +2168,7 @@ x** COMMENT Mu4e
 
     ;; Projectile
     (bind-key "C-M-d" 'projectile-find-dir)
-    
+
 
     ;; Resize Windows
     (bind-key "C-M-<left>" 'shrink-window-horizontally)
@@ -2251,18 +2252,18 @@ x** COMMENT Mu4e
 ** ModeLine
 *** Spaceline
 #+begin_src emacs-lisp :tangle yes
-  (use-package spaceline-config
-    :ensure spaceline
-    :init
-    (setq ns-use-srgb-colorspace nil)
-    :config
-    (spaceline-spacemacs-theme)
-    (setq powerline-default-separator 'arrow)
-;    (setq powerline-default-separator 'wave)
-;    (setq powerline-height 20)
-    (setq spaceline-workspace-numbers-unicode t)
-    (setq spaceline-window-numbers-unicode t)
-    )
+    (use-package spaceline-config
+      :ensure spaceline
+      :init
+      ;; (setq ns-use-srgb-colorspace nil)
+      :config
+      (spaceline-spacemacs-theme)
+      (setq powerline-default-separator 'arrow)
+  ;   (setq powerline-default-separator 'wave)
+;      (setq powerline-height 31)
+      (setq spaceline-workspace-numbers-unicode t)
+      (setq spaceline-window-numbers-unicode t)
+      )
 #+end_src
 *** COMMENT Face for window-numbering
 #+begin_src emacs-lisp :tangle yes
@@ -2379,6 +2380,16 @@ x** COMMENT Mu4e
 #+end_src
 
 * Override
+** OSX
+#+begin_src emacs-lisp :tangle yes
+  ;; key bindings
+  (when (eq system-type 'darwin) ;; mac specific settings
+    (setq mac-option-modifier 'super)
+    (setq mac-right-option-modifier 'meta)
+    (setq mac-command-modifier 'meta)
+    (setq mac-right-command-modifier 'super))
+#+end_src
+** I don't even remember what's this
   #+begin_src emacs-lisp :tangle yes
     (add-hook
      'after-init-hook

@@ -2,6 +2,11 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/" . "commands/")
+ ("/usr/local/etc/nginx/" . "servers/")
+ ("/usr/local/etc/" . "nginx/")
+ ("/usr/local/" . "etc/")
+ ("/usr/" . "local/")
  ("/Users/davidb/Library/" . "Accounts/")
  ("/Users/davidb/tmp/dump/" . "earlybirds/")
  ("/Users/davidb/tmp/" . "dump/")
@@ -29,15 +34,15 @@
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/" . "activity/")
  ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/repair/" . "tmpl/")
  ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/bzccv/" . "tmpl/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" . "node_modules/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/" . "api.early-birds/")
- ("/Users/davidb/projects/vagrant.early-birds/" . "projects/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" . "config/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/" . "core.early-birds/")
+ ("/Users/davidb/projects/vagrant.early-birds/" . "config/")
  ("/Users/davidb/.emacs.d/elpa/" . "spaces-20130610.49/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/" . "generic/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/" . "repositories/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/product/" . "list/")
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/" . "bash/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" . "install/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" . "config/")
  ("/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/views/sepa2/" . "tmpl/")
  ("/ftp:hotels.lecrazyhorseparis.com:/components/com_bzccv/views/manage/" . "tmpl/")
  ("/ftp:hotels.lecrazyhorseparis.com:/components/com_bzccv/views/" . "manage/")
@@ -73,7 +78,7 @@
  ("/Users/davidb/projects/api.early-birds/" . "controllers/")
  ("/Users/davidb/projects/core.early-birds/" . "config/")
  ("/Users/davidb/projects/" . "chrome-earlybirds/")
- ("/Users/davidb/" . ".emacs.d/")
+ ("/Users/davidb/" . "tmp/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" . "recipe2/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/" . "chapter5/")
  ("/home/dromar/tmp/" . "recipes-with-angular-js-examples/")
@@ -91,24 +96,35 @@
  ("/ftp:hotelscrazy@hotels.lecrazyhorseparis.com:/" . "administrator/")
  ("/lstock/backup/" . "etc/")
  ("/lstock/" . "backup/")
- ("/" . "Applications/")
+ ("/" . "etc/")
  ("/sudo:root@localhost:/" . "etc/")
  ("/home/dromar/" . "tmp/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
- "/tmp/"
+ #("/tmp/" 1 4 (face flx-highlight-face))
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/"
- "/Users/davidb/projects/chrome-earlybirds/"
+ "/Users/davidb/.emacs.d/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/daterange/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/config/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/config/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/commands/"
+ "/Users/davidb/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/"
  "/Users/davidb/tmp/"
+ "/usr/local/etc/nginx/"
+ "/Users/davidb/projects/vagrant.early-birds/config/"
+ "/Users/davidb/tmp/redirect/"
+ "/Users/davidb/projects/chrome-earlybirds/"
  "/Users/davidb/Library/KeyBindings/"
  "/Users/davidb/Library/"
- "/Users/davidb/"
  "/Users/davidb/tmp/dump/earlybirds/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/abtests/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/common/services/"
- "/Users/davidb/.emacs.d/"
  "/Users/davidb/.saves/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/sepa/"
  "/ftp:hotels.lecrazyhorseparis.com:/administrator/components/com_bzccv/"
@@ -122,7 +138,6 @@
  "/ftp:hotels.lecrazyhorseparis.com:/"
  "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/node_modules/newrelic/lib/"
  "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/node_modules/newrelic/"
- "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/"
  "/Users/davidb/.tmuxinator/"
  "/Users/davidb/.scripts/"
  "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/"
@@ -138,56 +153,97 @@
  "/ssh:dse-3.europe-west1-c.eb-main-2013:/etc/"
  "/ssh:dse-3.europe-west1-c.eb-main-2013:"
  "/ssh:cdh-oryx-serving-1.europe-west1-c.eb-main-2013:"
- "/Users/davidb/.oh-my-zsh/plugins/autojump/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/bootstrap-daterangepicker/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/gulp/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/"
- "/Users/davidb/projects/chrome-earlybirds/app/scripts.babel/"
- "/Users/davidb/projects/chrome-earlybirds/app/"
- "/Users/davidb/Applications/Amethyst.app/Contents/Resources/"
- "/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/bash/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/dist/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- "test.jsx"
+ "test.mustache"
  "abwidget.ctrl.js"
- "salaire"
+ "config.el"
+ "LICENSE.md"
+ "daterange.jade"
+ "daterange.dir.js"
+ "config.scss"
  "step4.jade"
- "DefaultKeyBinding.dict"
- ".tmux.conf"
- "bulletin.txt"
- "test.js"
- ".amethyst"
+ "config.ctrl.js"
+ "widgets.ctrl.js"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/davidb/" (22143 650 0 0) "vm/" "VirtualBox VMs/" "Untitled.js" "tmp/" "thawte-roots/" "Snapshots/" "Public/" "projects/" "plainte" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "github/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "bin/" "backup/" "Applications (Parallels)/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.8" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".parallel/" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile_big_backup" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".docker/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".amethyst" ".adobe/" "../" "./")
+ (#("/tmp/" 1 4 (face flx-highlight-face)) (22168 52810 0 0) "wifi-YUv2ZX.log" "wifi-tl0FZT.log" "steam_chrome_shmem_uid502_spid12252" "lakjsdlkajsdl/" "KSOutOfProcessFetcher.502.sAglCyxY5lzPoNgfmEvv-ZqGl-w=/" "F7C71944B49B446081C0603DE90E4855_OUT" "F7C71944B49B446081C0603DE90E4855_IN" "ExmanProcessMutex" "devio_semaphore_devio_0xb013/" "ct.shutdown" "com.apple.launchd.rspruNi1jH/" "com.apple.launchd.aXrIR0Fm9l/" "com.adobe.AdobeIPCBroker.ctrl-davidb" "CF48BFF6-C753-4CA7-A9AE-B490C3EAB539/" "boost_interprocess/" "A00C56E7-F129-4791-A23D-43D72F88E316/" "9E775909-7A62-4C45-8BCE-B63AEED0AC04/" "87E07536-18D9-4E6C-9985-1FB158E1A57C_OUT" "87E07536-18D9-4E6C-9985-1FB158E1A57C_IN" "4DF52654-A3CE-4001-9493-41E57D7AADB4/" ".vbox-davidb-ipc/" ".keystone_install_lock" "../" "./")
 
- ("/tmp/" (22142 57582 0 0) "steam_chrome_shmem_uid502_spid65473" "parallels_crash_dumps/" "KSOutOfProcessFetcher.502.sAglCyxY5lzPoNgfmEvv-ZqGl-w=/" "gameoverlayui.log.last" "gameoverlayui.log" "F9490BF7-4ABC-4B55-941F-798C83334881_OUT" "F9490BF7-4ABC-4B55-941F-798C83334881_IN" "F7C71944B49B446081C0603DE90E4855_OUT" "F7C71944B49B446081C0603DE90E4855_IN" "DC0584DD-D3DF-4234-9BB7-C1115D1A3719_OUT" "DC0584DD-D3DF-4234-9BB7-C1115D1A3719_IN" "com.apple.launchd.RSJbxxiDLQ/" "com.apple.launchd.R5f7L3l90L/" "com.apple.launchd.P9KoEvik4S/" "com.apple.launchd.NcguP0LdWE/" "com.apple.launchd.JwyZavNuHk/" "com.apple.launchd.7gNYDxCT6B/" "com.apple.launchd.6zEbmTD19e/" "com.apple.launchd.0E9wMCYVqa/" "com.adobe.AdobeIPCBroker.ctrl-davidb" "C24E2222-EAB1-4A8E-B8D5-48503D55C5C4/" "boost_interprocess/" "Atom Crashes/" "83803EE6-FC1D-4194-BF44-200CBB5D8C04/" "5282E400-3A0B-4CA0-AD30-736C50C8517C/" "41676572-680D-410E-9F2C-A757044025BF/" "2575571D-4BD7-4DE4-9ED2-1A95D405A408_OUT" "2575571D-4BD7-4DE4-9ED2-1A95D405A408_IN" ".vbox-davidb-ipc/" ".pd/" ".keystone_install_lock" "../" "./")
+ ("/Users/davidb/.emacs.d/vendor/benchmark-init-el/" (22168 52951 0 0) "README.md" "Makefile" "default.mk" "benchmark-init.elc" "benchmark-init.el" "benchmark-init-modes.elc" "benchmark-init-modes.el" "benchmark-init-loaddefs.el" ".gitignore" "../" "./")
 
- ("/Users/davidb/.emacs.d/" (22135 56114 0 0) "vendor/" "url/" "tramp" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el" "ido.last~" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".mc-lists.el" ".gitignore" ".git/" ".emacs_workgroups" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/" (22163 4315 0 0) "step4.jade" "step3.jade" "step2.jade" "step1.jade" "mixin.jade" "config.scss" "config.jade" "config.ctrl.js" "abwidget.ctrl.js" ".tern-port" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/config/" (22138 33331 0 0) "step4.jade" "step3.jade" "step2.jade" "step1.jade" "mixin.jade" "config.scss" "config.jade" "config.ctrl.js" "abwidget.ctrl.js" ".tern-port" "../" "./")
+ ("/Users/davidb/.emacs.d/" (22163 3555 0 0) "vendor/" "url/" "tramp" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el" "ido.last~" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".mc-lists.el" ".gitmodules" ".gitignore" ".git/" ".emacs_workgroups" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/" (22157 57972 0 0) "widgets.scss" "widgets.jade" "widgets.ctrl.js" "template/" "stats.jade" "stats.ctrl.js" "save-widget-dialog/" "location/" "generalStats.jade" "generalStats.ctrl.js" "config/" "abtests/" "_show.scss" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/daterange/" (22159 41135 0 0) "daterange.jade" "daterange.dir.js" "_daterange.scss" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/" (22157 38515 0 0) "widget.js" "widget-log.js" "variable.js" "variable-category.js" "user.js" "tenant.js" "template.js" "recommendation.js" "profile.js" "product.js" "product-category.js" "predictor.js" "log.js" "location.js" "interest.js" "identify.js" "generic/" "favorite.js" "datasource.js" "application.js" "aggregate.js" "activity.js" "abWidget.js" "abpredictor.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" (22157 38558 0 0) "routes.js" "README.md" "package.json" "node_modules/" "newrelic_agent.log" "newrelic.js.dist" "newrelic.js" "models/" "lib/" "hooks.js" "controllers/" "config/" "app.js" ".jshintrc" ".jscsrc" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/lib/" (22157 38540 0 0) "xlsx.js" "recommendation.js" "aggregate.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/config/" (22157 16208 0 0) "weatherCodes.yml" "tenant-default.yml" "schema.yml" "config.yml.dist" "config.yml" "cassandra-test.cql" "cassandra-prod.cql" "cassandra-dev.cql" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/" (22157 20097 0 0) "utils.js" "repositories/" "redis.js" "providers/" "oryx.js" "mongo.js" "logger.js" "loadbalancer.js" "import.js" "generic.js" "core.js" "chance.js" "cassandra.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/" (22157 19125 0 0) "widget_log.js" "widget.js" "variable_category.js" "variable.js" "user.js" "tracker.js" "test.js" "tenant.js" "template.js" "profile.js" "product_category.js" "product.js" "predictors.js" "payload.js" "log.js" "location.js" "generic/" "dev.js" "aggregate.js" "activity.js" "abWidget.js" "abPredictor.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/commands/" (22157 18653 0 0) "update-user.js" "update-cassandra.js" "timeuuid.js" "slugify-tenants.js" "refresh.js" "profiles.js" "objectId.js" "merge-weather.js" "import-mongo.js" "import-cassandra.js" "generate-profiles.js" "fixtures.js" "create-user.js" "create-tenant.js" "clone-tenant.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/" (22157 16208 0 0) "scripts/" "lib/" "index.js" "commands/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" (22157 16208 0 0) "test/" "ressources/" "README.md" "package.json" "node_modules/" "lib/" "index.js" "fixtures/" "config/" "cli/" ".vagrant/" ".tern-port" ".npmignore" ".jscsrc" ".idea/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/generic/" (22157 18332 0 0) "redis.js" "mongo.js" "generic.js" "cassandra.js" ".tern-port" "../" "./")
+
+ ("/Users/davidb/" (22157 17815 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "Public/" "projects/" "plainte" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "keys/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "github/" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "BrawlhallaReplays/" "bin/" "backup_spacemacs/" "backup/" "asd.js" "Applications (Parallels)/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.8" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".spacemacs" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".parallel/" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".jscsrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile_big_backup" ".histfile" ".hgignore_global" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".docker/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".amethyst" ".adobe/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/lib/" (22157 7789 0 0) "vagrant.js" "importWeather.js" "cli.js" "../" "./")
+
+ ("/Users/davidb/tmp/" (22156 63666 0 0) "test_rulesengine.js" "swagger.js" "salaire" "rulesEngine.js" "redirect/" "oops.js" "old_bower_components/" "npm-debug.log" "dump/" "db.jsn" "banque/" ".DS_Store" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/pop-slider/" (22157 2524 0 0) "pop-slider.scss" "pop-slider.jade" "pop-slider.dir.js" "../" "./")
+
+ ("/usr/local/etc/nginx/servers/" (22156 64065 0 0) "../" "./")
+
+ ("/usr/local/etc/nginx/" (22156 64065 0 0) "win-utf" "uwsgi_params.default" "uwsgi_params" "servers/" "scgi_params.default" "scgi_params" "nginx.conf.default" "nginx.conf" "mime.types.default" "mime.types" "koi-win" "koi-utf" "fastcgi_params.default" "fastcgi_params" "fastcgi.conf.default" "fastcgi.conf" "../" "./")
+
+ ("/usr/local/etc/" (22156 64065 0 0) "wgetrc" "sbtopts" "redis.conf" "redis-sentinel.conf" "reaver/" "profile.d/" "openssl/" "nginx/" "mongod.conf" "ImageMagick-6/" "fonts/" "fish/" "bash_completion.d/" "autojump.sh" "../" "./")
+
+ ("/usr/local/" (22141 8030 0 0) "var/" "SUPPORTERS.md" "ssl/" "share/" "sbin/" "README.md" "opt/" "LICENSE.txt" "Library/" "lib/" "include/" "Frameworks/" "etc/" "CONTRIBUTING.md" "CODEOFCONDUCT.md" "Cellar/" "bin/" ".yardopts" ".travis.yml" ".gitignore" ".git/" "../" "./")
+
+ ("/usr/" (22112 12692 0 0) "X11R6/" "X11/" "standalone/" "share/" "sbin/" "local/" "libexec/" "lib/" "bin/" "adic/" "../" "./")
+
+ ("/etc/" (22154 40342 0 0) "zshrc" "zprofile" "xtab" "ttys" "syslog.conf" "sudoers~orig" "sudoers.tmp~" "sudoers" "sudo_lecture" "ssh/" "snmp/" "shells" "services" "security/" "rtadvd.conf" "rpc" "rmtab" "resolv.conf" "rc.netboot" "rc.common" "racoon/" "protocols" "profile" "ppp/" "postfix/" "php.ini.default-5.2-previous" "php.ini.default" "php-fpm.conf.default" "pf.os" "pf.conf" "pf.anchors/" "periodic/" "paths.d/" "paths" "passwd" "pam.d/" "openldap/" "ntp_opendirectory.conf" "ntp.conf" "ntp-restrict.conf" "notify.conf" "nfs.conf" "newsyslog.d/" "newsyslog.conf" "networks" "nanorc" "master.passwd" "manpaths.d/" "manpaths" "man.conf" "mail.rc" "mach_init_per_user.d/" "mach_init_per_login_session.d/" "mach_init.d/" "locate.rc" "localtime" "launchd.conf" "krb5.keytab" "kern_loader.conf" "irbrc" "hosts~orig" "hosts.equiv" "hosts-e" "hosts" "group" "gettytab" "ftpusers" "ftpd.conf.default" "ftpd.conf" "fstab.hd" "find.codes" "emond.d/" "efax.rc" "dnsextd.conf" "defaults/" "cups/" "csh.logout" "csh.login" "csh.cshrc" "com.apple.screensharing.agent.launchd" "bashrc_Apple_Terminal" "bashrc" "autofs.conf" "auto_master" "auto_home" "asl.conf" "asl/" "apache2/" "aliases.db" "aliases" "afpovertcp.cfg" "AFP.conf" "../" "./")
+
+ ("/Users/davidb/tmp/redirect/" (22156 63757 0 0) "rule.file" "pf.file" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/config/" (21888 9221 0 0) "default.yml" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/" (21978 63830 0 0) "Vagrantfile" "README.md" "projects/" "package.json" "node_modules/" "loop_dates.sh" "install/" "config/" ".vagrant/" ".jshintrc" ".gitignore" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/config/" (22049 3844 0 0) "config.json.dist" "config.json" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/test/" (22156 62232 0 0) "profiles.js" "lib/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/" (22155 54591 0 0) "src/" "package.json" "node_modules/" "gulpfile.js" "gulp/" "dist/" "config/" "bower_components/" "bower.json" ".sass-cache/" ".jshintrc" ".jscsrc" ".gitignore" ".git/" ".editorconfig" ".bowerrc" "../" "./")
 
  ("/Users/davidb/projects/chrome-earlybirds/" (22113 63625 0 0) "test/" "package.json" "package/" "node_modules/" "Gruntfile.js" "dist/" "bower.json" "app/" ".yo-rc.json" ".tmp/" ".jshintrc" ".gitignore" ".gitattributes" ".editorconfig" ".DS_Store" ".bowerrc" ".babelrc" "../" "./")
 
  ("/Users/davidb/projects/" (22131 8147 0 0) "zsh-capture-completion/" "vagrant.early-birds/" "tmp/" "test-api/" "navigate-paragraph/" "loadbalancer/" "haproxy/" "epub/" "epitech/" "emacs-meetup/" "emacs/" "early-birds/" "com_bzccv/" "codeclimate/" "clojure/" "chrome-earlybirds/" ".DS_Store" "../" "./")
-
- ("/Users/davidb/tmp/" (22138 28431 0 0) "test_rulesengine.js" "swagger.js" "salaire" "rulesEngine.js" "oops.js" "old_bower_components/" "npm-debug.log" "dump/" "db.jsn" "banque/" ".DS_Store" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/" (22138 27920 0 0) "utils.js" "repositories/" "redis.js" "providers/" "oryx.js" "mongo.js" "logger.js" "loadbalancer.js" "import.js" "generic.js" "core.js" "chance.js" "cassandra.js" ".tern-port" "../" "./")
 
  ("/Users/davidb/Library/KeyBindings/" (22137 29376 0 0) "DefaultKeyBinding.dict" "../" "./")
 
  ("/Users/davidb/Library/Accounts/" (22112 13021 0 0) "Accounts3.sqlite-wal" "Accounts3.sqlite-shm" "Accounts3.sqlite" "../" "./")
 
  ("/Users/davidb/Library/" (22117 48195 0 0) "Workflows/" "WebKit/" "Voices/" "VirtualBox/" "SyncedPreferences/" "Suggestions/" "Spelling/" "Speech/" "Sounds/" "Services/" "Scripts/" "Screen Savers/" "Saved Application State/" "Safari/" "PubSub/" "Printers/" "Preferences/" "PreferencePanes/" "PhotoshopCrashes/" "PDF Services/" "Mobile Documents/" "Metadata/" "Messages/" "Mail/" "Logs/" "LaunchAgents/" "LanguageModeling/" "Keychains/" "Keyboard Layouts/" "iTunes/" "Internet Plug-Ins/" "Input Methods/" "iMovie/" "IdentityServices/" "Group Containers/" "Google/" "GameKit/" "Fonts/" "FontCollections/" "Favorites/" "Dictionaries/" "Developer/" "CoreFollowUp/" "CoreData/" "Cookies/" "Containers/" "Compositions/" "com.apple.nsurlsessiond/" "ColorSync/" "Colors/" "ColorPickers/" "Calendars/" "Caches/" "Autosave Information/" "autojump/" "Audio/" "Assistants/" "Application Supporttransition_d3c2bc9cea2642dbd8e7ccce8053997f.ini" "Application Support/" "Application Scripts/" "Accounts/" ".localized" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/" (22136 31441 0 0) "widget_log.js" "widget.js" "variable_category.js" "variable.js" "user.js" "tenant.js" "template.js" "recommendation.js" "profile.js" "product_category.js" "product.js" "predictor.js" "log.js" "location.js" "interest.js" "identify.js" "generic/" "favorite.js" "datasource.js" "application.js" "aggregate.js" "activity.js" "abWidget.js" "abPredictor.js" ".tern-port" "../" "./")
 
  ("/Users/davidb/tmp/dump/earlybirds/" (22136 16380 0 0) "products.metadata.json" "products.bson" "../" "./")
 
@@ -217,15 +273,11 @@
 
  ("/Users/" (22112 15755 0 0) "Shared/" "Guest/" "davidb/" ".localized" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/" (22129 34781 0 0) "src/" "package.json" "node_modules/" "gulpfile.js" "gulp/" "dist/" "config/" "bower_components/" "bower.json" ".sass-cache/" ".jshintrc" ".jscsrc" ".gitignore" ".git/" ".editorconfig" ".bowerrc" "../" "./")
-
  ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/node_modules/newrelic/lib/" (21956 46526 0 0) "util/" "uninstrumented.js" "transaction/" "timer.js" "system-info.js" "stats/" "shimmer.js" "sampler.js" "reservoir.js" "parse-proc-meminfo.js" "parse-proc-cpuinfo.js" "parse-dockerinfo.js" "metrics/" "logger.js" "instrumentations.js" "instrumentation/" "feature_flags.js" "error.js" "environment.js" "db/" "config.js" "config.default.js" "collector/" "aws-info.js" "agent.js" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/node_modules/newrelic/" (22129 38484 0 0) "test/" "stub_api.js" "SECURITY.md" "releases.txt" "README.md" "package.json" "node_modules/" "NEWS.md" "newrelic.js" "Makefile" "LICENSE" "lib/" "index.js" "examples/" "CONTRIBUTING.md" "bin/" "api.js" ".travis.yml" ".tern-port" ".npmignore" ".jshintrc" ".eslintrc" ".eslintignore" ".drone.yml" ".coverignore" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/node_modules/" (22084 30931 0 0) "yargs/" "xlsx/" "webshot/" "vargs-callback/" "twix/" "twitter-node-sdk/" "toss/" "swagger-node-restify/" "supertest/" "superagent-prefix/" "superagent/" "should/" "restify-oauth2/" "restify/" "request/" "nodemailer/" "newrelic/" "msexcel-builder/" "moment/" "mocha/" "mobile-detect/" "mkdirp/" "mime/" "lodash/" "inflection/" "facebook-node-sdk/" "core.early-birds/" "chai/" "bson/" "async/" ".bin/" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/" (22129 38459 0 0) "routes.js" "README.md" "package.json" "node_modules/" "newrelic_agent.log" "newrelic.js.dist" "newrelic.js" "models/" "lib/" "hooks.js" "controllers/" "config/" "app.js" ".tern-port" ".jshintrc" ".jscsrc" ".gitignore" ".git/" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/" (22103 11604 0 0) "tenants.early-birds/" "recommender.early-birds/" "core.early-birds/" "console.early-birds/" "cdn.early-birds/" "asd/" "api.early-birds/" ".idea/" ".gitkeep" ".DS_Store" "../" "./")
 
@@ -247,15 +299,11 @@
 
  ("/Applications/Emacs.app/Contents/Resources/lisp/emacs-lisp/" (22126 65452 0 0) "warnings.elc" "warnings.el.gz" "unsafep.elc" "unsafep.el.gz" "trace.elc" "trace.el.gz" "tq.elc" "tq.el.gz" "timer.elc" "timer.el.gz" "testcover.elc" "testcover.el.gz" "tcover-unsafep.elc" "tcover-unsafep.el.gz" "tcover-ses.elc" "tcover-ses.el.gz" "tabulated-list.elc" "tabulated-list.el.gz" "syntax.elc" "syntax.el.gz" "subr-x.elc" "subr-x.el.gz" "smie.elc" "smie.el.gz" "shadow.elc" "shadow.el.gz" "rx.elc" "rx.el.gz" "ring.elc" "ring.el.gz" "regi.elc" "regi.el.gz" "regexp-opt.elc" "regexp-opt.el.gz" "re-builder.elc" "re-builder.el.gz" "pp.elc" "pp.el.gz" "pcase.elc" "pcase.el.gz" "package.elc" "package.el.gz" "package-x.elc" "package-x.el.gz" "nadvice.elc" "nadvice.el.gz" "map-ynp.elc" "map-ynp.el.gz" "macroexp.elc" "macroexp.el.gz" "lisp.elc" "lisp.el.gz" "lisp-mode.elc" "lisp-mode.el.gz" "lisp-mnt.elc" "lisp-mnt.el.gz" "helper.elc" "helper.el.gz" "gv.elc" "gv.el.gz" "gulp.elc" "gulp.el.gz" "generic.elc" "generic.el.gz" "float-sup.elc" "float-sup.el.gz" "find-func.elc" "find-func.el.gz" "ewoc.elc" "ewoc.el.gz" "ert.elc" "ert.el.gz" "ert-x.elc" "ert-x.el.gz" "elp.elc" "elp.el.gz" "elint.elc" "elint.el.gz" "eldoc.elc" "eldoc.el.gz" "eieio.elc" "eieio.el.gz" "eieio-speedbar.elc" "eieio-speedbar.el.gz" "eieio-opt.elc" "eieio-opt.el.gz" "eieio-datadebug.elc" "eieio-datadebug.el.gz" "eieio-custom.elc" "eieio-custom.el.gz" "eieio-core.elc" "eieio-core.el.gz" "eieio-base.elc" "eieio-base.el.gz" "edebug.elc" "edebug.el.gz" "easymenu.elc" "easymenu.el.gz" "easy-mmode.elc" "easy-mmode.el.gz" "disass.elc" "disass.el.gz" "derived.elc" "derived.el.gz" "debug.elc" "debug.el.gz" "crm.elc" "crm.el.gz" "copyright.elc" "copyright.el.gz" "cl.elc" "cl.el.gz" "cl-seq.elc" "cl-seq.el.gz" "cl-macs.elc" "cl-macs.el.gz" "cl-loaddefs.el" "cl-lib.elc" "cl-lib.el.gz" "cl-indent.elc" "cl-indent.el.gz" "cl-extra.elc" "cl-extra.el.gz" "checkdoc.elc" "checkdoc.el.gz" "check-declare.elc" "check-declare.el.gz" "chart.elc" "chart.el.gz" "cconv.elc" "cconv.el.gz" "bytecomp.elc" "bytecomp.el.gz" "byte-run.elc" "byte-run.el.gz" "byte-opt.elc" "byte-opt.el.gz" "bindat.elc" "bindat.el.gz" "benchmark.elc" "benchmark.el.gz" "backquote.elc" "backquote.el.gz" "avl-tree.elc" "avl-tree.el.gz" "autoload.elc" "autoload.el.gz" "authors.elc" "authors.el.gz" "advice.elc" "advice.el.gz" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/" (22126 40136 0 0) "widget_log.js" "widget.js" "variable_category.js" "variable.js" "user.js" "tracker.js" "test.js" "tenant.js" "template.js" "profile.js" "product_category.js" "product.js" "predictors.js" "payload.js" "log.js" "location.js" "generic/" "dev.js" "aggregate.js" "activity.js" "abWidget.js" "abPredictor.js" "../" "./")
-
  ("/Users/davidb/.percol.d/" (21854 27687 0 0) "rc.py" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/" (22117 37700 0 0) "sortable-tab/" "sidebar/" "select-widget/" "select-variables/" "select-tenant/" "rules-fields/" "rules-engine/" "product-rules/" "predictor-price-booster/" "pop-slider/" "panel-stats/" "ngIfOnce/" "header/" "distributions/" "dialogs/" "daterange/" "breadcrumbs/" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/" (22119 31276 0 0) "vendor/" "ressources/" "pages/" "components/" "common/" "app.run.js" "app.mdl.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/widgets/" (22119 30793 0 0) "widgets.scss" "widgets.jade" "widgets.ctrl.js" "template/" "stats.jade" "stats.ctrl.js" "show.jade" "show.ctrl.js" "save-widget-dialog/" "location/" "generalStats.jade" "generalStats.ctrl.js" "config/" "abtests/" "_show.scss" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/recommendation/predictors/ab-predictors/edit/" (22119 32461 0 0) "edit.scss" "edit.jade" "edit.ctrl.js" "../" "./")
 
@@ -322,46 +370,6 @@
  ("/Users/davidb/Applications/" (22113 41053 0 0) "mpv.app/" "Chrome Apps.localized/" "Amethyst.app/" ".localized" ".DS_Store" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/bash/" (22015 48532 0 0) "importMongo.sh" "gcloud.sh" "bootstrap.sh" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/" (22098 56292 0 0) "lib/" "index.js" "commands/" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/cli/commands/" (22113 30806 0 0) "updateUser.js" "updateCassandra.js" "timeuuid.js" "slugTenants.js" "refresh.js" "profiles.js" "objectId.js" "mergeWeather.js" "importMongo.js" "importCassandra.js" "generateProfiles.js" "fixtures.js" "createUser.js" "createTenant.js" "cloneTenant.js" ".tern-port" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/dist/" (22039 56972 0 0) "select.min.js" "select.min.css" "select.js" "select.css" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/ui-select/" (22109 53158 0 0) "README.md" "package.json" "LICENSE" "dist/" "CHANGELOG.md" "bower.json" ".bower.json" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/" (22109 53158 0 0) "ui-select/" "twix/" "seiyria-bootstrap-slider/" "ngstorage/" "ng-table/" "moment/" "lodash/" "jquery/" "highcharts-ng/" "font-awesome/" "bootstrap-switch/" "bootstrap-daterangepicker/" "bootstrap/" "AngularJS-Toaster/" "angular-utils-ui-breadcrumbs/" "angular-ui-tree/" "angular-ui-router/" "angular-ui-ace/" "angular-translate/" "angular-touch/" "angular-sanitize/" "angular-recursion/" "angular-http-auth/" "angular-gravatar/" "angular-dialog-service/" "angular-cookies/" "angular-bootstrap-switch/" "angular-bootstrap-slider/" "angular-bootstrap/" "angular-base64/" "angular-animate/" "angular/" "ace-builds/" "../" "./")
-
- ("/Users/davidb/.emacs.d/elisp/" (21853 41978 0 0) "macro.el" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/rules-engine/" (22109 46797 0 0) "rules-engine.scss" "rules-engine.jade" "rules-engine.dir.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/" (22109 46721 0 0) "Vagrantfile" "test/" "shell.js" "ressources/" "README.md" "package.json" "node_modules/" "lib/" "install/" "index.js" "config/" "cli/" ".vagrant/" ".tern-port" ".npmignore" ".jscsrc" ".idea/" ".gitignore" ".git/" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/product-rules/" (22109 34833 0 0) "product-rules.scss" "product-rules.jade" "product-rules.dir.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/lib/" (22103 14681 0 0) "xlsx.js" "recommendation.js" "aggregate.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/bower_components/angular-ui-select/" (22071 38463 0 0) "README.md" "package.json" "LICENSE" "dist/" "CHANGELOG.md" "bower.json" ".bower.json" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/pages/activity/" (21972 56676 0 0) "statistics/" "../" "./")
-
- ("/Users/davidb/.ssh/" (21958 28906 0 0) "known_hosts" "id_rsa.pub" "id_rsa" "id_boot2docker.pub" "id_boot2docker" "google_compute_engine.pub" "google_compute_engine" "config" "../" "./")
-
- ("/Users/davidb/.tmuxinator/" (21969 39270 0 0) "smartmeter.yml" "mini-early-birds.yml" "indepbox_remote_sessions.yml" "early-birds.yml" "chefcloud.yml" "blackjuice.yml" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/fixtures/data/mongo/" (21932 60719 0 0) "widget.js" "user.js" "tenant.js" "predictor.js" "datasource.js" "application.js" "abWidget.js" "abPredictor.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/" (21901 25679 0 0) "Vagrantfile" "README.md" "projects/" "package.json" "node_modules/" "install/" "config/" ".vagrant/" ".jshintrc" ".gitignore" ".git/" ".DS_Store" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/fixtures/" (21932 52044 0 0) "models/" "index.js" "data/" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/fixtures/data/" (21897 13504 0 0) "mongo/" "cassandra/" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/install/fixtures/models/" (21914 37903 0 0) "recommendation.js" "profile.js" "product.js" "identify.js" "activity.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/core.early-birds/lib/repositories/generic/" (21928 56354 0 0) "redis.js" "mongo.js" "generic.js" "cassandra.js" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----

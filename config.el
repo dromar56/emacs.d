@@ -2,13 +2,6 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-;; key bindings
-(when (eq system-type 'darwin) ;; mac specific settings
-  (setq mac-option-modifier 'super)
-  (setq mac-right-option-modifier 'meta)
-  (setq mac-command-modifier 'meta)
-  (setq mac-right-command-modifier 'super))
-
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ; ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -155,6 +148,31 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+
 (defun unpop-to-mark-command ()
   "Unpop off mark ring. Does nothing if mark ring is empty."
   (interactive)
@@ -243,7 +261,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
          ("M-o"   . helm-occur)
          ("C-M-o" . helm-multi-occur)
          ("s-y"   . helm-show-kill-ring)
-         ("C-c b"   . helm-bookmarks)
+         ("s-b"   . helm-bookmarks)
          )
 
   :config
@@ -460,8 +478,8 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   :config
   (ivy-mode t)
   (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))  
+  ;; (setq ivy-re-builders-alist
+  ;;       '((t . ivy--regex-fuzzy)))  
   )
 
 (use-package hydra :ensure t)
@@ -941,19 +959,24 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (customize-set-variable 'js2-mode-show-strict-warnings nil)
 
   (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
+  (add-hook 'js2-mode-hook #'hs-minor-mode)
+  (add-hook 'js2-mode-hook #'eldoc-mode)
+  (add-hook 'js2-mode-hook #'subword-mode)
 
   (use-package js2-refactor
     :config
     ;; eg. extract function with `C-c C-m ef`.
     (js2r-add-keybindings-with-prefix "C-c C-m")
-    (add-hook 'js2-mode-hook #'js2-refactor-mode))
+    (add-hook 'js2-mode-hook #'js2-refactor-mode)
+    )
 
   (use-package tern
     :ensure t
     :if (executable-find "tern")
     :config
     (add-hook 'js2-mode-hook 'tern-mode)
-    (use-package company-tern :ensure t))
+    (use-package company-tern :ensure t)
+    )
 
 )
 
@@ -1039,24 +1062,40 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
    '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
       (company-mode -1)))
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.dust?\\'" . web-mode))
+(use-package web-mode
+  :mode (("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.[gj]sp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode)
+         ("\\.erb\\'" . web-mode)
+         ("\\.mustache\\'" . web-mode)
+         ("\\.djhtml\\'" . web-mode)
+         ("\\.html?\\'" . web-mode)
+         ("\\.dust?\\'" . web-mode))
 
-(defun my-web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 4)
+  :init
+  
+  :config
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 20)
+    )
+  (add-hook 'web-mode-hook  'my-web-mode-hook)
   )
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+
+(setq scroll-margin 5)
+
+(bind-key "C--" 'hs-hide-block hs-minor-mode-map)
+(bind-key "C-=" 'hs-show-block hs-minor-mode-map)
+(bind-key "M--" 'hs-hide-all hs-minor-mode-map)
+(bind-key "M-=" 'hs-show-all hs-minor-mode-map)
+(bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
+
+;; (bind-key "s-h" 'mark-paragraph)
 
 (setq search-whitespace-regexp ".*?")
+
+(setq eldoc-idle-delay 0)
 
 (setq dired-dwim-target t)
 
@@ -1091,8 +1130,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (customize-set-variable 'smex-history-length 1000)
 (customize-set-variable 'recentf-auto-cleanup (quote never))
 (customize-set-variable 'recentf-max-saved-items 200000)
-
-
 
 (setq inhibit-startup-screen t)
 
@@ -1321,6 +1358,9 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
       (message (concat "Eshell buffer " eshell-buffer " not found")))))
 (bind-key "C-c e" 'db-execute-last-eshell-command)
 
+(bind-key "<home>" 'beginning-of-buffer)
+(bind-key "<end>" 'end-of-buffer)
+
 (bind-key "<f7>" 'kmacro-start-macro-or-insert-counter)
 (bind-key "<f8>" 'kmacro-end-or-call-macro)
 (bind-key "S-<f8>" 'apply-macro-to-region-lines)
@@ -1343,13 +1383,13 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (bind-key "s-n" 'narrow-or-widen-dwim)
 
 ;; Font size
-(bind-key "C-0" '(lambda ()  (interactive) (text-scale-set 0)))
-(bind-key "C-+" 'text-scale-increase)
-(bind-key "C-=" 'text-scale-increase)
-(bind-key "C--" 'text-scale-decrease)
-(bind-key "C-<kb-0>" '(lambda ()  (interactive) (text-scale-set 0)))
-(bind-key "C-<kp-add>" 'text-scale-increase)
-(bind-key "C-<kp-subtract>" 'text-scale-decrease)
+(bind-key "s-0" '(lambda ()  (interactive) (text-scale-set 0)))
+(bind-key "s-+" 'text-scale-increase)
+(bind-key "s-=" 'text-scale-increase)
+(bind-key "s--" 'text-scale-decrease)
+(bind-key "s-<kb-0>" '(lambda ()  (interactive) (text-scale-set 0)))
+(bind-key "s-<kp-add>" 'text-scale-increase)
+(bind-key "s-<kp-subtract>" 'text-scale-decrease)
 
 ;; A la carte Menu
 (bind-key "C-x c" 'lacarte-execute-menu-command)
@@ -1483,19 +1523,26 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (setq linum-format " %2d ")
 
 (use-package spaceline-config
-    :ensure spaceline
-    :init
-    (setq ns-use-srgb-colorspace nil)
-    :config
-    (spaceline-spacemacs-theme)
-    (setq powerline-default-separator 'arrow)
-;    (setq powerline-default-separator 'wave)
-;    (setq powerline-height 20)
-    (setq spaceline-workspace-numbers-unicode t)
-    (setq spaceline-window-numbers-unicode t)
-    )
+      :ensure spaceline
+      :init
+      ;; (setq ns-use-srgb-colorspace nil)
+      :config
+      (spaceline-spacemacs-theme)
+      (setq powerline-default-separator 'arrow)
+  ;   (setq powerline-default-separator 'wave)
+;      (setq powerline-height 31)
+      (setq spaceline-workspace-numbers-unicode t)
+      (setq spaceline-window-numbers-unicode t)
+      )
 
 (load-theme 'material)
+
+;; key bindings
+(when (eq system-type 'darwin) ;; mac specific settings
+  (setq mac-option-modifier 'super)
+  (setq mac-right-option-modifier 'meta)
+  (setq mac-command-modifier 'meta)
+  (setq mac-right-command-modifier 'super))
 
 (add-hook
  'after-init-hook

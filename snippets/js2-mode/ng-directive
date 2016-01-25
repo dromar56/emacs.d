@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+#name : ng-directive
+#key : ng-directive
+#contributor : David B
+# --
+angular.module('ebConsole').directive('ebToolbox', function() {
+
+  function link(scope, element) {
+
+  }
+
+  return {
+    templateUrl: 'views/components/eb-toolbox/eb-toolbox.html',
+    scope: {
+      foo: '=foo'
+    },
+    link: link
+  };
+});

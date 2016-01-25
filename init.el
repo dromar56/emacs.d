@@ -1,6 +1,10 @@
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/org-mode-zip/lisp")
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/org-mode/lisp")
 
+(add-to-list 'load-path "~/.emacs.d/vendor/benchmark-init-el/")
+(require 'benchmark-init-loaddefs)
+(benchmark-init/activate)
+
 (package-initialize)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
