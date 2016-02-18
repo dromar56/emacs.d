@@ -870,6 +870,16 @@
 (customize-set-variable 'ag-highlight-search t)
 #+end_src
 
+** Shackles
+#+begin_src emacs-lisp :tangle yes
+  (use-package shackle
+    :ensure t
+    :pin melpa
+    :config
+    (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
+    (shackle-mode t)
+    )
+#+end_src
 ** COMMENT Key Chords
 #+begin_src emacs-lisp :tangle yes
     (use-package key-chord
@@ -2250,7 +2260,7 @@ x** COMMENT Mu4e
 #+end_src
 
 ** ModeLine
-*** Spaceline
+*** COMMENT Spaceline
 #+begin_src emacs-lisp :tangle yes
     (use-package spaceline-config
       :ensure spaceline

@@ -758,6 +758,14 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
     ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
 (customize-set-variable 'ag-highlight-search t)
 
+(use-package shackle
+  :ensure t
+  :pin melpa
+  :config
+  (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
+  (shackle-mode t)
+  )
+
 (use-package scala-mode2
   :ensure t)
 
@@ -1521,19 +1529,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
 ;; (global-linum-mode t)
 (setq linum-format " %2d ")
-
-(use-package spaceline-config
-      :ensure spaceline
-      :init
-      ;; (setq ns-use-srgb-colorspace nil)
-      :config
-      (spaceline-spacemacs-theme)
-      (setq powerline-default-separator 'arrow)
-  ;   (setq powerline-default-separator 'wave)
-;      (setq powerline-height 31)
-      (setq spaceline-workspace-numbers-unicode t)
-      (setq spaceline-window-numbers-unicode t)
-      )
 
 (load-theme 'material)
 

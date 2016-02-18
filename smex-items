@@ -1,12 +1,39 @@
 
 ;; ----- smex-history -----
 (
+ align-regexp
+ eshell
+ customize-group
+ prelude-github
+ magit-blame
+ json-pretty-print
+ html-mode
+ recover-this-file
+ revert-buffer
+ flycheck-mode
+ json-mode
+ shell-command-on-region
+ hs-minor-mode
+ helm-M-x
+ eval-defun
+ orgtbl-mode
+ org-toggle-pretty-entities
+ org-table-create
+ org-mode
+ lacarte-execute-menu-command
+ magit-fetch-all
+ flycheck-select-checker
+ projectile-invalidate-cache
+ eww
+ neotree
+ markdown-mode
+ db4go-toggle-productivity
+ shackle-mode
  benchmark-init/show-durations-tabulated
  benchmark-init/show-durations-tree
  hippie-expand
  tooltip-mode
  eval-region
- helm-M-x
  smex
  ffap
  iimage-mode
@@ -14,8 +41,6 @@
  set-frame-font-size
  eldoc-mode
  set-variable
- flycheck-mode
- revert-buffer
  yas-insert-snippet
  load-theme
  package-list-packages
@@ -24,8 +49,6 @@
  js2-jsx-mode
  magit-checkout
  shell
- org-mode
- orgtbl-mode
  subword-mode
  company-mode
  my-goto-scratch-buffer
@@ -34,7 +57,6 @@
  toggle-debug-on-error
  yas-tryout-snippet
  helm-projectile-find-dir
- eval-defun
  helm-yas-all-complete-or-create
  eval-print-last-sexp
  describe-face
@@ -42,7 +64,6 @@
  helm-describe-helm-attribute
  helm-documentation
  helm-help
- customize-group
  ediff-buffers
  er/mark-defun
  er/mark-symbol
@@ -81,7 +102,6 @@
  ivy-reverse-i-search
  helm-yas-visit-snippet-file
  helm-do-ag
- align-regexp
  helm-filtered-bookmarks
  rename-file
  describe-personal-keybindings
@@ -97,9 +117,7 @@
  hydra-yasnippet/body
  tern-get-docs
  hide-body
- hs-minor-mode
  count-words
- db4go-toggle-productivity
  my-create-header
  replace-regexp
  toggle-input-method
@@ -114,16 +132,12 @@
  rainbow-delimiters-mode
  rainbow-mode
  execute-extended-command
- magit-blame
  visual-line-mode
  text-mode
  undo-tree-visualizer-mode
  magit-status
  magit-log
- spaceline-toggle-flycheck-warning
- spaceline-toggle-flycheck-info
  describe-minor-mode-from-symbol
- spaceline-toggle-version-control
  list-packages
  save-buffer
  kill-buffer
@@ -134,7 +148,6 @@
  web-mode
  server-start
  flycheck-next-error
- eshell
  term
  shell-backward-command
  scss-mode
@@ -165,11 +178,8 @@
  menu-bar-mode
  tool-bar-mode
  js2-minor-mode
- json-mode
- projectile-invalidate-cache
  re-builder
  clone-indirect-buffer-other-window
- eww
  describe-key
  helm-org-agenda-files-headings
  org-insert-elisp-block
@@ -413,7 +423,6 @@
  help-mode
  help-quit
  hexl-mode
- html-mode
  html2text
  icon-mode
  ido-dired
@@ -794,7 +803,6 @@
  goto-address
  helm-apropos
  helm-dabbrev
- helm-do-grep
  helm-recentf
  helm-surfraw
  help-go-back
@@ -969,7 +977,6 @@
  erc-fill-mode
  erc-menu-mode
  erc-ring-mode
- neotree
  git-gutter
  avy-isearch
  neotree-dir
@@ -994,13 +1001,6 @@
  font-show-log
  footnote-mode
  gnus-agentize
- gnus-msg-mail
- hanoi-unix-64
- sbt-grep
- ensime
- run-scala
- sbt-start
- scala-mode
 )
 
 ;; ----- smex-data -----
@@ -1019,14 +1019,14 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 16)
+ (customize-group . 19)
  (set-frame-font-size . 86)
- (projectile-invalidate-cache . 5)
+ (projectile-invalidate-cache . 6)
  (js-mode . 1)
  (shell . 3)
  (magit-stash . 4)
  (iy-go-to-char . 3)
- (helm-M-x . 8)
+ (helm-M-x . 9)
  (magit-blame-mode . 15)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
@@ -1043,13 +1043,13 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 1)
+ (eww . 5)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
  (re-builder . 1)
  (indent-whole-buffer . 8)
- (json-mode . 1)
+ (json-mode . 2)
  (js2-mode . 7)
  (js2-mode-toggle-warnings-and-errors . 2)
  (describe-face . 5)
@@ -1066,7 +1066,7 @@
  (js2-mode-hide-element . 1)
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
- (align-regexp . 6)
+ (align-regexp . 11)
  (toggle-truncate-lines . 4)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
@@ -1103,16 +1103,16 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 1)
- (revert-buffer . 8)
+ (revert-buffer . 17)
  (shell-backward-command . 1)
- (eshell . 2)
+ (eshell . 6)
  (term . 2)
  (flycheck-next-error . 3)
  (sp-switch-space . 1)
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
- (db4go-toggle-productivity . 24)
+ (db4go-toggle-productivity . 30)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
  (describe-personal-keybindings . 3)
@@ -1123,12 +1123,12 @@
  (spaceline-toggle-version-control . 4)
  (describe-minor-mode-from-symbol . 1)
  (spaceline-toggle-flycheck-info . 2)
- (spaceline-toggle-flycheck-warning . 2)
+ (spaceline-toggle-flycheck-warning . 4)
  (magit-log . 1)
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 1)
- (magit-blame . 1)
+ (magit-blame . 6)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1146,9 +1146,9 @@
  (toggle-input-method . 1)
  (replace-regexp . 1)
  (my-create-header . 1)
- (org-mode . 3)
+ (org-mode . 4)
  (count-words . 4)
- (hs-minor-mode . 1)
+ (hs-minor-mode . 2)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
@@ -1207,13 +1207,13 @@
  (helm-describe-helm-attribute . 4)
  (helm-help . 1)
  (yas-insert-snippet . 2)
- (eval-defun . 20)
+ (eval-defun . 28)
  (helm-yas-all-complete-or-create . 1)
  (yas-tryout-snippet . 1)
- (orgtbl-mode . 2)
+ (orgtbl-mode . 4)
  (magit-checkout . 1)
  (smex-major-mode-commands . 1)
- (flycheck-mode . 1)
+ (flycheck-mode . 11)
  (iimage-mode . 4)
  (turn-on-iimage-mode . 1)
  (ffap . 1)
@@ -1222,4 +1222,17 @@
  (hippie-expand . 1)
  (benchmark-init/show-durations-tree . 1)
  (benchmark-init/show-durations-tabulated . 2)
+ (shackle-mode . 2)
+ (markdown-mode . 1)
+ (neotree . 6)
+ (flycheck-select-checker . 1)
+ (magit-fetch-all . 1)
+ (lacarte-execute-menu-command . 1)
+ (org-table-create . 1)
+ (org-toggle-pretty-entities . 1)
+ (shell-command-on-region . 1)
+ (recover-this-file . 1)
+ (html-mode . 1)
+ (json-pretty-print . 2)
+ (prelude-github . 1)
 )
