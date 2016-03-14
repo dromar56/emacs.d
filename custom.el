@@ -43,6 +43,9 @@
  '(helm-truncate-lines t t)
  '(helm-yas-display-key-on-candidate t)
  '(helm-yas-not-display-dups t)
+ '(hl-paren-colors
+   (quote
+    ("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])

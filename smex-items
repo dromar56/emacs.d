@@ -1,19 +1,38 @@
 
 ;; ----- smex-history -----
 (
- align-regexp
+ revert-buffer
+ emacs-version
+ magit-version
+ revert-all-buffers
+ db4go-toggle-productivity
  eshell
+ compile
+ highlight-indentation-mode
+ python-mode
+ shell-script-mode
+ hs-minor-mode
  customize-group
- prelude-github
+ hs-hide-level
+ hs-toggle-hiding
+ hs-hide-all
+ hs-show-all
+ hl-line-mode
+ toggle-truncate-lines
+ conf-mode
+ helm-global-mark-ring
+ find-function
+ hs-hide-block
  magit-blame
+ flycheck-describe-checker
+ align-regexp
+ prelude-github
  json-pretty-print
  html-mode
  recover-this-file
- revert-buffer
  flycheck-mode
  json-mode
  shell-command-on-region
- hs-minor-mode
  helm-M-x
  eval-defun
  orgtbl-mode
@@ -27,7 +46,6 @@
  eww
  neotree
  markdown-mode
- db4go-toggle-productivity
  shackle-mode
  benchmark-init/show-durations-tabulated
  benchmark-init/show-durations-tree
@@ -123,7 +141,6 @@
  toggle-input-method
  describe-variable
  proced
- toggle-truncate-lines
  helm-dash-at-point
  helm-dash-install-docset
  helm-dash
@@ -161,7 +178,6 @@
  indent-whole-buffer
  column-number-mode
  tern-find-definition
- helm-global-mark-ring
  discover-mode
  view-mode
  restclient-mode
@@ -172,7 +188,6 @@
  delete-file
  make-directory
  highlight-indentation-current-column-mode
- highlight-indentation-mode
  set-frame-font
  delete-trailing-whitespace
  menu-bar-mode
@@ -287,7 +302,6 @@
  bs-show
  bubbles
  c-guess
- compile
  erc-tls
  fortune
  go-mode
@@ -394,7 +408,6 @@
  benchmark
  butterfly
  calc-undo
- conf-mode
  copy-file
  copyright
  customize
@@ -702,7 +715,6 @@
  pr-txt-name
  prolog-mode
  push-button
- python-mode
  pyvenv-mode
  quit-window
  raise-frame
@@ -808,7 +820,6 @@
  help-go-back
  hi-lock-mode
  hide-subtree
- hl-line-mode
  holiday-list
  ibuffer-mode
  ibuffer-quit
@@ -964,7 +975,6 @@
  ebnf-eps-file
  ediff-version
  eieio-version
- emacs-version
  end-kbd-macro
  end-of-buffer
  enriched-mode
@@ -991,16 +1001,6 @@
  avy-move-line
  eww-open-file
  exit-calendar
- expand-abbrev
- ffap-at-mouse
- ffap-bindings
- ffap-next-url
- find-function
- find-variable
- flyspell-mode
- font-show-log
- footnote-mode
- gnus-agentize
 )
 
 ;; ----- smex-data -----
@@ -1019,7 +1019,7 @@
  (helm-mode . 2)
  (profiler-reset . 2)
  (profiler-stop . 1)
- (customize-group . 19)
+ (customize-group . 20)
  (set-frame-font-size . 86)
  (projectile-invalidate-cache . 6)
  (js-mode . 1)
@@ -1067,14 +1067,14 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 11)
- (toggle-truncate-lines . 4)
+ (toggle-truncate-lines . 5)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
- (highlight-indentation-mode . 2)
+ (highlight-indentation-mode . 3)
  (highlight-indentation-current-column-mode . 2)
  (magit-refresh . 1)
  (make-directory . 1)
- (helm-global-mark-ring . 3)
+ (helm-global-mark-ring . 4)
  (delete-file . 1)
  (helm-spaces . 3)
  (js2-mode-reset . 1)
@@ -1103,16 +1103,16 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 1)
- (revert-buffer . 17)
+ (revert-buffer . 19)
  (shell-backward-command . 1)
- (eshell . 6)
+ (eshell . 8)
  (term . 2)
  (flycheck-next-error . 3)
  (sp-switch-space . 1)
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
- (db4go-toggle-productivity . 30)
+ (db4go-toggle-productivity . 43)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
  (describe-personal-keybindings . 3)
@@ -1128,7 +1128,7 @@
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 1)
- (magit-blame . 6)
+ (magit-blame . 8)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1148,7 +1148,7 @@
  (my-create-header . 1)
  (org-mode . 4)
  (count-words . 4)
- (hs-minor-mode . 2)
+ (hs-minor-mode . 8)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
@@ -1235,4 +1235,19 @@
  (html-mode . 1)
  (json-pretty-print . 2)
  (prelude-github . 1)
+ (flycheck-describe-checker . 1)
+ (hs-hide-level . 16)
+ (hs-hide-block . 1)
+ (hs-toggle-hiding . 10)
+ (find-function . 1)
+ (conf-mode . 1)
+ (hl-line-mode . 1)
+ (hs-show-all . 1)
+ (hs-hide-all . 1)
+ (shell-script-mode . 1)
+ (python-mode . 1)
+ (compile . 2)
+ (revert-all-buffers . 2)
+ (magit-version . 1)
+ (emacs-version . 1)
 )

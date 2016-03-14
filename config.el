@@ -766,6 +766,39 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (shackle-mode t)
   )
 
+(use-package highlight-parentheses
+  :ensure t
+  :defer t
+  :pin melpa
+  :init
+  (add-hook 'prog-mode-hook #'highlight-parentheses-mode)
+  (setq hl-paren-delay 0.2)
+
+  (setq hl-paren-background-colors '("Springgreen4"
+                                     "IndianRed1"
+                                     "IndianRed4"))
+  (setq hl-paren-background-colors '())
+
+
+  (setq hl-paren-colors '("white" "light gray"))
+  (setq hl-paren-colors '())
+
+  (setq hl-paren-colors '("Springgreen3"
+                                     "IndianRed1"
+                                     "IndianRed4"))
+
+  )
+
+(use-package smooth-scrolling
+  :ensure t
+  :init (setq smooth-scroll-margin 5
+              scroll-conservatively 101
+              scroll-preserve-screen-position t
+              auto-window-vscroll nil)
+  :config
+  (setq scroll-margin 5)
+  )
+
 (use-package scala-mode2
   :ensure t)
 
@@ -1098,6 +1131,13 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
 (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
 (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
+
+(bind-key "M-s-1" (lambda () (interactive) (hs-hide-level 1)))
+(bind-key "M-s-2" (lambda () (interactive) (hs-hide-level 2)))
+(bind-key "M-s-3" (lambda () (interactive) (hs-hide-level 3)))
+(bind-key "M-s-4" (lambda () (interactive) (hs-hide-level 4)))
+(bind-key "M-s-5" (lambda () (interactive) (hs-hide-level 5)))
+(bind-key "M-s-6" (lambda () (interactive) (hs-hide-level 6)))
 
 ;; (bind-key "s-h" 'mark-paragraph)
 
