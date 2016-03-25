@@ -749,6 +749,13 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
    ;; (add-to-list 'backup-directory-alist
    ;;              (cons tramp-file-name-regexp nil))
 
+(use-package neotree
+  :bind ("M-`" . neotree-toggle)
+  :config
+  (setq neo-smart-open t)
+  ; (setq projectile-switch-project-action 'neotree-projectile-action)
+)
+
 (when (executable-find "ag")
       (use-package ag :ensure t)
       (setq ag-highlight-search t)
@@ -1132,12 +1139,19 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
 (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
 
-(bind-key "M-s-1" (lambda () (interactive) (hs-hide-level 1)))
-(bind-key "M-s-2" (lambda () (interactive) (hs-hide-level 2)))
-(bind-key "M-s-3" (lambda () (interactive) (hs-hide-level 3)))
-(bind-key "M-s-4" (lambda () (interactive) (hs-hide-level 4)))
-(bind-key "M-s-5" (lambda () (interactive) (hs-hide-level 5)))
-(bind-key "M-s-6" (lambda () (interactive) (hs-hide-level 6)))
+
+(defun hs-hide-global-level (level)
+  (interactive)
+  (save-excursion 
+    (goto-char (point-max))
+    (hs-hide-level level)))
+
+(bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
+(bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
+(bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
+(bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
+(bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
+(bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
 
 ;; (bind-key "s-h" 'mark-paragraph)
 

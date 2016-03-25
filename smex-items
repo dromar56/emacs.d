@@ -1,19 +1,28 @@
 
 ;; ----- smex-history -----
 (
+ set-frame-font-size
+ db4go-toggle-productivity
+ scss-mode
+ css-mode
  revert-buffer
+ magit-blame
+ web-mode
+ pop-global-mark
+ tern-find-definition
+ hs-minor-mode
+ hs-hide-level
+ mc/insert-numbers
+ neotree-find
+ neotree-toggle
  emacs-version
  magit-version
- revert-all-buffers
- db4go-toggle-productivity
  eshell
  compile
  highlight-indentation-mode
  python-mode
  shell-script-mode
- hs-minor-mode
  customize-group
- hs-hide-level
  hs-toggle-hiding
  hs-hide-all
  hs-show-all
@@ -23,7 +32,6 @@
  helm-global-mark-ring
  find-function
  hs-hide-block
- magit-blame
  flycheck-describe-checker
  align-regexp
  prelude-github
@@ -56,7 +64,6 @@
  ffap
  iimage-mode
  turn-on-iimage-mode
- set-frame-font-size
  eldoc-mode
  set-variable
  yas-insert-snippet
@@ -102,7 +109,6 @@
  ido-ubiquitous-mode
  tramp-cleanup-all-buffers
  info
- pop-global-mark
  artist-mode
  repeat-complex-command
  ag
@@ -162,12 +168,10 @@
  view-lossage
  org-babel-open-src-block-result
  tramp-cleanup-all-connections
- web-mode
  server-start
  flycheck-next-error
  term
  shell-backward-command
- scss-mode
  avy-goto-char-2
  avy-goto-subword-1
  avy-goto-word-1
@@ -177,7 +181,6 @@
  jade-mode
  indent-whole-buffer
  column-number-mode
- tern-find-definition
  discover-mode
  view-mode
  restclient-mode
@@ -338,7 +341,6 @@
  c++-mode
  calendar
  checkdoc
- css-mode
  cua-mode
  dcl-mode
  decipher
@@ -358,7 +360,6 @@
  ido-mode
  ifconfig
  iwconfig
- landmark
  lua-mode
  mh-nmail
  mh-rmail
@@ -744,7 +745,6 @@
  upcase-word
  vc-annotate
  vc-register
- vc-rollback
  view-buffer
  w3m-antenna
  w3m-fb-mode
@@ -822,7 +822,6 @@
  hide-subtree
  holiday-list
  ibuffer-mode
- ibuffer-quit
  ibuffer-yank
  idlwave-mode
  ido-complete
@@ -992,15 +991,16 @@
  neotree-dir
  company-diag
  helm-ag-mode
- neotree-find
  neotree-hide
  neotree-show
  avy-copy-line
  avy-goto-char
- avy-goto-line
- avy-move-line
- eww-open-file
- exit-calendar
+ avy-goto-word-or-subword-1
+ elpy-doc
+ elpy-disable
+ js-gc
+ ensime
+ guiler
 )
 
 ;; ----- smex-data -----
@@ -1020,7 +1020,7 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 20)
- (set-frame-font-size . 86)
+ (set-frame-font-size . 87)
  (projectile-invalidate-cache . 6)
  (js-mode . 1)
  (shell . 3)
@@ -1059,7 +1059,7 @@
  (js2-mode-hide-functions . 3)
  (js2-mode-show-all . 1)
  (js2-mode-display-warnings-and-errors . 1)
- (tern-find-definition . 6)
+ (tern-find-definition . 7)
  (menu-bar-mode . 3)
  (tool-bar-mode . 2)
  (delete-trailing-whitespace . 1)
@@ -1089,11 +1089,11 @@
  (js2r-introduce-parameter . 2)
  (js2r-contract-function . 3)
  (discover-mode . 1)
- (pop-global-mark . 4)
+ (pop-global-mark . 5)
  (load-theme . 29)
  (column-number-mode . 1)
  (yas-describe-tables . 6)
- (web-mode . 9)
+ (web-mode . 11)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
  (describe-font . 1)
@@ -1102,8 +1102,8 @@
  (avy-goto-word-or-subword-1 . 3)
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
- (scss-mode . 1)
- (revert-buffer . 19)
+ (scss-mode . 7)
+ (revert-buffer . 23)
  (shell-backward-command . 1)
  (eshell . 8)
  (term . 2)
@@ -1112,7 +1112,7 @@
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
- (db4go-toggle-productivity . 43)
+ (db4go-toggle-productivity . 49)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
  (describe-personal-keybindings . 3)
@@ -1128,7 +1128,7 @@
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 1)
- (magit-blame . 8)
+ (magit-blame . 14)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1148,7 +1148,7 @@
  (my-create-header . 1)
  (org-mode . 4)
  (count-words . 4)
- (hs-minor-mode . 8)
+ (hs-minor-mode . 10)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
@@ -1236,7 +1236,7 @@
  (json-pretty-print . 2)
  (prelude-github . 1)
  (flycheck-describe-checker . 1)
- (hs-hide-level . 16)
+ (hs-hide-level . 20)
  (hs-hide-block . 1)
  (hs-toggle-hiding . 10)
  (find-function . 1)
@@ -1250,4 +1250,14 @@
  (revert-all-buffers . 2)
  (magit-version . 1)
  (emacs-version . 1)
+ (magit-section-show-headings . 1)
+ (magit-section-hide . 1)
+ (neotree-toggle . 3)
+ (neotree-find . 3)
+ (web-mode-element-rename . 1)
+ (web-mode-toggle-current-element-highlight . 1)
+ (web-mode-fold-or-unfold . 2)
+ (web-mode-set-engine . 1)
+ (mc/insert-numbers . 1)
+ (css-mode . 4)
 )

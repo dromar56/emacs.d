@@ -6,7 +6,7 @@
  ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/etc/nginx/" . "sites-available/")
  ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/etc/" . "nginx/")
  ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/" . "etc/")
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/" . "css/")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/" . #("templates/" 0 3 (face flx-highlight-face)))
  ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/" . "halle/")
  ("/Users/davidb/default_emacs_home/" . ".emacs.d/")
  ("/Users/davidb/projects/scotch-box/" . "public/")
@@ -106,7 +106,7 @@
  ("/Users/davidb/projects/api.early-birds/" . "controllers/")
  ("/Users/davidb/projects/core.early-birds/" . "config/")
  ("/Users/davidb/projects/" . "scotch-box/")
- ("/Users/davidb/" . "Downloads/")
+ ("/Users/davidb/" . ".emacs.d/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/chapter5/" . "recipe2/")
  ("/home/dromar/tmp/recipes-with-angular-js-examples/" . "chapter5/")
  ("/home/dromar/tmp/" . "recipes-with-angular-js-examples/")
@@ -131,16 +131,19 @@
 
 ;; ----- ido-work-directory-list -----
 (
- #("/tmp/" 1 4 (face flx-highlight-face))
- #("/Users/davidb/tmp/" 14 18 (face flx-highlight-face))
+ #("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/templates/" 82 85 (face flx-highlight-face))
+ "/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/config/"
+ "/Users/davidb/.emacs.d/"
+ "/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/css/"
+ "/Users/davidb/"
+ "/tmp/"
+ "/Users/davidb/tmp/"
  "/Users/davidb/projects/scotch-box/public/maman/"
  "/Users/davidb/Downloads/"
  "/Users/davidb/projects/scotch-box/"
  "/Users/davidb/.scripts/"
  "/Users/davidb/projects/vagrant.early-birds/projects/api.early-birds/controllers/generic/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/recommendation/widgets/config/"
- "/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/css/"
- "/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/config/"
  "/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/gulp/"
  "/usr/local/etc/nginx/"
  "/ssh:api-node4.europe-west1-c.eb-main-2013:/etc/nginx/"
@@ -168,7 +171,6 @@
  "/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/src/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/extension/popup/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/shared/components/"
- "/Users/davidb/"
  "/Users/davidb/org/"
  "/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/dist/scripts/"
@@ -179,28 +181,45 @@
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/build/views/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/extension/images/"
  "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/components/rules-engine/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src_extension/views/"
- "/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src_extension/css/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "stickybar.html"
+ "parameters.yml"
+ "stickybar.scss"
+ ".tmux.conf"
  "test2.js"
  "evita.txt"
  "requette1.php"
  "moteur.php"
  "accueil.html"
  "projet (5).sql"
- "autoclick"
- "slack"
- "tests.sh"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- (#("/tmp/" 1 4 (face flx-highlight-face)) (22246 37214 0 0) "wifi-S2wrjI.log" "wifi-KJYpEp.log" "wifi-J1mpCY.log" "wifi-H5C9T4.log" "wifi-9AeVM4.log" "wet/" "VSCode Crashes/" "test.js" "pip_build_root/" "KSOutOfProcessFetcher.502.ppfIhqX0vjaTSb8AJYobDV7Cu68=/" "F7C71944B49B446081C0603DE90E4855_OUT" "F7C71944B49B446081C0603DE90E4855_IN" "com.apple.launchd.WJ0MpFiiMT/" "com.apple.launchd.1gjvLrJtVE/" "com.adobe.AdobeIPCBroker.ctrl-davidb" "CC615CF1-C2E0-4E4D-8BF5-7258CF8AC2D9/" "CC1F26FD-F230-4731-8509-C8A496273498_OUT" "CC1F26FD-F230-4731-8509-C8A496273498_IN" "7274B537-39E8-4593-9E01-4ACD92019265/" "2C1B3A7B-A8DD-4D7B-AB87-A67EC076C007/" "0F0DF7AC-B969-4455-A3C7-7FE91DA75966/" ".vbox-davidb-ipc/" ".keystone_install_lock" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/js/" (22256 24774 0 0) "sticky.js" "personalshopper.js" "../" "./")
 
- ("/Users/davidb/" (22244 16922 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "settings.jar" "Public/" "projects/" "plainte" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "keys/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "github/" "emacs_mac.xml" "Emacs for Mac.xml" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "default_emacs_home/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "BrawlhallaReplays/" "bin/" "backup/" "asd.js" "Applications (Parallels)/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.8" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".vscode/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".spacemacs.d/" ".sh_history" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".parallel/" ".oracle_jre_usage/" ".openvpn-connect.json" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".jscsrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile_big_backup" ".histfile" ".hgignore_global" ".gsutil/" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".docker/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_sessions/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".amethyst" ".adobe/" ".3T/" "../" "./")
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/templates/" (22256 588 0 0) "test.html" "stickybarMobile.html" "stickybar.html" "recommendation-product.html" "recommendation-personal-shopper.html" "recommendation-personal-shopper-result.html" "recommendation-home.html" "recommendation-familleweb.html" "recommendation-familleweb-top.html" "recommendation-category.html" "personalshopper-cta.html" "favorites.html" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/config/" (22255 55887 0 0) "tenants.yml" "parameters.yml.dist" "parameters.yml" "omega-options.bak" "https/" "gulp.yml" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/" (22255 55887 0 0) "trackers.js" "templates/" "js/" "img/" "css/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/" (22253 14136 0 0) "src/" "package.json" "node_modules/" "gulpfile.js" "gulp/" "dist/" "config/" "chrome_extension.org" "build/" "bower_components/" "bower.json" ".sass-cache/" ".jscsrc" ".idea/" ".gitignore" ".git/" ".editorconfig" ".DS_Store" ".bowerrc" "../" "./")
+
+ ("/Users/davidb/.emacs.d/" (22249 10580 0 0) "vendor/" "url/" "tramp" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el" "ido.last~" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".mc-lists.el" ".gitmodules" ".gitignore" ".git/" ".emacs_workgroups" "../" "./")
+
+ ("/Users/davidb/" (22249 40727 0 0) "vm/" "VirtualBox VMs/" "tmp/" "thawte-roots/" "Snapshots/" "settings.jar" "Public/" "projects/" "plainte" "Pictures/" "PhpstormProjects/" "org/" "Music/" "Movies/" "Library/" "keys/" "install_shell_integration.sh" "index.html" "google-cloud-sdk/" "Google Drive/" "github/" "emacs_mac.xml" "Emacs for Mac.xml" "Dropbox (tmsw)/" "Dropbox (Personal)/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "default_emacs_home/" "Creative Cloud Files (archived) (1)/" "Creative Cloud Files/" "certificates/" "Calibre Library/" "BrawlhallaReplays/" "bin/" "backup/" "asd.js" "Applications (Parallels)/" "Applications/" "access.txt" ".zshrc.backup" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zcompdump_capture" ".zcompdump-MacBook Pro de David-5.0.8" ".zcompdump-MacBook Pro de David-5.0.5" ".yjp/" ".WPS.plist" ".wps.ini" ".WIPG1000.ini" ".WebStorm10/" ".WebIde90/" ".WebIde80/" ".vscode/" ".viminfo" ".vagrant.d/" ".v8flags.4.5.103.33.davidb.json" ".v8flags.3.28.73.davidb.json" ".v8flags.3.28.71.19.davidb.json" ".Trash/" ".tmuxinator/" ".tmux.conf" ".tern-config" ".swt/" ".ssh/" ".spacemacs.d/" ".sh_history" ".scripts/" ".scala_history" ".sbt/" ".saves/" ".percol.d/" ".parallel/" ".oracle_jre_usage/" ".openvpn-connect.json" ".oh-my-zsh/" ".npm/" ".node_repl_history" ".node-gyp/" ".netrc" ".msmtprc" ".msmtp.log" ".mplayer/" ".mongorc.js" ".mailrc" ".MacOSX/" ".m2/" ".local/" ".lesshst" ".lein/" ".jshintrc" ".jscsrc" ".ivy2/" ".iterm2_shell_integration.zsh" ".ipython/" ".IntelliJIdea15/" ".IntelliJIdea14/" ".httpie/" ".htoprc" ".histfile_big_backup" ".histfile" ".hgignore_global" ".gsutil/" ".gitignore_global" ".gitconfig" ".gem/" ".emacs.d/" ".electron/" ".DS_Store" ".dropbox/" ".docker/" ".devcenter/" ".dbshell" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boot2docker/" ".bash_sessions/" ".bash_history" ".atom/" ".APKey.plist" ".android/" ".amethyst" ".adobe/" ".3T/" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/console/" (22249 17738 0 0) "pages/" "app.run.js" "app.mdl.js" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/css/" (22249 16707 0 0) "style.scss" "stickybar.scss" "../" "./")
+
+ ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/" (22248 9641 0 0) "tenants/" "src/" "samples/" "package.json" "node_modules/" "Gulpfile.js" "gulp/" "dist/" "config/" "bower_components/" "bower.json" ".jshintrc" ".jscsrc" ".gitignore" ".git/" ".editorconfig" "../" "./")
+
+ ("/tmp/" (22246 37214 0 0) "wifi-S2wrjI.log" "wifi-KJYpEp.log" "wifi-J1mpCY.log" "wifi-H5C9T4.log" "wifi-9AeVM4.log" "wet/" "VSCode Crashes/" "test.js" "pip_build_root/" "KSOutOfProcessFetcher.502.ppfIhqX0vjaTSb8AJYobDV7Cu68=/" "F7C71944B49B446081C0603DE90E4855_OUT" "F7C71944B49B446081C0603DE90E4855_IN" "com.apple.launchd.WJ0MpFiiMT/" "com.apple.launchd.1gjvLrJtVE/" "com.adobe.AdobeIPCBroker.ctrl-davidb" "CC615CF1-C2E0-4E4D-8BF5-7258CF8AC2D9/" "CC1F26FD-F230-4731-8509-C8A496273498_OUT" "CC1F26FD-F230-4731-8509-C8A496273498_IN" "7274B537-39E8-4593-9E01-4ACD92019265/" "2C1B3A7B-A8DD-4D7B-AB87-A67EC076C007/" "0F0DF7AC-B969-4455-A3C7-7FE91DA75966/" ".vbox-davidb-ipc/" ".keystone_install_lock" "../" "./")
 
  ("/Users/davidb/projects/scotch-box/public/maman/" (22244 16231 0 0) "sujet.html" "sujet.css" "style.css" "soudan.html" "slideshow_edgePreload.js" "slideshow_edgeActions.js" "slideshow_edge.js" "SGT.html" "sgt.css" "requette3.php" "requette3.css" "requette2.php" "requette1.php" "quiz.html" "moteur.php" "moteur.css" "mentions.html" "mentions.css" "main.css" "maghreb.html" "listnav.css" "lightbox.css" "jquery-listnav.min.js" "jquery-listnav.js" "jimgMenu.css" "inventaire/" "images/" "iles.html" "expo.html" "expo.css" "credits.html" "credits.css" "controller.js" "coloriage.html" "coloriage.css" "cambodge.html" "accueil.html" "accueil.css" "../" "./")
 
@@ -211,10 +230,6 @@
  ("/Users/davidb/projects/scotch-box/" (22241 19897 0 0) "Vagrantfile" "scotch-box/" "README.md" "public/" ".vagrant/" ".gitignore" ".git/" "../" "./")
 
  ("/Users/davidb/projects/" (22221 59592 0 0) "zsh-capture-completion/" "vagrant.early-birds/" "tmp/" "test-api/" "test/" "scotch-box/" "navigate-paragraph/" "loadbalancer/" "haproxy/" "epub/" "epitech/" "emacs-meetup/" "emacs/" "early-birds/" "com_bzccv/" "codeclimate/" "clojure/" "chrome-earlybirds/" ".jshintrc" ".idea/" ".gitignore" ".gitattributes" ".editorconfig" ".DS_Store" ".bowerrc" ".babelrc" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/" (22242 61305 0 0) "src/" "package.json" "node_modules/" "gulpfile.js" "gulp/" "dist/" "config/" "chrome_extension.org" "build/" "bower_components/" "bower.json" ".sass-cache/" ".jscsrc" ".idea/" ".gitignore" ".git/" ".editorconfig" ".DS_Store" ".bowerrc" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/css/" (22241 37718 0 0) "style.css" "../" "./")
 
  ("/Users/davidb/.scripts/" (22243 795 0 0) "zsh_install.sh" "zsh_custom_files/" "start-term.sh" "slack" "rssh-sm" "rssh" "remote-salt" "org-capture-note.sh" "loop_days.sh" "lein" "idea-ag.sh" "git-cdc" "elisp/" "ebook-convert" "eb_test_loadbalancer.sh" "eb_mongo_request.sh" "eb_check_git_branches.sh" "download_mantis.sh" "cpu_frequency.py" "cpu" "copy_tmux.sh" "clean_emacs" "autoclick" ".scripts" "../" "./")
 
@@ -228,53 +243,25 @@
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/gulp/" (22238 63315 0 0) "watch.js" "tenants.js" "scripts.js" "default.js" "clean.js" ".tern-port" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/" (22238 53437 0 0) "trackers.js" "templates/" "js/" "img/" "css/" "../" "./")
+ ("/usr/local/etc/nginx/servers/" (22156 64065 0 0) "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/templates/" (22229 39813 0 0) "recommendation-product.html" "recommendation-personal-shopper.html" "recommendation-personal-shopper-result.html" "recommendation-home.html" "recommendation-familleweb.html" "recommendation-familleweb-top.html" "recommendation-category.html" "personalshopper-cta.html" "favorites.html" "../" "./")
+ ("/usr/local/etc/nginx/" (22156 64065 0 0) "win-utf" "uwsgi_params.default" "uwsgi_params" "servers/" "scgi_params.default" "scgi_params" "nginx.conf.default" "nginx.conf" "mime.types.default" "mime.types" "koi-win" "koi-utf" "fastcgi_params.default" "fastcgi_params" "fastcgi.conf.default" "fastcgi.conf" "../" "./")
 
- (#("/usr/local/etc/nginx/servers/" 1 5 (face flx-highlight-face)) (22156 64065 0 0) "../" "./")
+ ("/usr/local/etc/" (22183 34767 0 0) "wgetrc" "sbtopts" "redis.conf" "redis-sentinel.conf" "reaver/" "profile.d/" "openssl/" "nginx/" "mongod.conf" "lynx.lss" "lynx.cfg" "ImageMagick-6/" "fonts/" "fish/" "bash_completion.d/" "autojump.sh" "../" "./")
 
- (#("/usr/local/etc/nginx/" 1 5 (face flx-highlight-face)) (22156 64065 0 0) "win-utf" "uwsgi_params.default" "uwsgi_params" "servers/" "scgi_params.default" "scgi_params" "nginx.conf.default" "nginx.conf" "mime.types.default" "mime.types" "koi-win" "koi-utf" "fastcgi_params.default" "fastcgi_params" "fastcgi.conf.default" "fastcgi.conf" "../" "./")
+ ("/usr/local/" (22167 27045 0 0) "var/" "SUPPORTERS.md" "share/" "sbin/" "README.md" "opt/" "LICENSE.txt" "Library/" "lib/" "include/" "Frameworks/" "etc/" "CONTRIBUTING.md" "CODEOFCONDUCT.md" "Cellar/" "bin/" ".yardopts" ".travis.yml" ".gitignore" ".git/" "../" "./")
 
- (#("/usr/local/etc/" 1 5 (face flx-highlight-face)) (22183 34767 0 0) "wgetrc" "sbtopts" "redis.conf" "redis-sentinel.conf" "reaver/" "profile.d/" "openssl/" "nginx/" "mongod.conf" "lynx.lss" "lynx.cfg" "ImageMagick-6/" "fonts/" "fish/" "bash_completion.d/" "autojump.sh" "../" "./")
-
- (#("/usr/local/" 1 5 (face flx-highlight-face)) (22167 27045 0 0) "var/" "SUPPORTERS.md" "share/" "sbin/" "README.md" "opt/" "LICENSE.txt" "Library/" "lib/" "include/" "Frameworks/" "etc/" "CONTRIBUTING.md" "CODEOFCONDUCT.md" "Cellar/" "bin/" ".yardopts" ".travis.yml" ".gitignore" ".git/" "../" "./")
-
- (#("/usr/" 1 5 (face flx-highlight-face)) (22112 12692 0 0) "X11R6/" "X11/" "standalone/" "share/" "sbin/" "local/" "libexec/" "lib/" "bin/" "adic/" "../" "./")
+ ("/usr/" (22112 12692 0 0) "X11R6/" "X11/" "standalone/" "share/" "sbin/" "local/" "libexec/" "lib/" "bin/" "adic/" "../" "./")
 
  ("/etc/" (22217 34565 0 0) "zshrc" "zprofile" "xtab" "ttys" "syslog.conf" "sudoers~orig" "sudoers.tmp~" "sudoers" "sudo_lecture" "ssh/" "snmp/" "shells" "services" "security/" "rtadvd.conf" "rpc" "rmtab" "resolv.conf" "rc.netboot" "rc.common" "racoon/" "protocols" "profile" "ppp/" "postfix/" "php.ini.default-5.2-previous" "php.ini.default" "php-fpm.conf.default" "pf.os" "pf.conf" "pf.anchors/" "periodic/" "paths.d/" "paths" "passwd" "pam.d/" "openldap/" "ntp_opendirectory.conf" "ntp.conf" "ntp-restrict.conf" "notify.conf" "nfs.conf" "newsyslog.d/" "newsyslog.conf" "networks" "nanorc" "master.passwd" "manpaths.d/" "manpaths" "man.conf" "mail.rc" "mach_init_per_user.d/" "mach_init_per_login_session.d/" "mach_init.d/" "locate.rc" "localtime" "launchd.conf" "krb5.keytab" "kern_loader.conf" "irbrc" "hosts~orig" "hosts.equiv" "hosts-e" "hosts" "group" "gettytab" "ftpusers" "ftpd.conf.default" "ftpd.conf" "fstab.hd" "find.codes" "emond.d/" "efax.rc" "dnsextd.conf" "defaults/" "cups/" "csh.logout" "csh.login" "csh.cshrc" "com.apple.screensharing.agent.launchd" "bashrc_Apple_Terminal" "bashrc" "autofs.conf" "auto_master" "auto_home" "asl.conf" "asl/" "apache2/" "aliases.db" "aliases" "afpovertcp.cfg" "AFP.conf" "../" "./")
 
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/config/" (22237 41562 0 0) "tenants.yml" "parameters.yml.dist" "parameters.yml" "omega-options.bak" "https/" "gulp.yml" "../" "./")
-
- ("/ssh:api-node4.europe-west1-c.eb-main-2013:/etc/nginx/sites-available/" (ftp . 404824.45944444445) "stackdriver" "api.early-birds.fr" "../" "./")
-
- ("/ssh:api-node4.europe-west1-c.eb-main-2013:/etc/nginx/" (ftp . 404824.45416666666) "naxsi.rules" "nginx.conf" "fastcgi_params" "proxy_params" "uwsgi_params" "conf.d/" "sites-available/" "../" "naxsi_core.rules" "./" "koi-utf" "win-utf" "mime.types" "scgi_params" "sites-enabled/" "koi-win")
-
- ("/ssh:api-node4.europe-west1-c.eb-main-2013:/etc/" (ftp . 404824.4536111111) "manpath.config" "passwd" "adjtime" "rsyslog.d/" "os-release" "sudoers" "modules" "rc6.d/" "magic" "environment" "hosts.allow" "debian_version" "group-" "rc.local" "mke2fs.conf" "motd" "ca-certificates/" "blkid.tab.old" "ld.so.conf" "perl/" "gai.conf" "magic.mime" "host.conf" "rpc" "network/" "ntp.conf" "udhcpd.conf" "iproute2/" "insserv.conf" "nanorc" "rc4.d/" "dpkg/" "ssh/" "emacs/" "emacs23/" "nginx/" "modprobe.d/" "sysctl.d/" "blkid.tab" "profile" "resolv.conf" "issue.net" "ssl/" "localtime" "ucf.conf" "ldap/" "opt/" "deluser.conf" "sysctl.conf" "groff/" "shadow" "insserv/" "udev/" "security/" "bash_aliases" "gshadow" "bash_completion.d/" "cron.d/" "insserv.conf.d/" "mailcap.order" "cron.hourly/" "logrotate.d/" "group" "pam.conf" "mtab" "skel/" "ca-certificates.conf" "kernel/" "bash.bashrc" "shells" "grub.d/" "rcS.d/" "apt/" "passwd-" "alternatives/" "nsswitch.conf" "sgml/" "python/" "protocols" "zsh/" "rc5.d/" "securetty" "cron.weekly/" "selinux/" "locale.gen" "ld.so.cache" "acpi/" "terminfo/" "dhcp/" "locale.alias" "hosts" "services" "debconf.conf" "xml/" "login.defs" "shadow-" "init.d/" "../" "rmt" "sudoers.d/" "fstab.d/" "rc0.d/" "./" "python2.7/" "calendar/" "boto.cfg" "ufw/" "systemd/" "logcheck/" "init/" "dbus-1/" "vim/" "crontab" "pam.d/" "rc1.d/" "cron.monthly/" "mime.types" "initramfs-tools/" "fstab" "wgetrc" "gshadow-" "adduser.conf" "inputrc" "staff-group-for-usr-local" "networks" "collectd.conf" "ld.so.conf.d/" "rc3.d/" "profile.d/" "logrotate.conf" "inittab" "cron.daily/" "fonts/" "mailcap" "updatedb.conf" "issue" "rsyslog.conf" ".pwd.lock" "default/" "hosts.deny" "rc2.d/" "timezone" "bindresvport.blacklist")
-
- ("/ssh:api-node4.europe-west1-c.eb-main-2013:/" (ftp . 404824.4530555556) "mnt/" "usr/" "srv/" "dev/" "etc/" "opt/" "tmp/" "proc/" "lib64/" "bin/" "home/" "sbin/" "sys/" "boot/" "initrd.img" "run/" "selinux/" "vmlinuz" "../" "./" "var/" "lost+found/" "lib/" "media/" "root/" "newrelic_agent.log" ".forever/")
-
- ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/etc/nginx/sites-available/" (ftp . 404824.30305555556) "stackdriver" "api.early-birds.fr" "../" "./")
-
- ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/etc/nginx/" (ftp . 404824.3022222222) "naxsi.rules" "nginx.conf" "fastcgi_params" "proxy_params" "uwsgi_params" "conf.d/" "sites-available/" "../" "naxsi_core.rules" "./" "koi-utf" "win-utf" "mime.types" "scgi_params" "sites-enabled/" "koi-win")
-
- ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/etc/" (ftp . 404824.3016666667) "manpath.config" "passwd" "adjtime" "rsyslog.d/" "os-release" "sudoers" "modules" "rc6.d/" "magic" "environment" "hosts.allow" "debian_version" "group-" "rc.local" "mke2fs.conf" "motd" "ca-certificates/" "blkid.tab.old" "ld.so.conf" "perl/" "gai.conf" "magic.mime" "host.conf" "rpc" "network/" "ntp.conf" "udhcpd.conf" "iproute2/" "insserv.conf" "nanorc" "rc4.d/" "dpkg/" "ssh/" "emacs/" "emacs23/" "nginx/" "modprobe.d/" "sysctl.d/" "blkid.tab" "profile" "resolv.conf" "issue.net" "ssl/" "localtime" "ucf.conf" "ldap/" "opt/" "deluser.conf" "sysctl.conf" "groff/" "shadow" "insserv/" "udev/" "security/" "bash_aliases" "gshadow" "bash_completion.d/" "cron.d/" "insserv.conf.d/" "mailcap.order" "cron.hourly/" "logrotate.d/" "group" "pam.conf" "mtab" "skel/" "ca-certificates.conf" "kernel/" "bash.bashrc" "shells" "grub.d/" "rcS.d/" "apt/" "passwd-" "alternatives/" "nsswitch.conf" "sgml/" "python/" "protocols" "zsh/" "rc5.d/" "securetty" "cron.weekly/" "selinux/" "locale.gen" "ld.so.cache" "acpi/" "terminfo/" "dhcp/" "locale.alias" "hosts" "services" "debconf.conf" "xml/" "login.defs" "shadow-" "init.d/" "../" "rmt" "sudoers.d/" "fstab.d/" "rc0.d/" "./" "python2.7/" "calendar/" "boto.cfg" "ufw/" "systemd/" "logcheck/" "init/" "dbus-1/" "vim/" "crontab" "pam.d/" "rc1.d/" "cron.monthly/" "mime.types" "initramfs-tools/" "fstab" "wgetrc" "gshadow-" "adduser.conf" "inputrc" "staff-group-for-usr-local" "networks" "collectd.conf" "ld.so.conf.d/" "rc3.d/" "profile.d/" "logrotate.conf" "inittab" "cron.daily/" "fonts/" "mailcap" "updatedb.conf" "issue" "rsyslog.conf" ".pwd.lock" "default/" "hosts.deny" "rc2.d/" "timezone" "bindresvport.blacklist")
-
- ("/ssh:root@api-node4.europe-west1-c.eb-main-2013:/" (ftp . 404824.30083333334) "mnt/" "usr/" "srv/" "dev/" "etc/" "opt/" "tmp/" "proc/" "lib64/" "bin/" "home/" "sbin/" "sys/" "boot/" "initrd.img" "run/" "selinux/" "vmlinuz" "../" "./" "var/" "lost+found/" "lib/" "media/" "root/" "newrelic_agent.log" ".forever/")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/halle/js/" (22194 12355 0 0) "personalshopper.js" "../" "./")
-
  ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/tenants/" (22237 34641 0 0) "tf1/" "tape-a-loeil/" "printemps/" "menlook/" "laredoute/" "halle/" "florajet/" "excedence/" "cosmoparis/" "citadium/" "atol/" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/" (22237 34770 0 0) "tenants/" "src/" "samples/" "package.json" "node_modules/" "Gulpfile.js" "gulp/" "dist/" "config/" "bower_components/" "bower.json" ".jshintrc" ".jscsrc" ".gitignore" ".git/" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/shared/components/product-rules/" (22233 44177 0 0) "product-rules.scss" "product-rules.jade" "product-rules.dir.js" "../" "./")
 
  ("/Users/davidb/tmp/" (22221 56722 0 0) "webpack/" "test_rulesengine.js" "swagger.js" "salaire" "rulesEngine.js" "redirect/" "oryx/" "oops.js" "old_bower_components/" "npm-debug.log" "monaco2.xlsx" "monaco.csv" "monaco/" "index.html" "ghost.sh" "dump/" "db.jsn" "banque/" ".DS_Store" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/shared/components/rules-fields/" (22233 25337 0 0) "rules-fields.scss" "rules-fields.jade" "rules-fields.dir.js" "../" "./")
-
- ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/src/console/" (22230 59714 0 0) "pages/" "app.run.js" "app.mdl.js" ".tern-port" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/cdn.early-birds/src/" (22220 16091 0 0) "widget.js" "utils.js" "queue.js" "ebJson.js" "earlybirds.js" "../" "./")
 
@@ -345,8 +332,6 @@
  ("/Users/davidb/org/projects/" (21891 57023 0 0) "google-cloud-platform.org" "console-early-birds.org" "../" "./")
 
  ("/Users/davidb/org/" (22083 52011 0 0) "todo.org" "projects/" "misc.org" "loadbalancer.org" "google_meeting.org" "eb.org" ".DS_Store" "../" "./")
-
- ("/Users/davidb/.emacs.d/" (22183 41761 0 0) "vendor/" "url/" "tramp" "tangle_config.el" "snippets/" "smex-items-backup" "smex-items" "recentf" "README.md" "projectile.cache" "projectile-bookmarks.eld" "LICENSE.md" "init.el" "ido.last~" "ido.last" "eshell/" "elpa/" "elisp/" "custom.el" "config.org" "config.el" "config/" "bookmarks" "auto-save-list/" ".org-id-locations" ".mc-lists.el" ".gitmodules" ".gitignore" ".git/" ".emacs_workgroups" "../" "./")
 
  ("/Users/davidb/projects/vagrant.early-birds/projects/console.early-birds/dist/scripts/" (22185 4855 0 0) "vendor.js" "all.js" "../" "./")
 
