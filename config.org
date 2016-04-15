@@ -2508,3 +2508,33 @@ x** COMMENT Mu4e
     ;; (bind-key "C-j" 'newline-and-indent)
 
 #+end_src
+* Situational snippets
+#+begin_src emacs-lisp :tangle yes
+  (defun eb-magit ()
+    (interactive "")
+
+    ;; (let ((folders (list "cdn" "console" "api" "core")))
+    ;;   (cl-dolist (name folders)
+    ;;     (magit-status-internal (concat "~/projects/vagrant.early-birds/projects/" name ".early-birds"))))
+
+    (magit-status-internal "~/projects/vagrant.early-birds/projects/cdn.early-birds")
+    (magit-status-internal "~/projects/vagrant.early-birds/projects/core.early-birds")
+    (magit-status-internal "~/projects/vagrant.early-birds/projects/api.early-birds")
+    (magit-status-internal "~/projects/vagrant.early-birds/projects/console.early-birds")
+
+    (delete-other-windows-internal)
+    (switch-to-buffer "*magit: api.early-birds")
+    (split-window-right)
+    (split-window-below)
+    (windmove-down)
+    (switch-to-buffer "*magit: console.early-birds")
+    (windmove-right)
+    (switch-to-buffer "*magit: core.early-birds")
+    (split-window-below)
+    (windmove-down)
+    (switch-to-buffer "*magit: cdn.early-birds")
+  )
+
+  (bind-key "C-x G" 'eb-magit)
+
+#+end_src
