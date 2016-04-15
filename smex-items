@@ -1,44 +1,65 @@
 
 ;; ----- smex-history -----
 (
- set-frame-font-size
- db4go-toggle-productivity
- scss-mode
- css-mode
  revert-buffer
+ package-list-packages
+ flycheck-mode
+ diff-buffer-with-file
+ diff-backup
+ highlight-changes-mode
+ tide-restart-server
+ ibuffer
+ eval-print-last-sexp
+ emacs-lisp-mode
+ lisp-mode
+ magit-fetch-all
+ eshell
+ tide-goto-reference
+ org-show-block-all
+ db4go-toggle-productivity
+ hs-hide-block
+ js2-mode
+ visual-line-mode
+ eww
+ web-mode-set-engine
+ css-mode
+ web-mode-element-children-fold-or-unfold
+ hs-minor-mode
+ info-emacs-manual
+ conf-mode
+ js2-jsx-mode
+ shell-script-mode
+ shell-mode
+ term
+ set-frame-font-size
+ scss-mode
  magit-blame
  web-mode
  pop-global-mark
  tern-find-definition
- hs-minor-mode
  hs-hide-level
  mc/insert-numbers
  neotree-find
  neotree-toggle
  emacs-version
  magit-version
- eshell
  compile
  highlight-indentation-mode
  python-mode
- shell-script-mode
  customize-group
  hs-toggle-hiding
  hs-hide-all
  hs-show-all
  hl-line-mode
  toggle-truncate-lines
- conf-mode
  helm-global-mark-ring
  find-function
- hs-hide-block
  flycheck-describe-checker
  align-regexp
  prelude-github
  json-pretty-print
  html-mode
  recover-this-file
- flycheck-mode
  json-mode
  shell-command-on-region
  helm-M-x
@@ -48,10 +69,8 @@
  org-table-create
  org-mode
  lacarte-execute-menu-command
- magit-fetch-all
  flycheck-select-checker
  projectile-invalidate-cache
- eww
  neotree
  markdown-mode
  shackle-mode
@@ -68,10 +87,8 @@
  set-variable
  yas-insert-snippet
  load-theme
- package-list-packages
  smex-major-mode-commands
  package-install
- js2-jsx-mode
  magit-checkout
  shell
  subword-mode
@@ -83,7 +100,6 @@
  yas-tryout-snippet
  helm-projectile-find-dir
  helm-yas-all-complete-or-create
- eval-print-last-sexp
  describe-face
  counsel-find-file
  helm-describe-helm-attribute
@@ -102,7 +118,6 @@
  swiper-all
  swiper-multi
  recenter
- info-emacs-manual
  apropos
  yas-load-directory
  anzu-mode
@@ -130,7 +145,6 @@
  rename-file
  describe-personal-keybindings
  counsel-describe-function
- js2-mode
  projectile-find-file
  counsel-ag
  counsel-M-x
@@ -155,7 +169,6 @@
  rainbow-delimiters-mode
  rainbow-mode
  execute-extended-command
- visual-line-mode
  text-mode
  undo-tree-visualizer-mode
  magit-status
@@ -170,12 +183,10 @@
  tramp-cleanup-all-connections
  server-start
  flycheck-next-error
- term
  shell-backward-command
  avy-goto-char-2
  avy-goto-subword-1
  avy-goto-word-1
- diff-buffer-with-file
  php-mode
  describe-font
  jade-mode
@@ -309,7 +320,6 @@
  fortune
  go-mode
  gud-gdb
- ibuffer
  idomenu
  m2-mode
  m4-mode
@@ -419,7 +429,6 @@
  elpy-mode
  eregistry
  erevision
- evil-mode
  ffap-menu
  ffap-next
  find-file
@@ -449,7 +458,6 @@
  kill-word
  left-char
  left-word
- lisp-mode
  list-tags
  load-file
  magit-tag
@@ -591,7 +599,6 @@
  run-scheme
  run-skewer
  save-macro
- shell-mode
  show-entry
  sieve-mode
  slime-mode
@@ -649,7 +656,6 @@
  delete-char
  delete-pair
  delphi-mode
- diff-backup
  disassemble
  doctex-mode
  double-mode
@@ -994,18 +1000,12 @@
  neotree-hide
  neotree-show
  avy-copy-line
- avy-goto-char
- avy-goto-word-or-subword-1
- elpy-doc
- elpy-disable
- js-gc
- ensime
- guiler
+ js2-mode-toggle-element
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 5)
+ (visual-line-mode . 6)
  (org-export-dispatch . 2)
  (profiler-start . 3)
  (profiler-report . 4)
@@ -1020,7 +1020,7 @@
  (profiler-reset . 2)
  (profiler-stop . 1)
  (customize-group . 20)
- (set-frame-font-size . 87)
+ (set-frame-font-size . 89)
  (projectile-invalidate-cache . 6)
  (js-mode . 1)
  (shell . 3)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 11)
+ (package-list-packages . 13)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1043,14 +1043,14 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 5)
+ (eww . 6)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 2)
- (js2-mode . 7)
+ (js2-mode . 8)
  (js2-mode-toggle-warnings-and-errors . 2)
  (describe-face . 5)
  (js2r-log-this . 5)
@@ -1097,22 +1097,22 @@
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
  (describe-font . 1)
- (diff-buffer-with-file . 4)
+ (diff-buffer-with-file . 5)
  (avy-goto-subword-1 . 3)
  (avy-goto-word-or-subword-1 . 3)
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 7)
- (revert-buffer . 23)
+ (revert-buffer . 28)
  (shell-backward-command . 1)
- (eshell . 8)
- (term . 2)
+ (eshell . 11)
+ (term . 3)
  (flycheck-next-error . 3)
  (sp-switch-space . 1)
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
- (db4go-toggle-productivity . 49)
+ (db4go-toggle-productivity . 53)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
  (describe-personal-keybindings . 3)
@@ -1148,13 +1148,13 @@
  (my-create-header . 1)
  (org-mode . 4)
  (count-words . 4)
- (hs-minor-mode . 10)
+ (hs-minor-mode . 11)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
  (hydra-winner/body . 1)
  (flycheck-info . 1)
- (js2-jsx-mode . 2)
+ (js2-jsx-mode . 3)
  (make-indirect-buffer . 1)
  (counsel-M-x . 2)
  (counsel-ag . 2)
@@ -1163,7 +1163,7 @@
  (swiper . 6)
  (my-goto-scratch-buffer . 3)
  (counsel-describe-function . 2)
- (eval-print-last-sexp . 5)
+ (eval-print-last-sexp . 10)
  (rename-file . 2)
  (helm-filtered-bookmarks . 1)
  (helm-do-ag . 1)
@@ -1192,7 +1192,7 @@
  (anzu-mode . 2)
  (global-anzu-mode . 4)
  (yas-load-directory . 1)
- (info-emacs-manual . 1)
+ (info-emacs-manual . 2)
  (recenter . 4)
  (swiper-all . 5)
  (swiper-multi . 5)
@@ -1213,7 +1213,7 @@
  (orgtbl-mode . 4)
  (magit-checkout . 1)
  (smex-major-mode-commands . 1)
- (flycheck-mode . 11)
+ (flycheck-mode . 45)
  (iimage-mode . 4)
  (turn-on-iimage-mode . 1)
  (ffap . 1)
@@ -1226,7 +1226,7 @@
  (markdown-mode . 1)
  (neotree . 6)
  (flycheck-select-checker . 1)
- (magit-fetch-all . 1)
+ (magit-fetch-all . 3)
  (lacarte-execute-menu-command . 1)
  (org-table-create . 1)
  (org-toggle-pretty-entities . 1)
@@ -1237,14 +1237,14 @@
  (prelude-github . 1)
  (flycheck-describe-checker . 1)
  (hs-hide-level . 20)
- (hs-hide-block . 1)
+ (hs-hide-block . 2)
  (hs-toggle-hiding . 10)
  (find-function . 1)
- (conf-mode . 1)
+ (conf-mode . 2)
  (hl-line-mode . 1)
  (hs-show-all . 1)
  (hs-hide-all . 1)
- (shell-script-mode . 1)
+ (shell-script-mode . 2)
  (python-mode . 1)
  (compile . 2)
  (revert-all-buffers . 2)
@@ -1257,7 +1257,17 @@
  (web-mode-element-rename . 1)
  (web-mode-toggle-current-element-highlight . 1)
  (web-mode-fold-or-unfold . 2)
- (web-mode-set-engine . 1)
+ (web-mode-set-engine . 5)
  (mc/insert-numbers . 1)
- (css-mode . 4)
+ (css-mode . 7)
+ (shell-mode . 1)
+ (web-mode-element-children-fold-or-unfold . 2)
+ (org-show-block-all . 1)
+ (tide-goto-reference . 1)
+ (lisp-mode . 1)
+ (emacs-lisp-mode . 1)
+ (ibuffer . 1)
+ (highlight-changes-mode . 4)
+ (tide-restart-server . 1)
+ (diff-backup . 1)
 )

@@ -1061,6 +1061,37 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 ;;      (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
 ;;      ))
 
+(use-package tide
+  :ensure t
+  :config
+
+  ;; sample config
+  (add-hook 'typescript-mode-hook
+            (lambda ()
+              (tide-setup)
+              (flycheck-mode +1)
+              ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
+              (eldoc-mode +1)
+              ;; company is an optional dependency. You have to
+              ;; install it separately via package-install
+              (company-mode-on)))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; Tide can be used along with web-mode to edit tsx files
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (tide-setup)
+                (flycheck-mode +1)
+                ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
+                (eldoc-mode +1)
+                (company-mode-on))))
+  )
+
 (load "~/.emacs.d/vendor/livescript-mode.el")
 
 ;; Javascript improved mode js2-mode
@@ -1126,7 +1157,7 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   :config
   (defun my-web-mode-hook ()
     "Hooks for Web mode."
-    (setq web-mode-markup-indent-offset 20)
+    (setq web-mode-markup-indent-offset 2)
     )
   (add-hook 'web-mode-hook  'my-web-mode-hook)
   )
@@ -1142,7 +1173,7 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
 (defun hs-hide-global-level (level)
   (interactive)
-  (save-excursion 
+  (save-excursion
     (goto-char (point-max))
     (hs-hide-level level)))
 
