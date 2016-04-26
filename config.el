@@ -226,6 +226,40 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (write-region nil nil temp-file)
     (eww-open-file temp-file)))
 
+(defun indent-rigidly-block ()
+  (interactive "")
+
+  (if (not (use-region-p))
+
+      (let ((cur-indent (current-indentation))
+            (start nil)
+            (end nil))
+        (beginning-of-line)
+
+        (save-excursion
+          (while (and (= (current-indentation) cur-indent)
+                      (not (= (point-min) (point)))
+                      (not (looking-at "[ \t]*$")))
+            (setq start (point))
+            (set-mark-command nil)
+            (forward-line -1)))
+
+        (while (and (= (current-indentation) cur-indent)
+                    (not (= (point-max) (line-end-position)))
+                    (not (looking-at "[ \t]*$")))
+          (setq end (line-end-position))
+          (forward-line 1))
+
+        (goto-char end)
+        (exchange-point-and-mark)
+        (call-interactively 'indent-rigidly)
+        )
+    )
+  (call-interactively 'indent-rigidly)
+  )
+
+(bind-key "C-x TAB" 'indent-rigidly-block)
+
 (ido-mode t)
 (ido-ubiquitous-mode t)
 (ido-vertical-mode t)
@@ -331,6 +365,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :pin melpa
   :commands (helm-spaces)
   :bind ("M-s" . helm-spaces)
+  )
+
+(use-package helm-descbinds
+  :ensure t
+  :pin melpa
+  :bind ("C-h b" . helm-descbinds)
   )
 
 (use-package helm-c-yasnippet
@@ -752,9 +792,17 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (use-package neotree
   :bind ("M-`" . neotree-toggle)
   :config
-  (setq neo-smart-open t)
+  (setq neo-smart-open nil)
+  (setq neo-persist-show t) ;; setting it to nil probably solves a bug with helm C-h m (helm-help)
+
   ; (setq projectile-switch-project-action 'neotree-projectile-action)
 )
+
+(defvar neotree-projectile-root nil)
+
+(defun neotree-projectile (args)
+  (interactive "P")
+  )
 
 (when (executable-find "ag")
       (use-package ag :ensure t)
@@ -804,6 +852,14 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
               auto-window-vscroll nil)
   :config
   (setq scroll-margin 5)
+  )
+
+(use-package vimish-fold
+  :ensure t
+  :pin melpa
+  :bind ()
+  :config
+  (vimish-fold-global-mode 1)
   )
 
 (use-package scala-mode2
@@ -1026,7 +1082,20 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
     (use-package company-tern :ensure t)
     )
 
-)
+  (use-package js-doc
+    :ensure t
+    )
+
+  (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
+  (define-key js2-mode-map "@" 'js-doc-insert-tag)
+  )
+
+;; (setq js-doc-mail-address "your email address"
+;;        js-doc-author (format "your name <%s>" js-doc-mail-address)
+;;        js-doc-url "url of your website"
+;;        js-doc-license "license name")
+
+
 
 ;; SLIME - SWANK-JS
 ;; (require 'slime)
@@ -1636,3 +1705,35 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 ;; (bind-key "C-f" 'forward-char)
 ;; (bind-key "C-b" 'backward-char)
 ;; (bind-key "C-j" 'newline-and-indent)
+
+(defun eb-magit ()
+  (interactive "")
+
+  ;; (let ((folders (list "cdn" "console" "api" "core")))
+  ;;   (cl-dolist (name folders)
+  ;;     (magit-status-internal (concat "~/projects/vagrant.early-birds/projects/" name ".early-birds"))))
+
+  (magit-status-internal "~/projects/vagrant.early-birds/projects/cdn.early-birds")
+  (magit-status-internal "~/projects/vagrant.early-birds/projects/core.early-birds")
+  (magit-status-internal "~/projects/vagrant.early-birds/projects/api.early-birds")
+  (magit-status-internal "~/projects/vagrant.early-birds/projects/console.early-birds")
+
+  (with-current-buffer "*magit: cdn.early-birds" (magit-fetch-all-no-prune))
+  (with-current-buffer "*magit: core.early-birds" (magit-fetch-all-no-prune))
+  (with-current-buffer "*magit: api.early-birds" (magit-fetch-all-no-prune))
+  (with-current-buffer "*magit: console.early-birds" (magit-fetch-all-no-prune))
+
+  (delete-other-windows-internal)
+  (switch-to-buffer "*magit: api.early-birds")
+  (split-window-right)
+  (split-window-below)
+  (windmove-down)
+  (switch-to-buffer "*magit: console.early-birds")
+  (windmove-right)
+  (switch-to-buffer "*magit: core.early-birds")
+  (split-window-below)
+  (windmove-down)
+  (switch-to-buffer "*magit: cdn.early-birds")
+)
+
+(bind-key "C-x G" 'eb-magit)

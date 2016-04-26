@@ -175,6 +175,7 @@
 #+end_src
 
 * Elisp functions
+** Old functions?
 #+begin_src emacs-lisp :tangle yes
   (defun toggle-window-split ()
     (interactive)
@@ -254,6 +255,42 @@
       (write-region nil nil temp-file)
       (eww-open-file temp-file)))
 
+#+end_src
+** indent-rigidly-block
+#+begin_src emacs-lisp :tangle yes
+  (defun indent-rigidly-block ()
+    (interactive "")
+
+    (if (not (use-region-p))
+
+        (let ((cur-indent (current-indentation))
+              (start nil)
+              (end nil))
+          (beginning-of-line)
+
+          (save-excursion
+            (while (and (= (current-indentation) cur-indent)
+                        (not (= (point-min) (point)))
+                        (not (looking-at "[ \t]*$")))
+              (setq start (point))
+              (set-mark-command nil)
+              (forward-line -1)))
+
+          (while (and (= (current-indentation) cur-indent)
+                      (not (= (point-max) (line-end-position)))
+                      (not (looking-at "[ \t]*$")))
+            (setq end (line-end-position))
+            (forward-line 1))
+
+          (goto-char end)
+          (exchange-point-and-mark)
+          (call-interactively 'indent-rigidly)
+          )
+      )
+    (call-interactively 'indent-rigidly)
+    )
+
+  (bind-key "C-x TAB" 'indent-rigidly-block)
 #+end_src
 * Plugins
 ** Ido
@@ -371,7 +408,11 @@
        :bind ("M-s" . helm-spaces)
        )
 
-
+     (use-package helm-descbinds
+       :ensure t
+       :pin melpa
+       :bind ("C-h b" . helm-descbinds)
+       )
 
 #+end_src
 ** helm-c-yasnippet
@@ -861,9 +902,18 @@
   (use-package neotree
     :bind ("M-`" . neotree-toggle)
     :config
-    (setq neo-smart-open t)
+    (setq neo-smart-open nil)
+    (setq neo-persist-show t) ;; setting it to nil probably solves a bug with helm C-h m (helm-help)
+
     ; (setq projectile-switch-project-action 'neotree-projectile-action)
   )
+
+  (defvar neotree-projectile-root nil)
+
+  (defun neotree-projectile (args)
+    (interactive "P")
+    )
+
 #+end_src
 ** Ag
 #+begin_src emacs-lisp :tangle yes
@@ -923,6 +973,17 @@
                 auto-window-vscroll nil)
     :config
     (setq scroll-margin 5)
+    )
+
+#+end_src
+** Vimish fold
+#+begin_src emacs-lisp :tangle yes
+  (use-package vimish-fold
+    :ensure t
+    :pin melpa
+    :bind ()
+    :config
+    (vimish-fold-global-mode 1)
     )
 
 #+end_src
@@ -1694,7 +1755,20 @@ x** COMMENT Mu4e
          (use-package company-tern :ensure t)
          )
 
-     )
+       (use-package js-doc
+         :ensure t
+         )
+
+       (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
+       (define-key js2-mode-map "@" 'js-doc-insert-tag)
+       )
+
+     ;; (setq js-doc-mail-address "your email address"
+     ;;        js-doc-author (format "your name <%s>" js-doc-mail-address)
+     ;;        js-doc-url "url of your website"
+     ;;        js-doc-license "license name")
+
+
 
      ;; SLIME - SWANK-JS
      ;; (require 'slime)
@@ -1728,7 +1802,6 @@ x** COMMENT Mu4e
      ;;      ;; (tern-ac-setup)
      ;;      (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
      ;;      ))
-
 
    #+end_src
 
@@ -2521,6 +2594,11 @@ x** COMMENT Mu4e
     (magit-status-internal "~/projects/vagrant.early-birds/projects/core.early-birds")
     (magit-status-internal "~/projects/vagrant.early-birds/projects/api.early-birds")
     (magit-status-internal "~/projects/vagrant.early-birds/projects/console.early-birds")
+
+    (with-current-buffer "*magit: cdn.early-birds" (magit-fetch-all-no-prune))
+    (with-current-buffer "*magit: core.early-birds" (magit-fetch-all-no-prune))
+    (with-current-buffer "*magit: api.early-birds" (magit-fetch-all-no-prune))
+    (with-current-buffer "*magit: console.early-birds" (magit-fetch-all-no-prune))
 
     (delete-other-windows-internal)
     (switch-to-buffer "*magit: api.early-birds")
