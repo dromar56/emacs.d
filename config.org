@@ -1937,16 +1937,32 @@ x** COMMENT Mu4e
    #+end_src
 
 * Core
-** Misc
-#+begin_src emacs-lisp
-  (setq scroll-margin 5)
+** Hide Show
+#+begin_src emacs-lisp :tangle yes
+  ;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
+
+  (defun hs-mouse-toggle-hiding (e)
+    "Toggle hiding/showing of a block.
+  This command should be bound to a mouse key.
+  Argument E is a mouse event used by `mouse-set-point'.
+  See `hs-hide-block' and `hs-show-block'."
+    (interactive "@e")
+    (hs-life-goes-on
+     (mouse-set-point e)
+     ;; Move backward one char so we don't need to click on the open bracket
+     (save-excursion
+       (unless (hs-looking-at-block-start-p)
+         (backward-char 1))
+       (hs-toggle-hiding))))
 
   (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
   (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
   (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
   (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
   (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
-
+  (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
+  (bind-key "<S-mouse-1>" 'hs-mouse-toggle-hiding hs-minor-mode-map)
+  (bind-key "<down-mouse-1>" nil hs-minor-mode-map)
 
   (defun hs-hide-global-level (level)
     (interactive)
@@ -1960,6 +1976,12 @@ x** COMMENT Mu4e
   (bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
   (bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
   (bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
+
+
+#+end_src
+** Misc
+#+begin_src emacs-lisp
+  (setq scroll-margin 5)
 
   ;; (bind-key "s-h" 'mark-paragraph)
 
