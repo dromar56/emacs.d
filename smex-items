@@ -1,49 +1,75 @@
 
 ;; ----- smex-history -----
 (
+ customize-group
+ ensime-mode
+ scala-mode
+ flycheck-mode
+ flycheck-verify-setup
+ ensime
+ revert-buffer
+ db4go-toggle-productivity
+ comment-region
+ rename-file
+ smartparens-strict-mode
+ smartparens-mode
+ global-prettify-symbols-mode
+ prettify-symbols-mode
+ company-mode
+ scss-mode
+ eww
+ css-mode
+ web-mode-set-content-type
+ web-mode-set-engine
+ web-mode
  js2-mode
+ hs-minor-mode
+ prog-mode
+ sublimity-mode
+ toggle-truncate-lines
+ magit-branch-spinoff
+ smex-major-mode-commands
+ count-words
+ json-mode-beautify
+ json-pretty-print
+ json-mode
+ re-search-forward
+ js-mode
+ customize-variable
+ hs-minor-mode-menu
+ minimap-mode
+ package-install
+ helm-mark-ring
+ eval-print-last-sexp
+ sql-mode
+ vc-mode-line
  vimish-fold-delete-all
  vimish-fold
  mark-defun
- js2-mark-defun
  vimish-fold-avy
  vimish-fold-mode
- hs-minor-mode
- js-mode
  hs-hide-all
  js2-refactor-mode
  anzu-mode
- company-mode
  global-anzu-mode
- smartparens-strict-mode
- smartparens-mode
  hs-hide-block
  hs-toggle-hiding
  show-paren-mode
- count-words
  helm-help
- customize-group
  my-goto-scratch-buffer
  smooth-scrolling-mode
- flycheck-verify-setup
- flycheck-mode
  flycheck-verify-checker
- revert-buffer
  help-go-back
- smex-major-mode-commands
- customize-variable
  magit-blame
  js-doc-insert-function-doc
  js-doc-insert-file-doc
  js-doc-describe-tag
  js-doc-insert-tag
- vc-mode-line
  vc-dir
  profiler-start
  eshell
  visual-line-mode
  set-fill-column
- eww
  indent-rigidly-block
  mark-paragraph
  eval-defun
@@ -52,7 +78,6 @@
  mc/insert-letters
  tern-find-definition
  neotree-projectile-action
- eb-magit
  magit-fetch-all
  toggle-window-split
  flycheck-select-checker
@@ -66,13 +91,9 @@
  diff-backup
  highlight-changes-mode
  ibuffer
- eval-print-last-sexp
  lisp-mode
  tide-goto-reference
  org-show-block-all
- db4go-toggle-productivity
- web-mode-set-engine
- css-mode
  web-mode-element-children-fold-or-unfold
  info-emacs-manual
  conf-mode
@@ -80,9 +101,6 @@
  shell-script-mode
  shell-mode
  term
- set-frame-font-size
- scss-mode
- web-mode
  pop-global-mark
  hs-hide-level
  mc/insert-numbers
@@ -95,15 +113,11 @@
  python-mode
  hs-show-all
  hl-line-mode
- toggle-truncate-lines
  helm-global-mark-ring
  find-function
  align-regexp
- prelude-github
- json-pretty-print
  html-mode
  recover-this-file
- json-mode
  shell-command-on-region
  helm-M-x
  orgtbl-mode
@@ -128,7 +142,6 @@
  set-variable
  yas-insert-snippet
  load-theme
- package-install
  magit-checkout
  shell
  subword-mode
@@ -177,7 +190,6 @@
  helm-yas-visit-snippet-file
  helm-do-ag
  helm-filtered-bookmarks
- rename-file
  describe-personal-keybindings
  counsel-describe-function
  projectile-find-file
@@ -222,7 +234,6 @@
  php-mode
  describe-font
  jade-mode
- indent-whole-buffer
  column-number-mode
  discover-mode
  view-mode
@@ -418,7 +429,6 @@
  ses-mode
  show-all
  speedbar
- sql-mode
  srt-mode
  sws-mode
  tar-mode
@@ -509,7 +519,6 @@
  pcomplete
  perl-mode
  pike-mode
- prog-mode
  recompile
  ruby-mode
  sass-mode
@@ -981,26 +990,17 @@
  company-files
  company-gtags
  company-tempo
- company-xcode
- compile-defun
- conf-ppd-mode
- count-matches
- cperl-perldoc
- cycle-spacing
- decipher-mode
- delete-region
- delete-window
- denato-region
- describe-char
- describe-mode
- desktop-clear
- diminish-undo
- dired-do-copy
- dired-do-load
- dired-summary
- dired-tree-up
- dirtrack-mode
- disable-theme
+ avy-goto-word-or-subword-1
+ web-mode-fold-or-unfold
+ elpy-doc
+ elpy-disable
+ web-mode-buffer-indent
+ web-mode-element-rename
+ web-mode-toggle-current-element-highlight
+ js-gc
+ guiler
+ ag-mode
+ ivy-avy
 )
 
 ;; ----- smex-data -----
@@ -1010,7 +1010,7 @@
  (profiler-start . 6)
  (profiler-report . 12)
  (fundamental-mode . 1)
- (company-mode . 5)
+ (company-mode . 6)
  (ido-ubiquitous-mode . 4)
  (set-variable . 12)
  (tramp-bug . 2)
@@ -1019,10 +1019,10 @@
  (helm-mode . 2)
  (profiler-reset . 5)
  (profiler-stop . 3)
- (customize-group . 25)
+ (customize-group . 29)
  (set-frame-font-size . 89)
  (projectile-invalidate-cache . 6)
- (js-mode . 4)
+ (js-mode . 7)
  (shell . 3)
  (magit-stash . 4)
  (iy-go-to-char . 3)
@@ -1043,15 +1043,15 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 7)
+ (eww . 12)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
  (re-builder . 1)
  (indent-whole-buffer . 8)
- (json-mode . 2)
- (js2-mode . 17)
- (js2-mode-toggle-warnings-and-errors . 2)
+ (json-mode . 3)
+ (js2-mode . 23)
+ (js2-mode-toggle-warnings-and-errors . 6)
  (describe-face . 5)
  (js2r-log-this . 5)
  (js2-minor-mode . 1)
@@ -1067,7 +1067,7 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 11)
- (toggle-truncate-lines . 5)
+ (toggle-truncate-lines . 6)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
  (highlight-indentation-mode . 3)
@@ -1082,7 +1082,7 @@
  (direx:find-directory . 1)
  (diminish . 1)
  (eval-expression . 2)
- (package-install . 4)
+ (package-install . 5)
  (ediff-current-file . 1)
  (restclient-mode . 1)
  (view-mode . 2)
@@ -1093,7 +1093,7 @@
  (load-theme . 29)
  (column-number-mode . 1)
  (yas-describe-tables . 6)
- (web-mode . 11)
+ (web-mode . 13)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
  (describe-font . 1)
@@ -1102,8 +1102,8 @@
  (avy-goto-word-or-subword-1 . 3)
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
- (scss-mode . 7)
- (revert-buffer . 37)
+ (scss-mode . 9)
+ (revert-buffer . 42)
  (shell-backward-command . 1)
  (eshell . 13)
  (term . 3)
@@ -1112,7 +1112,7 @@
  (server-start . 2)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
- (db4go-toggle-productivity . 53)
+ (db4go-toggle-productivity . 63)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
  (describe-personal-keybindings . 3)
@@ -1147,8 +1147,8 @@
  (replace-regexp . 1)
  (my-create-header . 1)
  (org-mode . 4)
- (count-words . 5)
- (hs-minor-mode . 15)
+ (count-words . 7)
+ (hs-minor-mode . 28)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
@@ -1163,8 +1163,8 @@
  (swiper . 6)
  (my-goto-scratch-buffer . 6)
  (counsel-describe-function . 2)
- (eval-print-last-sexp . 10)
- (rename-file . 2)
+ (eval-print-last-sexp . 11)
+ (rename-file . 3)
  (helm-filtered-bookmarks . 1)
  (helm-do-ag . 1)
  (helm-c-yas-complete . 2)
@@ -1212,8 +1212,8 @@
  (yas-tryout-snippet . 1)
  (orgtbl-mode . 4)
  (magit-checkout . 1)
- (smex-major-mode-commands . 2)
- (flycheck-mode . 57)
+ (smex-major-mode-commands . 3)
+ (flycheck-mode . 61)
  (iimage-mode . 4)
  (turn-on-iimage-mode . 1)
  (ffap . 1)
@@ -1233,7 +1233,7 @@
  (shell-command-on-region . 1)
  (recover-this-file . 1)
  (html-mode . 1)
- (json-pretty-print . 2)
+ (json-pretty-print . 3)
  (prelude-github . 1)
  (flycheck-describe-checker . 2)
  (hs-hide-level . 20)
@@ -1257,9 +1257,9 @@
  (web-mode-element-rename . 1)
  (web-mode-toggle-current-element-highlight . 1)
  (web-mode-fold-or-unfold . 2)
- (web-mode-set-engine . 5)
+ (web-mode-set-engine . 6)
  (mc/insert-numbers . 1)
- (css-mode . 7)
+ (css-mode . 8)
  (shell-mode . 1)
  (web-mode-element-children-fold-or-unfold . 2)
  (org-show-block-all . 1)
@@ -1272,7 +1272,7 @@
  (diff-backup . 1)
  (flycheck-buffer . 1)
  (tide-rename-symbol . 1)
- (flycheck-verify-setup . 9)
+ (flycheck-verify-setup . 10)
  (toggle-window-split . 2)
  (eb-magit . 1)
  (neotree-projectile-action . 1)
@@ -1281,19 +1281,19 @@
  (indent-rigidly-block . 54)
  (set-fill-column . 1)
  (vc-dir . 2)
- (vc-mode-line . 1)
+ (vc-mode-line . 3)
  (js-doc-insert-tag . 1)
  (js-doc-insert-file-doc . 3)
  (js-doc-describe-tag . 2)
  (js-doc . 2)
  (js-doc-insert-function-doc . 5)
- (customize-variable . 2)
+ (customize-variable . 3)
  (help-go-back . 1)
  (flycheck-verify-checker . 1)
  (smooth-scrolling-mode . 1)
  (show-paren-mode . 3)
- (smartparens-mode . 1)
- (smartparens-strict-mode . 1)
+ (smartparens-mode . 2)
+ (smartparens-strict-mode . 2)
  (js2-refactor-mode . 1)
  (vimish-fold-mode . 1)
  (vimish-fold . 2)
@@ -1301,4 +1301,26 @@
  (vimish-fold-avy . 1)
  (js2-mark-defun . 2)
  (mark-defun . 1)
+ (vc-dir-mode . 2)
+ (magit-branch-spinoff . 2)
+ (sql-mode . 3)
+ (helm-mark-ring . 6)
+ (minimap-mode . 2)
+ (hs-minor-mode-menu . 1)
+ (js2-next-error . 1)
+ (re-search-forward . 8)
+ (json-mode-beautify . 1)
+ (sublimity-map-show . 1)
+ (sublimity-mode . 4)
+ (prog-mode . 2)
+ (web-mode-set-content-type . 1)
+ (prettify-symbols-mode . 2)
+ (global-prettify-symbols-mode . 1)
+ (comment-region . 1)
+ (sbt-mode . 1)
+ (ensime . 4)
+ (ensime-server-update . 1)
+ (scala-mode2 . 1)
+ (scala-mode . 2)
+ (ensime-mode . 2)
 )

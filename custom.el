@@ -26,7 +26,7 @@
    (quote
     (ada-gnat asciidoc c/c++-clang c/c++-gcc c/c++-cppcheck cfengine chef-foodcritic coffee coffee-coffeelint coq css-csslint d-dmd emacs-lisp emacs-lisp-checkdoc erlang eruby-erubis fortran-gfortran go-gofmt go-golint go-vet go-build go-test go-errcheck groovy haml handlebars haskell-stack-ghc haskell-ghc haskell-hlint html-tidy jade javascript-jscs json-jsonlint json-python-json less luacheck lua perl perl-perlcritic php php-phpmd php-phpcs processing puppet-parser puppet-lint python-flake8 python-pylint python-pycompile r-lintr rpm-rpmlint rst-sphinx rst ruby-rubocop ruby-rubylint ruby ruby-jruby rust-cargo rust sass scala scala-scalastyle scss-lint scss sh-bash sh-posix-dash sh-posix-bash sh-zsh sh-shellcheck slim sql-sqlint tex-chktex tex-lacheck texinfo verilog-verilator xml-xmlstarlet xml-xmllint yaml-jsyaml yaml-ruby typescript-tide)))
  '(flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
- '(flycheck-idle-change-delay 0.1)
+ '(flycheck-idle-change-delay 0.5)
  '(helm-ag-base-command "ag")
  '(helm-ag-command-option
    "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
@@ -57,6 +57,8 @@
  '(magit-use-overlays nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control)))))
  '(neo-theme (quote nerd))
+ '(neo-window-fixed-size nil)
+ '(neo-window-width 35)
  '(org-agenda-files
    (quote
     ("/Users/davidb/org/todo.org" "/Users/davidb/org/projects/google-cloud-platform.org" "/Users/davidb/org/projects/console-early-birds.org" "/Users/davidb/org/loadbalancer.org" "/Users/davidb/org/google_meeting.org")))
@@ -64,7 +66,7 @@
  '(org-imenu-depth 4)
  '(package-selected-packages
    (quote
-    (vimish-fold helm-descbinds js-doc tide zenburn-theme yaml-mode workgroups2 window-numbering window-number wgrep-helm wgrep-ag web-mode w3m tern-auto-complete tabbar sws-mode sublime-themes spaceline solarized-theme smooth-scrolling smex smartparens smart-mode-line slime skewer-mode shorten shackle scss-mode sass-mode restclient req-package rainbow-mode rainbow-delimiters python-environment project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit lui love-minor-mode leuven-theme lcs lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode hydra highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme counsel company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe cider busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
+    (sublimity minimap vimish-fold helm-descbinds js-doc tide zenburn-theme yaml-mode workgroups2 window-numbering window-number wgrep-helm wgrep-ag web-mode w3m tern-auto-complete tabbar sws-mode sublime-themes spaceline solarized-theme smooth-scrolling smex smartparens smart-mode-line slime skewer-mode shorten shackle scss-mode sass-mode restclient req-package rainbow-mode rainbow-delimiters python-environment project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit lui love-minor-mode leuven-theme lcs lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode hydra highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme counsel company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe cider busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
  '(pe/directory-tree-function (quote pe/get-directory-tree-async))
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories

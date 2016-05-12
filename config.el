@@ -862,11 +862,27 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (vimish-fold-global-mode 1)
   )
 
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+
 (use-package scala-mode2
-  :ensure t)
+  :ensure t
+  :interpreter ("scala" . scala-mode)
+  )
 
 (use-package ensime
-  :ensure t)
+  :ensure t
+  :commands ensime ensime-mode
+  )
+
+(use-package sbt-mode
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map))
 
 (defun count-lines-function ()
   "count number of lines and characters beetwen matched parenthesis"
@@ -1052,6 +1068,9 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
       (delete-frame)))
 (add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
 
+;; Sometimes hideshow doesn't work in js2-mode, so I go back to js-mode
+(add-hook 'js-mode-hook #'hs-minor-mode)
+
 (use-package js2-mode
   :mode "\\.js\\'"
   :config
@@ -1231,27 +1250,52 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (add-hook 'web-mode-hook  'my-web-mode-hook)
   )
 
+;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
+
+(use-package hideshow
+  :config
+  (defun hs-mouse-toggle-hiding (e)
+    "Toggle hiding/showing of a block.
+This command should be bound to a mouse key.
+Argument E is a mouse event used by `mouse-set-point'.
+See `hs-hide-block' and `hs-show-block'."
+    (interactive "@e")
+    (hs-life-goes-on
+     (mouse-set-point e)
+     ;; Move backward one char so we don't need to click on the open bracket
+     (save-excursion
+       (unless (hs-looking-at-block-start-p)
+         (backward-char 1))
+       (hs-toggle-hiding))))
+
+
+
+  (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
+  (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
+  (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
+  (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
+  (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
+  (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
+  (bind-key "<S-mouse-1>" 'hs-mouse-toggle-hiding hs-minor-mode-map)
+  (bind-key "<down-mouse-1>" nil hs-minor-mode-map)
+
+  (defun hs-hide-global-level (level)
+    (interactive)
+    (save-excursion
+      (goto-char (point-max))
+      (hs-hide-level level)))
+
+  (bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
+  (bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
+  (bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
+  (bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
+  (bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
+  (bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
+  )
+
+(set-default 'truncate-lines t)
+
 (setq scroll-margin 5)
-
-(bind-key "C--" 'hs-hide-block hs-minor-mode-map)
-(bind-key "C-=" 'hs-show-block hs-minor-mode-map)
-(bind-key "M--" 'hs-hide-all hs-minor-mode-map)
-(bind-key "M-=" 'hs-show-all hs-minor-mode-map)
-(bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
-
-
-(defun hs-hide-global-level (level)
-  (interactive)
-  (save-excursion
-    (goto-char (point-max))
-    (hs-hide-level level)))
-
-(bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
-(bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
-(bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
-(bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
-(bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
-(bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
 
 ;; (bind-key "s-h" 'mark-paragraph)
 
@@ -1663,6 +1707,13 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (bind-key [mouse-5] 'mouse-down-and-locate)
 (bind-key [mouse-4] 'mouse-up-and-locate)
 
+(defadvice show-paren-function (after my-echo-paren-matching-line activate)
+  "If a matching paren is off-screen, echo the matching line."
+  (when (char-equal (char-syntax (char-before (point))) ?\))
+    (let ((matching-text (blink-matching-open)))
+      (when matching-text
+        (message matching-text)))))
+
 (defun set-frame-font-size (size)
   (interactive "nSize:")
   (set-face-attribute 'default (selected-frame) :height size)
@@ -1685,6 +1736,19 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (setq linum-format " %2d ")
 
 (load-theme 'material)
+
+;;;;;;;;;;;;;;;;;;
+;; Font lock speed
+;;;;;;;;;;;;;;;;;;
+
+(setq font-lock-support-mode 'jit-lock-mode)
+(setq jit-lock-stealth-time
+      16
+      jit-lock-defer-contextually nil
+      jit-lock-stealth-nice 0.5
+      jit-lock-defer-time 0.05)
+
+(setq font-lock-maximum-decoration 0)
 
 ;; key bindings
 (when (eq system-type 'darwin) ;; mac specific settings
