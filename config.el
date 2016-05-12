@@ -11,8 +11,13 @@
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
 
+(defun set-frame-font-size (size)
+  (interactive "nSize:")
+  (set-face-attribute 'default (selected-frame) :height size)
+  )
+
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
-(require 'macro)
+(require 'macro) ;; elisp/macro.js is a file created by save-macro, where it saves macros (duh)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Save Macro Function
@@ -1672,11 +1677,6 @@ See `hs-hide-block' and `hs-show-block'."
     (let ((matching-text (blink-matching-open)))
       (when matching-text
         (message matching-text)))))
-
-(defun set-frame-font-size (size)
-  (interactive "nSize:")
-  (set-face-attribute 'default (selected-frame) :height size)
-  )
 
 ;; Show indentation
 ;; Nice scrolling

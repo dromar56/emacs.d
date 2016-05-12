@@ -33,8 +33,8 @@
  '(helm-always-two-windows nil)
  '(helm-boring-buffer-regexp-list
    (quote
-    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
- '(helm-buffer-max-length 30)
+    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")) t)
+ '(helm-buffer-max-length 30 t)
  '(helm-candidate-number-limit 100)
  '(helm-descbinds-window-style (quote split-window))
  '(helm-projectile-sources-list
@@ -46,7 +46,7 @@
  '(helm-yas-not-display-dups t)
  '(hl-paren-colors
    (quote
-    ("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))
+    ("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")) t)
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])
@@ -87,7 +87,7 @@
  '(scss-compile-at-save nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(smex-history-length 1000)
+ '(smex-history-length 1000 t)
  '(sp-hybrid-kill-excessive-whitespace nil)
  '(sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
  '(sp-show-pair-from-inside t)

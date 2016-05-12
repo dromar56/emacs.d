@@ -23,11 +23,18 @@
      (package-initialize)
    #+end_src
 * Elisp code
-** Macro
+** set-frame-font-size
+#+begin_src emacs-lisp :tangle yes
+    (defun set-frame-font-size (size)
+      (interactive "nSize:")
+      (set-face-attribute 'default (selected-frame) :height size)
+      )
+#+end_src
+** save-macro
   #+begin_src emacs-lisp
 
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
-(require 'macro)
+(require 'macro) ;; elisp/macro.js is a file created by save-macro, where it saves macros (duh)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Save Macro Function
@@ -1904,11 +1911,6 @@
 * Appearance
 ** Misc
   #+begin_src emacs-lisp
-    (defun set-frame-font-size (size)
-      (interactive "nSize:")
-      (set-face-attribute 'default (selected-frame) :height size)
-      )
-
     ;; Show indentation
     ;; Nice scrolling
     (setq scroll-margin 0
