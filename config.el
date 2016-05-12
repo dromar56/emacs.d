@@ -11,6 +11,105 @@
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
 
+(add-to-list 'load-path (concat user-emacs-directory "elisp"))
+(require 'macro)
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Save Macro Function
+;;;;;;;;;;;;;;;;;;;;;;
+
+(defun save-macro (name)
+  "save a macro. Take a name as argument
+     and save the last defined macro under
+     this name at the end of init-macro.el"
+  (interactive "SName of the macro :")  ; ask for the name of the macro
+  (kmacro-name-last-macro name)         ; use this name for the macro
+  (find-file (concat user-emacs-directory "elisp/macro.el"))            ; open ~/.emacs or other user init file
+  (goto-char (point-min))               ; go to the end of the .emacs
+  (insert-kbd-macro name)               ; copy the macro
+  (newline)                             ; insert a newline
+  (newline)                             ; insert a newline
+  (newline)                             ; insert a newline
+  (switch-to-buffer nil))               ; return to the initial buffer
+
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+
+(defun unpop-to-mark-command ()
+  "Unpop off mark ring. Does nothing if mark ring is empty."
+  (interactive)
+  (when mark-ring
+    (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+    (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
+    (when (null (mark t)) (ding))
+    (setq mark-ring (nbutlast mark-ring))
+    (goto-char (marker-position (car (last mark-ring))))))
+
+(defun narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows
+   intelligently.  Intelligently means: region, org-src-block,
+   org-subtree, or defun, whichever applies first.  Narrowing to
+   org-src-block actually calls `org-edit-src-code'.
+
+   With prefix P, don't widen, just narrow even if buffer is already
+   narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((and (boundp 'org-src-mode) org-src-mode (not p))
+         (org-edit-src-exit))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode)
+         (cond ((ignore-errors (org-edit-src-code))
+                (delete-other-windows))
+               ((org-at-block-p)
+                (org-narrow-to-block))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'prog-mode) (narrow-to-defun))
+        (t (error "Please select a region to narrow to"))))
+
+(defun db4go-toggle-productivity ()
+  (interactive)
+  (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
+    (let (beg)
+      (goto-char (point-min))
+      (search-forward-regexp "^#PRODUCTIVITY")
+      (setq beg (point))
+      (search-forward-regexp "^#END_PRODUCTIVITY")
+      (beginning-of-line)
+      (comment-or-uncomment-region beg (point)))
+    (save-buffer))
+  (message "Productivity toggled"))
+
+(defun db-read-with-eww ()
+  (interactive)
+  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
+    (write-region nil nil temp-file)
+    (eww-open-file temp-file)))
+
 (if (fboundp 'with-eval-after-load)
     (defmacro after (feature &rest body)
       "After FEATUR. i. loaded, evaluate BODY."
@@ -124,107 +223,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (interactive)
   (name-last-kbd-macro 'my-last-macro)
   (insert-kbd-macro 'my-last-macro))
-
-(add-to-list 'load-path (concat user-emacs-directory "elisp"))
-(require 'macro)
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Save Macro Function
-;;;;;;;;;;;;;;;;;;;;;;
-
-(defun save-macro (name)
-  "save a macro. Take a name as argument
-     and save the last defined macro under
-     this name at the end of init-macro.el"
-  (interactive "SName of the macro :")  ; ask for the name of the macro
-  (kmacro-name-last-macro name)         ; use this name for the macro
-  (find-file (concat user-emacs-directory "elisp/macro.el"))            ; open ~/.emacs or other user init file
-  (goto-char (point-min))               ; go to the end of the .emacs
-  (insert-kbd-macro name)               ; copy the macro
-  (newline)                             ; insert a newline
-  (newline)                             ; insert a newline
-  (newline)                             ; insert a newline
-  (switch-to-buffer nil))               ; return to the initial buffer
-
-(setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
-
-(defun toggle-window-split ()
-  (interactive)
-  (if (= (count-windows) 2)
-      (let* ((this-win-buffer (window-buffer))
-             (next-win-buffer (window-buffer (next-window)))
-             (this-win-edges (window-edges (selected-window)))
-             (next-win-edges (window-edges (next-window)))
-             (this-win-2nd (not (and (<= (car this-win-edges)
-                                         (car next-win-edges))
-                                     (<= (cadr this-win-edges)
-                                         (cadr next-win-edges)))))
-             (splitter
-              (if (= (car this-win-edges)
-                     (car (window-edges (next-window))))
-                  'split-window-horizontally
-                'split-window-vertically)))
-        (delete-other-windows)
-        (let ((first-win (selected-window)))
-          (funcall splitter)
-          (if this-win-2nd (other-window 1))
-          (set-window-buffer (selected-window) this-win-buffer)
-          (set-window-buffer (next-window) next-win-buffer)
-          (select-window first-win)
-          (if this-win-2nd (other-window 1))))))
-
-(defun unpop-to-mark-command ()
-  "Unpop off mark ring. Does nothing if mark ring is empty."
-  (interactive)
-  (when mark-ring
-    (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
-    (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
-    (when (null (mark t)) (ding))
-    (setq mark-ring (nbutlast mark-ring))
-    (goto-char (marker-position (car (last mark-ring))))))
-
-(defun narrow-or-widen-dwim (p)
-  "If the buffer is narrowed, it widens. Otherwise, it narrows
-   intelligently.  Intelligently means: region, org-src-block,
-   org-subtree, or defun, whichever applies first.  Narrowing to
-   org-src-block actually calls `org-edit-src-code'.
-
-   With prefix P, don't widen, just narrow even if buffer is already
-   narrowed."
-  (interactive "P")
-  (declare (interactive-only))
-  (cond ((and (buffer-narrowed-p) (not p)) (widen))
-        ((and (boundp 'org-src-mode) org-src-mode (not p))
-         (org-edit-src-exit))
-        ((region-active-p)
-         (narrow-to-region (region-beginning) (region-end)))
-        ((derived-mode-p 'org-mode)
-         (cond ((ignore-errors (org-edit-src-code))
-                (delete-other-windows))
-               ((org-at-block-p)
-                (org-narrow-to-block))
-               (t (org-narrow-to-subtree))))
-        ((derived-mode-p 'prog-mode) (narrow-to-defun))
-        (t (error "Please select a region to narrow to"))))
-
-(defun db4go-toggle-productivity ()
-  (interactive)
-  (with-current-buffer (find-file-noselect "/sudo:root@localhost:/etc/hosts")
-    (let (beg)
-      (goto-char (point-min))
-      (search-forward-regexp "^#PRODUCTIVITY")
-      (setq beg (point))
-      (search-forward-regexp "^#END_PRODUCTIVITY")
-      (beginning-of-line)
-      (comment-or-uncomment-region beg (point)))
-    (save-buffer))
-  (message "Productivity toggled"))
-
-(defun db-read-with-eww ()
-  (interactive)
-  (let ((temp-file (make-temp-file "epub-to-eww" nil ".html")))
-    (write-region nil nil temp-file)
-    (eww-open-file temp-file)))
 
 (defun indent-rigidly-block ()
   (interactive "")
@@ -1045,7 +1043,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 ;;         ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
 ;;          "* %?\nEntered on %U\n  %x\n  %a")))
 
-
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Todo")
          "* TODO %?\n  %a\n  %i")
@@ -1108,46 +1105,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
   (define-key js2-mode-map "@" 'js-doc-insert-tag)
   )
-
-;; (setq js-doc-mail-address "your email address"
-;;        js-doc-author (format "your name <%s>" js-doc-mail-address)
-;;        js-doc-url "url of your website"
-;;        js-doc-license "license name")
-
-
-
-;; SLIME - SWANK-JS
-;; (require 'slime)
-;; (autoload 'slime "slime" "Slime" t)
-
-;; (ignore-errors
-;;   (slime-setup '(slime-js2 slime-repl))
-;;   (add-hook 'js2-mode-hook
-;;             (lambda ()
-;;               (slime-js-minor-mode 1)))
-;;   (add-hook 'css-mode-hook
-;;             (lambda ()
-;;               (define-key css-mode-map "\M-\C-x" 'slime-js-refresh-css)
-;;               (define-key css-mode-map "\C-c\C-r" 'slime-js-embed-css))))
-
-
-;;SWANK-JS MODE IS FUCKING AWESOME
-;; (bind-key [f5] 'slime-js-reload)
-
-;; ;; SKEWER
-;; (add-hook 'js2-mode-hook 'skewer-mode)
-;; (add-hook 'css-mode-hook 'skewer-css-mode)
-;; (add-hook 'html-mode-hook 'skewer-html-mode)
-
-;; TERN
-;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;; (eval-after-load 'tern
-;;   '(progn
-;;      (require 'tern-auto-complete)
-;;      ;; (tern-ac-setup)
-;;      (define-key tern-mode-keymap (kbd "C-o") 'tern-ac-complete)
-;;      ))
 
 (use-package tide
   :ensure t
@@ -1249,6 +1206,8 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
     )
   (add-hook 'web-mode-hook  'my-web-mode-hook)
   )
+
+(setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 
 ;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
 
@@ -1765,10 +1724,6 @@ See `hs-hide-block' and `hs-show-block'."
    ))
 
 (define-key  emacs-lisp-mode-map (kbd "C-M-x") nil)
-
-;; (bind-key "C-f" 'forward-char)
-;; (bind-key "C-b" 'backward-char)
-;; (bind-key "C-j" 'newline-and-indent)
 
 (defun eb-magit ()
   (interactive "")
