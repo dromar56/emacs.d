@@ -17,5 +17,6 @@
 
 (require 'org)
 (require 'use-package)
+(setq use-package-always-ensure t)
 (load-file (expand-file-name "~/.emacs.d/config.el"))
 (put 'upcase-region 'disabled nil)
