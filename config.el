@@ -585,24 +585,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
              ("C-c TAB" . yas-insert-snippet ))
   )
 
-(if (fboundp 'global-prettify-symbols-mode)
-    (progn
-      (global-prettify-symbols-mode)
-      (add-hook 'js2-mode-hook
-                (lambda ()
-                  (push '("function" . 955) prettify-symbols-alist)
-                  (push '("return" . 8592) prettify-symbols-alist))))
-
-  (progn
-    (use-package pretty-symbols :ensure t :pin melpa)
-    (diminish 'pretty-symbols-mode)
-    (add-to-list 'pretty-symbol-categories 'js)
-    (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
-    (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
-    (add-hook 'find-file-hook 'pretty-symbols-mode)))
-
-(use-package indent-guide :ensure t)
-
 (use-package anzu
   :ensure t
   :bind (("M-%" . anzu-query-replace)
@@ -690,71 +672,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
   (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package smartparens
-  :ensure t
-  :config
-
-  (setq sp-show-pair-delay 0)
-  (setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
-
-  (setq sp-autoescape-string-quote nil)
-  (setq sp-autoinsert-if-followed-by-same 1)
-  (setq sp-highlight-pair-overlay nil)
-
-  (sp-use-smartparens-bindings)
-  (smartparens-global-mode t)
-  (smartparens-global-strict-mode nil)
-
-  (show-smartparens-global-mode t)
-  (show-paren-mode 1)
-
-  (sp-pair "`" nil :actions :rem)
-
-  (sp-with-modes sp--lisp-modes
-    (sp-local-pair "'" nil :actions nil)
-    )
-
-  (define-key sp-keymap (kbd "M-<right>") 'sp-forward-slurp-sexp)
-  (define-key sp-keymap (kbd "M-<left>") 'sp-forward-barf-sexp)
-  (define-key sp-keymap (kbd "C-<right>") 'nil)
-  (define-key sp-keymap (kbd "C-<left>") 'nil)
-  ;; (define-key sp-keymap "`" 'nil)
-  ;; (define-key sp-keymap 96 'nil)
-
-  ;; (define-key smartparens-strict-mode-map [remap kill-line] 'nil)
-  ;; (define-key smartparens-strict-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
-  (define-key smartparens-strict-mode-map [remap kill-line] 'sp-kill-hybrid-sexp)
-
-  ;; fix conflict where smartparens clobbers yas' key bindings
-  (after 'yasnippet
-    (defadvice yas-expand (before advice-for-yas-expand activate)
-      (sp-remove-active-pair-overlay)))
-
-  (defadvice sp-kill-hybrid-sexp (before kill-line-cleanup-whitespace activate)
-    "cleanup whitespace on sp-kill-hybrid-sexp"
-    (if (bolp)
-        (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
-
-  (customize-set-variable 'sp-hybrid-kill-excessive-whitespace nil)
-  (customize-set-variable 'sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
-  (customize-set-variable 'sp-show-pair-from-inside t)
-  (customize-set-variable 'sp-successive-kill-preserve-whitespace 2)
-
-)
-
-;;==========
-;; Undo tree
-;;==========
-
-(use-package undo-tree :ensure t)
-(require 'undo-tree)
-(global-undo-tree-mode)
-;; Unmap 'C-x r' to avoid conflict with discover
-(after 'undo-tree
-  (define-key undo-tree-map (kbd "C-x r") nil))
-
-(define-key undo-tree-map (kbd "C-/") 'nil)
-
 (use-package flycheck :ensure t)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -822,29 +739,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   :config
   (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
   (shackle-mode t)
-  )
-
-(use-package highlight-parentheses
-  :ensure t
-  :defer t
-  :pin melpa
-  :init
-  (add-hook 'prog-mode-hook #'highlight-parentheses-mode)
-  (setq hl-paren-delay 0.2)
-
-  (setq hl-paren-background-colors '("Springgreen4"
-                                     "IndianRed1"
-                                     "IndianRed4"))
-  (setq hl-paren-background-colors '())
-
-
-  (setq hl-paren-colors '("white" "light gray"))
-  (setq hl-paren-colors '())
-
-  (setq hl-paren-colors '("Springgreen3"
-                                     "IndianRed1"
-                                     "IndianRed4"))
-
   )
 
 (use-package smooth-scrolling
@@ -953,7 +847,8 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (bind-key "<f2>" 'org-edit-special org-mode-map)
   (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
   (bind-key "\C-cl" 'org-store-link)
-  (bind-key "\C-ca" 'org-agenda))
+  (bind-key "\C-ca" 'org-agenda)
+)
 
 (setq org-log-done t)
 
@@ -992,6 +887,17 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
     (insert "#+end_src")))
 
 (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+
+(defun org-babel-execute:mongo (body params)
+  "org-babel mongo hook."
+  (let* ((db (or (cdr (assoc :db params))
+                                 "core.early-birds:27017/earlybirds"))
+                 (cmd (mapconcat 'identity (list "mongo" "--quiet" db) " ")))
+        (org-babel-eval cmd body)))
+
+
+(eval-after-load "org"
+  '(add-to-list 'org-src-lang-modes '("mongo" . js2)))
 
 (setq org-agenda-files '("~/org"))
 (load-library "find-lisp")
@@ -1670,13 +1576,6 @@ See `hs-hide-block' and `hs-show-block'."
 ;; (bind-key "<M-down>" 'down-and-locate)
 (bind-key [mouse-5] 'mouse-down-and-locate)
 (bind-key [mouse-4] 'mouse-up-and-locate)
-
-(defadvice show-paren-function (after my-echo-paren-matching-line activate)
-  "If a matching paren is off-screen, echo the matching line."
-  (when (char-equal (char-syntax (char-before (point))) ?\))
-    (let ((matching-text (blink-matching-open)))
-      (when matching-text
-        (message matching-text)))))
 
 ;; Show indentation
 ;; Nice scrolling

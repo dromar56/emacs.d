@@ -1,5 +1,5 @@
 #+TLE: David's Emacs Configuration
-#+STARTUP: showblocks
+#+STARTUP: hideblocks
 #+PROPERTY: header-args :tangle yes
 
 * Initialisation
@@ -1091,66 +1091,78 @@
 *** Setup
     #+begin_src emacs-lisp
 
-      (use-package org
-        :config
-        (bind-key "<f2>" 'org-edit-special org-mode-map)
-        (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
-        (bind-key "\C-cl" 'org-store-link)
-        (bind-key "\C-ca" 'org-agenda))
+            (use-package org
+              :config
+              (bind-key "<f2>" 'org-edit-special org-mode-map)
+              (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
+              (bind-key "\C-cl" 'org-store-link)
+              (bind-key "\C-ca" 'org-agenda)
+            )
 
-      (setq org-log-done t)
+            (setq org-log-done t)
 
-      (setq org-tag-alist nil)
+            (setq org-tag-alist nil)
 
-      ;; (bind-key "<C-S-right>" 'helm-occur)
+            ;; (bind-key "<C-S-right>" 'helm-occur)
 
-      (eval-after-load "org"
-        '(progn
-           (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-           (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-           ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-           ;; (define-key org-mode-map (kbd "<C-left>") nil)
-           ;; (define-key org-mode-map (kbd "<C-right>") nil)
-           (define-key org-mode-map (kbd "M-<down>") 'nil)
-           (define-key org-mode-map (kbd "M-<up>") 'nil)))
+            (eval-after-load "org"
+              '(progn
+                 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+                 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+                 ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+                 ;; (define-key org-mode-map (kbd "<C-left>") nil)
+                 ;; (define-key org-mode-map (kbd "<C-right>") nil)
+                 (define-key org-mode-map (kbd "M-<down>") 'nil)
+                 (define-key org-mode-map (kbd "M-<up>") 'nil)))
 
-      (setq org-src-fontify-natively t)
-      (setq org-src-tab-acts-natively t)
+            (setq org-src-fontify-natively t)
+            (setq org-src-tab-acts-natively t)
 
-      (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+            (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
 
-      (setq org-main-file "~/org/notes.org")
-      (setq org-directory "~/org")
+            (setq org-main-file "~/org/notes.org")
+            (setq org-directory "~/org")
 
-      (defun org-insert-elisp-block (name beg end)
-        (interactive "sName:\nr")
-        (org-insert-heading-after-current)
-        (save-excursion
-          (insert name "\n")
-          (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-          (if (region-active-p)
-              (progn
-                (kill-region beg end)
-                (yank)))
-          (insert "#+end_src")))
+            (defun org-insert-elisp-block (name beg end)
+              (interactive "sName:\nr")
+              (org-insert-heading-after-current)
+              (save-excursion
+                (insert name "\n")
+                (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+                (if (region-active-p)
+                    (progn
+                      (kill-region beg end)
+                      (yank)))
+                (insert "#+end_src")))
 
-      (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
-
+            (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
     #+end_src
+*** Org Babel mongo
+#+begin_src emacs-lisp :tangle yes
+  (defun org-babel-execute:mongo (body params)
+    "org-babel mongo hook."
+    (let* ((db (or (cdr (assoc :db params))
+                                   "core.early-birds:27017/earlybirds"))
+                   (cmd (mapconcat 'identity (list "mongo" "--quiet" db) " ")))
+          (org-babel-eval cmd body)))
 
+
+  (eval-after-load "org"
+    '(add-to-list 'org-src-lang-modes '("mongo" . js2)))
+#+end_src
 *** Org agenda
     Main org file which will be added to the agenda and where notes will be captured (using C-c c).
     #+begin_src emacs-lisp :tangle yes
-      (setq org-agenda-files '("~/org"))
-(load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
+            (setq org-agenda-files '("~/org"))
+      (load-library "find-lisp")
+      (setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
 
-      ;; (setq org-agenda-files (list org-main-file))
+            ;; (setq org-agenda-files (list org-main-file))
 #+end_src
 
 *** Org capture
-    #+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle yes
       (setq org-default-notes-file org-main-file)
       (define-key global-map (kbd "C-c c") 'org-capture)
       (define-key global-map (kbd "s-t") 'org-capture)
@@ -1899,7 +1911,7 @@
    (global-unset-key k))
 #+end_src
 
-** Show off-screen matching parenthesis
+** COMMENT Show off-screen matching parenthesis
 #+begin_src emacs-lisp :tangle yes
   (defadvice show-paren-function (after my-echo-paren-matching-line activate)
     "If a matching paren is off-screen, echo the matching line."
