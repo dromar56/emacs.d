@@ -751,14 +751,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (setq scroll-margin 5)
   )
 
-(use-package vimish-fold
-  :ensure t
-  :pin melpa
-  :bind ()
-  :config
-  (vimish-fold-global-mode 1)
-  )
-
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
 (use-package scala-mode2

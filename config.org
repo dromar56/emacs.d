@@ -640,7 +640,7 @@
 
 #+end_src
 
-** Pretty symbols
+** COMMENT Pretty symbols
 #+begin_src emacs-lisp :tangle yes
   (if (fboundp 'global-prettify-symbols-mode)
       (progn
@@ -659,7 +659,7 @@
       (add-hook 'find-file-hook 'pretty-symbols-mode)))
 #+end_src
 
-** Indent Guide
+** COMMENT Indent Guide
 #+begin_src emacs-lisp :tangle yes
     (use-package indent-guide :ensure t)
 #+end_src
@@ -834,7 +834,7 @@
 
 #+end_src
 
-** Undo-tree
+** COMMENT Undo-tree
    #+begin_src emacs-lisp :tangle yes
      ;;==========
      ;; Undo tree
@@ -939,7 +939,7 @@
     (shackle-mode t)
     )
 #+end_src
-** Highlight Parenthesis
+** COMMENT Highlight Parenthesis
 #+begin_src emacs-lisp :tangle yes
   (use-package highlight-parentheses
     :ensure t
@@ -978,7 +978,7 @@
     )
 
 #+end_src
-** Vimish fold
+** COMMENT Vimish fold
 #+begin_src emacs-lisp :tangle yes
   (use-package vimish-fold
     :ensure t

@@ -1,13 +1,28 @@
 
 ;; ----- smex-history -----
 (
+ org-babel-execute-src-block
+ eww
+ org-babel-execute-buffer
+ yas-minor-mode
+ revert-buffer
+ toggle-truncate-lines
+ org-hide-block-all
+ company-mode
+ org-copy
+ js2-mode
+ eww-back-url
+ count-words
+ org-show-block-all
+ json-mode-beautify
+ whitespace-cleanup
+ css-mode
  customize-group
  ensime-mode
  scala-mode
  flycheck-mode
  flycheck-verify-setup
  ensime
- revert-buffer
  db4go-toggle-productivity
  comment-region
  rename-file
@@ -15,22 +30,15 @@
  smartparens-mode
  global-prettify-symbols-mode
  prettify-symbols-mode
- company-mode
  scss-mode
- eww
- css-mode
  web-mode-set-content-type
  web-mode-set-engine
  web-mode
- js2-mode
  hs-minor-mode
  prog-mode
  sublimity-mode
- toggle-truncate-lines
  magit-branch-spinoff
  smex-major-mode-commands
- count-words
- json-mode-beautify
  json-pretty-print
  json-mode
  re-search-forward
@@ -93,7 +101,6 @@
  ibuffer
  lisp-mode
  tide-goto-reference
- org-show-block-all
  web-mode-element-children-fold-or-unfold
  info-emacs-manual
  conf-mode
@@ -416,7 +423,6 @@
  mh-smail
  msb-mode
  nslookup
- org-copy
  org-goto
  org-info
  org-sort
@@ -995,12 +1001,6 @@
  elpy-doc
  elpy-disable
  web-mode-buffer-indent
- web-mode-element-rename
- web-mode-toggle-current-element-highlight
- js-gc
- guiler
- ag-mode
- ivy-avy
 )
 
 ;; ----- smex-data -----
@@ -1010,7 +1010,7 @@
  (profiler-start . 6)
  (profiler-report . 12)
  (fundamental-mode . 1)
- (company-mode . 6)
+ (company-mode . 7)
  (ido-ubiquitous-mode . 4)
  (set-variable . 12)
  (tramp-bug . 2)
@@ -1043,14 +1043,14 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 12)
+ (eww . 21)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 3)
- (js2-mode . 23)
+ (js2-mode . 24)
  (js2-mode-toggle-warnings-and-errors . 6)
  (describe-face . 5)
  (js2r-log-this . 5)
@@ -1067,7 +1067,7 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 11)
- (toggle-truncate-lines . 6)
+ (toggle-truncate-lines . 12)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
  (highlight-indentation-mode . 3)
@@ -1103,7 +1103,7 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 9)
- (revert-buffer . 42)
+ (revert-buffer . 45)
  (shell-backward-command . 1)
  (eshell . 13)
  (term . 3)
@@ -1147,7 +1147,7 @@
  (replace-regexp . 1)
  (my-create-header . 1)
  (org-mode . 4)
- (count-words . 7)
+ (count-words . 8)
  (hs-minor-mode . 28)
  (hide-body . 1)
  (tern-get-docs . 3)
@@ -1259,10 +1259,10 @@
  (web-mode-fold-or-unfold . 2)
  (web-mode-set-engine . 6)
  (mc/insert-numbers . 1)
- (css-mode . 8)
+ (css-mode . 9)
  (shell-mode . 1)
  (web-mode-element-children-fold-or-unfold . 2)
- (org-show-block-all . 1)
+ (org-show-block-all . 3)
  (tide-goto-reference . 1)
  (lisp-mode . 1)
  (emacs-lisp-mode . 2)
@@ -1309,7 +1309,7 @@
  (hs-minor-mode-menu . 1)
  (js2-next-error . 1)
  (re-search-forward . 8)
- (json-mode-beautify . 1)
+ (json-mode-beautify . 3)
  (sublimity-map-show . 1)
  (sublimity-mode . 4)
  (prog-mode . 2)
@@ -1323,4 +1323,11 @@
  (scala-mode2 . 1)
  (scala-mode . 2)
  (ensime-mode . 2)
+ (whitespace-cleanup . 2)
+ (eww-back-url . 1)
+ (org-copy . 1)
+ (org-hide-block-all . 1)
+ (yas-minor-mode . 1)
+ (org-babel-execute-buffer . 3)
+ (org-babel-execute-src-block . 2)
 )
