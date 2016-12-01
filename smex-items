@@ -1,55 +1,95 @@
 
 ;; ----- smex-history -----
 (
- org-babel-execute-src-block
+ text-mode
+ fundamental-mode
+ customize-group
+ magit-discard
+ magit-revert
+ package-list-packages
+ json-mode-beautify
+ magit-find-file-other-window
+ magit-log-buffer-file
+ scroll-down
+ server-start
+ magit-blame
+ magit-status
+ emacs-version
+ ensime
+ ensime-mode
+ revert-buffer
+ prelude-github
+ org-mode
+ org-table-convert-region
+ orgtbl-mode
+ csv-mode
+ package-install
+ count-words
+ diff-buffer-with-file
+ ediff-current-file
+ projectile-remove-known-project
+ helm-projectile-switch-project
+ css-mode
+ visual-line-mode
+ tern-mode
+ flycheck-mode
+ company-mode
+ hs-minor-mode
+ helm-occur
+ set-frame-font-size
+ toggle-truncate-lines
+ goto-char
+ json-mode
+ db4go-toggle-productivity
+ shell-script-mode
+ js2-mode
+ my-projectile-multi-occur
+ align-regexp
+ read-only-mode
+ sql-mode
+ avy-goto-char
+ indent-guide-mode
+ highlight-indentation-mode
+ whitespace-mode
+ tern-find-definition
+ replace-regexp
  eww
+ json-pretty-print
+ whitespace-cleanup
+ jscs-fix
+ sublimity-mode
+ minimap-mode
+ follow-mode
+ toggle-frame-fullscreen
+ highlight-changes-mode
+ compile
+ describe-personal-keybindings
+ org-babel-execute-src-block
  org-babel-execute-buffer
  yas-minor-mode
- revert-buffer
- toggle-truncate-lines
  org-hide-block-all
- company-mode
  org-copy
- js2-mode
- eww-back-url
- count-words
  org-show-block-all
- json-mode-beautify
- whitespace-cleanup
- css-mode
- customize-group
- ensime-mode
  scala-mode
- flycheck-mode
  flycheck-verify-setup
- ensime
- db4go-toggle-productivity
  comment-region
  rename-file
  smartparens-strict-mode
  smartparens-mode
  global-prettify-symbols-mode
  prettify-symbols-mode
- scss-mode
  web-mode-set-content-type
  web-mode-set-engine
  web-mode
- hs-minor-mode
  prog-mode
- sublimity-mode
  magit-branch-spinoff
  smex-major-mode-commands
- json-pretty-print
- json-mode
  re-search-forward
  js-mode
  customize-variable
  hs-minor-mode-menu
- minimap-mode
- package-install
  helm-mark-ring
  eval-print-last-sexp
- sql-mode
  vc-mode-line
  vimish-fold-delete-all
  vimish-fold
@@ -68,7 +108,6 @@
  smooth-scrolling-mode
  flycheck-verify-checker
  help-go-back
- magit-blame
  js-doc-insert-function-doc
  js-doc-insert-file-doc
  js-doc-describe-tag
@@ -76,15 +115,12 @@
  vc-dir
  profiler-start
  eshell
- visual-line-mode
  set-fill-column
  indent-rigidly-block
  mark-paragraph
  eval-defun
  emacs-lisp-mode
- text-mode
  mc/insert-letters
- tern-find-definition
  neotree-projectile-action
  magit-fetch-all
  toggle-window-split
@@ -94,10 +130,7 @@
  flycheck-buffer
  flycheck-info
  tide-restart-server
- package-list-packages
- diff-buffer-with-file
  diff-backup
- highlight-changes-mode
  ibuffer
  lisp-mode
  tide-goto-reference
@@ -105,7 +138,6 @@
  info-emacs-manual
  conf-mode
  js2-jsx-mode
- shell-script-mode
  shell-mode
  term
  pop-global-mark
@@ -113,24 +145,18 @@
  mc/insert-numbers
  neotree-find
  neotree-toggle
- emacs-version
  magit-version
- compile
- highlight-indentation-mode
  python-mode
  hs-show-all
  hl-line-mode
  helm-global-mark-ring
  find-function
- align-regexp
  html-mode
  recover-this-file
  shell-command-on-region
  helm-M-x
- orgtbl-mode
  org-toggle-pretty-entities
  org-table-create
- org-mode
  lacarte-execute-menu-command
  projectile-invalidate-cache
  neotree
@@ -160,7 +186,6 @@
  helm-yas-all-complete-or-create
  describe-face
  counsel-find-file
- helm-describe-helm-attribute
  helm-documentation
  ediff-buffers
  er/mark-defun
@@ -197,7 +222,6 @@
  helm-yas-visit-snippet-file
  helm-do-ag
  helm-filtered-bookmarks
- describe-personal-keybindings
  counsel-describe-function
  projectile-find-file
  counsel-ag
@@ -209,7 +233,6 @@
  tern-get-docs
  hide-body
  my-create-header
- replace-regexp
  toggle-input-method
  describe-variable
  proced
@@ -221,8 +244,6 @@
  rainbow-delimiters-mode
  rainbow-mode
  execute-extended-command
- undo-tree-visualizer-mode
- magit-status
  magit-log
  describe-minor-mode-from-symbol
  list-packages
@@ -232,7 +253,6 @@
  view-lossage
  org-babel-open-src-block-result
  tramp-cleanup-all-connections
- server-start
  flycheck-next-error
  shell-backward-command
  avy-goto-char-2
@@ -245,7 +265,6 @@
  discover-mode
  view-mode
  restclient-mode
- ediff-current-file
  diminish
  capitalize-region
  helm-spaces
@@ -271,7 +290,6 @@
  tramp-bug
  helm-mode
  projectile-mode
- fundamental-mode
  org-export-dispatch
  cd
  5x5
@@ -479,7 +497,6 @@
  find-file
  find-grep
  full-calc
- goto-char
  goto-line
  grep-find
  grep-mode
@@ -535,7 +552,6 @@
  solitaire
  sql-mysql
  sql-solid
- tern-mode
  texi2info
  todo-mode
  todo-show
@@ -589,7 +605,6 @@
  gnus-slave
  hanoi-unix
  helm-imenu
- helm-occur
  helm-swoop
  hide-entry
  hide-other
@@ -647,9 +662,6 @@
  slime-mode
  sort-lines
  sort-pages
- sp-comment
- sp-newline
- sp-up-sexp
  split-line
  sql-ingres
  sql-linter
@@ -716,7 +728,6 @@
  first-error
  flush-lines
  focus-frame
- follow-mode
  fringe-mode
  helm-colors
  helm-locate
@@ -775,7 +786,6 @@
  rmail-input
  run-at-time
  scheme-mode
- scroll-down
  scroll-left
  serial-term
  server-mode
@@ -935,13 +945,6 @@
  smerge-ediff
  snippet-mode
  sort-columns
- sp-copy-sexp
- sp-down-sexp
- sp-emit-sexp
- sp-join-sexp
- sp-kill-sexp
- sp-kill-word
- sp-next-sexp
  special-mode
  sql-informix
  sql-postgres
@@ -998,19 +1001,16 @@
  company-tempo
  avy-goto-word-or-subword-1
  web-mode-fold-or-unfold
- elpy-doc
- elpy-disable
- web-mode-buffer-indent
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 7)
+ (visual-line-mode . 12)
  (org-export-dispatch . 2)
  (profiler-start . 6)
  (profiler-report . 12)
- (fundamental-mode . 1)
- (company-mode . 7)
+ (fundamental-mode . 5)
+ (company-mode . 9)
  (ido-ubiquitous-mode . 4)
  (set-variable . 12)
  (tramp-bug . 2)
@@ -1019,8 +1019,8 @@
  (helm-mode . 2)
  (profiler-reset . 5)
  (profiler-stop . 3)
- (customize-group . 29)
- (set-frame-font-size . 89)
+ (customize-group . 33)
+ (set-frame-font-size . 94)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 3)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 13)
+ (package-list-packages . 16)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1043,14 +1043,14 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 21)
+ (eww . 34)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
  (re-builder . 1)
  (indent-whole-buffer . 8)
- (json-mode . 3)
- (js2-mode . 24)
+ (json-mode . 5)
+ (js2-mode . 28)
  (js2-mode-toggle-warnings-and-errors . 6)
  (describe-face . 5)
  (js2r-log-this . 5)
@@ -1059,18 +1059,18 @@
  (js2-mode-hide-functions . 3)
  (js2-mode-show-all . 1)
  (js2-mode-display-warnings-and-errors . 1)
- (tern-find-definition . 8)
+ (tern-find-definition . 12)
  (menu-bar-mode . 3)
  (tool-bar-mode . 2)
  (delete-trailing-whitespace . 1)
  (js2-mode-hide-element . 1)
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
- (align-regexp . 11)
- (toggle-truncate-lines . 12)
+ (align-regexp . 22)
+ (toggle-truncate-lines . 19)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
- (highlight-indentation-mode . 3)
+ (highlight-indentation-mode . 5)
  (highlight-indentation-current-column-mode . 2)
  (magit-refresh . 1)
  (make-directory . 1)
@@ -1082,8 +1082,8 @@
  (direx:find-directory . 1)
  (diminish . 1)
  (eval-expression . 2)
- (package-install . 5)
- (ediff-current-file . 1)
+ (package-install . 6)
+ (ediff-current-file . 4)
  (restclient-mode . 1)
  (view-mode . 2)
  (js2r-introduce-parameter . 2)
@@ -1097,29 +1097,29 @@
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
  (describe-font . 1)
- (diff-buffer-with-file . 5)
+ (diff-buffer-with-file . 9)
  (avy-goto-subword-1 . 3)
  (avy-goto-word-or-subword-1 . 3)
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
- (scss-mode . 9)
- (revert-buffer . 45)
+ (scss-mode . 10)
+ (revert-buffer . 58)
  (shell-backward-command . 1)
  (eshell . 13)
  (term . 3)
  (flycheck-next-error . 3)
  (sp-switch-space . 1)
- (server-start . 2)
+ (server-start . 7)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
- (db4go-toggle-productivity . 63)
+ (db4go-toggle-productivity . 80)
  (org-babel-open-src-block-result . 1)
  (view-lossage . 1)
- (describe-personal-keybindings . 3)
+ (describe-personal-keybindings . 4)
  (kill-buffer . 1)
  (save-buffer . 2)
  (list-packages . 1)
- (magit-status . 2)
+ (magit-status . 3)
  (spaceline-toggle-version-control . 4)
  (describe-minor-mode-from-symbol . 1)
  (spaceline-toggle-flycheck-info . 2)
@@ -1127,8 +1127,8 @@
  (magit-log . 1)
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
- (text-mode . 2)
- (magit-blame . 15)
+ (text-mode . 3)
+ (magit-blame . 30)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1144,11 +1144,11 @@
  (subword-mode . 3)
  (projectile-find-dir . 3)
  (toggle-input-method . 1)
- (replace-regexp . 1)
+ (replace-regexp . 3)
  (my-create-header . 1)
- (org-mode . 4)
- (count-words . 8)
- (hs-minor-mode . 28)
+ (org-mode . 5)
+ (count-words . 14)
+ (hs-minor-mode . 29)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
@@ -1210,10 +1210,10 @@
  (eval-defun . 29)
  (helm-yas-all-complete-or-create . 1)
  (yas-tryout-snippet . 1)
- (orgtbl-mode . 4)
+ (orgtbl-mode . 6)
  (magit-checkout . 1)
  (smex-major-mode-commands . 3)
- (flycheck-mode . 61)
+ (flycheck-mode . 63)
  (iimage-mode . 4)
  (turn-on-iimage-mode . 1)
  (ffap . 1)
@@ -1233,8 +1233,8 @@
  (shell-command-on-region . 1)
  (recover-this-file . 1)
  (html-mode . 1)
- (json-pretty-print . 3)
- (prelude-github . 1)
+ (json-pretty-print . 4)
+ (prelude-github . 2)
  (flycheck-describe-checker . 2)
  (hs-hide-level . 20)
  (hs-hide-block . 3)
@@ -1244,12 +1244,12 @@
  (hl-line-mode . 1)
  (hs-show-all . 1)
  (hs-hide-all . 2)
- (shell-script-mode . 2)
+ (shell-script-mode . 4)
  (python-mode . 1)
- (compile . 2)
+ (compile . 3)
  (revert-all-buffers . 2)
  (magit-version . 1)
- (emacs-version . 1)
+ (emacs-version . 2)
  (magit-section-show-headings . 1)
  (magit-section-hide . 1)
  (neotree-toggle . 3)
@@ -1259,7 +1259,7 @@
  (web-mode-fold-or-unfold . 2)
  (web-mode-set-engine . 6)
  (mc/insert-numbers . 1)
- (css-mode . 9)
+ (css-mode . 13)
  (shell-mode . 1)
  (web-mode-element-children-fold-or-unfold . 2)
  (org-show-block-all . 3)
@@ -1267,7 +1267,7 @@
  (lisp-mode . 1)
  (emacs-lisp-mode . 2)
  (ibuffer . 1)
- (highlight-changes-mode . 4)
+ (highlight-changes-mode . 7)
  (tide-restart-server . 2)
  (diff-backup . 1)
  (flycheck-buffer . 1)
@@ -1303,31 +1303,59 @@
  (mark-defun . 1)
  (vc-dir-mode . 2)
  (magit-branch-spinoff . 2)
- (sql-mode . 3)
+ (sql-mode . 4)
  (helm-mark-ring . 6)
- (minimap-mode . 2)
+ (minimap-mode . 4)
  (hs-minor-mode-menu . 1)
  (js2-next-error . 1)
  (re-search-forward . 8)
- (json-mode-beautify . 3)
+ (json-mode-beautify . 13)
  (sublimity-map-show . 1)
- (sublimity-mode . 4)
+ (sublimity-mode . 8)
  (prog-mode . 2)
  (web-mode-set-content-type . 1)
  (prettify-symbols-mode . 2)
  (global-prettify-symbols-mode . 1)
  (comment-region . 1)
  (sbt-mode . 1)
- (ensime . 4)
+ (ensime . 6)
  (ensime-server-update . 1)
  (scala-mode2 . 1)
  (scala-mode . 2)
- (ensime-mode . 2)
- (whitespace-cleanup . 2)
- (eww-back-url . 1)
+ (ensime-mode . 4)
+ (whitespace-cleanup . 3)
+ (eww-back-url . 3)
  (org-copy . 1)
  (org-hide-block-all . 1)
  (yas-minor-mode . 1)
  (org-babel-execute-buffer . 3)
  (org-babel-execute-src-block . 2)
+ (magit-diff-buffer-file-popup . 2)
+ (toggle-frame-fullscreen . 2)
+ (follow-mode . 2)
+ (jscs-fix . 7)
+ (eww-reload . 1)
+ (eww-history-mode . 1)
+ (whitespace-mode . 2)
+ (indent-guide-mode . 1)
+ (avy-goto-char . 1)
+ (read-only-mode . 1)
+ (my-projectile-multi-occur . 1)
+ (helm-occur . 4)
+ (helm-projectile-switch-project . 4)
+ (goto-char . 1)
+ (tern-mode . 3)
+ (projectile-remove-known-project . 1)
+ (csv-mode . 2)
+ (csv-align-fields . 1)
+ (csv-yank-as-new-table . 2)
+ (csv-forward-field . 1)
+ (csv-unalign-fields . 1)
+ (org-table-convert-region . 3)
+ (ensime-reload . 1)
+ (scroll-down . 1)
+ (magit-log-buffer-file . 3)
+ (magit-find-file-other-window . 1)
+ (magit-revert . 1)
+ (magit-discard . 1)
 )

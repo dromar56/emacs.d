@@ -613,6 +613,16 @@
      "Pop mark")
     ("." unpop-to-mark-command "Unpop mark"))
 
+  (defhydra hydra-resize (global-map "C-x")
+    "Resize window"
+    
+    ("<left>" shrink-window-horizontally "horizontal shrink")
+    ("<right>" enlarge-window-horizontally "horizontal enlarge")
+    ("<up>" enlarge-window "enlarge")
+    ("<down>" shrink-window "shrink")
+  )
+
+
 #+end_src
 ** Avy
 #+begin_src emacs-lisp :tangle yes
@@ -834,7 +844,7 @@
 
 #+end_src
 
-** COMMENT Undo-tree
+** Undo-tree
    #+begin_src emacs-lisp :tangle yes
      ;;==========
      ;; Undo tree
@@ -939,6 +949,28 @@
     (shackle-mode t)
     )
 #+end_src
+** Shackles
+#+begin_src emacs-lisp :tangle yes
+  (use-package eyebrowse
+    :ensure t
+    :bind (("M-0" . eyebrowse-switch-to-window-config-0)
+           ("M-1" . eyebrowse-switch-to-window-config-1)
+           ("M-2" . eyebrowse-switch-to-window-config-2)
+           ("M-3" . eyebrowse-switch-to-window-config-3)
+           ("M-4" . eyebrowse-switch-to-window-config-4)
+           ("M-5" . eyebrowse-switch-to-window-config-5)
+           ("M-6" . eyebrowse-switch-to-window-config-6)
+           ("M-7" . eyebrowse-switch-to-window-config-7)
+           ("M-8" . eyebrowse-switch-to-window-config-8)
+           ("M-9" . eyebrowse-switch-to-window-config-9)
+           )
+
+    :pin melpa
+    :config
+    (add-to-list 'window-persistent-parameters '(window-side . writable))
+    (add-to-list 'window-persistent-parameters '(window-slot . writable))
+    )
+#+end_src
 ** COMMENT Highlight Parenthesis
 #+begin_src emacs-lisp :tangle yes
   (use-package highlight-parentheses
@@ -986,6 +1018,13 @@
     :bind ()
     :config
     (vimish-fold-global-mode 1)
+    )
+
+#+end_src
+** tscs
+#+begin_src emacs-lisp :tangle yes
+  (use-package jscs
+    :ensure t
     )
 
 #+end_src
@@ -1059,6 +1098,9 @@
 
      (require 'jade-mode)
      (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+
+     (require 'jade-mode)
+     (add-to-list 'auto-mode-alist '("\\.pug$" . jade-mode))
 
 
      (add-hook 'jade-mode-hook 'enable-indent-guide)
@@ -1260,7 +1302,7 @@
 
        (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
        (add-hook 'js2-mode-hook #'hs-minor-mode)
-       (add-hook 'js2-mode-hook #'eldoc-mode)
+       ;; (add-hook 'js2-mode-hook #'eldoc-mode)
        (add-hook 'js2-mode-hook #'subword-mode)
 
        (use-package js2-refactor
@@ -1497,11 +1539,11 @@
 
   (setq save-interprogram-paste-before-kill t)
 
-  (setq bookmark-saved-flag 1)
+  (setq bookmark-save-flag 1)
 
   (setq suggest-key-binding 5)
 
-  (window-numbering-mode t)
+  ;; (window-numbering-mode t)
 
   (setq help-window-select t)
 
@@ -1811,10 +1853,10 @@
     ; (bind-key "C-x C-<down>"    'windmove-down)
     ; (bind-key "C-x C-<up>"      'windmove-up)
 
-    (bind-key "C-x <left>"      'shrink-window-horizontally)
-    (bind-key "C-x <right>"     'enlarge-window-horizontally)
-    (bind-key "C-x <up>"        'enlarge-window)
-    (bind-key "C-x <down>"      'shrink-window)
+    ;; (bind-key "C-x <left>"      'shrink-window-horizontally)
+    ;; (bind-key "C-x <right>"     'enlarge-window-horizontally)
+    ;; (bind-key "C-x <up>"        'enlarge-window)
+    ;; (bind-key "C-x <down>"      'shrink-window)
 
     ;; (bind-key "M-<right>" 'other-window)
     ;; (bind-key "M-<left>" '(lambda (&optional n)

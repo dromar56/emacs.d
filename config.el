@@ -565,6 +565,15 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
    "Pop mark")
   ("." unpop-to-mark-command "Unpop mark"))
 
+(defhydra hydra-resize (global-map "C-x")
+  "Resize window"
+  
+  ("<left>" shrink-window-horizontally "horizontal shrink")
+  ("<right>" enlarge-window-horizontally "horizontal enlarge")
+  ("<up>" enlarge-window "enlarge")
+  ("<down>" shrink-window "shrink")
+)
+
 (use-package avy
   :ensure t
   :bind ("M-c" . avy-goto-char-2)
@@ -672,6 +681,71 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
   (add-hook 'after-init-hook 'global-company-mode))
 
+(use-package smartparens
+  :ensure t
+  :config
+
+  (setq sp-show-pair-delay 0)
+  (setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
+
+  (setq sp-autoescape-string-quote nil)
+  (setq sp-autoinsert-if-followed-by-same 1)
+  (setq sp-highlight-pair-overlay nil)
+
+  (sp-use-smartparens-bindings)
+  (smartparens-global-mode t)
+  (smartparens-global-strict-mode nil)
+
+  (show-smartparens-global-mode t)
+  (show-paren-mode 1)
+
+  (sp-pair "`" nil :actions :rem)
+
+  (sp-with-modes sp--lisp-modes
+    (sp-local-pair "'" nil :actions nil)
+    )
+
+  (define-key sp-keymap (kbd "M-<right>") 'sp-forward-slurp-sexp)
+  (define-key sp-keymap (kbd "M-<left>") 'sp-forward-barf-sexp)
+  (define-key sp-keymap (kbd "C-<right>") 'nil)
+  (define-key sp-keymap (kbd "C-<left>") 'nil)
+  ;; (define-key sp-keymap "`" 'nil)
+  ;; (define-key sp-keymap 96 'nil)
+
+  ;; (define-key smartparens-strict-mode-map [remap kill-line] 'nil)
+  ;; (define-key smartparens-strict-mode-map (kbd "M-k") 'sp-kill-hybrid-sexp)
+  (define-key smartparens-strict-mode-map [remap kill-line] 'sp-kill-hybrid-sexp)
+
+  ;; fix conflict where smartparens clobbers yas' key bindings
+  (after 'yasnippet
+    (defadvice yas-expand (before advice-for-yas-expand activate)
+      (sp-remove-active-pair-overlay)))
+
+  (defadvice sp-kill-hybrid-sexp (before kill-line-cleanup-whitespace activate)
+    "cleanup whitespace on sp-kill-hybrid-sexp"
+    (if (bolp)
+        (delete-region (point) (progn (skip-chars-forward " \t") (point)))))
+
+  (customize-set-variable 'sp-hybrid-kill-excessive-whitespace nil)
+  (customize-set-variable 'sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
+  (customize-set-variable 'sp-show-pair-from-inside t)
+  (customize-set-variable 'sp-successive-kill-preserve-whitespace 2)
+
+)
+
+;;==========
+;; Undo tree
+;;==========
+
+(use-package undo-tree :ensure t)
+(require 'undo-tree)
+(global-undo-tree-mode)
+;; Unmap 'C-x r' to avoid conflict with discover
+(after 'undo-tree
+  (define-key undo-tree-map (kbd "C-x r") nil))
+
+(define-key undo-tree-map (kbd "C-/") 'nil)
+
 (use-package flycheck :ensure t)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -741,6 +815,26 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (shackle-mode t)
   )
 
+(use-package eyebrowse
+  :ensure t
+  :bind (("M-0" . eyebrowse-switch-to-window-config-0)
+         ("M-1" . eyebrowse-switch-to-window-config-1)
+         ("M-2" . eyebrowse-switch-to-window-config-2)
+         ("M-3" . eyebrowse-switch-to-window-config-3)
+         ("M-4" . eyebrowse-switch-to-window-config-4)
+         ("M-5" . eyebrowse-switch-to-window-config-5)
+         ("M-6" . eyebrowse-switch-to-window-config-6)
+         ("M-7" . eyebrowse-switch-to-window-config-7)
+         ("M-8" . eyebrowse-switch-to-window-config-8)
+         ("M-9" . eyebrowse-switch-to-window-config-9)
+         )
+
+  :pin melpa
+  :config
+  (add-to-list 'window-persistent-parameters '(window-side . writable))
+  (add-to-list 'window-persistent-parameters '(window-slot . writable))
+  )
+
 (use-package smooth-scrolling
   :ensure t
   :init (setq smooth-scroll-margin 5
@@ -749,6 +843,10 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
               auto-window-vscroll nil)
   :config
   (setq scroll-margin 5)
+  )
+
+(use-package jscs
+  :ensure t
   )
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
@@ -807,6 +905,9 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
 (require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.pug$" . jade-mode))
 
 
 (add-hook 'jade-mode-hook 'enable-indent-guide)
@@ -983,7 +1084,7 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
   (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
   (add-hook 'js2-mode-hook #'hs-minor-mode)
-  (add-hook 'js2-mode-hook #'eldoc-mode)
+  ;; (add-hook 'js2-mode-hook #'eldoc-mode)
   (add-hook 'js2-mode-hook #'subword-mode)
 
   (use-package js2-refactor
@@ -1181,11 +1282,11 @@ See `hs-hide-block' and `hs-show-block'."
 
 (setq save-interprogram-paste-before-kill t)
 
-(setq bookmark-saved-flag 1)
+(setq bookmark-save-flag 1)
 
 (setq suggest-key-binding 5)
 
-(window-numbering-mode t)
+;; (window-numbering-mode t)
 
 (setq help-window-select t)
 
@@ -1484,10 +1585,10 @@ See `hs-hide-block' and `hs-show-block'."
 ; (bind-key "C-x C-<down>"    'windmove-down)
 ; (bind-key "C-x C-<up>"      'windmove-up)
 
-(bind-key "C-x <left>"      'shrink-window-horizontally)
-(bind-key "C-x <right>"     'enlarge-window-horizontally)
-(bind-key "C-x <up>"        'enlarge-window)
-(bind-key "C-x <down>"      'shrink-window)
+;; (bind-key "C-x <left>"      'shrink-window-horizontally)
+;; (bind-key "C-x <right>"     'enlarge-window-horizontally)
+;; (bind-key "C-x <up>"        'enlarge-window)
+;; (bind-key "C-x <down>"      'shrink-window)
 
 ;; (bind-key "M-<right>" 'other-window)
 ;; (bind-key "M-<left>" '(lambda (&optional n)
