@@ -263,6 +263,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (bind-key "C-x TAB" 'indent-rigidly-block)
 
+(after "dired" 
+  (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle))
+
 (ido-mode t)
 (ido-ubiquitous-mode t)
 (ido-vertical-mode t)
@@ -752,6 +755,13 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
 (customize-set-variable 'flycheck-idle-change-delay 0.5)
 
+(use-package flycheck-pos-tip :ensure t)
+
+
+
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
+
 ;; For a cleaner modeline
 (use-package diminish :ensure t)
 (diminish 'visual-line-mode)
@@ -1084,8 +1094,8 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
   (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
   (add-hook 'js2-mode-hook #'hs-minor-mode)
-  ;; (add-hook 'js2-mode-hook #'eldoc-mode)
   (add-hook 'js2-mode-hook #'subword-mode)
+  ;; (add-hook 'js2-mode-hook #'eldoc-mode)
 
   (use-package js2-refactor
     :config
@@ -1114,13 +1124,18 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   :ensure t
   :config
 
+  (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
+
   ;; sample config
   (add-hook 'typescript-mode-hook
             (lambda ()
               (tide-setup)
               (flycheck-mode +1)
               ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
-              (eldoc-mode +1)
+              ;; (eldoc-mode +1)
+              (hs-minor-mode t)
+              (subword-mode t)
+
               ;; company is an optional dependency. You have to
               ;; install it separately via package-install
               (company-mode-on)))
@@ -1156,39 +1171,77 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (autoload 'php-mode "php-mode.el" "Php mode." t)
 (setq auto-mode-alist (append '(("/*.\.php[345]?$" . php-mode)) auto-mode-alist))
 
-;; (require 'elpy nil t)
+(use-package python
+  :mode ("\\.py" . python-mode)
+  :config
+  (use-package elpy
+    :init
+    (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+    :config
+    (setq elpy-rpc-backend "jedi")
+    ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+    ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
+    :bind (:map elpy-mode-map
+              ("M-." . elpy-goto-definition)
+              ("M-," . pop-tag-mark)))
+  (elpy-enable))
 
-(elpy-enable)
-(elpy-use-ipython "ipython3")
-;; (elpy-clean-modeline)
+(use-package pip-requirements
+  :config
+  (add-hook 'pip-requirements-mode-hook #'pip-requirements-auto-complete-setup))
 
-(defun elpy-use-python3 (args)
-  (elpy-use-ipython "ipython3")
-  (interactive "P")
-  )
+(use-package py-autopep8)
 
-(setq elpy-rpc-backend "jedi")
 
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)                ; optional
+(use-package pyenv-mode
+  :init
+  (add-to-list 'exec-path "~/.pyenv/shims")
+  (setenv "WORKON_HOME" "~/.pyenv/versions/")
+  :config
+  (pyenv-mode)
+  :bind
+  ("C-x p e" . pyenv-activate-current-project))
 
-;; Ignoring electric indentation
-(defun electric-indent-ignore-python (char)
-  "Ignore electric indentation for python-mode"
-  (if (equal major-mode 'python-mode)
-      `no-indent'
-    nil))
-(add-hook 'electric-indent-functions 'electric-indent-ignore-python)
+(defun pyenv-init()
+  (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
+  (message (concat "Setting pyenv version to " global-pyenv))
+  (pyenv-mode-set global-pyenv)
+  (defvar pyenv-current-version nil global-pyenv))
 
-(define-key elpy-mode-map (kbd "<C-down>") 'nil)
-(define-key elpy-mode-map (kbd "<C-up>") 'nil)
-(define-key elpy-mode-map (kbd "<M-up>") 'nil)
-(define-key elpy-mode-map (kbd "<M-down>") 'nil)
+(defun pyenv-activate-current-project ()
+  "Automatically activates pyenv version if .python-version file exists."
+  (interactive)
+  (f-traverse-upwards
+   (lambda (path)
+     (message path)
+     (let ((pyenv-version-path (f-expand ".python-version" path)))
+       (if (f-exists? pyenv-version-path)
+          (progn
+            (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
+            (pyenv-mode-set pyenv-current-version)
+            (pyvenv-workon pyenv-current-version)
+            (message (concat "Setting virtualenv to " pyenv-current-version))))))))
 
-;; Fix yasnippet indentation in python-mode
-(add-hook 'python-mode-hook
-   '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
-      (company-mode -1)))
+(add-hook 'after-init-hook 'pyenv-init)
+(add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
+
+;; ;; Ignoring electric indentation
+;; (defun electric-indent-ignore-python (char)
+;;   "Ignore electric indentation for python-mode"
+;;   (if (equal major-mode 'python-mode)
+;;       `no-indent'
+;;     nil))
+;; (add-hook 'electric-indent-functions 'electric-indent-ignore-python)
+
+;; (define-key elpy-mode-map (kbd "<C-down>") 'nil)
+;; (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+;; (define-key elpy-mode-map (kbd "<M-up>") 'nil)
+;; (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+
+;; ;; Fix yasnippet indentation in python-mode
+;; (add-hook 'python-mode-hook
+;;    '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
+;;       (company-mode -1)))
 
 (use-package web-mode
   :mode (("\\.phtml\\'" . web-mode)
@@ -1526,6 +1579,8 @@ See `hs-hide-block' and `hs-show-block'."
           (eshell-send-input))
       (message (concat "Eshell buffer " eshell-buffer " not found")))))
 (bind-key "C-c e" 'db-execute-last-eshell-command)
+
+(bind-key "M-r" 'repeat-complex-command)
 
 (bind-key "<home>" 'beginning-of-buffer)
 (bind-key "<end>" 'end-of-buffer)
