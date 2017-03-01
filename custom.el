@@ -11,7 +11,7 @@
  '(avy-highlight-first t)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
- '(company-dabbrev-char-regexp "[a-zA-Z0-9-_]" t)
+ '(company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
  '(company-selection-wrap-around t)
  '(css-indent-offset 2)
  '(custom-safe-themes
@@ -36,8 +36,8 @@
  '(helm-always-two-windows nil)
  '(helm-boring-buffer-regexp-list
    (quote
-    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")) t)
- '(helm-buffer-max-length 30 t)
+    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+ '(helm-buffer-max-length 30)
  '(helm-candidate-number-limit 100)
  '(helm-descbinds-window-style (quote split-window))
  '(helm-projectile-sources-list
@@ -58,13 +58,12 @@
  '(js2-mode-show-parse-errors nil)
  '(js2-mode-show-strict-warnings nil)
  '(magit-use-overlays nil)
+ '(mode-require-final-newline nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control)))))
  '(neo-theme (quote nerd))
  '(neo-window-fixed-size nil)
  '(neo-window-width 35)
- '(org-agenda-files
-   (quote
-    ("/Users/davidb/org/todo.org" "/Users/davidb/org/projects/google-cloud-platform.org" "/Users/davidb/org/projects/console-early-birds.org" "/Users/davidb/org/loadbalancer.org" "/Users/davidb/org/google_meeting.org")))
+ '(org-agenda-files nil)
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(org-imenu-depth 4)
  '(package-selected-packages
@@ -92,7 +91,7 @@
  '(scss-compile-at-save nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(smex-history-length 1000 t)
+ '(smex-history-length 1000)
  '(sp-hybrid-kill-excessive-whitespace nil)
  '(sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
  '(sp-show-pair-from-inside t)

@@ -1215,6 +1215,9 @@
             ;; (setq org-agenda-files (list org-main-file))
 #+end_src
 
+    #+RESULTS:
+    | /home/dromar/org/projects/google-cloud-platform.org | /home/dromar/org/projects/console-early-birds.org | /home/dromar/org/stats.org | /home/dromar/org/eb.org | /home/dromar/org/todo.org | /home/dromar/org/misc.org | /home/dromar/org/formation-google-jun-2016.org |
+
 *** Org capture
 #+begin_src emacs-lisp :tangle yes
       (setq org-default-notes-file org-main-file)
@@ -2206,26 +2209,26 @@
     ;;     (magit-status-internal (concat "~/projects/vagrant.early-birds/projects/" name ".early-birds"))))
 
     (magit-status-internal "~/projects/vagrant.early-birds/projects/cdn.early-birds")
-    (magit-status-internal "~/projects/vagrant.early-birds/projects/core.early-birds")
-    (magit-status-internal "~/projects/vagrant.early-birds/projects/api.early-birds")
+    (magit-status-internal "~/projects/corev2")
+    (magit-status-internal "~/projects/apiv2")
     (magit-status-internal "~/projects/vagrant.early-birds/projects/console.early-birds")
 
     (with-current-buffer "*magit: cdn.early-birds" (magit-fetch-all-no-prune))
-    (with-current-buffer "*magit: core.early-birds" (magit-fetch-all-no-prune))
-    (with-current-buffer "*magit: api.early-birds" (magit-fetch-all-no-prune))
+    (with-current-buffer "*magit: corev2" (magit-fetch-all-no-prune))
+    (with-current-buffer "*magit: apiv2" (magit-fetch-all-no-prune))
     (with-current-buffer "*magit: console.early-birds" (magit-fetch-all-no-prune))
 
     (delete-other-windows-internal)
-    (switch-to-buffer "*magit: api.early-birds")
+    (switch-to-buffer "*magit: apiv2")
     (split-window-right)
     (split-window-below)
     (windmove-down)
     (switch-to-buffer "*magit: console.early-birds")
     (windmove-right)
-    (switch-to-buffer "*magit: core.early-birds")
-    (split-window-below)
-    (windmove-down)
-    (switch-to-buffer "*magit: cdn.early-birds")
+    (switch-to-buffer "*magit: corev2")
+    ; (split-window-below)
+    ; (windmove-down)
+    ; (switch-to-buffer "*magit: cdn.early-birds")
   )
 
   (bind-key "C-x G" 'eb-magit)

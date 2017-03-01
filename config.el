@@ -1179,6 +1179,11 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
     :config
     (setq elpy-rpc-backend "jedi")
+    (define-key elpy-mode-map (kbd "<C-down>") 'nil)
+    (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+    (define-key elpy-mode-map (kbd "<M-up>") 'nil)
+    (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+
     ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
     ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
     :bind (:map elpy-mode-map
@@ -1233,10 +1238,6 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 ;;     nil))
 ;; (add-hook 'electric-indent-functions 'electric-indent-ignore-python)
 
-;; (define-key elpy-mode-map (kbd "<C-down>") 'nil)
-;; (define-key elpy-mode-map (kbd "<C-up>") 'nil)
-;; (define-key elpy-mode-map (kbd "<M-up>") 'nil)
-;; (define-key elpy-mode-map (kbd "<M-down>") 'nil)
 
 ;; ;; Fix yasnippet indentation in python-mode
 ;; (add-hook 'python-mode-hook
@@ -1780,26 +1781,26 @@ See `hs-hide-block' and `hs-show-block'."
   ;;     (magit-status-internal (concat "~/projects/vagrant.early-birds/projects/" name ".early-birds"))))
 
   (magit-status-internal "~/projects/vagrant.early-birds/projects/cdn.early-birds")
-  (magit-status-internal "~/projects/vagrant.early-birds/projects/core.early-birds")
-  (magit-status-internal "~/projects/vagrant.early-birds/projects/api.early-birds")
+  (magit-status-internal "~/projects/corev2")
+  (magit-status-internal "~/projects/apiv2")
   (magit-status-internal "~/projects/vagrant.early-birds/projects/console.early-birds")
 
   (with-current-buffer "*magit: cdn.early-birds" (magit-fetch-all-no-prune))
-  (with-current-buffer "*magit: core.early-birds" (magit-fetch-all-no-prune))
-  (with-current-buffer "*magit: api.early-birds" (magit-fetch-all-no-prune))
+  (with-current-buffer "*magit: corev2" (magit-fetch-all-no-prune))
+  (with-current-buffer "*magit: apiv2" (magit-fetch-all-no-prune))
   (with-current-buffer "*magit: console.early-birds" (magit-fetch-all-no-prune))
 
   (delete-other-windows-internal)
-  (switch-to-buffer "*magit: api.early-birds")
+  (switch-to-buffer "*magit: apiv2")
   (split-window-right)
   (split-window-below)
   (windmove-down)
   (switch-to-buffer "*magit: console.early-birds")
   (windmove-right)
-  (switch-to-buffer "*magit: core.early-birds")
-  (split-window-below)
-  (windmove-down)
-  (switch-to-buffer "*magit: cdn.early-birds")
+  (switch-to-buffer "*magit: corev2")
+  ; (split-window-below)
+  ; (windmove-down)
+  ; (switch-to-buffer "*magit: cdn.early-birds")
 )
 
 (bind-key "C-x G" 'eb-magit)

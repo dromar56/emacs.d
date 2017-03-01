@@ -1,6 +1,8 @@
 
 ;; ----- smex-history -----
 (
+ magit-blame
+ toggle-truncate-lines
  untabify
  hs-show-all
  json-mode
@@ -8,9 +10,7 @@
  tide-hl-identifier-mode
  restclient-mode
  vc-region-history
- magit-blame
  sort-lines
- toggle-truncate-lines
  end-of-buffer
  visual-line-mode
  shell
@@ -1067,7 +1067,7 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 22)
- (toggle-truncate-lines . 21)
+ (toggle-truncate-lines . 22)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
  (highlight-indentation-mode . 5)
@@ -1128,7 +1128,7 @@
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 3)
- (magit-blame . 34)
+ (magit-blame . 35)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)

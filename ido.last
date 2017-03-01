@@ -2,17 +2,20 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/ssh:api1:/opt/core.early-birds/" . "config/")
+ ("/ssh:api1:/opt/" . "core.early-birds/")
+ ("/ssh:api1:/" . "opt/")
  ("/home/dromar/.emacs.d/snippets/" . "python-mode/")
  ("/tmp/emacs.d/" . "elisp/")
  ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/shared/" . "components/")
  ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/" . "shared/")
- ("/home/dromar/projects/" . "coding-battle-01/")
+ ("/home/dromar/projects/" . "corev2/")
  ("/home/dromar/projects/corev2/src/core/models/item-original/" . "ItemOriginal/")
  ("/home/dromar/projects/apiv2/node_modules/koa/" . "lib/")
  ("/home/dromar/projects/apiv2/node_modules/" . "koa/")
  ("/home/dromar/projects/apiv2/src/" . "lib/")
  ("/home/dromar/.scripts/" . "rofi/")
- ("/home/dromar/projects/bigquery/streaming/" . "schemas/")
+ ("/home/dromar/projects/bigquery/streaming/" . "lib/")
  ("/home/dromar/projects/corev2/src/core/lib/CoreStats/" . "job/")
  ("/home/dromar/projects/corev2/dist/lib/" . "AbBucket/")
  ("/home/dromar/projects/corev2/dist/" . "lib/")
@@ -32,7 +35,7 @@
  ("/home/dromar/.emacs.d/elpa/" . "s-20160711.525/")
  ("/home/dromar/tmp/DevCenter/" . "configuration/")
  ("/home/dromar/projects/vagrant.early-birds/projects/api.early-birds/" . "config/")
- ("/home/dromar/projects/bigquery/" . "scripts/")
+ ("/home/dromar/projects/bigquery/" . "streaming/")
  ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/cli/" . "commands/")
  ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/" . "config/")
  ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/shared/components/" . "daterange/")
@@ -229,22 +232,33 @@
  ("/lstock/" . "backup/")
  ("/" . "etc/")
  ("/sudo:root@localhost:/" . "etc/")
- ("/home/dromar/" . ".emacs.d/")
+ ("/home/dromar/" . "org/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/dromar/org/"
+ "/home/dromar/projects/bigquery/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/product/show/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/product/template/edit/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/recommendation/rules/edit/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/tags/config/show/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/shared/assets/i18n/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/recommendation/widgets/config/"
+ "/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/dashboard/"
+ "/home/dromar/projects/apiv2/src/middleware/"
+ "/ssh:api1:/opt/core.early-birds/config/"
+ "/home/dromar/projects/corev2/config/"
+ "/home/dromar/projects/bigquery/streaming/lib/"
+ "/home/dromar/projects/bigquery/streaming/"
  "/home/dromar/.emacs.d/snippets/python-mode/"
- #("/tmp/" 1 4 (face flx-highlight-face))
+ "/tmp/"
  "/tmp/emacs.d/elisp/"
  "/tmp/emacs.d/"
  "/home/dromar/projects/corev2/src/core/lib/CoreStats/job/"
  "/home/dromar/projects/corev2/src/core/lib/CoreStats/"
- "/home/dromar/projects/corev2/config/"
  "/home/dromar/projects/"
- "/home/dromar/projects/bigquery/streaming/"
  "/home/dromar/projects/apiv2/src/lib/"
- "/home/dromar/projects/apiv2/src/middleware/"
  "/home/dromar/projects/corev2/src/lib/Request/"
  "/home/dromar/projects/apiv2/src/routers/public/"
  "/home/dromar/projects/apiv2/config/"
@@ -256,7 +270,6 @@
  "/home/dromar/.scripts/rofi/"
  "/home/dromar/projects/bigquery/streaming/schemas/"
  "/home/dromar/projects/bigquery/streaming/config/"
- "/home/dromar/projects/bigquery/"
  "/home/dromar/projects/apiv2/src/routers/private/user/"
  "/home/dromar/projects/corev2/"
  "/home/dromar/projects/corev2/src/core/lib/CoreLib/"
@@ -274,42 +287,82 @@
  "/home/dromar/.emacs.d/elpa/tide-20160722.534/tsserver/"
  "/home/dromar/projects/corev2/src/lib/Stats/job/"
  "/home/dromar/projects/corev2/src/lib/Stats/"
- "/home/dromar/"
- "/home/dromar/projects/corev2/src/core/models/location/Location/"
- "/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/job/pubsub/schemas/"
- "/home/dromar/.emacs.d/elpa/s-20160711.525/"
- "/home/dromar/tmp/bq_migrate/"
- "/home/dromar/tmp/export_excel/"
- "/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/job/"
- "/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/config/"
- "/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/job/mainjobs/"
- "/home/dromar/projects/bigquery/schemas/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- ".yas-setup.el"
- "test.py"
- "+~JF1233642538006740692.tmp"
- "lang-python.el"
- "base-theme.el"
- "base-extensions.el"
- "base.el"
- "init.el"
- "ema"
+ "eb.org"
+ ".ssh"
+ "show.ctrl.js"
+ "edit.ctrl.js"
+ "edit.scss"
+ "show.scss"
+ "edit.pug"
+ "locale-en.json"
+ "config.ctrl.js"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/home/dromar/org/" (22466 3364 230796 802000) "../" "projects/" "eb.org" "./" ".DS_Store" "todo.org" "misc.org" "formation-google-jun-2016.org")
+
+ ("/home/dromar/" (22700 43544 473341 945000) ".googleearth/" ".zcompdump-archlaptop-5.2" "../" ".kde4/" ".jshintrc" ".scripts/" ".httpie/" ".gem/" ".mplayer/" "Pictures/" ".gtkrc-2.0-kde4" "projects/" ".v8flags.5.1.281.88.dromar.json" "2016-09-28-154210_160x104_scrot.png" ".bash_profile" ".local/" ".scala_history" ".xfce4-session.verbose-log" ".Xresources~" ".mongorc.js" ".zsh_history" ".android/" "Desktop/" ".tmuxinator/" ".vscode/" ".zcompdump-archlaptop-5.3" ".histfile" "histfile_backup" "Snapshots/" ".mycolors" ".gksu.lock" "tmp/" ".gsutil/" ".steam/" "mbp/" "dotfiles/" ".zcompdump" ".bash_logout" ".ssh/" ".bigquery.v2.token" ".ivy2/" ".npm/" ".tmux.conf" "Documents/" ".nvm/" ".zsh_history_bad" ".v8flags.5.1.281.84.dromar.json" ".saves/" "backup/" "Public/" ".devcenter/" ".wget-hsts" "Music/" ".bashrc" "./" ".zshrc" ".urxvt/" ".Xresources" "Templates/" ".steampath" ".gnome/" ".icons/" ".v8flags.4.5.103.36.dromar.json" ".zshrc.pre-oh-my-zsh" "VirtualBox VMs/" ".percol.d/" ".bash_history" ".lesshst" "Videos/" ".emacs.d/" ".gnupg/" ".ICEauthority" "hist_backup" ".jscsrc" ".steampid" ".zsh-update" ".ipython/" ".yjp/" "gnome-shell-js/" ".IdeaIC2016.3/" ".bundle/" ".gitignore_global" ".cache/" ".v8flags.5.1.281.81.dromar.json" "wallpapers/" ".gitconfig" ".xsession-errors" ".IdeaIC2016.2/" ".mozilla/" ".node_repl_history" "org/" ".gtkrc-2.0" "PycharmProjects/" "gcloud-hosts" "Downloads/" ".dbshell" ".config/" ".themes/" ".java/" ".oh-my-zsh/" ".node-gyp/" ".xchat2/" ".PyCharm2017.1/" ".coursier/" ".esd_auth" ".tern-config" ".npmrc" ".pki/" ".Xauthority" ".bigqueryrc" ".parallel/" ".sbt/" "Microsoft/" ".vagrant.d/" ".yarn/" ".xsel.log" ".wayland-errors" ".xsession")
+
+ ("/home/dromar/projects/bigquery/.git/" (22700 43641 180010 9000) "../" "refs/" "objects/" "info/" "HEAD" "config" "hooks/" "./" "index" "description" "COMMIT_EDITMSG" "branches/" "logs/")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/product/show/" (22684 30637 266905 521000) "../" "show.ctrl.js" "./" "_show.scss" "show.pug")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/tags/config/show/" (22700 6654 153385 417000) "../" "show.ctrl.js" "./" ".tern-port" "show.scss" "show.pug")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/product/template/edit/" (22684 21388 683438 646000) "../" "edit.ctrl.js" "./" "edit.pug" "edit.scss")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/recommendation/rules/edit/" (22700 6066 376710 263000) "../" "edit.ctrl.js" "./" ".tern-port" "edit.pug" "edit.scss")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/shared/assets/i18n/" (22691 17910 237105 616000) "../" "locale-en.json" "locale-fr.json" "./")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/variable/crud-dialog/" (22684 21388 690105 314000) "../" "crud-dialog.scss" "crud-dialog.pug" "./" "crud-dialog.ctrl.js")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/recommendation/widgets/config/" (22698 15432 910057 639000) "../" "abwidget/" "mixin.pug" "step2.pug" "step3.pug" "config.scss" "./" "abwidget.ctrl.js" ".tern-port" "config.pug" "step1.pug" "config.ctrl.js")
+
+ ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/dashboard/" (22689 10200 490395 217000) "../" "dashboard.ctrl.js" "_dashboard.scss" "./" "dashboard.pug")
+
+ ("/home/dromar/projects/apiv2/src/routers/public/" (22695 3158 196921 301000) "../" "token.ts" "index.ts" "widget.ts" "./" "tracker.ts" "reset.ts")
+
+ ("/home/dromar/projects/apiv2/src/middleware/" (22693 56110 720379 92000) "auth.ts" "../" "slow.ts" "query.ts" "mask.ts" "errorHandler.ts" "./" "darty.ts" "accessSuperAdmin.ts" "accessAdmin.ts")
+
+ ("/ssh:api1:/opt/core.early-birds/config/" (ftp . 413126.5191400882) "prod.yml" "./" "config.yml" "../")
+
+ ("/ssh:api1:/opt/core.early-birds/" (ftp . 413126.5185680153) ".cache/" ".editorconfig" "tasks/" "dist/" ".git/" "tslint.json" "typings/" "node_modules/" "README.md" "package.json" "config/" "doc/" "src/" "tsconfig.json" ".vscode/" "ressources/" ".dockerignore" ".gitignore" "./" "../" "typings.json")
+
+ ("/ssh:api1:/opt/" (ftp . 413126.51786243456) "stackdriver/" "core.early-birds_v1/" "core.early-birds/" "google-fluentd/" "api.early-birds_v1/" "fix-scripts/" "api.early-birds/" "nginx-parser-logs/" "./" "config.yml" "../")
+
+ ("/ssh:api1:/" (ftp . 413126.5166976937) "usr/" "boot/" "sys/" "vmlinuz" "bin/" "srv/" "mnt/" "root/" "media/" "run/" "etc/" "lib/" "home/" "proc/" "opt/" "dev/" "lib64/" "initrd.img" "var/" "lost+found/" "./" "../" "tmp/" "sbin/")
+
+ ("/home/dromar/projects/corev2/config/" (22684 28259 323537 852000) "../" "config_p.yml" "config.yml" "./" "localhost.yml")
+
+ ("/home/dromar/projects/corev2/" (22689 9375 240383 302000) "doc/" "../" ".dockerignore" "README.md" ".vscode/" ".gitignore" "node_modules/" "tslint.json" "build/" "config/" "tasks/" "./" "src/" "yarn.lock" "tsconfig.json" "dist/" "typings/" ".cache/" ".editorconfig" "package.json" "typings.json" "ressources/" ".git/")
+
+ ("/home/dromar/projects/" (22642 31967 636686 270000) "TypeScriptSamples/" "loadbalancer/" "typescript-test/" "../" "com_bzccv/" ".jshintrc" "haproxy/" "codeclimate/" "corev2/" "._.DS_Store" "node-progress/" "coding-battle-01/" "admin.early-birds/" ".gitignore" ".bowerrc" "tmp/" "early-birds/" "emacs-visual-studio-code/" ".gitattributes" ".idea/" "spark/" "test-api/" "./" "scio/" "clojure/" "emacs/" "chrome-earlybirds/" "scotch-box/" "test/" ".babelrc" "zsh-capture-completion/" "apiv2/" "navigate-paragraph/" "ScrubJay/" ".editorconfig" "epitech/" ".DS_Store" "codingame/" "emacs-meetup/" "vscode/" "bigquery/" "vagrant.early-birds/" "epub/" "wemanity-code-battle/" "leetcode/")
+
+ ("/home/dromar/projects/apiv2/" (22684 28880 480213 488000) "../" ".dockerignore" "README.md" ".vscode/" ".gitignore" "node_modules/" "tslint.json" "config/" "process.yml" "tasks/" "./" "newrelic.js.dist" "src/" "yarn.lock" "tsconfig.json" "dist/" "typings/" ".editorconfig" "package.json" "typings.json" ".git/")
+
+ ("/home/dromar/projects/apiv2/src/" (22675 18770 13619 486000) "../" "index.ts" "./" "routers/" "middleware/" "lib/")
+
+ ("/home/dromar/projects/bigquery/streaming/lib/" (22667 30969 190373 974000) "../" "./" "Translator.js")
+
+ ("/home/dromar/projects/bigquery/streaming/" (22693 30423 526674 862000) "../" "cluster.js" "bin/" "schemas/" "node_modules/" "config/" "./" "yarn.lock" "test/" ".tern-port" "generate_bigquery_schema.js" "pubsub.js" "package.json" "lib/" "translate_export_donovan.js")
+
+ ("/home/dromar/projects/bigquery/" (22628 59554 706731 89000) "../" "streaming/" ".gitignore" "bq_migrate/" "./" "SQL/" ".git/" "scripts/")
+
+ ("/home/dromar/projects/bigquery/scripts/" (22670 30471 300384 154000) "../" "bigtable.sh" "create_tables.sh" "jobs.txt" "backup_table.sh" "load_activities_from_cassandra.sh" "recommendation.json" "./" "update_tables.sh" "check_number_of_pending_jobs.sh" "generate_prod.sh" "merge_tables.sh" "update_schemas_of_all_tables.sh")
+
  ("/home/dromar/.emacs.d/snippets/python-mode/" (22643 44674 703569 927000) "str" "doc" "../" "celery_pdb" "function" ".yas-parents" "if" ".yas-setup.el" "method" "arg_positional" "size" "pass" "metaclass" "__contains__" "ifmain" "__setitem__" "parser" "while" "self_without_dot" "assertRaises.with" "arg" "logging" "tryelse" "__getitem__" "script" "__len__" "doctest" "repr" "ass" "np" "setdef" "__new__" "interact" "with" "ife" "for" "selfassign" "super" "method_docstring" "prop" "reg" "logger_name" "list" "assertFalse" "./" "assertEqual" "all" "init" "classmethod" "eq" "try" "__exit__" "static" "dec" "test_file" "not_impl" "assertNotEqual" "lambda" "__enter__" "return" "self" "assertTrue" "assertRaises" "parse_args" "function_docstring" "unicode" "trace" "deftest" "iter" "main" "setup" "print" "test_class" "import" "init_docstring" "assertIn" "from" "with_statement" "cls")
 
  ("/home/dromar/.emacs.d/snippets/" (22593 18614 280084 848000) "sh-mode/" "lua-mode/" "../" "ned-mode/" "snippet-mode/" "go-mode/" "markdown-mode/" "magit-log-edit-mode/" "README.md" "python-mode/" "latex-mode/" "makefile-mode/" "applescript-mode/" "conf-unix-mode/" "typescript-mode/" "yaml-mode/" "csharp-mode/" "antlr-mode/" "jade-mode/" "erlang-mode/" "rename_add_contr.py" "cc-mode/" "scala-mode/" "ledger-mode/" "sql-mode/" "rst-mode/" "erc-mode/" "nsis-mode/" "cpp-omnet-mode/" "autoconf-mode/" "./" "js2-mode/" "tuareg-mode/" "java-mode/" "makefile-bsdmake-mode/" "lisp-interaction-mode/" "groovy-mode/" "makefile-gmake-mode/" "text-mode/" "makefile-automake-mode/" "ensime-mode/" "js-mode/" "nxml-mode/" "octave-mode/" "haskell-mode/" "ruby-mode/" "udev-mode/" "emacs-lisp-mode/" "CONTRIBUTORS.txt" "css-mode/" "m4-mode/" "f90-mode/" "cmake-mode/" "html-mode/" "nesc-mode/" "c-mode/" "c++-mode/" "org-mode/" "puppet-mode/")
 
  ("/home/dromar/.emacs.d/" (22643 43605 436887 820000) "../" "custom.el" "ido.last" "README.md" ".cask/" ".gitmodules" ".gitignore" "session.109c95369ef6919e9c147247567883961200000007780040" "smex-items" "bookmarks" "session.10d07f59a51c73b6e6147240966860164400000007320043" "elisp/" "games/" ".org-id-locations" "session.107bdff68067c5b95b14760404137208600000007200025" "config/" "./" "config.org" "smex-items-backup" "projectile-bookmarks.eld" "url/" "tramp" "elpa/" "session.10c0ebecaef583c9ae147248737296038400000007890027" "config.el" ".emacs_workgroups" "init.el" "session.10e1b2a5a857266d147255367938560200000009180037" "tangle_config.el" "session.107a8d16ecf86a77a4147240290559972400000280430060" "snippets/" "eshell/" "LICENSE.md" "ensime/" "auto-save-list/" "recentf" "projectile.cache" ".git/" ".mc-lists.el" "vendor/" "vimish-fold/")
 
- ("/home/dromar/" (22643 44521 20234 373000) ".googleearth/" ".zcompdump-archlaptop-5.2" "../" ".kde4/" ".jshintrc" ".scripts/" ".httpie/" ".gem/" ".mplayer/" "Pictures/" ".gtkrc-2.0-kde4" "projects/" ".v8flags.5.1.281.88.dromar.json" "2016-09-28-154210_160x104_scrot.png" ".bash_profile" ".local/" ".scala_history" ".xfce4-session.verbose-log" ".Xresources~" ".mongorc.js" ".zsh_history" ".android/" "Desktop/" ".tmuxinator/" ".vscode/" ".zcompdump-archlaptop-5.3" ".histfile" "histfile_backup" "Snapshots/" ".mycolors" ".gksu.lock" "tmp/" ".gsutil/" ".steam/" "mbp/" "dotfiles/" ".zcompdump" ".bash_logout" ".ssh/" ".bigquery.v2.token" ".ivy2/" ".npm/" ".tmux.conf" "Documents/" ".nvm/" ".zsh_history_bad" ".v8flags.5.1.281.84.dromar.json" ".saves/" "backup/" "Public/" ".devcenter/" ".wget-hsts" "Music/" ".bashrc" "./" ".zshrc" ".urxvt/" ".Xresources" "Templates/" ".steampath" ".gnome/" ".icons/" ".v8flags.4.5.103.36.dromar.json" ".zshrc.pre-oh-my-zsh" "VirtualBox VMs/" ".percol.d/" ".bash_history" ".lesshst" "Videos/" ".emacs.d/" ".gnupg/" ".ICEauthority" "hist_backup" ".jscsrc" ".steampid" ".zsh-update" ".ipython/" ".yjp/" "gnome-shell-js/" ".IdeaIC2016.3/" ".bundle/" ".gitignore_global" ".cache/" ".v8flags.5.1.281.81.dromar.json" "wallpapers/" ".gitconfig" ".xsession-errors" ".IdeaIC2016.2/" ".mozilla/" ".node_repl_history" "org/" ".gtkrc-2.0" "PycharmProjects/" "gcloud-hosts" "Downloads/" ".dbshell" ".config/" ".themes/" ".java/" ".oh-my-zsh/" ".node-gyp/" ".xchat2/" ".PyCharm2017.1/" ".coursier/" ".esd_auth" ".tern-config" ".npmrc" ".pki/" ".Xauthority" ".bigqueryrc" ".parallel/" ".sbt/" "Microsoft/" ".vagrant.d/" ".yarn/" ".xsel.log" ".wayland-errors" ".xsession")
-
- (#("/tmp/" 1 4 (face flx-highlight-face)) (22643 43605 563554 489000) ".X11-unix/" ".ICE-unix/" ".XIM-unix/" ".font-unix/" ".Test-unix/" ".esd-120/" "systemd-private-fc528fee411e4460a5a7902c4253eb73-colord.service-nGlP9F/" ".esd-1000/" "tracker-extract-files.1000/" ".com.google.Chrome.1CDL3g/" ".org.chromium.Chromium.Sj8Z5E/" "tmux-1000/" "mongodb-27017.sock" "systemd-private-fc528fee411e4460a5a7902c4253eb73-redis.service-Juev7F/" "emacs1000/" "gnome-settings-daemon-screenshot-R427SY" "npm-12072-0e55e4c8/" "tide240557Gr" "npm-19385-18aa2de7/" "tide24055HlG" "item-images/" "dromar/" "npm-23901-d10503ca/" "bigquery/" "tide240558jC" "tide240559dV" "tide24055Kob" "tide24055YBR" "tide24055zPw" "tide24055nGx" "tide24055d61" "tide24055m7V" "tide24055bBG" "tide24055Dar" "tide24055Dhf" "pacaurtmp-dromar/" "hsperfdata_dromar/" "yjp201610051654.jar" "+~JF3425707668925352361.tmp" "+~JF3312575324318426567.tmp" "+~JF1467487561393495213.tmp" "+~JF2058892232686554590.tmp" "+~JF3106127259948932673.tmp" "+~JF4761669952364960327.tmp" "+~JF1233642538006740692.tmp" "kaa-1000/" "oryx-generation.csv" "gnome-settings-daemon-screenshot-RAAQTY" "emacs.d/" "babel-4912Zm6/" "babel-5360Vp6/" "../" "./")
+ ("/tmp/" (22643 43605 563554 489000) ".X11-unix/" ".ICE-unix/" ".XIM-unix/" ".font-unix/" ".Test-unix/" ".esd-120/" "systemd-private-fc528fee411e4460a5a7902c4253eb73-colord.service-nGlP9F/" ".esd-1000/" "tracker-extract-files.1000/" ".com.google.Chrome.1CDL3g/" ".org.chromium.Chromium.Sj8Z5E/" "tmux-1000/" "mongodb-27017.sock" "systemd-private-fc528fee411e4460a5a7902c4253eb73-redis.service-Juev7F/" "emacs1000/" "gnome-settings-daemon-screenshot-R427SY" "npm-12072-0e55e4c8/" "tide240557Gr" "npm-19385-18aa2de7/" "tide24055HlG" "item-images/" "dromar/" "npm-23901-d10503ca/" "bigquery/" "tide240558jC" "tide240559dV" "tide24055Kob" "tide24055YBR" "tide24055zPw" "tide24055nGx" "tide24055d61" "tide24055m7V" "tide24055bBG" "tide24055Dar" "tide24055Dhf" "pacaurtmp-dromar/" "hsperfdata_dromar/" "yjp201610051654.jar" "+~JF3425707668925352361.tmp" "+~JF3312575324318426567.tmp" "+~JF1467487561393495213.tmp" "+~JF2058892232686554590.tmp" "+~JF3106127259948932673.tmp" "+~JF4761669952364960327.tmp" "+~JF1233642538006740692.tmp" "kaa-1000/" "oryx-generation.csv" "gnome-settings-daemon-screenshot-RAAQTY" "emacs.d/" "babel-4912Zm6/" "babel-5360Vp6/" "../" "./")
 
  ("/tmp/emacs.d/elisp/" (22643 42858 13543 695000) "lang-python.el" "base-global-keys.el" "base-extensions.el" "base-theme.el" "base-functions.el" "base.el" "../" "./")
 
@@ -331,10 +384,6 @@
 
  ("/home/dromar/projects/coding-battle-01/" (22466 5761 357411 837000) "../" "README.md" ".gitignore" "node_modules/" "lowest-price.js" "./" "temperatures.js" "package.json" ".git/")
 
- ("/home/dromar/projects/" (22609 4570 943368 625000) "TypeScriptSamples/" "loadbalancer/" "typescript-test/" "../" "com_bzccv/" ".jshintrc" "haproxy/" "codeclimate/" "corev2/" "._.DS_Store" "node-progress/" "coding-battle-01/" "admin.early-birds/" ".gitignore" ".bowerrc" "tmp/" "early-birds/" "emacs-visual-studio-code/" ".gitattributes" ".idea/" "spark/" "test-api/" "./" "scio/" "clojure/" "emacs/" "chrome-earlybirds/" "scotch-box/" "test/" ".babelrc" "zsh-capture-completion/" "apiv2/" "navigate-paragraph/" "ScrubJay/" ".editorconfig" "epitech/" ".DS_Store" "emacs-meetup/" "vscode/" "bigquery/" "vagrant.early-birds/" "epub/" "wemanity-code-battle/" "leetcode/")
-
- ("/home/dromar/projects/apiv2/src/middleware/" (22638 8358 266721 697000) "auth.ts" "../" "slow.ts" "query.ts" "mask.ts" "errorHandler.ts" "./" "darty.ts" "accessSuperAdmin.ts" "accessAdmin.ts")
-
  ("/home/dromar/projects/corev2/src/core/models/abtest/" (22606 44000 513742 82000) "../" "abTestConfig.ts" "index.ts" "./" "AbTest/")
 
  ("/home/dromar/projects/corev2/src/core/models/" (22637 4554 260308 550000) "../" "datasource/" "widget-distribution/" "item-category/" "profile/" "item/" "CoreModels.ts" "item-template/" "predictor/" "template/" "variable-category/" "config.ts" "user/" "index.ts" "./" "abtest/" "recommendation/" "bigquery-job/" "location/" "activity/" "tag-rule/" "widget-log/" "item-original/" "widget-rule/" "bigquery-job-result/" "application/" "patch/" "widget/" "tenant/" "log/" "variable/")
@@ -343,21 +392,11 @@
 
  ("/home/dromar/projects/corev2/src/core/models/item-original/" (22637 4554 260308 550000) "../" "ItemOriginal/" "index.ts" "./" "itemOriginalConfig.ts")
 
- ("/home/dromar/projects/bigquery/streaming/" (22628 60598 530079 494000) "../" "cluster.js" "bin/" "schemas/" "node_modules/" "config/" "./" "yarn.lock" "test/" "generate_bigquery_schema.js" "pubsub.js" "package.json" "lib/" "translate_export_donovan.js")
-
- ("/home/dromar/projects/bigquery/streaming/lib/" (22637 4443 616973 620000) "../" "./" ".tern-port" "Translator.js")
-
- ("/home/dromar/projects/apiv2/src/routers/public/" (22635 52671 503686 836000) "../" "token.ts" "index.ts" "./" "tracker.ts" "reset.ts" "bywidget.ts")
-
  ("/home/dromar/projects/corev2/src/lib/Request/" (22634 23280 76889 418000) "../" "Request.spec.ts" "index.ts" "./" "Request.ts")
 
  ("/home/dromar/projects/corev2/src/bin/commands/" (22634 23280 73556 86000) "../" "updateUser.ts" "importMongo.ts" "refreshData.ts" "./" "cacheItems.ts" "createTenant.ts" "regenerate-password.ts")
 
  ("/home/dromar/projects/apiv2/src/lib/" (22630 31595 633642 425000) "../" "./" "recommendation.ts" "ModelRouter.ts" "utils.ts")
-
- ("/home/dromar/projects/corev2/config/" (22634 35270 193729 211000) "../" "config_p.yml" "config.yml" "config_dev.yml" "./")
-
- ("/home/dromar/projects/corev2/" (22634 23280 76889 418000) "../" ".dockerignore" "README.md" ".vscode/" ".gitignore" "node_modules/" "tslint.json" "config/" "tasks/" "./" "src/" "yarn.lock" "tsconfig.json" "dist/" "typings/" ".cache/" ".editorconfig" "package.json" "typings.json" "ressources/" ".git/")
 
  ("/home/dromar/projects/corev2/src/core/" (22634 23280 73556 86000) "../" "CoreContainer.ts" "predictors/" "index.ts" "./" "Core.ts" "models/" "lib/")
 
@@ -369,10 +408,6 @@
 
  ("/home/dromar/projects/apiv2/node_modules/" (22630 43598 680482 404000) "forever-agent/" "busboy/" "kcors/" "destroy/" "tunnel-agent/" "lodash.restparam/" "preserve/" "fs-extra/" "ansi-regex/" "expand-range/" "arr-diff/" "tslint/" "semver-diff/" "are-we-there-yet/" "require-dir/" "verror/" "ansi-styles/" "code-point-at/" "repeat-string/" "is-primitive/" "os-homedir/" "duplexer/" "widest-line/" "wordwrap/" "is-buffer/" "lodash.flatten/" "isobject/" "restore-cursor/" "spawn-default-shell/" "which/" "uuid/" "path-to-regexp/" "expand-brackets/" "error-ex/" "error-inject/" "tweetnacl/" "file-type/" "depd/" "lodash._getnative/" "parse-json/" "parse-glob/" "base64-url/" "imurmurhash/" "koa-convert/" "popsicle-proxy-agent/" "node-pre-gyp/" "winston-gke/" "set-immediate-shim/" "joi/" "css-select/" "lodash.isarguments/" "unpipe/" "promise-finally/" "domelementtype/" "detect-indent/" "ts-node/" "getpass/" "chokidar/" "generate-function/" "concurrently/" "brace-expansion/" "is-posix-bracket/" "arr-flatten/" "defaults/" "dicer/" "object.pick/" "supports-color/" "fd-slicer/" "merge-descriptors/" "typedarray/" "is-arrayish/" "jsonfile/" "strip-ansi/" "lodash.get/" "lazy-req/" "url-parse-lax/" ".bin/" "has/" "ansi-escapes/" "set-blocking/" "throat/" "undefsafe/" "caseless/" "inherits/" "osenv/" "string-template/" "pause-stream/" "lodash._baseassign/" "extract-zip/" "async-each/" "user-home/" "hoek/" "mkdirp/" "has-ansi/" "koa-unless/" "ssh2/" "isarray/" "string-length/" "core-util-is/" "registry-auth-token/" "ssh2-streams/" "htmlparser2/" "is-generator-function/" "fill-range/" "rimraf/" "typescript/" "koa-compose/" "dot-prop/" "koa-is-json/" "aws-sign2/" "latest-version/" "nodemon/" "form-data/" "touch/" "wrappy/" "is-windows/" "signal-exit/" "any-promise/" "wide-align/" "progress/" "boom/" "source-map/" "tsconfig/" "anymatch/" "jsonpointer/" "isstream/" "buffer-equal-constant-time/" "is-binary-path/" "fstream-ignore/" "jwa/" "camelcase/" ".yarn-integrity" "exit-hook/" "is-dotfile/" "once/" "qs/" "is-stream/" "vary/" "aproba/" "newrelic/" "deep-extend/" "event-stream/" "graceful-readlink/" "is-utf8/" "buffer-shims/" "lodash._createassigner/" "source-map-support/" "strip-json-comments/" "braces/" "randomatic/" "got/" "configstore/" "chalk/" "isexe/" "duplexify/" "koa-qs/" "boxen/" "iconv-lite/" "fsevents/" "npmlog/" "nth-check/" "throwback/" "streamsearch/" "nested-error-stacks/" "cli-cursor/" "optimist/" "throttleit/" "utila/" "lodash.uniq/" "deep-equal/" "lodash.keys/" "make-error-cause/" "oauth-sign/" "bytes/" "eyes/" "is-finite/" "is-glob/" "process-nextick-args/" "string-width/" "slide/" "popsicle-rewrite/" "extglob/" "elegant-spinner/" "is-typedarray/" "escape-html/" "extend/" "colors/" "sprintf-js/" "isemail/" "css-what/" "on-finished/" "concat-map/" "gauge/" "lodash.once/" "fresh/" "rx/" "only/" "loose-envify/" "path-is-absolute/" "graceful-fs/" "es6-promise/" "ecc-jsbn/" "negotiator/" "bcrypt-pbkdf/" "jws/" "koa-router/" "is-fullwidth-code-point/" "content-disposition/" "os-tmpdir/" "wcwidth/" "glob/" "cli-boxes/" "tree-kill/" "punycode/" "console-control-strings/" "popsicle-retry/" "array-unique/" "tough-cookie/" "delayed-stream/" "inflation/" "create-error-class/" "glob-parent/" "lodash._basecopy/" "sort-keys/" "safe-buffer/" "inflight/" "write-file-atomic/" "has-color/" "dom-serializer/" "capture-stack-trace/" "http-proxy-agent/" "commander/" "read-all-stream/" "nan/" "http-errors/" "pinkie-promise/" "balanced-match/" "block-stream/" "domhandler/" "mime-db/" "cryptiles/" "koa-jwt/" "ansi-align/" "koa/" "arrify/" "agent-base/" "node-status-codes/" "popsicle-status/" "end-of-stream/" "zip-object/" "is-plain-obj/" "mobile-detect/" "hasha/" "media-typer/" "rc/" "json-mask/" "typings/" "co-body/" "request-progress/" "for-own/" "object.omit/" "cli-truncate/" "lodash.clonedeep/" "lodash._bindcallback/" "is-relative/" "domutils/" "typings-core/" "generate-object-property/" "thenify/" "clone/" "base64url/" "columnify/" "listify/" "lowercase-keys/" "http-assert/" "xtend/" "pinkie/" "ms/" "jodid25519/" "winston/" "is-absolute/" "is-npm/" "v8flags/" "kind-of/" "sshpk/" "asynckit/" "uid-number/" "asn1/" "slice-ansi/" "update-notifier/" "topo/" "lodash/" "aws4/" "semver/" "resolve/" "diff/" "lodash._isiterateecall/" "raw-body/" "infinity-agent/" "renderkid/" "readdirp/" "koa-bodyparser/" "json2csv/" "lodash.isarray/" "streaming-json-stringify/" "assert-plus/" "findup-sync/" "lodash.defaults/" "duplexer2/" "har-validator/" "unzip-response/" "statuses/" "setprototypeof/" "moment/" "cli-table/" "escape-string-regexp/" "yakaa/" "request/" "concat-stream/" "hawk/" "has-unicode/" "dashdash/" "stack-trace/" "fs.realpath/" "mime-types/" "archy/" "accepts/" "stream-shift/" "ini/" "is-my-json-valid/" "xdg-basedir/" "koa-json/" "readable-stream/" "stream-combiner/" "async/" "timed-out/" "repeat-element/" "strip-bom/" "through/" "entities/" "flat/" "lodash.set/" "is-equal-shallow/" "type-is/" "repeating/" "content-type/" "minimatch/" "is-property/" "json-schema/" "kew/" "package-json/" "phantomjs-prebuilt/" "minimist/" "log-update/" "json-stringify-safe/" "map-stream/" "registry-url/" "jsonwebtoken/" "parseurl/" "underscore.string/" "ps-tree/" "prepend-http/" "jsbn/" "jsprim/" "is-obj/" "lodash.assign/" "onetime/" "yauzl/" "for-in/" "koa-newrelic/" "is-extendable/" "is-unc-path/" "split/" "pretty-error/" "lockfile/" "object-assign/" "filled-array/" "ignore-by-default/" "multer/" "http-signature/" "js-tokens/" "yn/" "is-extglob/" "jspm-config/" "stringstream/" "make-error/" "append-field/" "micromatch/" "tar-pack/" "combined-stream/" "koa-multer/" "array-uniq/" "ecdsa-sig-formatter/" "methods/" "klaw/" "is-retry-allowed/" "util-deprecate/" "glob-base/" "is-redirect/" "keygrip/" "https-proxy-agent/" "tar/" "cycle/" "function-bind/" "bluebird/" "extsprintf/" "is-number/" "dom-converter/" "ee-first/" "invariant/" "from/" "regex-cache/" "unc-path-regex/" "sntp/" "binary-extensions/" "co/" "fstream/" "filename-regex/" "number-is-nan/" "core.early-birds/" "delegates/" "boolbase/" "pend/" "debug/" "cookies/" "abbrev/" "popsicle/" "string_decoder/" "nopt/" "normalize-path/" "phantom/" "../" "./")
 
- ("/home/dromar/projects/apiv2/" (22630 43540 270481 560000) "../" ".dockerignore" "README.md" ".vscode/" ".gitignore" "node_modules/" "tslint.json" "config/" "process.yml" "tasks/" "./" "newrelic.js.dist" "src/" "yarn.lock" "tsconfig.json" "dist/" "typings/" "nodemon.json" ".editorconfig" "package.json" "typings.json" ".git/")
-
- ("/home/dromar/projects/apiv2/src/" (22630 31595 630309 91000) "../" "index.ts" "./" "routers/" "middleware/" "lib/")
-
  ("/home/dromar/projects/corev2/src/core/lib/" (22618 23845 499833 915000) "CoreModelRepository/" "../" "CoreConfig/" "CoreModelEntityByTenant/" "CoreModelFactory/" "CoreModelRepositoryBigtable/" "CoreModelController/" "index.ts" "./" "CoreConfigData/" "CoreModelEntityMongoByTenant/" "CoreModelEntityMongo/" "CoreModelEntityByTenantAndProfile/" "CorePubSubQueue/" "CorePredictor/" "CoreModel/" "CoreModelEntityMongoByTenantInId/" "CoreLocalData/" "CoreStats/" "CoreModelEntity/" "CoreModelRepositoryMongo/" "CoreLib/")
 
  ("/home/dromar/projects/corev2/src/core/lib/CorePredictor/" (22621 11830 973307 821000) "../" "index.ts" "./" "CorePredictor.spec.ts" "CorePredictor.ts")
@@ -383,8 +418,6 @@
 
  ("/home/dromar/projects/apiv2/src/routers/private/user/" (22630 31595 633642 425000) "abtest.ts" "../" "job.ts" "aggregate.ts" "widget-misc.ts" "patch.ts" "./" "widgetLog.ts" "itemCategory.ts" "predictor.ts" "item.ts" "user-tenant.ts" "widgetRule.ts" "me.ts")
 
- ("/home/dromar/projects/bigquery/scripts/" (22630 17396 206770 732000) "../" "bigtable.sh" "create_tables.sh" "jobs.txt" "load_activities_from_cassandra.sh" "recommendation.json" "./" "update_tables.sh" "check_number_of_pending_jobs.sh" "generate_prod.sh" "merge_tables.sh" "update_schemas_of_all_tables.sh")
-
  ("/home/dromar/projects/bigquery/streaming/schemas/" (22618 27363 966375 732000) "pubsubSchemas.yml" "../" "./" "schema.yml" "activity_examples.yml" "pubsubSchemas2.yml")
 
  ("/home/dromar/.scripts/rofi/" (22495 48153 666763 42000) "../" "./" "eb-ids.sh")
@@ -392,8 +425,6 @@
  ("/home/dromar/.scripts/" (22495 47997 820094 126000) "../" "zsh_custom_files/" "idea-grep.sh" "deploy-dev-bigquery.sh" "x-setup.sh" "loop_days.sh" "osx/" "lein" "rofi/" "bzctoons/" "pbcopy" "mux-append" "elisp/" "./" "cpu" "eb_check_git_branches.sh" "copy_tmux.sh" "idea-ag.sh" "eb_mongo_request.sh" "eb_test_loadbalancer.sh" "toggle-touchpad" "cpu_frequency.py" "ebook-convert" "start-term.sh" "slack" "autoclick" "org-capture-note.sh" "zsh_install.sh" "git-cdc")
 
  ("/home/dromar/projects/bigquery/streaming/config/" (22466 5762 640745 142000) "../" "config.yml" "./" "eb-main-2013-edit.json")
-
- ("/home/dromar/projects/bigquery/" (22599 61582 296881 290000) "../" "streaming/" ".gitignore" "bq_migrate/" "./" "SQL/" ".git/" "scripts/")
 
  ("/home/dromar/projects/bigquery/bq_migrate/" (22592 8304 650408 912000) "tables_201608.txt" "already_done.txt" "../" "add_skip_by/" "tables_201610.txt" "ls_full.txt" "activity.json" "recommendation.json" "./" "fnac/" "tables_201609.txt" "load/" "backup.sh")
 
@@ -472,34 +503,6 @@
  ("/home/dromar/projects/corev2/src/core/models/location/Location/" (22589 21943 50065 511000) "../" "index.ts" "./" "Location.spec.ts" "Location.ts")
 
  ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/job/pubsub/schemas/" (22560 35480 108419 922000) "pubsubSchemas.yml" "../" "./" "schema.yml" "activity_examples.yml")
-
- ("/home/dromar/.emacs.d/elpa/s-20160711.525/" (22469 25097 990271 24000) "../" "s.elc" "s.el" "./" "s-pkg.el" "s-autoloads.el~" "s-autoloads.el" "s-pkg.elc")
-
- ("/home/dromar/.emacs.d/elpa/" (22490 30330 283423 177000) "window-numbering-20160809.1110/" "js2-mode-20160409.1113/" "eyebrowse-20160625.201/" "fuzzy-20150729.2037/" "auto-complete-20160827.649/" "makey-readme.txt" "ido-vertical-mode-20160429.1037/" "helm-core-20160829.1011/" "molokai-theme-20151016.845/" "helm-c-yasnippet-20160823.611/" "lacarte-20151231.1409/" "haml-mode-20150508.2011/" "workgroups2-20141102.1122/" "idle-highlight-mode-20120920.1848/" "gnupg/" "discover-20140103.1339/" "redshank-20120510.1230/" "popup-20160709.729/" "json-reformat-20160212.53/" "guru-mode-20160415.1921/" "color-theme-sanityinc-tomorrow-20160829.2324/" "ack-and-a-half-20130815.1917/" "ensime-20160828.1225/" "company-go-20160306.1355/" "mmm-mode-20150828.1716/" "js2-mode-20160826.1908/" "direx-20151023.1606/" "skewer-mode-20150914.1304/" "color-theme-20080305.834/" "jedi-readme.txt" "dired-subtree-20150908.1033/" "elscreen-20160613.251/" "coffee-mode-20160808.1712/" "avy-20160814.250/" "lcs-20121201.1455/" "s-20160711.525/" "helm-projectile-20160807.313/" "color-theme-solarized-20160626.743/" "emr-readme.txt" "bind-key-20160227.48/" "archives/" "base16-theme-20160828.1825/" "leuven-theme-20160827.205/" "sublimity-20160822.1856/" "scala-mode2-20151226.1048/" "helm-descbinds-20160806.913/" "key-chord-20160227.438/" "busybee-theme-20130920.1742/" "ido-ubiquitous-20160623.815/" "company-20160829.1206/" "multiple-cursors-20160719.216/" "diminish-20151215.915/" "es-windows-20140211.104/" "jscs-20151015.1049/" "dash-functional-20160615.1351/" "highlight-indentation-20150307.208/" "tide-20160722.534/" "solarized-theme-20160827.1130/" "let-alist-1.0.4/" "counsel-20160826.2343/" "epc-20140609.2234/" "vimish-fold-20160718.126/" "yaml-mode-20160528.1400/" "ctable-20140304.1659/" "hydra-20160828.154/" "projectile-20160830.138/" "js2-refactor-20160525.113/" "tern-20160817.522/" "rich-minority-20160725.1255/" "spinner-1.7.1/" "projectile-readme.txt" "ace-jump-mode-20140616.115/" "scala-mode-20160813.304/" "sass-mode-20160506.2045/" "web-mode-20160828.2311/" "pretty-symbols-20140814.259/" "ido-completing-read+-20160623.815/" "tracking-20151129.319/" "zenburn-theme-20160724.2141/" "tabbar-20160524.1401/" "ac-dabbrev-20130906.518/" "flycheck-readme.txt" "with-editor-20160828.1025/" "love-minor-mode-20130429.1759/" "restclient-20160801.707/" "find-file-in-project-20160809.526/" "evil-20160827.1510/" "multi-term-20160619.233/" "emr-20160613.1430/" "yasnippet-20160801.1142/" "smooth-scrolling-20160612.141/" "rainbow-delimiters-20160430.2358/" "circe-20160608.1315/" "json-snatcher-20150511.2047/" "indent-guide-20160606.2318/" "async-20160711.2235/" "deferred-20160109.2046/" "sbt-mode-20160816.1353/" "god-mode-20151005.925/" "w3m-20160825.1121/" "color-theme-approximate-20140227.2036/" "helm-20160829.108/" "sublime-themes-20160111.122/" "flx-20151030.1112/" "company-tern-20160713.541/" "org-bullets-20140918.1137/" "flx-ido-20151030.1112/" "discover-readme.txt" "edit-server-20141231.1358/" "window-number-20141106.1829/" "cyberpunk-theme-20160121.1712/" "queue-0.1.1/" "iedit-20160728.1951/" "epl-20150517.433/" "wgrep-helm-20140528.1427/" "sws-mode-20150317.1245/" "smart-mode-line-20160818.508/" "ht-20160806.1753/" "magit-popup-20160821.1338/" "js-doc-20160714.2134/" "ag-20160731.1323/" "dash-20160820.501/" "elpy-20160613.1005/" "python-environment-readme.txt" "helm-themes-readme.txt" "project-explorer-20150503.1714/" "helm-ag-r-readme.txt" "helm-ack-readme.txt" "git-gutter-20160828.711/" "helm-dash-20160802.1147/" "helm-ag-20160809.337/" "neotree-20160802.51/" "clang-format-20151116.438/" "moe-theme-readme.txt" "powerline-20160702.1931/" "anzu-20160818.619/" "git-commit-20160821.1338/" "isearch+-20160704.805/" "edit-server-20141018.1903/" "material-theme-20160516.844/" "iy-go-to-char-20141029.1549/" "spaces-20130610.49/" "pkg-info-20150517.443/" "php-mode-20160821.1455/" "list-utils-20160414.702/" "spaceline-20160801.211/" "dired-hacks-utils-20160527.1436/" "json-mode-20160803.1606/" "shorten-20131201.620/" "nose-20140520.948/" "lcs-20150129.40/" "use-package-20160815.1137/" "helm-20160413.2223/" "discover-my-major-20160108.1041/" "material-theme-readme.txt" "lua-mode-20160821.1216/" "jade-mode-20160525.741/" "auto-yasnippet-20160809.46/" "wgrep-ag-20141012.311/" "smex-20151212.1409/" "slime-20160829.1150/" "flycheck-20160828.445/" "wgrep-20141016.1656/" "lui-20141107.407/" "typescript-mode-20160719.2353/" "f-20160815.1253/" "monokai-theme-20160814.659/" "swiper-20160829.2049/" "go-eldoc-20160307.616/" "tern-auto-complete-20151123.653/" "csv-mode-1.6.signed" "paredit-20160615.1325/" "pyvenv-20160527.442/" "clojure-mode-20160803.140/" "es-lib-20141111.1030/" "jenkins-watch-readme.txt" "helm-css-scss-readme.txt" "python-environment-20150310.153/" "shackle-20160516.419/" "imenu-anywhere-20160815.239/" "helm-swoop-20160619.953/" "cider-20160825.249/" "anaphora-20140728.1536/" "helm-spaces-20160319.754/" "elpy-readme.txt" "expand-region-20160729.131/" "log4e-20130514.912/" "exec-path-from-shell-20160812.159/" "helm-ag-readme.txt" "undo-tree-20140509.522/" "magit-20160827.1549/" "macrostep-20151213.145/" "go-mode-20160715.205/" "yasnippet-readme.txt" "minimap-1.2/" "moe-theme-20160814.2212/" "goto-chg-20131228.1459/" "lua-mode-readme.txt" "concurrent-20160109.2046/" "ivy-20160829.234/" "makey-20131231.630/" "highlight-parentheses-20151107.2316/" "register-list-readme.txt" "direx-grep-20140515.806/" "simple-httpd-20150430.1755/" "angular-snippets-readme.txt" "csv-mode-1.6/" "markdown-mode-20160829.838/" "idomenu-20141123.1320/" "rainbow-mode-0.12/" "seq-20151121.1017/" "lui-20150129.40/" "log4e-20150105.505/" "popwin-20150315.600/" "req-package-20160603.401/" "smartparens-20160828.1136/" "../" "./")
-
- ("/home/dromar/.emacs.d/elpa/dash-20160820.501/" (22590 59199 183502 283000) "../" "dash-autoloads.el" "dash-pkg.el" "./" "dash.el" "dash-pkg.elc" "dash.elc" "dash-autoloads.el~")
-
- ("/home/dromar/tmp/DevCenter/configuration/" (22579 6509 13137 374000) "../" "org.eclipse.osgi/" "org.eclipse.e4.ui.css.swt.theme/" "./" "config.ini" "org.eclipse.core.runtime/" "org.eclipse.equinox.app/")
-
- ("/home/dromar/tmp/DevCenter/" (22579 6509 143137 372000) "../" "DevCenter" "README.md" "CHANGELOG.md" "artifacts.xml" "./" "configuration/" "plugins/" "examples/" "p2/" "icon.xpm" "DevCenter.ini")
-
- ("/home/dromar/tmp/bq_migrate/" (22580 28288 199869 379000) "tables_201608.txt" "already_done.txt" "../" "tables_201610.txt" "ls_full.txt" "activity.json" "recommendation.json" "./" "fnac/" "tables_201609.txt" "load/" "backup.sh")
-
- ("/home/dromar/tmp/bqimport/" (22573 61313 523500 589000) "../" "test.sql" "./" "test.js")
-
- ("/home/dromar/tmp/export_excel/" (22547 15525 691170 846000) "../" "data.json" "./" "test.js")
-
- ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/job/" (22551 23323 120069 733000) "stats.js" "../" "fakeData.js" "./" "queryBuilder.js" "pubsub/" ".tern-port" "job.js" "statBuilder.js" "index.js" "mainjobs/")
-
- ("/home/dromar/projects/vagrant.early-birds/projects/console.early-birds/src/console/pages/recommendation/widgets/config/" (22551 18023 460050 791000) "../" "abwidget/" "step3.jade" "step2.jade" "config.jade" "step4.jade" "config.scss" "./" "mixin.jade" "abwidget.ctrl.js" ".tern-port" "step1.jade" "config.ctrl.js")
-
- ("/usr/share/emacs/25.1/lisp/" (22494 42347 508526 243000) "rfn-eshadow.elc" "org/" "ffap.elc" "dabbrev.elc" "allout-widgets.el.gz" "skeleton.el.gz" "forms.elc" "misearch.elc" "help.elc" "faces.elc" "repeat.elc" "minibuf-eldef.el.gz" "windmove.el.gz" "lpr.el.gz" "color.el.gz" "cmuscheme.elc" "shadowfile.el.gz" "play/" "ezimage.elc" "ps-mule.elc" "files.elc" "erc/" "novice.elc" "find-lisp.elc" "finder.elc" "jit-lock.el.gz" "widget.el.gz" "custom.elc" "vcursor.el.gz" "textmodes/" "epg.el.gz" "dired-aux.elc" "format-spec.el.gz" "font-core.elc" "newcomment.elc" "pcomplete.el.gz" "ls-lisp.elc" "vt-control.el.gz" "x-dnd.el.gz" "abbrev.el.gz" "reveal.el.gz" "find-file.el.gz" "rect.el.gz" "calc/" "sort.elc" "bindings.el.gz" "loaddefs.el" "sb-image.el.gz" "electric.elc" "mouse-drag.elc" "filecache.el.gz" "recentf.el.gz" "image-file.elc" "info-look.elc" "follow.elc" "find-file.elc" "frameset.el.gz" "pcmpl-x.el.gz" "speedbar.elc" "completion.el.gz" "obarray.elc" "type-break.el.gz" "pcmpl-rpm.elc" "hl-line.elc" "image-dired.elc" "thumbs.el.gz" "master.elc" "sb-image.elc" "thumbs.elc" "tmm.elc" "wdired.elc" "edmacro.elc" "talk.elc" "msb.elc" "autoinsert.el.gz" "cdl.el.gz" "tmm.el.gz" "novice.el.gz" "printing.el.gz" "w32-vars.elc" "find-lisp.el.gz" "userlock.elc" "rect.elc" "simple.el.gz" "shadowfile.elc" "info-xref.elc" "kmacro.el.gz" "custom.el.gz" "buff-menu.elc" "hl-line.el.gz" "xwidget.elc" "battery.elc" "man.el.gz" "thingatpt.elc" "x-dnd.elc" "COPYING" "mpc.elc" "tool-bar.el.gz" "foldout.elc" "arc-mode.elc" "pcmpl-gnu.elc" "epg-config.elc" "gs.el.gz" "icomplete.el.gz" "epa-file.el.gz" "scroll-all.el.gz" "emacs-lock.elc" "dirtrack.el.gz" "ps-samp.el.gz" "epa-mail.el.gz" "reposition.el.gz" "replace.elc" "profiler.elc" "kmacro.elc" "type-break.elc" "t-mouse.elc" "dirtrack.elc" "cus-start.el.gz" "allout.el.gz" "finder-inf.el" "macros.el.gz" "minibuf-eldef.elc" "iimage.el.gz" "cus-edit.elc" "epa-dired.elc" "hi-lock.el.gz" "version.el.gz" "case-table.elc" "info-look.el.gz" "hilit-chg.elc" "ibuf-ext.elc" "cmuscheme.el.gz" "linum.el.gz" "generic-x.el.gz" "filecache.elc" "hilit-chg.el.gz" "find-cmd.elc" "descr-text.el.gz" "epa.el.gz" "man.elc" "dired-x.elc" "soundex.el.gz" "ido.el.gz" "image-file.el.gz" "startup.el.gz" "ffap.el.gz" "timezone.el.gz" "password-cache.elc" "hi-lock.elc" "menu-bar.el.gz" "align.el.gz" "ps-bdf.el.gz" "xt-mouse.elc" "autoarg.el.gz" "select.el.gz" "loadup.el" "image-mode.elc" "delsel.el.gz" "imenu.elc" "hfy-cmap.el.gz" "savehist.el.gz" "epa.elc" "ruler-mode.elc" "frame.el.gz" "icomplete.elc" "filesets.elc" "pcmpl-gnu.el.gz" "ps-samp.elc" "ibuffer.elc" "proced.elc" "ielm.elc" "hexl.el.gz" "linum.elc" "progmodes/" "hippie-exp.elc" "pcmpl-linux.el.gz" "xml.elc" "pcmpl-unix.el.gz" "filenotify.el.gz" "font-core.el.gz" "double.el.gz" "cus-edit.el.gz" "outline.elc" "uniquify.el.gz" "outline.el.gz" "thingatpt.el.gz" "kermit.elc" "apropos.el.gz" "hex-util.el.gz" "wid-browse.el.gz" "mpc.el.gz" "t-mouse.el.gz" "forms.el.gz" "rot13.el.gz" "image.el.gz" "battery.el.gz" "cus-dep.elc" "dframe.elc" "msb.el.gz" "ielm.el.gz" "autorevert.el.gz" "elec-pair.el.gz" "disp-table.el.gz" "misc.el.gz" "expand.el.gz" "files-x.el.gz" "cus-dep.el.gz" "arc-mode.el.gz" "filesets.el.gz" "vt100-led.el.gz" "ldefs-boot.el" "help.el.gz" "master.el.gz" "chistory.el.gz" "loadhist.el.gz" "desktop.elc" "help-mode.elc" "jka-compr.el.gz" "mouse-drag.el.gz" "xt-mouse.el.gz" "version.elc" "delim-col.elc" "image-mode.el.gz" "misc.elc" "winner.el.gz" "vt-control.elc" "w32-fns.el.gz" "cus-face.el.gz" "view.elc" "mwheel.elc" "format.el.gz" "apropos.elc" "pcmpl-rpm.el.gz" "ibuffer.el.gz" "tutorial.el.gz" "scroll-bar.el.gz" "startup.elc" "reveal.elc" "delim-col.el.gz" "epa-mail.elc" "composite.elc" "time-stamp.elc" "emulation/" "bindings.elc" "ebuff-menu.el.gz" "recentf.elc" "disp-table.elc" "dos-fns.el.gz" "md4.elc" "lpr.elc" "pcomplete.elc" "follow.el.gz" "xml.el.gz" "help-at-pt.elc" "font-lock.elc" "ruler-mode.el.gz" "midnight.elc" "international/" "whitespace.elc" "help-macro.elc" "facemenu.el.gz" "mail/" "dom.el.gz" "ps-def.el.gz" "scroll-bar.elc" "tar-mode.el.gz" "select.elc" "ses.el.gz" "edmacro.el.gz" "comint.elc" "wid-browse.elc" "flow-ctrl.elc" "ehelp.el.gz" "server.el.gz" "ansi-color.elc" "env.el.gz" "ps-print.el.gz" "informat.elc" "faces.el.gz" "midnight.el.gz" "dom.elc" "generic-x.elc" "menu-bar.elc" "tabify.el.gz" "filenotify.elc" "dnd.el.gz" "xwidget.el.gz" "mh-e/" "hexl.elc" "term.elc" "minibuffer.el.gz" "font-lock.el.gz" "gnus/" "proced.el.gz" "frameset.elc" "epg.elc" "shell.elc" "htmlfontify.el.gz" "eshell/" "dnd.elc" "dos-w32.elc" "json.elc" "makesum.elc" "dos-w32.el.gz" "flow-ctrl.el.gz" "wid-edit.elc" "tooltip.el.gz" "notifications.el.gz" "obsolete/" "tool-bar.elc" "w32-fns.elc" "mb-depth.el.gz" "minibuffer.elc" "scroll-lock.el.gz" "userlock.el.gz" "strokes.elc" "widget.elc" "echistory.elc" "pcmpl-cvs.el.gz" "dos-vars.el.gz" "completion.elc" "printing.elc" "README" "macros.elc" "buff-menu.el.gz" "autorevert.elc" "pcmpl-cvs.elc" "bookmark.elc" "info.el.gz" "emacs-lisp/" "dired-aux.el.gz" "dabbrev.el.gz" "jka-cmpr-hook.elc" "tar-mode.elc" "epa-file.elc" "ansi-color.el.gz" "calendar/" "pcmpl-x.elc" "dynamic-setting.elc" "button.el.gz" "avoid.elc" "makesum.el.gz" "help-mode.el.gz" "timezone.elc" "dos-fns.elc" "char-fold.elc" "ps-print.elc" "tree-widget.el.gz" "notifications.elc" "skeleton.elc" "register.elc" "woman.elc" "replace.el.gz" "emacs-lock.el.gz" "electric.el.gz" "jit-lock.elc" "jka-cmpr-hook.el.gz" "chistory.elc" "register.el.gz" "format.elc" "pcmpl-unix.elc" "isearch.el.gz" "fringe.el.gz" "ls-lisp.el.gz" "subr.el.gz" "repeat.el.gz" "dired.el.gz" "cus-start.elc" "cus-face.elc" "dired.elc" "tutorial.elc" "cus-load.el" "newcomment.el.gz" "help-fns.elc" "format-spec.elc" "isearch.elc" "winner.elc" "strokes.el.gz" "talk.el.gz" "language/" "calculator.el.gz" "window.el.gz" "locate.elc" "reposition.elc" "url/" "foldout.el.gz" "info.elc" "fringe.elc" "autoarg.elc" "elec-pair.elc" "htmlfontify.elc" "array.el.gz" "mouse.el.gz" "dframe.el.gz" "vcursor.elc" "autoinsert.elc" "dired-x.el.gz" "tabify.elc" "dynamic-setting.el.gz" "mouse.elc" "finder.el.gz" "kermit.el.gz" "json.el.gz" "paren.elc" "double.elc" "help-fns.el.gz" "mouse-copy.el.gz" "ses.elc" "saveplace.elc" "time.elc" "help-macro.el.gz" "time.el.gz" "hippie-exp.el.gz" "saveplace.el.gz" "echistory.el.gz" "woman.el.gz" "tempo.elc" "ibuf-ext.el.gz" "expand.elc" "uniquify.elc" "indent.elc" "composite.el.gz" "subdirs.el" "desktop.el.gz" "frame.elc" "face-remap.el.gz" "case-table.el.gz" "find-cmd.el.gz" "leim/" "isearchb.elc" "ebuff-menu.elc" "hex-util.elc" "ibuf-macs.elc" "bs.el.gz" "bookmark.el.gz" "view.el.gz" "epa-hook.el.gz" "find-dired.elc" "mouse-copy.elc" "ps-mule.el.gz" "align.elc" "ido.elc" "rot13.elc" "avoid.el.gz" "ibuf-macs.el.gz" "doc-view.elc" "env.elc" "wid-edit.el.gz" "term.el.gz" "informat.el.gz" "cus-theme.elc" "whitespace.el.gz" "server.elc" "savehist.elc" "dos-vars.elc" "jka-compr.elc" "cdl.elc" "loadhist.elc" "misearch.el.gz" "button.elc" "face-remap.elc" "obarray.el.gz" "files-x.elc" "facemenu.elc" "vc/" "profiler.el.gz" "epa-dired.el.gz" "term/" "doc-view.el.gz" "subr.elc" "allout.elc" "comint.el.gz" "cedet/" "w32-vars.el.gz" "image-dired.el.gz" "cus-theme.el.gz" "mwheel.el.gz" "ezimage.el.gz" "tempo.el.gz" "tree-widget.elc" "time-stamp.el.gz" "array.elc" "window.elc" "imenu.el.gz" "shell.el.gz" "pcmpl-linux.elc" "elide-head.el.gz" "allout-widgets.elc" "paren.el.gz" "locate.el.gz" "nxml/" "indent.el.gz" "info-xref.el.gz" "help-at-pt.el.gz" "char-fold.el.gz" "simple.elc" "delsel.elc" "calculator.elc" "epg-config.el.gz" "ehelp.elc" "password-cache.el.gz" "windmove.elc" "image.elc" "rfn-eshadow.el.gz" "find-dired.el.gz" "soundex.elc" "files.el.gz" "tooltip.elc" "speedbar.el.gz" "ps-bdf.elc" "sort.el.gz" "color.elc" "isearchb.el.gz" "scroll-lock.elc" "iimage.elc" "hfy-cmap.elc" "md4.el.gz" "mb-depth.elc" "epa-hook.elc" "vt100-led.elc" "bs.elc" "ps-def.elc" "wdired.el.gz" "descr-text.elc" "gs.elc" "net/" "elide-head.elc" "abbrev.elc" "scroll-all.elc" "../" "./")
-
- ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/config/" (22522 36134 941363 127000) "../" "config.yml" "tenant-default.yml" "weatherCodes.yml" "config.yml.dist" "cassandra-prod.cql" "./" "schema.yml" "cassandra-dev.cql" "cassandra-test.cql")
-
- ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/" (22526 3319 389594 636000) "../" "metric.js" "mongo.js" "repositories/" "aggregate.js" "core.js" "loadbalancer.js" "import.js" "logger.js" "providers/" "generic.js" "utils.js" "redis.js" "./" "tag.js" "job/" "chance.js" "cassandra.js" "metricable.js" "predictor.js" "excelExport.js" "import/")
-
- ("/home/dromar/projects/vagrant.early-birds/projects/core.early-birds/lib/job/mainjobs/" (22532 62508 131625 906000) "../" "mainjobs2.js" "old.js" "./" ".tern-port" "funnels.js" "test.js")
 )
 
 ;; ----- ido-unc-hosts-cache -----
