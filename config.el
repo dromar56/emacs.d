@@ -3,13 +3,15 @@
   (load custom-file))
 
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("org" . "http://orgmode.org/elpa/")
-                         ; ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
-(setq package-enable-at-startup nil)
-
+                       ("melpa-stable" . "http://stable.melpa.org/packages/")
+                          ("org" . "http://orgmode.org/elpa/")
+                          ; ("marmalade" . "http://marmalade-repo.org/packages/")
+                          ("gnu" . "http://elpa.gnu.org/packages/")))
+ (setq package-enable-at-startup nil)
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
-(package-initialize)
+ (package-initialize)
+
+ (setq use-package-always-ensure t)
 
 (defun set-frame-font-size (size)
   (interactive "nSize:")
@@ -263,33 +265,151 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (bind-key "C-x TAB" 'indent-rigidly-block)
 
+(use-package swiper
+  :ensure t
+  :pin melpa
+  :bind ("M-s" . swiper)
+  :config
+  ;; (bind-key "C-S-s" 'isearch-forward)
+  (bind-key "C-w" 'ivy-yank-word swiper-map)
+  (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
+  )
+
+(use-package auto-yasnippet
+  :ensure t
+  :pin melpa
+  :commands (aya-create
+             aya-expand
+             aya-open-line
+             aya-persist-snippet)
+  :config
+  )
+
+(use-package counsel
+  :ensure t
+  :pin melpa
+  :bind ("M-x" . counsel-M-x)
+  )
+
+(use-package ivy
+  :config
+  (ivy-mode t)
+  (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
+  ;; (setq ivy-re-builders-alist
+  ;;       '((t . ivy--regex-fuzzy)))  
+  )
+
+(when (executable-find "ag")
+      (use-package ag :ensure t)
+      (setq ag-highlight-search t)
+      (use-package wgrep-ag) :ensure t)
+(customize-set-variable 'ag-arguments
+   (quote
+    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
+(customize-set-variable 'ag-highlight-search t)
+
+(use-package anzu
+  :ensure t
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
+  :config
+  (setq anzu-cons-mode-line-p nil)
+  (global-anzu-mode 1))
+
+(use-package avy
+  :ensure t
+  :bind ("M-c" . avy-goto-char-2)
+  :config
+  (setq avy-keys (number-sequence ?a ?z)))
+
+(use-package company
+  :ensure t
+  :pin melpa
+  :config
+  (setq company-idle-delay 0.3)
+  (setq company-minimum-prefix-length 1)
+  (setq company-show-numbers 1)
+  (setq company-tooltip-limit 10)
+
+  (setq company-dabbrev-downcase nil)
+  (setq company-dabbrev-ignore-case nil)
+
+  (setq company-global-modes
+        '(not eshell-mode comint-mode org-mode))
+
+  (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
+  (customize-set-variable 'company-selection-wrap-around t)
+
+  (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
+  (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
+  (set-face-attribute 'company-preview nil :background "black")
+  (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
+  (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
+  (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
+
+  (when (executable-find "tern")
+    (after "company-tern-autoloads"
+      (add-to-list 'company-backends 'company-tern)))
+  (add-to-list 'company-backends 'company-tern)
+
+  (defun company-auto-completion-toggle ()
+    (interactive)
+    (if (eq company-idle-delay 0)
+        (setq company-idle-delay 0.3)
+      (setq company-idle-delay 0))
+    (message (format "company-idle-delay : %s" company-idle-delay)))
+
+  (bind-key "C-M-c" 'company-auto-completion-toggle)
+
+  (bind-key "C-o" 'company-manual-begin)
+  (bind-key "M-o" 'company-tern)
+  (bind-key "M-?" 'company-dabbrev)
+
+  (defadvice company-complete-common (around advice-for-company-complete-common activate)
+    (when (null (yas-expand))
+      ad-do-it))
+
+  (add-hook 'after-init-hook 'global-company-mode))
+
+;; For a cleaner modeline
+(use-package diminish :ensure t)
+(diminish 'visual-line-mode)
+(after 'autopair (diminish 'autopair-mode))
+(after 'js2 (diminish 'Javascript-IDE))
+(after 'js2r (diminish 'js2r-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'undo-tree (diminish 'undo-tree-mode))
+(after 'auto-complete (diminish 'auto-complete-mode))
+;(after 'projectile (diminish 'projectile-mode))
+(after 'yasnippet (diminish 'yas-minor-mode))
+(after 'guide-key (diminish 'guide-key-mode))
+(after 'eldoc (diminish 'eldoc-mode))
+(after 'smartparens (diminish 'smartparens-mode))
+(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
+(after 'git-gutter+ (diminish 'git-gutter+-mode))
+;; (after 'helm (diminish 'helm-mode))
+(after 'anzu (diminish 'anzu-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'tern (diminish 'tern-mode))
+;; (after 'company (diminish 'company-mode))
+
 (after "dired" 
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle))
 
-(ido-mode t)
-(ido-ubiquitous-mode t)
-(ido-vertical-mode t)
-(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-(setq ido-auto-merge-work-directories-length -1)
+(use-package expand-region :ensure t)
 
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-max-prospects 30)
+(use-package flycheck :ensure t)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
-(setq ido-ignore-buffers
-      '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-        "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-        ;; "^\*"
-        )
-      )
+(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
+(customize-set-variable 'flycheck-idle-change-delay 0.5)
 
-(require 'flx-ido)
-(ido-everywhere t)
-(flx-ido-mode 1)
+(use-package flycheck-pos-tip :ensure t)
 
-;; (bind-key "M-x" 'smex)
-;; (bind-key "M-X" 'smex-major-mode-commands)
-;;  (bind-key "C-c M-x" 'smex-update)
+
+
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
 
 (require 'helm-config)
 (use-package helm
@@ -494,38 +614,47 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   ;; End of helm-c-yasnippet
   )
 
-(use-package swiper
-  :ensure t
-  :pin melpa
-  :bind ("M-s" . swiper)
-  :config
-  ;; (bind-key "C-S-s" 'isearch-forward)
-  (bind-key "C-w" 'ivy-yank-word swiper-map)
-  (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
-  )
+;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
 
-(use-package auto-yasnippet
-  :ensure t
-  :pin melpa
-  :commands (aya-create
-             aya-expand
-             aya-open-line
-             aya-persist-snippet)
+(use-package hideshow
   :config
-  )
+  (defun hs-mouse-toggle-hiding (e)
+    "Toggle hiding/showing of a block.
+This command should be bound to a mouse key.
+Argument E is a mouse event used by `mouse-set-point'.
+See `hs-hide-block' and `hs-show-block'."
+    (interactive "@e")
+    (hs-life-goes-on
+     (mouse-set-point e)
+     ;; Move backward one char so we don't need to click on the open bracket
+     (save-excursion
+       (unless (hs-looking-at-block-start-p)
+         (backward-char 1))
+       (hs-toggle-hiding))))
 
-(use-package counsel
-  :ensure t
-  :pin melpa
-  :bind ("M-x" . counsel-M-x)
-  )
 
-(use-package ivy
-  :config
-  (ivy-mode t)
-  (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-  ;; (setq ivy-re-builders-alist
-  ;;       '((t . ivy--regex-fuzzy)))  
+
+  (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
+  (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
+  (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
+  (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
+  (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
+  (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
+  (bind-key "<S-mouse-1>" 'hs-mouse-toggle-hiding hs-minor-mode-map)
+  (bind-key "<down-mouse-1>" nil hs-minor-mode-map)
+
+  (defun hs-hide-global-level (level)
+    (interactive)
+    (save-excursion
+      (goto-char (point-max))
+      (hs-hide-level level)))
+
+  (bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
+  (bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
+  (bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
+  (bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
+  (bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
+  (bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
   )
 
 (use-package hydra :ensure t)
@@ -577,35 +706,35 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   ("<down>" shrink-window "shrink")
 )
 
-(use-package avy
-  :ensure t
-  :bind ("M-c" . avy-goto-char-2)
-  :config
-  (setq avy-keys (number-sequence ?a ?z)))
+(ido-mode t)
+(ido-ubiquitous-mode t)
+(ido-vertical-mode t)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+(setq ido-auto-merge-work-directories-length -1)
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/snippets"))
-  (yas-global-mode 1)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-max-prospects 30)
 
-  (bind-keys :map yas-minor-mode-map
-             ;; ("<tab>" . nil)
-             ;; ("TAB" . nil)
-             ("C-<tab>" . yas-expand)
-             ("C-c TAB" . yas-insert-snippet ))
-  )
+(setq ido-ignore-buffers
+      '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+        "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
+        ;; "^\*"
+        )
+      )
 
-(use-package anzu
-  :ensure t
-  :bind (("M-%" . anzu-query-replace)
-         ("C-M-%" . anzu-query-replace-regexp))
-  :config
-  (setq anzu-cons-mode-line-p nil)
-  (global-anzu-mode 1))
+(require 'flx-ido)
+(ido-everywhere t)
+(flx-ido-mode 1)
 
-(use-package expand-region :ensure t)
+;; (bind-key "M-x" 'smex)
+;; (bind-key "M-X" 'smex-major-mode-commands)
+;;  (bind-key "C-c M-x" 'smex-update)
+
+(use-package iy-go-to-char
+  :config 
+  (with-eval-after-load 'multiple-cursors
+      (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)))
 
 (use-package magit
   :ensure t
@@ -618,10 +747,22 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (bind-key "C-M-3" 'magit-show-level-3-all  magit-diff-mode-map)
   (bind-key "C-M-4" 'magit-show-level-4-all  magit-diff-mode-map))
 
-(use-package multiple-cursors :ensure t)
+(use-package multiple-cursors)
 
-(use-package iy-go-to-char :ensure t
-  :config (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos))
+(use-package neotree
+  :bind ("M-`" . neotree-toggle)
+  :config
+  (setq neo-smart-open nil)
+  (setq neo-persist-show t) ;; setting it to nil probably solves a bug with helm C-h m (helm-help)
+
+  ; (setq projectile-switch-project-action 'neotree-projectile-action)
+)
+
+(defvar neotree-projectile-root nil)
+
+(defun neotree-projectile (args)
+  (interactive "P")
+  )
 
 (use-package projectile
   :ensure t
@@ -635,54 +776,13 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (customize-set-variable 'projectile-tags-command
                           "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -"))
 
-(use-package company
+(use-package shackle
   :ensure t
   :pin melpa
   :config
-  (setq company-idle-delay 0.3)
-  (setq company-minimum-prefix-length 1)
-  (setq company-show-numbers 1)
-  (setq company-tooltip-limit 10)
-
-  (setq company-dabbrev-downcase nil)
-  (setq company-dabbrev-ignore-case nil)
-
-  (setq company-global-modes
-        '(not eshell-mode comint-mode org-mode))
-
-  (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
-  (customize-set-variable 'company-selection-wrap-around t)
-
-  (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
-  (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
-  (set-face-attribute 'company-preview nil :background "black")
-  (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
-  (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
-  (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
-
-  (when (executable-find "tern")
-    (after "company-tern-autoloads"
-      (add-to-list 'company-backends 'company-tern)))
-  (add-to-list 'company-backends 'company-tern)
-
-  (defun company-auto-completion-toggle ()
-    (interactive)
-    (if (eq company-idle-delay 0)
-        (setq company-idle-delay 0.3)
-      (setq company-idle-delay 0))
-    (message (format "company-idle-delay : %s" company-idle-delay)))
-
-  (bind-key "C-M-c" 'company-auto-completion-toggle)
-
-  (bind-key "C-o" 'company-manual-begin)
-  (bind-key "M-o" 'company-tern)
-  (bind-key "M-?" 'company-dabbrev)
-
-  (defadvice company-complete-common (around advice-for-company-complete-common activate)
-    (when (null (yas-expand))
-      ad-do-it))
-
-  (add-hook 'after-init-hook 'global-company-mode))
+  (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
+  (shackle-mode t)
+  )
 
 (use-package smartparens
   :ensure t
@@ -697,7 +797,7 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
   (sp-use-smartparens-bindings)
   (smartparens-global-mode t)
-  (smartparens-global-strict-mode nil)
+  (smartparens-global-strict-mode -1)
 
   (show-smartparens-global-mode t)
   (show-paren-mode 1)
@@ -722,7 +822,7 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   ;; fix conflict where smartparens clobbers yas' key bindings
   (after 'yasnippet
     (defadvice yas-expand (before advice-for-yas-expand activate)
-      (sp-remove-active-pair-overlay)))
+   (sp-remove-active-pair-overlay)))
 
   (defadvice sp-kill-hybrid-sexp (before kill-line-cleanup-whitespace activate)
     "cleanup whitespace on sp-kill-hybrid-sexp"
@@ -735,6 +835,25 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (customize-set-variable 'sp-successive-kill-preserve-whitespace 2)
 
 )
+
+(use-package smooth-scrolling
+  :ensure t
+  :init (setq smooth-scroll-margin 5
+              scroll-conservatively 101
+              scroll-preserve-screen-position t
+              auto-window-vscroll nil)
+  :config
+  (setq scroll-margin 5)
+  )
+
+(require 'tramp)
+   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
+  (setq tramp-default-method "sshx")
+
+(setq password-cache-expiry 'nil)
+
+   ;; (add-to-list 'backup-directory-alist
+   ;;              (cons tramp-file-name-regexp nil))
 
 ;;==========
 ;; Undo tree
@@ -749,115 +868,25 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
 (define-key undo-tree-map (kbd "C-/") 'nil)
 
-(use-package flycheck :ensure t)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
-(customize-set-variable 'flycheck-idle-change-delay 0.5)
-
-(use-package flycheck-pos-tip :ensure t)
-
-
-
-(with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
-
-;; For a cleaner modeline
-(use-package diminish :ensure t)
-(diminish 'visual-line-mode)
-(after 'autopair (diminish 'autopair-mode))
-(after 'js2 (diminish 'Javascript-IDE))
-(after 'js2r (diminish 'js2r-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'undo-tree (diminish 'undo-tree-mode))
-(after 'auto-complete (diminish 'auto-complete-mode))
-;(after 'projectile (diminish 'projectile-mode))
-(after 'yasnippet (diminish 'yas-minor-mode))
-(after 'guide-key (diminish 'guide-key-mode))
-(after 'eldoc (diminish 'eldoc-mode))
-(after 'smartparens (diminish 'smartparens-mode))
-(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
-(after 'git-gutter+ (diminish 'git-gutter+-mode))
-;; (after 'helm (diminish 'helm-mode))
-(after 'anzu (diminish 'anzu-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'tern (diminish 'tern-mode))
-;; (after 'company (diminish 'company-mode))
-
-(require 'tramp)
-   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
-  (setq tramp-default-method "sshx")
-
-(setq password-cache-expiry 'nil)
-
-   ;; (add-to-list 'backup-directory-alist
-   ;;              (cons tramp-file-name-regexp nil))
-
-(use-package neotree
-  :bind ("M-`" . neotree-toggle)
-  :config
-  (setq neo-smart-open nil)
-  (setq neo-persist-show t) ;; setting it to nil probably solves a bug with helm C-h m (helm-help)
-
-  ; (setq projectile-switch-project-action 'neotree-projectile-action)
-)
-
-(defvar neotree-projectile-root nil)
-
-(defun neotree-projectile (args)
-  (interactive "P")
-  )
-
-(when (executable-find "ag")
-      (use-package ag :ensure t)
-      (setq ag-highlight-search t)
-      (use-package wgrep-ag) :ensure t)
-(customize-set-variable 'ag-arguments
-   (quote
-    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
-(customize-set-variable 'ag-highlight-search t)
-
-(use-package shackle
+(use-package yasnippet
   :ensure t
-  :pin melpa
   :config
-  (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
-  (shackle-mode t)
-  )
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"))
+  (yas-global-mode 1)
 
-(use-package eyebrowse
-  :ensure t
-  :bind (("M-0" . eyebrowse-switch-to-window-config-0)
-         ("M-1" . eyebrowse-switch-to-window-config-1)
-         ("M-2" . eyebrowse-switch-to-window-config-2)
-         ("M-3" . eyebrowse-switch-to-window-config-3)
-         ("M-4" . eyebrowse-switch-to-window-config-4)
-         ("M-5" . eyebrowse-switch-to-window-config-5)
-         ("M-6" . eyebrowse-switch-to-window-config-6)
-         ("M-7" . eyebrowse-switch-to-window-config-7)
-         ("M-8" . eyebrowse-switch-to-window-config-8)
-         ("M-9" . eyebrowse-switch-to-window-config-9)
-         )
-
-  :pin melpa
-  :config
-  (add-to-list 'window-persistent-parameters '(window-side . writable))
-  (add-to-list 'window-persistent-parameters '(window-slot . writable))
-  )
-
-(use-package smooth-scrolling
-  :ensure t
-  :init (setq smooth-scroll-margin 5
-              scroll-conservatively 101
-              scroll-preserve-screen-position t
-              auto-window-vscroll nil)
-  :config
-  (setq scroll-margin 5)
+  (bind-keys :map yas-minor-mode-map
+             ;; ("<tab>" . nil)
+             ;; ("TAB" . nil)
+             ("C-<tab>" . yas-expand)
+             ("C-c TAB" . yas-insert-snippet ))
   )
 
 (use-package jscs
   :ensure t
   )
+
+(use-package terraform-mode :ensure t)
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
@@ -967,7 +996,8 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
      ;; (define-key org-mode-map (kbd "<C-left>") nil)
      ;; (define-key org-mode-map (kbd "<C-right>") nil)
      (define-key org-mode-map (kbd "M-<down>") 'nil)
-     (define-key org-mode-map (kbd "M-<up>") 'nil)))
+     (define-key org-mode-map (kbd "M-<up>") 'nil)
+     (require 'ox-gfm nil t)))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
@@ -1126,6 +1156,8 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 
   (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
 
+  (add-hook 'before-save-hook 'tide-format-before-save)
+
   ;; sample config
   (add-hook 'typescript-mode-hook
             (lambda ()
@@ -1171,25 +1203,47 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (autoload 'php-mode "php-mode.el" "Php mode." t)
 (setq auto-mode-alist (append '(("/*.\.php[345]?$" . php-mode)) auto-mode-alist))
 
+;; (use-package python
+;;   :mode ("\\.py" . python-mode)
+;;   :config
+;;   (use-package elpy
+;;     :init
+;;     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+;;     :config
+;;     (setq elpy-rpc-backend "jedi")
+;;     (define-key elpy-mode-map (kbd "<C-down>") 'nil)
+;;     (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+;;     (define-key elpy-mode-map (kbd "<M-up>") 'nil)
+;;     (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+
+;;     ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;;     ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
+;;     :bind (:map elpy-mode-map
+;;            ("M-." . elpy-goto-definition)
+;;            ("M-," . pop-tag-mark)))
+;;   (elpy-enable))
+
+
 (use-package python
   :mode ("\\.py" . python-mode)
   :config
-  (use-package elpy
+  (use-package anaconda-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
     :config
-    (setq elpy-rpc-backend "jedi")
-    (define-key elpy-mode-map (kbd "<C-down>") 'nil)
-    (define-key elpy-mode-map (kbd "<C-up>") 'nil)
-    (define-key elpy-mode-map (kbd "<M-up>") 'nil)
-    (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+    )
+  )
 
-    ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-    ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
-    :bind (:map elpy-mode-map
-              ("M-." . elpy-goto-definition)
-              ("M-," . pop-tag-mark)))
-  (elpy-enable))
+(use-package company-anaconda
+  :config
+  (eval-after-load "company"
+    '(add-to-list 'company-backends 'company-anaconda))
+
+  (eval-after-load "company"
+    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
+)
 
 (use-package pip-requirements
   :config
@@ -1198,51 +1252,37 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
 (use-package py-autopep8)
 
 
-(use-package pyenv-mode
-  :init
-  (add-to-list 'exec-path "~/.pyenv/shims")
-  (setenv "WORKON_HOME" "~/.pyenv/versions/")
-  :config
-  (pyenv-mode)
-  :bind
-  ("C-x p e" . pyenv-activate-current-project))
+;; (use-package pyenv-mode
+;;   :init
+;;   (add-to-list 'exec-path "~/.pyenv/shims")
+;;   (setenv "WORKON_HOME" "~/.pyenv/versions/")
+;;   :config
+;;   (pyenv-mode)
+;;   :bind
+;;   ("C-x p e" . pyenv-activate-current-project))
 
-(defun pyenv-init()
-  (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
-  (message (concat "Setting pyenv version to " global-pyenv))
-  (pyenv-mode-set global-pyenv)
-  (defvar pyenv-current-version nil global-pyenv))
+;; (defun pyenv-init()
+;;   (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
+;;   (message (concat "Setting pyenv version to " global-pyenv))
+;;   (pyenv-mode-set global-pyenv)
+;;   (defvar pyenv-current-version nil global-pyenv))
 
-(defun pyenv-activate-current-project ()
-  "Automatically activates pyenv version if .python-version file exists."
-  (interactive)
-  (f-traverse-upwards
-   (lambda (path)
-     (message path)
-     (let ((pyenv-version-path (f-expand ".python-version" path)))
-       (if (f-exists? pyenv-version-path)
-          (progn
-            (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
-            (pyenv-mode-set pyenv-current-version)
-            (pyvenv-workon pyenv-current-version)
-            (message (concat "Setting virtualenv to " pyenv-current-version))))))))
+;; (defun pyenv-activate-current-project ()
+;;   "Automatically activates pyenv version if .python-version file exists."
+;;   (interactive)
+;;   (f-traverse-upwards
+;;    (lambda (path)
+;;      (message path)
+;;      (let ((pyenv-version-path (f-expand ".python-version" path)))
+;;     (if (f-exists? pyenv-version-path)
+;;           (progn
+;;             (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
+;;             (pyenv-mode-set pyenv-current-version)
+;;             (pyvenv-workon pyenv-current-version)
+;;             (message (concat "Setting virtualenv to " pyenv-current-version))))))))
 
-(add-hook 'after-init-hook 'pyenv-init)
-(add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
-
-;; ;; Ignoring electric indentation
-;; (defun electric-indent-ignore-python (char)
-;;   "Ignore electric indentation for python-mode"
-;;   (if (equal major-mode 'python-mode)
-;;       `no-indent'
-;;     nil))
-;; (add-hook 'electric-indent-functions 'electric-indent-ignore-python)
-
-
-;; ;; Fix yasnippet indentation in python-mode
-;; (add-hook 'python-mode-hook
-;;    '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
-;;       (company-mode -1)))
+;; (add-hook 'after-init-hook 'pyenv-init)
+;; (add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
 
 (use-package web-mode
   :mode (("\\.phtml\\'" . web-mode)
@@ -1265,50 +1305,12 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
   (add-hook 'web-mode-hook  'my-web-mode-hook)
   )
 
+(use-package dockerfile-mode
+  :ensure t
+  :pin melpa-stable ; or 'manual'
+)
+
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
-
-;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
-
-(use-package hideshow
-  :config
-  (defun hs-mouse-toggle-hiding (e)
-    "Toggle hiding/showing of a block.
-This command should be bound to a mouse key.
-Argument E is a mouse event used by `mouse-set-point'.
-See `hs-hide-block' and `hs-show-block'."
-    (interactive "@e")
-    (hs-life-goes-on
-     (mouse-set-point e)
-     ;; Move backward one char so we don't need to click on the open bracket
-     (save-excursion
-       (unless (hs-looking-at-block-start-p)
-         (backward-char 1))
-       (hs-toggle-hiding))))
-
-
-
-  (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
-  (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
-  (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
-  (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
-  (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
-  (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
-  (bind-key "<S-mouse-1>" 'hs-mouse-toggle-hiding hs-minor-mode-map)
-  (bind-key "<down-mouse-1>" nil hs-minor-mode-map)
-
-  (defun hs-hide-global-level (level)
-    (interactive)
-    (save-excursion
-      (goto-char (point-max))
-      (hs-hide-level level)))
-
-  (bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
-  (bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
-  (bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
-  (bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
-  (bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
-  (bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
-  )
 
 (set-default 'truncate-lines t)
 
@@ -1340,7 +1342,7 @@ See `hs-hide-block' and `hs-show-block'."
 
 (setq suggest-key-binding 5)
 
-;; (window-numbering-mode t)
+(window-numbering-mode t)
 
 (setq help-window-select t)
 
@@ -1547,6 +1549,8 @@ See `hs-hide-block' and `hs-show-block'."
 (prelude-install-search-engine "duckduckgo" "https://duckduckgo.com/?t=lm&q="              "Search DuckDuckGo: ")
 (prelude-install-search-engine "angular"     "https://www.google.com/search?as_sitesearch=angularjs.org&as_q=" "AngularJS: ")
 
+(run-at-time (current-time) 120 'recentf-save-list)
+
 (setq ido-default-buffer-method 'selected-window)
 
 ;; eshell prompt color
@@ -1743,6 +1747,9 @@ See `hs-hide-block' and `hs-show-block'."
 (setq linum-format " %2d ")
 
 (load-theme 'material)
+(set-face-attribute 'org-level-1 nil :height 1.3)
+(set-face-attribute 'org-level-2 nil :height 1.2)
+(set-face-attribute 'org-level-3 nil :height 1.1)
 
 ;;;;;;;;;;;;;;;;;;
 ;; Font lock speed

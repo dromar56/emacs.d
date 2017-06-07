@@ -1,0 +1,31 @@
+# -*- mode: snippet -*-
+# name: use-package
+# key: use
+# binding: direct-keybinding
+# expand-env: ((some-var some-value))
+# type: snippet
+# --
+
+(use-package ace-jump-mode
+  :pin melpa-stable ; or 'manual'
+
+  :diminish abbrev-mode
+  
+  :commands ace-jump-mode
+
+  :mode ("\\.py" . python-mode)
+  
+  :bind ("C-." . ace-jump-mode)
+  ;; or
+  :bind (("M-s O" . moccur)
+         :map isearch-mode-map
+         ("M-o" . isearch-moccur)
+         ("M-O" . isearch-moccur-all))
+  
+  :init ;; Before package is loaded
+  (setq foo-variable t)
+  (bind-key "C-." 'foo-command)
+
+  :config ;; After package is loaded
+  (foo-mode 1)
+)

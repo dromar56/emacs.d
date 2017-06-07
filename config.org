@@ -14,13 +14,16 @@
    Initialize packages and provide the very useful =use-package= function, who installs the package from the repositories if it doesn't exist :ensure t.
    #+begin_src emacs-lisp
      (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+   			   ("melpa-stable" . "http://stable.melpa.org/packages/")
                               ("org" . "http://orgmode.org/elpa/")
                               ; ("marmalade" . "http://marmalade-repo.org/packages/")
                               ("gnu" . "http://elpa.gnu.org/packages/")))
      (setq package-enable-at-startup nil)
-
-     ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
+    ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
      (package-initialize)
+
+     (setq use-package-always-ensure t) 
+
    #+end_src
 * Elisp code
 ** set-frame-font-size
@@ -295,38 +298,238 @@
   (bind-key "C-x TAB" 'indent-rigidly-block)
 #+end_src
 * Plugins
+** abo-abo
+#+begin_src emacs-lisp :tangle yes
+  (use-package swiper
+    :ensure t
+    :pin melpa
+    :bind ("M-s" . swiper)
+    :config
+    ;; (bind-key "C-S-s" 'isearch-forward)
+    (bind-key "C-w" 'ivy-yank-word swiper-map)
+    (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
+    )
+
+  (use-package auto-yasnippet
+    :ensure t
+    :pin melpa
+    :commands (aya-create
+               aya-expand
+               aya-open-line
+               aya-persist-snippet)
+    :config
+    )
+
+  (use-package counsel
+    :ensure t
+    :pin melpa
+    :bind ("M-x" . counsel-M-x)
+    )
+
+  (use-package ivy
+    :config
+    (ivy-mode t)
+    (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
+    ;; (setq ivy-re-builders-alist
+    ;;       '((t . ivy--regex-fuzzy)))  
+    )
+
+#+end_src
+** Ag
+#+begin_src emacs-lisp :tangle yes
+    (when (executable-find "ag")
+      (use-package ag :ensure t)
+      (setq ag-highlight-search t)
+      (use-package wgrep-ag) :ensure t)
+(customize-set-variable 'ag-arguments
+   (quote
+    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
+(customize-set-variable 'ag-highlight-search t)
+#+end_src
+
+** Anzu
+#+begin_src emacs-lisp :tangle yes
+  (use-package anzu
+    :ensure t
+    :bind (("M-%" . anzu-query-replace)
+           ("C-M-%" . anzu-query-replace-regexp))
+    :config
+    (setq anzu-cons-mode-line-p nil)
+    (global-anzu-mode 1))
+
+#+end_src
+
+** Avy
+#+begin_src emacs-lisp :tangle yes
+  (use-package avy
+    :ensure t
+    :bind ("M-c" . avy-goto-char-2)
+    :config
+    (setq avy-keys (number-sequence ?a ?z)))
+#+end_src
+** COMMENT Highlight Parenthesis
+#+begin_src emacs-lisp :tangle yes
+  (use-package highlight-parentheses
+    :ensure t
+    :defer t
+    :pin melpa
+    :init
+    (add-hook 'prog-mode-hook #'highlight-parentheses-mode)
+    (setq hl-paren-delay 0.2)
+
+    (setq hl-paren-background-colors '("Springgreen4"
+                                       "IndianRed1"
+                                       "IndianRed4"))
+    (setq hl-paren-background-colors '())
+
+
+    (setq hl-paren-colors '("white" "light gray"))
+    (setq hl-paren-colors '())
+
+    (setq hl-paren-colors '("Springgreen3"
+                                       "IndianRed1"
+                                       "IndianRed4"))
+
+    )
+
+#+end_src
+** COMMENT Indent Guide
+#+begin_src emacs-lisp :tangle yes
+    (use-package indent-guide :ensure t)
+#+end_src
+
+** COMMENT Pretty symbols
+#+begin_src emacs-lisp :tangle yes
+  (if (fboundp 'global-prettify-symbols-mode)
+      (progn
+        (global-prettify-symbols-mode)
+        (add-hook 'js2-mode-hook
+                  (lambda ()
+                    (push '("function" . 955) prettify-symbols-alist)
+                    (push '("return" . 8592) prettify-symbols-alist))))
+
+    (progn
+      (use-package pretty-symbols :ensure t :pin melpa)
+      (diminish 'pretty-symbols-mode)
+      (add-to-list 'pretty-symbol-categories 'js)
+      (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
+      (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
+      (add-hook 'find-file-hook 'pretty-symbols-mode)))
+#+end_src
+
+** COMMENT Vimish fold
+#+begin_src emacs-lisp :tangle yes
+  (use-package vimish-fold
+    :ensure t
+    :pin melpa
+    :bind ()
+    :config
+    (vimish-fold-global-mode 1)
+    )
+
+#+end_src
+** Company
+   #+begin_src emacs-lisp
+     (use-package company
+       :ensure t
+       :pin melpa
+       :config
+       (setq company-idle-delay 0.3)
+       (setq company-minimum-prefix-length 1)
+       (setq company-show-numbers 1)
+       (setq company-tooltip-limit 10)
+
+       (setq company-dabbrev-downcase nil)
+       (setq company-dabbrev-ignore-case nil)
+
+       (setq company-global-modes
+             '(not eshell-mode comint-mode org-mode))
+
+       (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
+       (customize-set-variable 'company-selection-wrap-around t)
+
+       (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
+       (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
+       (set-face-attribute 'company-preview nil :background "black")
+       (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
+       (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
+       (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
+
+       (when (executable-find "tern")
+         (after "company-tern-autoloads"
+           (add-to-list 'company-backends 'company-tern)))
+       (add-to-list 'company-backends 'company-tern)
+
+       (defun company-auto-completion-toggle ()
+         (interactive)
+         (if (eq company-idle-delay 0)
+             (setq company-idle-delay 0.3)
+           (setq company-idle-delay 0))
+         (message (format "company-idle-delay : %s" company-idle-delay)))
+
+       (bind-key "C-M-c" 'company-auto-completion-toggle)
+
+       (bind-key "C-o" 'company-manual-begin)
+       (bind-key "M-o" 'company-tern)
+       (bind-key "M-?" 'company-dabbrev)
+
+       (defadvice company-complete-common (around advice-for-company-complete-common activate)
+         (when (null (yas-expand))
+           ad-do-it))
+
+       (add-hook 'after-init-hook 'global-company-mode))
+
+#+end_src
+
+** Diminish
+   #+begin_src emacs-lisp :tangle yes
+;; For a cleaner modeline
+(use-package diminish :ensure t)
+(diminish 'visual-line-mode)
+(after 'autopair (diminish 'autopair-mode))
+(after 'js2 (diminish 'Javascript-IDE))
+(after 'js2r (diminish 'js2r-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'undo-tree (diminish 'undo-tree-mode))
+(after 'auto-complete (diminish 'auto-complete-mode))
+;(after 'projectile (diminish 'projectile-mode))
+(after 'yasnippet (diminish 'yas-minor-mode))
+(after 'guide-key (diminish 'guide-key-mode))
+(after 'eldoc (diminish 'eldoc-mode))
+(after 'smartparens (diminish 'smartparens-mode))
+(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
+(after 'git-gutter+ (diminish 'git-gutter+-mode))
+;; (after 'helm (diminish 'helm-mode))
+(after 'anzu (diminish 'anzu-mode))
+(after 'skewer (diminish 'skewer-mode))
+(after 'tern (diminish 'tern-mode))
+;; (after 'company (diminish 'company-mode))
+#+end_src
+
 ** Dired Tree
 #+begin_src emacs-lisp :tangle yes
   (after "dired" 
     (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle))
 #+end_src
-** Ido
+** Expand Region
 #+begin_src emacs-lisp :tangle yes
+  (use-package expand-region :ensure t)
+#+end_src
 
-  (ido-mode t)
-  (ido-ubiquitous-mode t)
-  (ido-vertical-mode t)
-  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-  (setq ido-auto-merge-work-directories-length -1)
+** Flycheck
+   #+begin_src emacs-lisp :tangle yes
+(use-package flycheck :ensure t)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-max-prospects 30)
+(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
+(customize-set-variable 'flycheck-idle-change-delay 0.5)
 
-  (setq ido-ignore-buffers
-        '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-          "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-          ;; "^\*"
-          )
-        )
+(use-package flycheck-pos-tip :ensure t)
 
-  (require 'flx-ido)
-  (ido-everywhere t)
-  (flx-ido-mode 1)
 
-  ;; (bind-key "M-x" 'smex)
-  ;; (bind-key "M-X" 'smex-major-mode-commands)
-  ;;  (bind-key "C-c M-x" 'smex-update)
+
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
 
 #+end_src
 
@@ -539,41 +742,52 @@
     ;; End of helm-c-yasnippet
     )
 #+end_src
-** abo-abo
+** Hide Show
 #+begin_src emacs-lisp :tangle yes
-  (use-package swiper
-    :ensure t
-    :pin melpa
-    :bind ("M-s" . swiper)
+  ;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
+
+  (use-package hideshow
     :config
-    ;; (bind-key "C-S-s" 'isearch-forward)
-    (bind-key "C-w" 'ivy-yank-word swiper-map)
-    (bind-key "C-r" 'ivy-previous-line-or-history swiper-map)
+    (defun hs-mouse-toggle-hiding (e)
+      "Toggle hiding/showing of a block.
+  This command should be bound to a mouse key.
+  Argument E is a mouse event used by `mouse-set-point'.
+  See `hs-hide-block' and `hs-show-block'."
+      (interactive "@e")
+      (hs-life-goes-on
+       (mouse-set-point e)
+       ;; Move backward one char so we don't need to click on the open bracket
+       (save-excursion
+         (unless (hs-looking-at-block-start-p)
+           (backward-char 1))
+         (hs-toggle-hiding))))
+
+
+
+    (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
+    (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
+    (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
+    (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
+    (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
+    (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
+    (bind-key "<S-mouse-1>" 'hs-mouse-toggle-hiding hs-minor-mode-map)
+    (bind-key "<down-mouse-1>" nil hs-minor-mode-map)
+
+    (defun hs-hide-global-level (level)
+      (interactive)
+      (save-excursion
+        (goto-char (point-max))
+        (hs-hide-level level)))
+
+    (bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
+    (bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
+    (bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
+    (bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
+    (bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
+    (bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
     )
 
-  (use-package auto-yasnippet
-    :ensure t
-    :pin melpa
-    :commands (aya-create
-               aya-expand
-               aya-open-line
-               aya-persist-snippet)
-    :config
-    )
 
-  (use-package counsel
-    :ensure t
-    :pin melpa
-    :bind ("M-x" . counsel-M-x)
-    )
-
-  (use-package ivy
-    :config
-    (ivy-mode t)
-    (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
-    ;; (setq ivy-re-builders-alist
-    ;;       '((t . ivy--regex-fuzzy)))  
-    )
 
 #+end_src
 ** Hydra
@@ -629,71 +843,42 @@
 
 
 #+end_src
-** Avy
+** COMMENT Ido
 #+begin_src emacs-lisp :tangle yes
-  (use-package avy
-    :ensure t
-    :bind ("M-c" . avy-goto-char-2)
-    :config
-    (setq avy-keys (number-sequence ?a ?z)))
-#+end_src
-** Yasnippet
-   #+begin_src emacs-lisp
-     (use-package yasnippet
-       :ensure t
-       :config
-       (setq yas-snippet-dirs
-             '("~/.emacs.d/snippets"))
-       (yas-global-mode 1)
 
-       (bind-keys :map yas-minor-mode-map
-                  ;; ("<tab>" . nil)
-                  ;; ("TAB" . nil)
-                  ("C-<tab>" . yas-expand)
-                  ("C-c TAB" . yas-insert-snippet ))
-       )
+  (ido-mode t)
+  (ido-ubiquitous-mode t)
+  (ido-vertical-mode t)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+  (setq ido-auto-merge-work-directories-length -1)
 
-#+end_src
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-max-prospects 30)
 
-** COMMENT Pretty symbols
-#+begin_src emacs-lisp :tangle yes
-  (if (fboundp 'global-prettify-symbols-mode)
-      (progn
-        (global-prettify-symbols-mode)
-        (add-hook 'js2-mode-hook
-                  (lambda ()
-                    (push '("function" . 955) prettify-symbols-alist)
-                    (push '("return" . 8592) prettify-symbols-alist))))
+  (setq ido-ignore-buffers
+        '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
+          "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
+          ;; "^\*"
+          )
+        )
 
-    (progn
-      (use-package pretty-symbols :ensure t :pin melpa)
-      (diminish 'pretty-symbols-mode)
-      (add-to-list 'pretty-symbol-categories 'js)
-      (add-to-list 'pretty-symbol-patterns '(955 js "\\<function\\>" (js2-mode)))
-      (add-to-list 'pretty-symbol-patterns '(8592 js "\\<return\\>" (js2-mode)))
-      (add-hook 'find-file-hook 'pretty-symbols-mode)))
-#+end_src
+  (require 'flx-ido)
+  (ido-everywhere t)
+  (flx-ido-mode 1)
 
-** COMMENT Indent Guide
-#+begin_src emacs-lisp :tangle yes
-    (use-package indent-guide :ensure t)
-#+end_src
-
-** Anzu
-#+begin_src emacs-lisp :tangle yes
-  (use-package anzu
-    :ensure t
-    :bind (("M-%" . anzu-query-replace)
-           ("C-M-%" . anzu-query-replace-regexp))
-    :config
-    (setq anzu-cons-mode-line-p nil)
-    (global-anzu-mode 1))
+  ;; (bind-key "M-x" 'smex)
+  ;; (bind-key "M-X" 'smex-major-mode-commands)
+  ;;  (bind-key "C-c M-x" 'smex-update)
 
 #+end_src
 
-** Expand Region
+** Iy go to char
 #+begin_src emacs-lisp :tangle yes
-  (use-package expand-region :ensure t)
+  (use-package iy-go-to-char
+    :config 
+    (with-eval-after-load 'multiple-cursors
+	(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)))
 #+end_src
 
 ** Magit
@@ -713,16 +898,27 @@
 
 ** Multiple Cursors
 #+begin_src emacs-lisp :tangle yes
-  (use-package multiple-cursors :ensure t)
+  (use-package multiple-cursors)
 #+end_src
 
-** Iy go to char
+** Neotree
 #+begin_src emacs-lisp :tangle yes
-  (use-package iy-go-to-char :ensure t
-    :config (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos))
+  (use-package neotree
+    :bind ("M-`" . neotree-toggle)
+    :config
+    (setq neo-smart-open nil)
+    (setq neo-persist-show t) ;; setting it to nil probably solves a bug with helm C-h m (helm-help)
+
+    ; (setq projectile-switch-project-action 'neotree-projectile-action)
+  )
+
+  (defvar neotree-projectile-root nil)
+
+  (defun neotree-projectile (args)
+    (interactive "P")
+    )
 
 #+end_src
-
 ** Projectile
 #+begin_src emacs-lisp :tangle yes
   (use-package projectile
@@ -737,59 +933,38 @@
     (customize-set-variable 'projectile-tags-command
                             "find . -type f -not -iwholename '*TAGS' -not -size +16k | ctags -f %s %s -e -L -"))
 #+end_src
-** Company
-   #+begin_src emacs-lisp
-     (use-package company
-       :ensure t
-       :pin melpa
-       :config
-       (setq company-idle-delay 0.3)
-       (setq company-minimum-prefix-length 1)
-       (setq company-show-numbers 1)
-       (setq company-tooltip-limit 10)
-
-       (setq company-dabbrev-downcase nil)
-       (setq company-dabbrev-ignore-case nil)
-
-       (setq company-global-modes
-             '(not eshell-mode comint-mode org-mode))
-
-       (customize-set-variable 'company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
-       (customize-set-variable 'company-selection-wrap-around t)
-
-       (set-face-attribute 'company-tooltip nil :background "black" :foreground "gray40")
-       (set-face-attribute 'company-tooltip-selection nil :inherit 'company-tooltip :background "gray15")
-       (set-face-attribute 'company-preview nil :background "black")
-       (set-face-attribute 'company-preview-common nil :inherit 'company-preview :foreground "gray40")
-       (set-face-attribute 'company-scrollbar-bg nil :inherit 'company-tooltip :background "gray20")
-       (set-face-attribute 'company-scrollbar-fg nil :background "gray40")
-
-       (when (executable-find "tern")
-         (after "company-tern-autoloads"
-           (add-to-list 'company-backends 'company-tern)))
-       (add-to-list 'company-backends 'company-tern)
-
-       (defun company-auto-completion-toggle ()
-         (interactive)
-         (if (eq company-idle-delay 0)
-             (setq company-idle-delay 0.3)
-           (setq company-idle-delay 0))
-         (message (format "company-idle-delay : %s" company-idle-delay)))
-
-       (bind-key "C-M-c" 'company-auto-completion-toggle)
-
-       (bind-key "C-o" 'company-manual-begin)
-       (bind-key "M-o" 'company-tern)
-       (bind-key "M-?" 'company-dabbrev)
-
-       (defadvice company-complete-common (around advice-for-company-complete-common activate)
-         (when (null (yas-expand))
-           ad-do-it))
-
-       (add-hook 'after-init-hook 'global-company-mode))
-
+** Shackles
+#+begin_src emacs-lisp :tangle yes
+  (use-package shackle
+    :ensure t
+    :pin melpa
+    :config
+    (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
+    (shackle-mode t)
+    )
 #+end_src
+** COMMENT Eyebrowse
+#+begin_src emacs-lisp :tangle yes
+  (use-package eyebrowse
+    :ensure t
+    :bind (("M-0" . eyebrowse-switch-to-window-config-0)
+           ("M-1" . eyebrowse-switch-to-window-config-1)
+           ("M-2" . eyebrowse-switch-to-window-config-2)
+           ("M-3" . eyebrowse-switch-to-window-config-3)
+           ("M-4" . eyebrowse-switch-to-window-config-4)
+           ("M-5" . eyebrowse-switch-to-window-config-5)
+           ("M-6" . eyebrowse-switch-to-window-config-6)
+           ("M-7" . eyebrowse-switch-to-window-config-7)
+           ("M-8" . eyebrowse-switch-to-window-config-8)
+           ("M-9" . eyebrowse-switch-to-window-config-9)
+           )
 
+    :pin melpa
+    :config
+    (add-to-list 'window-persistent-parameters '(window-side . writable))
+    (add-to-list 'window-persistent-parameters '(window-slot . writable))
+    )
+#+end_src
 ** Smartparens
    #+begin_src emacs-lisp
 
@@ -806,7 +981,7 @@
 
        (sp-use-smartparens-bindings)
        (smartparens-global-mode t)
-       (smartparens-global-strict-mode nil)
+       (smartparens-global-strict-mode -1)
 
        (show-smartparens-global-mode t)
        (show-paren-mode 1)
@@ -831,7 +1006,7 @@
        ;; fix conflict where smartparens clobbers yas' key bindings
        (after 'yasnippet
          (defadvice yas-expand (before advice-for-yas-expand activate)
-           (sp-remove-active-pair-overlay)))
+        (sp-remove-active-pair-overlay)))
 
        (defadvice sp-kill-hybrid-sexp (before kill-line-cleanup-whitespace activate)
          "cleanup whitespace on sp-kill-hybrid-sexp"
@@ -849,7 +1024,32 @@
 
 #+end_src
 
-** Undo-tree
+** Smooth Scrolling
+#+begin_src emacs-lisp :tangle yes
+  (use-package smooth-scrolling
+    :ensure t
+    :init (setq smooth-scroll-margin 5
+                scroll-conservatively 101
+                scroll-preserve-screen-position t
+                auto-window-vscroll nil)
+    :config
+    (setq scroll-margin 5)
+    )
+
+#+end_src
+** Tramp
+#+begin_src emacs-lisp :tangle yes
+   (require 'tramp)
+   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
+  (setq tramp-default-method "sshx")
+
+(setq password-cache-expiry 'nil)
+
+   ;; (add-to-list 'backup-directory-alist
+   ;;              (cons tramp-file-name-regexp nil))
+#+end_src
+
+** tscs** Undo-tree
    #+begin_src emacs-lisp :tangle yes
      ;;==========
      ;; Undo tree
@@ -867,173 +1067,25 @@
 
 #+end_src
 
-** Flycheck
-   #+begin_src emacs-lisp :tangle yes
-(use-package flycheck :ensure t)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+** Yasnippet
+   #+begin_src emacs-lisp
+     (use-package yasnippet
+       :ensure t
+       :config
+       (setq yas-snippet-dirs
+             '("~/.emacs.d/snippets"))
+       (yas-global-mode 1)
 
-(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
-(customize-set-variable 'flycheck-idle-change-delay 0.5)
-
-(use-package flycheck-pos-tip :ensure t)
-
-
-
-(with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
-
-#+end_src
-
-** Diminish
-   #+begin_src emacs-lisp :tangle yes
-;; For a cleaner modeline
-(use-package diminish :ensure t)
-(diminish 'visual-line-mode)
-(after 'autopair (diminish 'autopair-mode))
-(after 'js2 (diminish 'Javascript-IDE))
-(after 'js2r (diminish 'js2r-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'undo-tree (diminish 'undo-tree-mode))
-(after 'auto-complete (diminish 'auto-complete-mode))
-;(after 'projectile (diminish 'projectile-mode))
-(after 'yasnippet (diminish 'yas-minor-mode))
-(after 'guide-key (diminish 'guide-key-mode))
-(after 'eldoc (diminish 'eldoc-mode))
-(after 'smartparens (diminish 'smartparens-mode))
-(after 'elisp-slime-nav (diminish 'elisp-slime-nav-mode))
-(after 'git-gutter+ (diminish 'git-gutter+-mode))
-;; (after 'helm (diminish 'helm-mode))
-(after 'anzu (diminish 'anzu-mode))
-(after 'skewer (diminish 'skewer-mode))
-(after 'tern (diminish 'tern-mode))
-;; (after 'company (diminish 'company-mode))
-#+end_src
-
-** Tramp
-#+begin_src emacs-lisp :tangle yes
-   (require 'tramp)
-   (setq tramp-backup-directory-alist `(("." . "~/.saves_tramp")))
-  (setq tramp-default-method "sshx")
-
-(setq password-cache-expiry 'nil)
-
-   ;; (add-to-list 'backup-directory-alist
-   ;;              (cons tramp-file-name-regexp nil))
-#+end_src
-
-** Neotree
-#+begin_src emacs-lisp :tangle yes
-  (use-package neotree
-    :bind ("M-`" . neotree-toggle)
-    :config
-    (setq neo-smart-open nil)
-    (setq neo-persist-show t) ;; setting it to nil probably solves a bug with helm C-h m (helm-help)
-
-    ; (setq projectile-switch-project-action 'neotree-projectile-action)
-  )
-
-  (defvar neotree-projectile-root nil)
-
-  (defun neotree-projectile (args)
-    (interactive "P")
-    )
+       (bind-keys :map yas-minor-mode-map
+                  ;; ("<tab>" . nil)
+                  ;; ("TAB" . nil)
+                  ("C-<tab>" . yas-expand)
+                  ("C-c TAB" . yas-insert-snippet ))
+       )
 
 #+end_src
-** Ag
-#+begin_src emacs-lisp :tangle yes
-    (when (executable-find "ag")
-      (use-package ag :ensure t)
-      (setq ag-highlight-search t)
-      (use-package wgrep-ag) :ensure t)
-(customize-set-variable 'ag-arguments
-   (quote
-    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
-(customize-set-variable 'ag-highlight-search t)
-#+end_src
-
-** Shackles
-#+begin_src emacs-lisp :tangle yes
-  (use-package shackle
-    :ensure t
-    :pin melpa
-    :config
-    (setq shackle-rules '(("\\`\\*[hH]elm.*?\\*\\'" :regexp t :align t :ratio 0.4)))
-    (shackle-mode t)
-    )
-#+end_src
-** Shackles
-#+begin_src emacs-lisp :tangle yes
-  (use-package eyebrowse
-    :ensure t
-    :bind (("M-0" . eyebrowse-switch-to-window-config-0)
-           ("M-1" . eyebrowse-switch-to-window-config-1)
-           ("M-2" . eyebrowse-switch-to-window-config-2)
-           ("M-3" . eyebrowse-switch-to-window-config-3)
-           ("M-4" . eyebrowse-switch-to-window-config-4)
-           ("M-5" . eyebrowse-switch-to-window-config-5)
-           ("M-6" . eyebrowse-switch-to-window-config-6)
-           ("M-7" . eyebrowse-switch-to-window-config-7)
-           ("M-8" . eyebrowse-switch-to-window-config-8)
-           ("M-9" . eyebrowse-switch-to-window-config-9)
-           )
-
-    :pin melpa
-    :config
-    (add-to-list 'window-persistent-parameters '(window-side . writable))
-    (add-to-list 'window-persistent-parameters '(window-slot . writable))
-    )
-#+end_src
-** COMMENT Highlight Parenthesis
-#+begin_src emacs-lisp :tangle yes
-  (use-package highlight-parentheses
-    :ensure t
-    :defer t
-    :pin melpa
-    :init
-    (add-hook 'prog-mode-hook #'highlight-parentheses-mode)
-    (setq hl-paren-delay 0.2)
-
-    (setq hl-paren-background-colors '("Springgreen4"
-                                       "IndianRed1"
-                                       "IndianRed4"))
-    (setq hl-paren-background-colors '())
 
 
-    (setq hl-paren-colors '("white" "light gray"))
-    (setq hl-paren-colors '())
-
-    (setq hl-paren-colors '("Springgreen3"
-                                       "IndianRed1"
-                                       "IndianRed4"))
-
-    )
-
-#+end_src
-** Smooth Scrolling
-#+begin_src emacs-lisp :tangle yes
-  (use-package smooth-scrolling
-    :ensure t
-    :init (setq smooth-scroll-margin 5
-                scroll-conservatively 101
-                scroll-preserve-screen-position t
-                auto-window-vscroll nil)
-    :config
-    (setq scroll-margin 5)
-    )
-
-#+end_src
-** COMMENT Vimish fold
-#+begin_src emacs-lisp :tangle yes
-  (use-package vimish-fold
-    :ensure t
-    :pin melpa
-    :bind ()
-    :config
-    (vimish-fold-global-mode 1)
-    )
-
-#+end_src
-** tscs
 #+begin_src emacs-lisp :tangle yes
   (use-package jscs
     :ensure t
@@ -1041,6 +1093,12 @@
 
 #+end_src
 * Languages modes
+** terraform-mode
+#+begin_src emacs-lisp :tangle yes
+
+  (use-package terraform-mode :ensure t)
+
+#+end_src
 ** prog-mode
 #+begin_src emacs-lisp :tangle yes
 (add-hook 'prog-mode-hook #'hs-minor-mode)
@@ -1145,51 +1203,52 @@
 *** Setup
     #+begin_src emacs-lisp
 
-            (use-package org
-              :config
-              (bind-key "<f2>" 'org-edit-special org-mode-map)
-              (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
-              (bind-key "\C-cl" 'org-store-link)
-              (bind-key "\C-ca" 'org-agenda)
-            )
+      (use-package org
+        :config
+        (bind-key "<f2>" 'org-edit-special org-mode-map)
+        (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
+        (bind-key "\C-cl" 'org-store-link)
+        (bind-key "\C-ca" 'org-agenda)
+      )
 
-            (setq org-log-done t)
+      (setq org-log-done t)
 
-            (setq org-tag-alist nil)
+      (setq org-tag-alist nil)
 
-            ;; (bind-key "<C-S-right>" 'helm-occur)
+      ;; (bind-key "<C-S-right>" 'helm-occur)
 
-            (eval-after-load "org"
-              '(progn
-                 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-                 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-                 ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-                 ;; (define-key org-mode-map (kbd "<C-left>") nil)
-                 ;; (define-key org-mode-map (kbd "<C-right>") nil)
-                 (define-key org-mode-map (kbd "M-<down>") 'nil)
-                 (define-key org-mode-map (kbd "M-<up>") 'nil)))
+      (eval-after-load "org"
+        '(progn
+           (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+           (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+           ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+           ;; (define-key org-mode-map (kbd "<C-left>") nil)
+           ;; (define-key org-mode-map (kbd "<C-right>") nil)
+           (define-key org-mode-map (kbd "M-<down>") 'nil)
+           (define-key org-mode-map (kbd "M-<up>") 'nil)
+           (require 'ox-gfm nil t)))
 
-            (setq org-src-fontify-natively t)
-            (setq org-src-tab-acts-natively t)
+      (setq org-src-fontify-natively t)
+      (setq org-src-tab-acts-natively t)
 
-            (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+      (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
 
-            (setq org-main-file "~/org/notes.org")
-            (setq org-directory "~/org")
+      (setq org-main-file "~/org/notes.org")
+      (setq org-directory "~/org")
 
-            (defun org-insert-elisp-block (name beg end)
-              (interactive "sName:\nr")
-              (org-insert-heading-after-current)
-              (save-excursion
-                (insert name "\n")
-                (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-                (if (region-active-p)
-                    (progn
-                      (kill-region beg end)
-                      (yank)))
-                (insert "#+end_src")))
+      (defun org-insert-elisp-block (name beg end)
+        (interactive "sName:\nr")
+        (org-insert-heading-after-current)
+        (save-excursion
+          (insert name "\n")
+          (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+          (if (region-active-p)
+              (progn
+                (kill-region beg end)
+                (yank)))
+          (insert "#+end_src")))
 
-            (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+      (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
     #+end_src
 *** Org Babel mongo
@@ -1346,41 +1405,43 @@
 
 ** typescript
 #+begin_src emacs-lisp :tangle yes
-    (use-package tide
-      :ensure t
-      :config
+  (use-package tide
+    :ensure t
+    :config
 
-      (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
+    (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
 
-      ;; sample config
-      (add-hook 'typescript-mode-hook
-                (lambda ()
+    (add-hook 'before-save-hook 'tide-format-before-save)
+
+    ;; sample config
+    (add-hook 'typescript-mode-hook
+              (lambda ()
+                (tide-setup)
+                (flycheck-mode +1)
+                ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
+                ;; (eldoc-mode +1)
+                (hs-minor-mode t)
+                (subword-mode t)
+
+                ;; company is an optional dependency. You have to
+                ;; install it separately via package-install
+                (company-mode-on)))
+
+    ;; aligns annotation to the right hand side
+    (setq company-tooltip-align-annotations t)
+
+    ;; Tide can be used along with web-mode to edit tsx files
+    (require 'web-mode)
+    (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (when (string-equal "tsx" (file-name-extension buffer-file-name))
                   (tide-setup)
                   (flycheck-mode +1)
                   ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
-                  ;; (eldoc-mode +1)
-                  (hs-minor-mode t)
-                  (subword-mode t)
-
-                  ;; company is an optional dependency. You have to
-                  ;; install it separately via package-install
-                  (company-mode-on)))
-
-      ;; aligns annotation to the right hand side
-      (setq company-tooltip-align-annotations t)
-
-      ;; Tide can be used along with web-mode to edit tsx files
-      (require 'web-mode)
-      (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-      (add-hook 'web-mode-hook
-                (lambda ()
-                  (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                    (tide-setup)
-                    (flycheck-mode +1)
-                    ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
-                    (eldoc-mode +1)
-                    (company-mode-on))))
-      )
+                  (eldoc-mode +1)
+                  (company-mode-on))))
+    )
 #+end_src
 ** livescript
    #+begin_src emacs-lisp
@@ -1414,25 +1475,47 @@
 
 ** python
    #+begin_src emacs-lisp
+     ;; (use-package python
+     ;;   :mode ("\\.py" . python-mode)
+     ;;   :config
+     ;;   (use-package elpy
+     ;;     :init
+     ;;     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+     ;;     :config
+     ;;     (setq elpy-rpc-backend "jedi")
+     ;;     (define-key elpy-mode-map (kbd "<C-down>") 'nil)
+     ;;     (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+     ;;     (define-key elpy-mode-map (kbd "<M-up>") 'nil)
+     ;;     (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+
+     ;;     ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+     ;;     ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
+     ;;     :bind (:map elpy-mode-map
+     ;;    	   ("M-." . elpy-goto-definition)
+     ;;    	   ("M-," . pop-tag-mark)))
+     ;;   (elpy-enable))
+
+
      (use-package python
        :mode ("\\.py" . python-mode)
        :config
-       (use-package elpy
+       (use-package anaconda-mode
          :init
          (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
          :config
-         (setq elpy-rpc-backend "jedi")
-         (define-key elpy-mode-map (kbd "<C-down>") 'nil)
-         (define-key elpy-mode-map (kbd "<C-up>") 'nil)
-         (define-key elpy-mode-map (kbd "<M-up>") 'nil)
-         (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+         (add-hook 'python-mode-hook 'anaconda-mode)
+         (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+         )
+       )
 
-         ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-         ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
-         :bind (:map elpy-mode-map
-                   ("M-." . elpy-goto-definition)
-                   ("M-," . pop-tag-mark)))
-       (elpy-enable))
+     (use-package company-anaconda
+       :config
+       (eval-after-load "company"
+         '(add-to-list 'company-backends 'company-anaconda))
+
+       (eval-after-load "company"
+         '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
+     )
 
      (use-package pip-requirements
        :config
@@ -1441,51 +1524,37 @@
      (use-package py-autopep8)
 
 
-     (use-package pyenv-mode
-       :init
-       (add-to-list 'exec-path "~/.pyenv/shims")
-       (setenv "WORKON_HOME" "~/.pyenv/versions/")
-       :config
-       (pyenv-mode)
-       :bind
-       ("C-x p e" . pyenv-activate-current-project))
+     ;; (use-package pyenv-mode
+     ;;   :init
+     ;;   (add-to-list 'exec-path "~/.pyenv/shims")
+     ;;   (setenv "WORKON_HOME" "~/.pyenv/versions/")
+     ;;   :config
+     ;;   (pyenv-mode)
+     ;;   :bind
+     ;;   ("C-x p e" . pyenv-activate-current-project))
 
-     (defun pyenv-init()
-       (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
-       (message (concat "Setting pyenv version to " global-pyenv))
-       (pyenv-mode-set global-pyenv)
-       (defvar pyenv-current-version nil global-pyenv))
+     ;; (defun pyenv-init()
+     ;;   (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
+     ;;   (message (concat "Setting pyenv version to " global-pyenv))
+     ;;   (pyenv-mode-set global-pyenv)
+     ;;   (defvar pyenv-current-version nil global-pyenv))
 
-     (defun pyenv-activate-current-project ()
-       "Automatically activates pyenv version if .python-version file exists."
-       (interactive)
-       (f-traverse-upwards
-        (lambda (path)
-          (message path)
-          (let ((pyenv-version-path (f-expand ".python-version" path)))
-            (if (f-exists? pyenv-version-path)
-               (progn
-                 (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
-                 (pyenv-mode-set pyenv-current-version)
-                 (pyvenv-workon pyenv-current-version)
-                 (message (concat "Setting virtualenv to " pyenv-current-version))))))))
+     ;; (defun pyenv-activate-current-project ()
+     ;;   "Automatically activates pyenv version if .python-version file exists."
+     ;;   (interactive)
+     ;;   (f-traverse-upwards
+     ;;    (lambda (path)
+     ;;      (message path)
+     ;;      (let ((pyenv-version-path (f-expand ".python-version" path)))
+     ;;     (if (f-exists? pyenv-version-path)
+     ;;           (progn
+     ;;             (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
+     ;;             (pyenv-mode-set pyenv-current-version)
+     ;;             (pyvenv-workon pyenv-current-version)
+     ;;             (message (concat "Setting virtualenv to " pyenv-current-version))))))))
 
-     (add-hook 'after-init-hook 'pyenv-init)
-     (add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
-
-     ;; ;; Ignoring electric indentation
-     ;; (defun electric-indent-ignore-python (char)
-     ;;   "Ignore electric indentation for python-mode"
-     ;;   (if (equal major-mode 'python-mode)
-     ;;       `no-indent'
-     ;;     nil))
-     ;; (add-hook 'electric-indent-functions 'electric-indent-ignore-python)
-
-
-     ;; ;; Fix yasnippet indentation in python-mode
-     ;; (add-hook 'python-mode-hook
-     ;;    '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
-     ;;       (company-mode -1)))
+     ;; (add-hook 'after-init-hook 'pyenv-init)
+     ;; (add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
    #+end_src
 
 ** web
@@ -1515,64 +1584,23 @@
 
    #+end_src
 
+** Dockerfile
+#+begin_src emacs-lisp :tangle yes
+
+  (use-package dockerfile-mode
+    :ensure t
+    :pin melpa-stable ; or 'manual'
+  )
+
+#+end_src
 * Core
 ** Hyper key
 #+begin_src emacs-lisp
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 #+end_src
    
-** Hide Show
-#+begin_src emacs-lisp :tangle yes
-  ;; Override hs-mouse-toggle-hiding so we don't need to click on the open bracket
-
-  (use-package hideshow
-    :config
-    (defun hs-mouse-toggle-hiding (e)
-      "Toggle hiding/showing of a block.
-  This command should be bound to a mouse key.
-  Argument E is a mouse event used by `mouse-set-point'.
-  See `hs-hide-block' and `hs-show-block'."
-      (interactive "@e")
-      (hs-life-goes-on
-       (mouse-set-point e)
-       ;; Move backward one char so we don't need to click on the open bracket
-       (save-excursion
-         (unless (hs-looking-at-block-start-p)
-           (backward-char 1))
-         (hs-toggle-hiding))))
-
-
-
-    (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
-    (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
-    (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
-    (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
-    (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
-    (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
-    (bind-key "<S-mouse-1>" 'hs-mouse-toggle-hiding hs-minor-mode-map)
-    (bind-key "<down-mouse-1>" nil hs-minor-mode-map)
-
-    (defun hs-hide-global-level (level)
-      (interactive)
-      (save-excursion
-        (goto-char (point-max))
-        (hs-hide-level level)))
-
-    (bind-key "M-s-1" (lambda () (interactive) (hs-hide-global-level 1)))
-    (bind-key "M-s-2" (lambda () (interactive) (hs-hide-global-level 2)))
-    (bind-key "M-s-3" (lambda () (interactive) (hs-hide-global-level 3)))
-    (bind-key "M-s-4" (lambda () (interactive) (hs-hide-global-level 4)))
-    (bind-key "M-s-5" (lambda () (interactive) (hs-hide-global-level 5)))
-    (bind-key "M-s-6" (lambda () (interactive) (hs-hide-global-level 6)))
-    )
-
-
-
-#+end_src
 ** Misc
 #+begin_src emacs-lisp
-
-
 
   (set-default 'truncate-lines t)
 
@@ -1604,7 +1632,7 @@
 
   (setq suggest-key-binding 5)
 
-  ;; (window-numbering-mode t)
+  (window-numbering-mode t)
 
   (setq help-window-select t)
 
@@ -1661,9 +1689,9 @@
       (fundamental-mode)))
   (add-hook 'find-file-hooks 'my-find-file-check-make-large-file-read-only-hook)
 
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Add prefix to Dired buffers
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   (add-hook 'dired-mode-hook 'ensure-buffer-name-ends-in-slash)
   (defun ensure-buffer-name-ends-in-slash ()
@@ -1672,40 +1700,40 @@
       (if (not (string-match "^Dir/" name))
           (rename-buffer (concat "Dir/" name) t))))
 
-                                        ;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;
   ;; Eval and replace
-                                        ;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;
 
   (defun eval-and-replace ()
     "Replace the preceding sexp with its value."
     (interactive)
     (backward-kill-sexp)
     (condition-case nil
-        (prin1 (eval (read (current-kill 0)))
+	(prin1 (eval (read (current-kill 0)))
                (current-buffer))
       (error (message "Invalid expression")
              (insert (current-kill 0)))))
 
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Emacs Backfup Files settings (those damn annoying ~ files !)
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   (setq backup-directory-alist `(("." . "~/.saves")))
   (setq backup-by-copying t)
   (setq delete-old-versions t
-        kept-new-versions 6
-        kept-old-versions 2
-        version-control t)
+	kept-new-versions 6
+	kept-old-versions 2
+	version-control t)
 
   (setq auto-save-file-name-transforms
-        `((".*" ,"~/.saves/" t)))
+	`((".*" ,"~/.saves/" t)))
 
   ;; remove those pesky lock files
   (setq create-lockfiles nil)
 
-                                        ;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;
   ;; Mouse/Wheel options
-                                        ;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;
 
   (defun up-and-locate()
     (interactive)
@@ -1728,9 +1756,9 @@
     )
 
 
-                                        ;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;
   ;; Indent Whole Buffer
-                                        ;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;
 
   (defun indent-whole-buffer ()
     "indent whole buffer and untabify it"
@@ -1739,18 +1767,18 @@
     (indent-region (point-min) (point-max) nil))
 
   ;;todo
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; FIX FOR TERMINAL SHIFT+UP
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (if (equal "xterm" (tty-type))
       (define-key input-decode-map "\e[1;2A" [S-up]))
 
   (defadvice terminal-init-xterm (after select-shift-up activate)
     (define-key input-decode-map "\e[1;2A" [S-up]))
 
-                                        ;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;
   ;; Locked buffer mode
-                                        ;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;
 
   (define-minor-mode locked-buffer-mode
     "Make the current window always display this buffer."
@@ -1758,9 +1786,9 @@
     (set-window-dedicated-p (selected-window) locked-buffer-mode))
 
 
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Save undo history when revert-buffer
-                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; emacs doesn't actually save undo history with revert-buffer
   ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
@@ -1784,19 +1812,19 @@
   (add-hook 'after-revert-hook  (lambda ()   (font-lock-fontify-buffer)))
 
 
-                                        ;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;
   ;; Search engines
-                                        ;;;;;;;;;;;;;;;;;
+					;;;;;;;;;;;;;;;;;
 
   (defun prelude-search (query-url prompt)
     "Open the search url constructed with the QUERY-URL.
-                                        PROMPT sets the `read-string prompt."
+					PROMPT sets the `read-string prompt."
     (browse-url
      (concat query-url
              (url-hexify-string
               (if mark-active
                   (buffer-substring (region-beginning) (region-end))
-                (read-string prompt))))))
+		(read-string prompt))))))
 
   (defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
     "Given some information regarding a search engine, install the interactive command to search through them"
@@ -1813,6 +1841,10 @@
 
 #+end_src
 
+** Recentf
+#+begin_src emacs-lisp :tangle yes
+(run-at-time (current-time) 120 'recentf-save-list)
+#+end_src
 ** Don't switch frames when switching buffers
 #+begin_src emacs-lisp :tangle yes
 (setq ido-default-buffer-method 'selected-window)
@@ -2129,8 +2161,8 @@
 (load-theme 'sanityinc-tomorrow-eighties t)
 (setq default-frame-alist '((cursor-color . "#f2777a")))
 
-(set-face-attribute 'org-level-1 nil :height 1.3)
-(set-face-attribute 'org-level-2 nil :height 1.2)
+(set-face-attribute 'org-level-1 nil :height 1.1)
+(set-face-attribute 'org-level-2 nil :height 1.1)
 (set-face-attribute 'org-level-3 nil :height 1.1 :foreground "#69C031")
 
 (set-face-attribute 'org-level-3 nil  :foreground "#69C031")
@@ -2152,6 +2184,10 @@
 *** Material
 #+begin_src emacs-lisp :tangle yes
   (load-theme 'material)
+(set-face-attribute 'org-level-1 nil :height 1.3)
+(set-face-attribute 'org-level-2 nil :height 1.2)
+(set-face-attribute 'org-level-3 nil :height 1.1)
+
 #+end_src
 
 *** COMMENT Solarized Light

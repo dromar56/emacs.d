@@ -1,41 +1,72 @@
 
 ;; ----- smex-history -----
 (
+ eshell
+ shell
+ yas-new-snippet
+ yas-describe-tables
+ helm-yas-create-snippet-on-region
+ org-sort
+ highlight-indentation-mode
+ indent-guide-mode
+ org-version
+ package-list-packages
+ package-install
+ tide-find-next-error
+ flycheck-next-error
+ tide-format
+ tide-fix
+ revert-buffer
+ visual-line-mode
+ count-words
  magit-blame
- toggle-truncate-lines
  untabify
+ set-frame-font-size
+ apropos
+ company-mode
+ load-theme
+ sort-lines
+ typescript-mode
+ animate-birthday-present
+ solitaire
+ snake
+ bubbles
+ 5x5-crack-xor-mutate
+ 5x5
+ 5x5-crack-mutating-best
+ org-export-dispatch
+ org-mode-restart
+ customize-group
+ read-only-mode
+ org-mode
+ todo-archive-mode
+ term
+ magit-fetch
+ doc-view-mode
+ magit-revert
+ toggle-truncate-lines
  hs-show-all
  json-mode
- count-words
  tide-hl-identifier-mode
  restclient-mode
  vc-region-history
- sort-lines
  end-of-buffer
- visual-line-mode
- shell
  projectile-remove-known-project
  rename-buffer
  rename-file
  eval-print-last-sexp
  toggle-debug-on-error
  customize-face
- flycheck-next-error
- typescript-mode
  subword-mode
  tide-documentation-at-point
  tide-restart-server
  fundamental-mode
  hydra-yasnippet/yas-reload-all-and-exit
  repeat-complex-command
- customize-group
  eldoc-mode
  package-autoremove
- package-list-packages
- package-install
  tide-goto-reference
  text-mode
- magit-revert
  json-mode-beautify
  magit-find-file-other-window
  magit-log-buffer-file
@@ -45,9 +76,7 @@
  emacs-version
  ensime
  ensime-mode
- revert-buffer
  prelude-github
- org-mode
  org-table-convert-region
  orgtbl-mode
  csv-mode
@@ -57,21 +86,16 @@
  css-mode
  tern-mode
  flycheck-mode
- company-mode
  hs-minor-mode
  helm-occur
- set-frame-font-size
  goto-char
  db4go-toggle-productivity
  shell-script-mode
  js2-mode
  my-projectile-multi-occur
  align-regexp
- read-only-mode
  sql-mode
  avy-goto-char
- indent-guide-mode
- highlight-indentation-mode
  whitespace-mode
  tern-find-definition
  replace-regexp
@@ -134,7 +158,6 @@
  js-doc-insert-tag
  vc-dir
  profiler-start
- eshell
  set-fill-column
  indent-rigidly-block
  mark-paragraph
@@ -157,7 +180,6 @@
  conf-mode
  js2-jsx-mode
  shell-mode
- term
  pop-global-mark
  hs-hide-level
  mc/insert-numbers
@@ -190,9 +212,7 @@
  turn-on-iimage-mode
  set-variable
  yas-insert-snippet
- load-theme
  magit-checkout
- yas-describe-tables
  yas-reload-all
  yas-tryout-snippet
  helm-projectile-find-dir
@@ -212,7 +232,6 @@
  swiper-all
  swiper-multi
  recenter
- apropos
  yas-load-directory
  ido-ubiquitous-mode
  tramp-cleanup-all-buffers
@@ -300,9 +319,7 @@
  tramp-bug
  helm-mode
  projectile-mode
- org-export-dispatch
  cd
- 5x5
  arp
  dbx
  dig
@@ -332,7 +349,6 @@
  mail
  mpuz
  ping
- pong
  talk
  undo
  yank
@@ -356,7 +372,6 @@
  rmail
  route
  slime
- snake
  spook
  tumme
  whois
@@ -383,13 +398,11 @@
  sql-ms
  tabify
  telnet
- tetris
  thumbs
  zrgrep
  Info-up
  battery
  bs-show
- bubbles
  c-guess
  erc-tls
  fortune
@@ -453,7 +466,6 @@
  nslookup
  org-goto
  org-info
- org-sort
  org-todo
  org-yank
  quickurl
@@ -558,7 +570,6 @@
  sgml-mode
  sml/setup
  snmp-mode
- solitaire
  sql-mysql
  sql-solid
  texi2info
@@ -759,7 +770,6 @@
  ispell-word
  kill-region
  lower-frame
- magit-fetch
  magit-merge
  master-mode
  mc/mark-pop
@@ -777,7 +787,6 @@
  org-publish
  org-shiftup
  org-switchb
- org-version
  other-frame
  pascal-mode
  pr-txt-mode
@@ -789,7 +798,6 @@
  raise-frame
  refill-mode
  reftex-mode
- replace-amp
  reveal-mode
  rmail-input
  run-at-time
@@ -992,25 +1000,17 @@
  bookmark-load
  bookmark-save
  browse-url-w3
- bs-cycle-next
- calc-dispatch
- calc-embedded
- calendar-exit
- calendar-mode
- center-region
- company-abort
- company-clang
- company-cmake
+ scss-mode
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 17)
- (org-export-dispatch . 2)
+ (visual-line-mode . 21)
+ (org-export-dispatch . 3)
  (profiler-start . 6)
  (profiler-report . 12)
  (fundamental-mode . 6)
- (company-mode . 9)
+ (company-mode . 12)
  (ido-ubiquitous-mode . 4)
  (set-variable . 12)
  (tramp-bug . 2)
@@ -1019,11 +1019,11 @@
  (helm-mode . 2)
  (profiler-reset . 5)
  (profiler-stop . 3)
- (customize-group . 35)
- (set-frame-font-size . 94)
+ (customize-group . 36)
+ (set-frame-font-size . 95)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
- (shell . 9)
+ (shell . 14)
  (magit-stash . 4)
  (iy-go-to-char . 3)
  (helm-M-x . 9)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 18)
+ (package-list-packages . 21)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1070,7 +1070,7 @@
  (toggle-truncate-lines . 22)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
- (highlight-indentation-mode . 5)
+ (highlight-indentation-mode . 6)
  (highlight-indentation-current-column-mode . 2)
  (magit-refresh . 1)
  (make-directory . 1)
@@ -1082,7 +1082,7 @@
  (direx:find-directory . 1)
  (diminish . 1)
  (eval-expression . 2)
- (package-install . 7)
+ (package-install . 12)
  (ediff-current-file . 4)
  (restclient-mode . 2)
  (view-mode . 2)
@@ -1090,9 +1090,9 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 5)
- (load-theme . 29)
+ (load-theme . 34)
  (column-number-mode . 1)
- (yas-describe-tables . 6)
+ (yas-describe-tables . 7)
  (web-mode . 13)
  (web-mode-buffer-indent . 1)
  (jade-mode . 1)
@@ -1103,11 +1103,11 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 10)
- (revert-buffer . 58)
+ (revert-buffer . 61)
  (shell-backward-command . 1)
- (eshell . 13)
- (term . 3)
- (flycheck-next-error . 23)
+ (eshell . 15)
+ (term . 4)
+ (flycheck-next-error . 25)
  (sp-switch-space . 1)
  (server-start . 7)
  (tramp-cleanup-all-connections . 3)
@@ -1128,7 +1128,7 @@
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 3)
- (magit-blame . 35)
+ (magit-blame . 38)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1146,8 +1146,8 @@
  (toggle-input-method . 1)
  (replace-regexp . 3)
  (my-create-header . 1)
- (org-mode . 5)
- (count-words . 15)
+ (org-mode . 6)
+ (count-words . 16)
  (hs-minor-mode . 29)
  (hide-body . 1)
  (tern-get-docs . 3)
@@ -1188,7 +1188,7 @@
  (repeat-complex-command . 2)
  (artist-mode . 2)
  (info . 1)
- (apropos . 2)
+ (apropos . 3)
  (anzu-mode . 4)
  (global-anzu-mode . 5)
  (yas-load-directory . 1)
@@ -1337,9 +1337,9 @@
  (eww-reload . 1)
  (eww-history-mode . 1)
  (whitespace-mode . 2)
- (indent-guide-mode . 1)
+ (indent-guide-mode . 3)
  (avy-goto-char . 1)
- (read-only-mode . 1)
+ (read-only-mode . 2)
  (my-projectile-multi-occur . 1)
  (helm-occur . 4)
  (helm-projectile-switch-project . 4)
@@ -1356,18 +1356,41 @@
  (scroll-down . 1)
  (magit-log-buffer-file . 3)
  (magit-find-file-other-window . 1)
- (magit-revert . 1)
+ (magit-revert . 2)
  (magit-discard . 1)
  (package-autoremove . 1)
  (tide-documentation-at-point . 3)
  (tide-hl-identifier-mode . 2)
  (hydra-yasnippet/yas-reload-all-and-exit . 1)
- (typescript-mode . 2)
- (untabify . 16)
+ (typescript-mode . 3)
+ (untabify . 19)
  (customize-face . 1)
  (helm-info-message . 1)
  (rename-buffer . 1)
  (end-of-buffer . 1)
- (sort-lines . 1)
+ (sort-lines . 2)
  (vc-region-history . 1)
+ (magit-fetch . 2)
+ (doc-view-mode . 1)
+ (eshell-list-history . 1)
+ (archive-view . 1)
+ (todo-archive-mode . 1)
+ (org-mode-restart . 3)
+ (org-columns-quit . 1)
+ (5x5 . 7)
+ (5x5-crack-mutating-best . 1)
+ (5x5-crack-xor-mutate . 4)
+ (bubbles . 2)
+ (snake . 3)
+ (pong . 1)
+ (solitaire . 2)
+ (solitaire-solve . 2)
+ (animate-birthday-present . 1)
+ (tide-fix . 2)
+ (tide-format . 6)
+ (tide-find-next-error . 1)
+ (org-version . 2)
+ (org-sort . 2)
+ (helm-yas-create-snippet-on-region . 2)
+ (yas-new-snippet . 2)
 )
