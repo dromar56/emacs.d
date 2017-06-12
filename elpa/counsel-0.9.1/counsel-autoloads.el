@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "counsel" "counsel.el" (22840 10265 166243
-;;;;;;  548000))
+;;;### (autoloads nil "counsel" "counsel.el" (22846 24340 703006
+;;;;;;  801000))
 ;;; Generated autoloads from counsel.el
 
 (autoload 'counsel-el "counsel" "\
@@ -30,16 +30,10 @@ Insert a Unicode character at point.
 (autoload 'counsel-describe-variable "counsel" "\
 Forward to `describe-variable'.
 
-Variables declared using `defcustom' are highlighted according to
-`ivy-highlight-face'.
-
 \(fn)" t nil)
 
 (autoload 'counsel-describe-function "counsel" "\
 Forward to `describe-function'.
-
-Interactive functions (i.e., commands) are highlighted according
-to `ivy-highlight-face'.
 
 \(fn)" t nil)
 
@@ -110,11 +104,6 @@ INITIAL-INPUT can be given as the initial minibuffer input.
 
 (autoload 'counsel-git-stash "counsel" "\
 Search through all available git stashes.
-
-\(fn)" t nil)
-
-(autoload 'counsel-git-change-worktree "counsel" "\
-Find the file corresponding to the current buffer on a different worktree.
 
 \(fn)" t nil)
 
@@ -211,16 +200,6 @@ Set tags for the current agenda item.
 
 \(fn)" t nil)
 
-(autoload 'counsel-org-goto "counsel" "\
-Go to a different location in the current file.
-
-\(fn)" t nil)
-
-(autoload 'counsel-org-goto-all "counsel" "\
-Go to a different location in any org file.
-
-\(fn)" t nil)
-
 (autoload 'counsel-tmm "counsel" "\
 Text-mode emulation of looking and choosing from a menubar.
 
@@ -303,13 +282,6 @@ Choose from headers of `org-mode' files in the agenda.
 
 (autoload 'counsel-irony "counsel" "\
 Inline C/C++ completion using Irony.
-
-\(fn)" t nil)
-
-(autoload 'counsel-apropos "counsel" "\
-Show all matching symbols.
-See `apropos' for further information about what is considered
-a symbol and how to search for them.
 
 \(fn)" t nil)
 
