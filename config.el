@@ -411,94 +411,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
-(require 'helm-config)
-(use-package helm
-  :ensure t
-  :bind (("C-c x" . helm-M-x)
-         ("C-z"   . helm-mini)
-         ("C-t"   . helm-imenu)
-         ("M-t"   . helm-etags-select)
-         ("M-o"   . helm-occur)
-         ("C-M-o" . helm-multi-occur)
-         ("s-y"   . helm-show-kill-ring)
-         ("s-b"   . helm-bookmarks)
-         )
-
-  :config
-  (customize-set-variable 'helm-boring-buffer-regexp-list
-                          (quote
-                           ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
-  (customize-set-variable 'helm-buffer-max-length 30)
-  (customize-set-variable 'helm-candidate-number-limit 100)
-  (setq helm-M-x-fuzzy-match t)
-  (setq helm-quick-update t)
-  (setq helm-bookmark-show-location t)
-  (setq helm-buffers-fuzzy-matching t)
-  (customize-set-variable 'helm-truncate-lines t)
-  )
-
-(use-package helm-swoop
-  :ensure t
-  :pin melpa
-  :bind ("s-o" . helm-swoop)
-  )
-
-(use-package wgrep-helm
-  :ensure t)
-
-(bind-key "C-M-t" 'projectile-regenerate-tags)
-
-(use-package helm-ag
-  :ensure t
-  :config
-  (setq helm-ag-thing-at-point 'symbol)
-  (customize-set-variable 'helm-ag-base-command "ag")
-  (customize-set-variable 'helm-ag-command-option
-                          "--nocolor --nogroup --ignore-dir node_modules --ignore-dir elpa")
-
-  (defun helm-ag-projectile ()
-    (interactive)
-    (if (projectile-project-p)
-        (helm-ag (projectile-project-root))
-      (helm-ag)))
-  (bind-key "s-g" 'helm-ag-projectile)
-
-  (defun helm-ag-do-projectile ()
-    (interactive)
-    (if (projectile-project-p)
-        (helm-do-ag (projectile-project-root))
-      (helm-do-ag)))
-  (bind-key "s-S-g" 'helm-ag-do-projectile))
-
-(use-package helm-projectile :ensure t
-  :bind (("M-z" . helm-projectile)
-         ("s-p" . helm-projectile-switch-project)
-         ("s-d" . helm-projectile-find-dir))
-  :config
-  (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
-                                                          helm-source-projectile-files-list
-                                                          helm-source-projectile-recentf-list)))
-
-(use-package helm-dash
-  :ensure t
-  :pin melpa
-  :config
-  (setq helm-dash-browser-func 'browse-url))
-
-
-(use-package helm-spaces
-  :ensure t
-  :pin melpa
-  :commands (helm-spaces)
-  :bind ("M-s" . helm-spaces)
-  )
-
-(use-package helm-descbinds
-  :ensure t
-  :pin melpa
-  :bind ("C-h b" . helm-descbinds)
-  )
-
 (use-package helm-c-yasnippet
   :ensure t
   :pin melpa
@@ -706,31 +618,6 @@ See `hs-hide-block' and `hs-show-block'."
   ("<down>" shrink-window "shrink")
 )
 
-(ido-mode t)
-(ido-ubiquitous-mode t)
-(ido-vertical-mode t)
-(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-(setq ido-auto-merge-work-directories-length -1)
-
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-max-prospects 30)
-
-(setq ido-ignore-buffers
-      '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-        "^\*compilation" "^\*GTAGS" "^session\.*" "^\*Compile-Log\*"
-        ;; "^\*"
-        )
-      )
-
-(require 'flx-ido)
-(ido-everywhere t)
-(flx-ido-mode 1)
-
-;; (bind-key "M-x" 'smex)
-;; (bind-key "M-X" 'smex-major-mode-commands)
-;;  (bind-key "C-c M-x" 'smex-update)
-
 (use-package iy-go-to-char
   :config 
   (with-eval-after-load 'multiple-cursors
@@ -889,6 +776,7 @@ See `hs-hide-block' and `hs-show-block'."
 (use-package terraform-mode :ensure t)
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
+(add-hook 'prog-mode-hook #'subword-mode)
 
 (use-package scala-mode2
   :ensure t
