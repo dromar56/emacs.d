@@ -23,3 +23,5 @@ tramp
 .mc-lists.el
 bookmarks
 .cache
+
+config.el

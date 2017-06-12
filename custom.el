@@ -5,8 +5,8 @@
  ;; If there is more than one, they won't work right.
  '(ag-arguments
    (quote
-    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")) t)
- '(ag-highlight-search t t)
+    ("--smart-case" "--nogroup" "--column" "--ignore-dir" "node_modules" "--ignore-dir" "elpa")))
+ '(ag-highlight-search t)
  '(avy-background t)
  '(avy-highlight-first t)
  '(blink-cursor-mode nil)
@@ -50,6 +50,7 @@
  '(hl-paren-colors
    (quote
     ("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")) t)
+ '(isearch-allow-scroll nil)
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])
@@ -68,7 +69,7 @@
  '(org-imenu-depth 4)
  '(package-selected-packages
    (quote
-    (company-anaconda anaconda-company anaconda-mode dockerfile-mode terraform-mode ox-gfm org htmlize flycheck-pos-tip typescript-mode js2-mode jscs sublimity minimap vimish-fold helm-descbinds js-doc tide zenburn-theme yaml-mode workgroups2 window-numbering window-number wgrep-helm wgrep-ag web-mode w3m tern-auto-complete tabbar sws-mode sublime-themes spaceline solarized-theme smooth-scrolling smex smartparens smart-mode-line slime skewer-mode shorten shackle scss-mode sass-mode restclient req-package rainbow-mode rainbow-delimiters python-environment project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit lui love-minor-mode leuven-theme lcs lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode hydra highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme counsel company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe cider busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
+    (swiper counsel hydra ivy-hydra company-anaconda anaconda-company anaconda-mode dockerfile-mode terraform-mode ox-gfm org htmlize flycheck-pos-tip typescript-mode js2-mode jscs sublimity minimap vimish-fold helm-descbinds js-doc tide zenburn-theme yaml-mode workgroups2 window-numbering window-number wgrep-helm wgrep-ag web-mode w3m tern-auto-complete tabbar sws-mode sublime-themes spaceline solarized-theme smooth-scrolling smex smartparens smart-mode-line slime skewer-mode shorten shackle scss-mode sass-mode restclient req-package rainbow-mode rainbow-delimiters python-environment project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit lui love-minor-mode leuven-theme lcs lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe cider busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
  '(pe/directory-tree-function (quote pe/get-directory-tree-async))
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
