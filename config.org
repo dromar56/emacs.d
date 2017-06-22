@@ -1,5 +1,5 @@
 #+TLE: David's Emacs Configuration
-#+STARTUP: hideblocks
+#+STARTUP: showblocks
 #+PROPERTY: header-args :tangle yes
 
 * Initialisation
@@ -380,6 +380,7 @@
 	   ("C-t" . counsel-imenu)
 	   ("s-b" . counsel-bookmark)
 	   )
+    :config
     )
 
   (use-package ivy-hydra
@@ -390,6 +391,7 @@
     :config
     (ivy-mode t)
     (setq ivy-height 15)
+    (setq ivy-magic-tilde nil)
 
     (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
 
@@ -1221,52 +1223,55 @@
 *** Setup
     #+begin_src emacs-lisp
 
-      (use-package org
-        :config
-        (bind-key "<f2>" 'org-edit-special org-mode-map)
-        (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
-        (bind-key "\C-cl" 'org-store-link)
-        (bind-key "\C-ca" 'org-agenda)
+    (use-package org
+      :config
+      (bind-key "<f2>" 'org-edit-special org-mode-map)
+      (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
+      (bind-key "\C-cl" 'org-store-link)
+      (bind-key "\C-ca" 'org-agenda)
+      (setq org-src-preserve-indentation nil)
+      (setq org-edit-src-content-indentation 0)
+
       )
 
-      (setq org-log-done t)
+    (setq org-log-done t)
 
-      (setq org-tag-alist nil)
+    (setq org-tag-alist nil)
 
-      ;; (bind-key "<C-S-right>" 'helm-occur)
+    ;; (bind-key "<C-S-right>" 'helm-occur)
 
-      (eval-after-load "org"
-        '(progn
-           (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-           (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-           ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-           ;; (define-key org-mode-map (kbd "<C-left>") nil)
-           ;; (define-key org-mode-map (kbd "<C-right>") nil)
-           (define-key org-mode-map (kbd "M-<down>") 'nil)
-           (define-key org-mode-map (kbd "M-<up>") 'nil)
-           (require 'ox-gfm nil t)))
+    (eval-after-load "org"
+      '(progn
+	 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+	 (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+	 ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+	 ;; (define-key org-mode-map (kbd "<C-left>") nil)
+	 ;; (define-key org-mode-map (kbd "<C-right>") nil)
+	 (define-key org-mode-map (kbd "M-<down>") 'nil)
+	 (define-key org-mode-map (kbd "M-<up>") 'nil)
+	 (require 'ox-gfm nil t)))
 
-      (setq org-src-fontify-natively t)
-      (setq org-src-tab-acts-natively t)
+    (setq org-src-fontify-natively t)
+    (setq org-src-tab-acts-natively t)
 
-      (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+    (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
 
-      (setq org-main-file "~/org/notes.org")
-      (setq org-directory "~/org")
+    (setq org-main-file "~/org/notes.org")
+    (setq org-directory "~/org")
 
-      (defun org-insert-elisp-block (name beg end)
-        (interactive "sName:\nr")
-        (org-insert-heading-after-current)
-        (save-excursion
-          (insert name "\n")
-          (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-          (if (region-active-p)
-              (progn
-                (kill-region beg end)
-                (yank)))
-          (insert "#+end_src")))
+    (defun org-insert-elisp-block (name beg end)
+      (interactive "sName:\nr")
+      (org-insert-heading-after-current)
+      (save-excursion
+	(insert name "\n")
+	(insert "#+begin_src emacs-lisp :tangle yes" "\n")
+	(if (region-active-p)
+	    (progn
+	      (kill-region beg end)
+	      (yank)))
+	(insert "#+end_src")))
 
-      (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+    (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
     #+end_src
 *** Org Babel mongo
@@ -1398,27 +1403,31 @@
        ;; (add-hook 'js2-mode-hook #'eldoc-mode)
 
        (use-package js2-refactor
-         :config
-         ;; eg. extract function with `C-c C-m ef`.
-         (js2r-add-keybindings-with-prefix "C-c C-m")
-         (add-hook 'js2-mode-hook #'js2-refactor-mode)
-         )
+	 :config
+	 ;; eg. extract function with `C-c C-m ef`.
+	 (js2r-add-keybindings-with-prefix "C-c C-m")
+	 (add-hook 'js2-mode-hook #'js2-refactor-mode)
+	 )
 
        (use-package tern
-         :ensure t
-         :if (executable-find "tern")
-         :config
-         (add-hook 'js2-mode-hook 'tern-mode)
-         (use-package company-tern :ensure t)
-         )
+	 :ensure t
+	 :if (executable-find "tern")
+	 :config
+	 (add-hook 'js2-mode-hook 'tern-mode)
+	 (use-package company-tern :ensure t)
+	 )
 
        (use-package js-doc
-         :ensure t
-         )
+	 :ensure t
+	 )
 
        (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
        (define-key js2-mode-map "@" 'js-doc-insert-tag)
        )
+
+
+
+     (use-package rjsx-mode)
    #+end_src
 
 ** typescript

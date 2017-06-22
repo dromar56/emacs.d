@@ -1,6 +1,32 @@
 
 ;; ----- smex-history -----
 (
+ rjsx-mode
+ hs-minor-mode
+ tern-mode
+ customize-group
+ package-install
+ flycheck-verify-setup
+ org-open-at-point
+ visual-line-mode
+ revert-buffer
+ ido-find-file
+ help
+ server-start
+ untabify
+ magit-blame
+ lazy-highlight-cleanup
+ multi-isearch-buffers
+ package-delete
+ package-list-packages
+ helm-M-x
+ counsel-descbinds
+ helm-descbinds
+ helm-imenu-in-all-buffers
+ counsel-ag
+ counsel-imenu
+ idomenu
+ counsel-bookmark
  eshell
  shell
  yas-new-snippet
@@ -10,17 +36,11 @@
  highlight-indentation-mode
  indent-guide-mode
  org-version
- package-list-packages
- package-install
  tide-find-next-error
  flycheck-next-error
  tide-format
  tide-fix
- revert-buffer
- visual-line-mode
  count-words
- magit-blame
- untabify
  set-frame-font-size
  apropos
  company-mode
@@ -36,7 +56,6 @@
  5x5-crack-mutating-best
  org-export-dispatch
  org-mode-restart
- customize-group
  read-only-mode
  org-mode
  todo-archive-mode
@@ -71,7 +90,6 @@
  magit-find-file-other-window
  magit-log-buffer-file
  scroll-down
- server-start
  magit-status
  emacs-version
  ensime
@@ -82,11 +100,8 @@
  csv-mode
  diff-buffer-with-file
  ediff-current-file
- helm-projectile-switch-project
  css-mode
- tern-mode
  flycheck-mode
- hs-minor-mode
  helm-occur
  goto-char
  db4go-toggle-productivity
@@ -117,7 +132,6 @@
  org-copy
  org-show-block-all
  scala-mode
- flycheck-verify-setup
  comment-region
  smartparens-strict-mode
  smartparens-mode
@@ -147,7 +161,6 @@
  hs-hide-block
  hs-toggle-hiding
  show-paren-mode
- helm-help
  my-goto-scratch-buffer
  smooth-scrolling-mode
  flycheck-verify-checker
@@ -193,7 +206,6 @@
  html-mode
  recover-this-file
  shell-command-on-region
- helm-M-x
  org-toggle-pretty-entities
  org-table-create
  lacarte-execute-menu-command
@@ -215,7 +227,6 @@
  magit-checkout
  yas-reload-all
  yas-tryout-snippet
- helm-projectile-find-dir
  helm-yas-all-complete-or-create
  describe-face
  counsel-find-file
@@ -255,7 +266,6 @@
  helm-filtered-bookmarks
  counsel-describe-function
  projectile-find-file
- counsel-ag
  counsel-M-x
  make-indirect-buffer
  global-unset-key
@@ -343,7 +353,6 @@
  ffip
  gnus
  grep
- help
  ielm
  life
  mail
@@ -408,7 +417,6 @@
  fortune
  go-mode
  gud-gdb
- idomenu
  m2-mode
  m4-mode
  netstat
@@ -751,7 +759,6 @@
  helm-colors
  helm-locate
  helm-regexp
- helm-resume
  helm-timers
  help-follow
  hide-leaves
@@ -994,18 +1001,11 @@
  backward-char
  backward-list
  backward-page
- backward-sexp
- backward-word
- bookmark-jump
- bookmark-load
- bookmark-save
- browse-url-w3
- scss-mode
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 21)
+ (visual-line-mode . 22)
  (org-export-dispatch . 3)
  (profiler-start . 6)
  (profiler-report . 12)
@@ -1019,19 +1019,19 @@
  (helm-mode . 2)
  (profiler-reset . 5)
  (profiler-stop . 3)
- (customize-group . 36)
+ (customize-group . 38)
  (set-frame-font-size . 95)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 14)
  (magit-stash . 4)
  (iy-go-to-char . 3)
- (helm-M-x . 9)
+ (helm-M-x . 10)
  (magit-blame-mode . 15)
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 21)
+ (package-list-packages . 22)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1082,7 +1082,7 @@
  (direx:find-directory . 1)
  (diminish . 1)
  (eval-expression . 2)
- (package-install . 12)
+ (package-install . 17)
  (ediff-current-file . 4)
  (restclient-mode . 2)
  (view-mode . 2)
@@ -1103,13 +1103,13 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 10)
- (revert-buffer . 61)
+ (revert-buffer . 63)
  (shell-backward-command . 1)
  (eshell . 15)
  (term . 4)
  (flycheck-next-error . 25)
  (sp-switch-space . 1)
- (server-start . 7)
+ (server-start . 8)
  (tramp-cleanup-all-connections . 3)
  (tramp-cleanup-all-buffers . 5)
  (db4go-toggle-productivity . 80)
@@ -1128,7 +1128,7 @@
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 3)
- (magit-blame . 38)
+ (magit-blame . 39)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1148,7 +1148,7 @@
  (my-create-header . 1)
  (org-mode . 6)
  (count-words . 16)
- (hs-minor-mode . 29)
+ (hs-minor-mode . 32)
  (hide-body . 1)
  (tern-get-docs . 3)
  (hydra-yasnippet/body . 1)
@@ -1157,7 +1157,7 @@
  (js2-jsx-mode . 3)
  (make-indirect-buffer . 1)
  (counsel-M-x . 2)
- (counsel-ag . 2)
+ (counsel-ag . 3)
  (projectile-find-file . 1)
  (ivy-mode . 6)
  (swiper . 6)
@@ -1272,7 +1272,7 @@
  (diff-backup . 1)
  (flycheck-buffer . 1)
  (tide-rename-symbol . 1)
- (flycheck-verify-setup . 10)
+ (flycheck-verify-setup . 11)
  (toggle-window-split . 2)
  (eb-magit . 1)
  (neotree-projectile-action . 1)
@@ -1344,7 +1344,7 @@
  (helm-occur . 4)
  (helm-projectile-switch-project . 4)
  (goto-char . 1)
- (tern-mode . 3)
+ (tern-mode . 12)
  (projectile-remove-known-project . 3)
  (csv-mode . 2)
  (csv-align-fields . 1)
@@ -1363,7 +1363,7 @@
  (tide-hl-identifier-mode . 2)
  (hydra-yasnippet/yas-reload-all-and-exit . 1)
  (typescript-mode . 3)
- (untabify . 19)
+ (untabify . 21)
  (customize-face . 1)
  (helm-info-message . 1)
  (rename-buffer . 1)
@@ -1393,4 +1393,17 @@
  (org-sort . 2)
  (helm-yas-create-snippet-on-region . 2)
  (yas-new-snippet . 2)
+ (counsel-bookmark . 1)
+ (idomenu . 1)
+ (counsel-imenu . 1)
+ (helm-imenu-in-all-buffers . 1)
+ (counsel-descbinds . 2)
+ (helm-descbinds . 1)
+ (ido-find-file . 3)
+ (package-delete . 8)
+ (help . 2)
+ (multi-isearch-buffers . 1)
+ (lazy-highlight-cleanup . 1)
+ (rjsx-mode . 5)
+ (org-open-at-point . 1)
 )
