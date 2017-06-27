@@ -1,15 +1,32 @@
 
 ;; ----- smex-history -----
 (
+ load-theme
+ package-refresh-contents
+ org-indent-mode
+ helm-imenu
+ counsel-dash
+ helm-dash
+ eww
+ counsel-dash-install-user-docset
+ counsel-dash-install-docset
+ revert-buffer
+ mc/mark-all-dwim
+ magit-fetch
+ counsel-find-file
+ customize-group
+ visual-line-mode
+ org-clock-menu
+ org-clock-in
+ org-clock-cancel
+ set-frame-font-size
+ eshell
  rjsx-mode
  hs-minor-mode
  tern-mode
- customize-group
  package-install
  flycheck-verify-setup
  org-open-at-point
- visual-line-mode
- revert-buffer
  ido-find-file
  help
  server-start
@@ -27,7 +44,6 @@
  counsel-imenu
  idomenu
  counsel-bookmark
- eshell
  shell
  yas-new-snippet
  yas-describe-tables
@@ -41,10 +57,8 @@
  tide-format
  tide-fix
  count-words
- set-frame-font-size
  apropos
  company-mode
- load-theme
  sort-lines
  typescript-mode
  animate-birthday-present
@@ -60,7 +74,6 @@
  org-mode
  todo-archive-mode
  term
- magit-fetch
  doc-view-mode
  magit-revert
  toggle-truncate-lines
@@ -114,7 +127,6 @@
  whitespace-mode
  tern-find-definition
  replace-regexp
- eww
  json-pretty-print
  whitespace-cleanup
  jscs-fix
@@ -229,7 +241,6 @@
  yas-tryout-snippet
  helm-yas-all-complete-or-create
  describe-face
- counsel-find-file
  helm-documentation
  ediff-buffers
  er/mark-defun
@@ -279,7 +290,6 @@
  proced
  helm-dash-at-point
  helm-dash-install-docset
- helm-dash
  set-buffer-file-coding-system
  iy-go-to-char
  rainbow-delimiters-mode
@@ -632,7 +642,6 @@
  forms-mode
  gnus-slave
  hanoi-unix
- helm-imenu
  helm-swoop
  hide-entry
  hide-other
@@ -932,7 +941,6 @@
  not-modified
  opascal-mode
  org-add-note
- org-clock-in
  org-deadline
  org-goto-ret
  org-iswitchb
@@ -993,19 +1001,11 @@
  ad-deactivate
  ad-update-all
  ada-find-file
- align-current
- appt-activate
- apropos-value
- auto-complete
- autoconf-mode
- backward-char
- backward-list
- backward-page
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 22)
+ (visual-line-mode . 24)
  (org-export-dispatch . 3)
  (profiler-start . 6)
  (profiler-report . 12)
@@ -1019,8 +1019,8 @@
  (helm-mode . 2)
  (profiler-reset . 5)
  (profiler-stop . 3)
- (customize-group . 38)
- (set-frame-font-size . 95)
+ (customize-group . 39)
+ (set-frame-font-size . 96)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 14)
@@ -1043,7 +1043,7 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 34)
+ (eww . 35)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
@@ -1090,7 +1090,7 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 5)
- (load-theme . 34)
+ (load-theme . 35)
  (column-number-mode . 1)
  (yas-describe-tables . 7)
  (web-mode . 13)
@@ -1103,9 +1103,9 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 10)
- (revert-buffer . 63)
+ (revert-buffer . 64)
  (shell-backward-command . 1)
- (eshell . 15)
+ (eshell . 16)
  (term . 4)
  (flycheck-next-error . 25)
  (sp-switch-space . 1)
@@ -1135,7 +1135,7 @@
  (rainbow-mode . 1)
  (rainbow-delimiters-mode . 1)
  (set-buffer-file-coding-system . 1)
- (helm-dash . 1)
+ (helm-dash . 2)
  (helm-dash-install-docset . 1)
  (helm-dash-at-point . 1)
  (global-unset-key . 2)
@@ -1175,7 +1175,7 @@
  (company-bbdb . 1)
  (helm-yas-complete . 1)
  (smex . 7)
- (counsel-find-file . 7)
+ (counsel-find-file . 8)
  (ivy-switch-buffer . 1)
  (ivy-resume . 1)
  (helm-buffers-list . 1)
@@ -1370,7 +1370,7 @@
  (end-of-buffer . 1)
  (sort-lines . 2)
  (vc-region-history . 1)
- (magit-fetch . 2)
+ (magit-fetch . 4)
  (doc-view-mode . 1)
  (eshell-list-history . 1)
  (archive-view . 1)
@@ -1404,6 +1404,16 @@
  (help . 2)
  (multi-isearch-buffers . 1)
  (lazy-highlight-cleanup . 1)
- (rjsx-mode . 5)
+ (rjsx-mode . 6)
  (org-open-at-point . 1)
+ (org-clock-in . 2)
+ (org-clock-cancel . 1)
+ (org-clock-menu . 3)
+ (mc/mark-all-dwim . 1)
+ (counsel-dash . 9)
+ (counsel-dash-install-docset . 6)
+ (counsel-dash-install-user-docset . 1)
+ (helm-imenu . 1)
+ (org-indent-mode . 1)
+ (package-refresh-contents . 1)
 )

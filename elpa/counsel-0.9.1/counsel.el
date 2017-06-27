@@ -1319,7 +1319,7 @@ done") "\n" t)))
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-DEL") 'counsel-up-directory)
     (define-key map (kbd "C-<backspace>") 'counsel-up-directory)
-    map))
+    map))1
 
 (add-to-list 'ivy-ffap-url-functions 'counsel-github-url-p)
 (add-to-list 'ivy-ffap-url-functions 'counsel-emacs-url-p)
