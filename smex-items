@@ -1,25 +1,36 @@
 
 ;; ----- smex-history -----
 (
- load-theme
- package-refresh-contents
+ revert-buffer
+ counsel-describe-face
+ describe-face
  org-indent-mode
  helm-imenu
+ load-theme
+ man
+ toggle-truncate-lines
+ indent-pp-sexp
+ narrow-or-widen-dwim
+ json-mode-beautify
+ eww
+ eval-print-last-sexp
+ info
+ yas-about
+ about-emacs
+ recentf-open-files
+ set-frame-font-size
+ package-refresh-contents
  counsel-dash
  helm-dash
- eww
  counsel-dash-install-user-docset
  counsel-dash-install-docset
- revert-buffer
  mc/mark-all-dwim
  magit-fetch
  counsel-find-file
  customize-group
  visual-line-mode
- org-clock-menu
  org-clock-in
  org-clock-cancel
- set-frame-font-size
  eshell
  rjsx-mode
  hs-minor-mode
@@ -76,7 +87,6 @@
  term
  doc-view-mode
  magit-revert
- toggle-truncate-lines
  hs-show-all
  json-mode
  tide-hl-identifier-mode
@@ -86,7 +96,6 @@
  projectile-remove-known-project
  rename-buffer
  rename-file
- eval-print-last-sexp
  toggle-debug-on-error
  customize-face
  subword-mode
@@ -99,7 +108,6 @@
  package-autoremove
  tide-goto-reference
  text-mode
- json-mode-beautify
  magit-find-file-other-window
  magit-log-buffer-file
  scroll-down
@@ -240,7 +248,6 @@
  yas-reload-all
  yas-tryout-snippet
  helm-yas-all-complete-or-create
- describe-face
  helm-documentation
  ediff-buffers
  er/mark-defun
@@ -257,7 +264,6 @@
  yas-load-directory
  ido-ubiquitous-mode
  tramp-cleanup-all-buffers
- info
  artist-mode
  ag
  helm-ag
@@ -349,7 +355,6 @@
  gdb
  irc
  jdb
- man
  mpc
  pdb
  pwd
@@ -607,7 +612,6 @@
  what-line
  what-page
  yaml-mode
- yas-about
  yas/about
  zone-mode
  Custom-set
@@ -726,7 +730,6 @@
  Info-search
  Info-tagify
  abbrev-mode
- about-emacs
  ad-activate
  ad-unadvise
  allout-mode
@@ -998,9 +1001,6 @@
  Info-top-node
  Info-validate
  ace-jump-mode
- ad-deactivate
- ad-update-all
- ada-find-file
 )
 
 ;; ----- smex-data -----
@@ -1020,7 +1020,7 @@
  (profiler-reset . 5)
  (profiler-stop . 3)
  (customize-group . 39)
- (set-frame-font-size . 96)
+ (set-frame-font-size . 97)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 14)
@@ -1043,7 +1043,7 @@
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
  (eval-region . 9)
- (eww . 35)
+ (eww . 36)
  (create-shell . 1)
  (create-eshell . 1)
  (clone-indirect-buffer-other-window . 1)
@@ -1052,7 +1052,7 @@
  (json-mode . 6)
  (js2-mode . 28)
  (js2-mode-toggle-warnings-and-errors . 6)
- (describe-face . 5)
+ (describe-face . 9)
  (js2r-log-this . 5)
  (js2-minor-mode . 1)
  (js2-mode-show-comments . 2)
@@ -1067,7 +1067,7 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 22)
- (toggle-truncate-lines . 22)
+ (toggle-truncate-lines . 23)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
  (highlight-indentation-mode . 6)
@@ -1090,7 +1090,7 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 5)
- (load-theme . 35)
+ (load-theme . 39)
  (column-number-mode . 1)
  (yas-describe-tables . 7)
  (web-mode . 13)
@@ -1103,7 +1103,7 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 5)
  (scss-mode . 10)
- (revert-buffer . 64)
+ (revert-buffer . 65)
  (shell-backward-command . 1)
  (eshell . 16)
  (term . 4)
@@ -1163,7 +1163,7 @@
  (swiper . 6)
  (my-goto-scratch-buffer . 6)
  (counsel-describe-function . 2)
- (eval-print-last-sexp . 14)
+ (eval-print-last-sexp . 15)
  (rename-file . 4)
  (helm-filtered-bookmarks . 1)
  (helm-do-ag . 1)
@@ -1187,7 +1187,7 @@
  (ag . 1)
  (repeat-complex-command . 2)
  (artist-mode . 2)
- (info . 1)
+ (info . 2)
  (apropos . 3)
  (anzu-mode . 4)
  (global-anzu-mode . 5)
@@ -1309,7 +1309,7 @@
  (hs-minor-mode-menu . 1)
  (js2-next-error . 1)
  (re-search-forward . 8)
- (json-mode-beautify . 13)
+ (json-mode-beautify . 15)
  (sublimity-map-show . 1)
  (sublimity-mode . 8)
  (prog-mode . 2)
@@ -1413,7 +1413,14 @@
  (counsel-dash . 9)
  (counsel-dash-install-docset . 6)
  (counsel-dash-install-user-docset . 1)
- (helm-imenu . 1)
- (org-indent-mode . 1)
+ (helm-imenu . 2)
+ (org-indent-mode . 4)
  (package-refresh-contents . 1)
+ (recentf-open-files . 1)
+ (about-emacs . 1)
+ (yas-about . 1)
+ (narrow-or-widen-dwim . 2)
+ (indent-pp-sexp . 3)
+ (man . 2)
+ (counsel-describe-face . 1)
 )
