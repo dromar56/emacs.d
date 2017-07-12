@@ -1127,7 +1127,6 @@ See `hs-hide-block' and `hs-show-block'."
 #+end_src
 ** prog-mode
 #+begin_src emacs-lisp :tangle yes
-(add-hook 'prog-mode-hook #'hs-minor-mode)
 (add-hook 'prog-mode-hook #'subword-mode)
 #+end_src
 ** scala
