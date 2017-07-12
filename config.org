@@ -1228,61 +1228,432 @@ See `hs-hide-block' and `hs-show-block'."
 ** Org
 *** Setup
 #+begin_src emacs-lisp
+  (use-package org
+    :config
+    (bind-key "<f2>" 'org-edit-special org-mode-map)
+    (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
+    (bind-key "\C-cl" 'org-store-link)
+    (bind-key "\C-ca" 'org-agenda)
+    (setq org-src-preserve-indentation nil)
+    (setq org-adapt-indentation nil)
 
-(use-package org
-  :config
-  (bind-key "<f2>" 'org-edit-special org-mode-map)
-  (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
-  (bind-key "\C-cl" 'org-store-link)
-  (bind-key "\C-ca" 'org-agenda)
-  (setq org-src-preserve-indentation nil)
-  (setq org-edit-src-content-indentation 0)
+    (add-hook 'org-mode-hook 
+              (lambda () (setq org-adapt-indentation nil)))
 
-  (setq org-indent-mode-turns-on-hiding-stars nil)
-  (add-hook 'org-mode-hook 'org-indent-mode) 
-  )
+    (setq org-indent-mode-turns-on-hiding-stars nil)
+    ;; (add-hook 'org-mode-hook 'org-indent-mode) 
+    ;; (add-hook 'org-mode-hook hs-minor-mode) 
+    (company-mode 1)
+    )
 
-(setq org-log-done t)
+  (setq org-log-done t)
 
-(setq org-tag-alist nil)
+  (setq org-tag-alist nil)
 
-;; (bind-key "<C-S-right>" 'helm-occur)
+  ;; (bind-key "<C-S-right>" 'helm-occur)
+
+  (eval-after-load "org"
+    '(progn
+       (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+       (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+       ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+       ;; (define-key org-mode-map (kbd "<C-left>") nil)
+       ;; (define-key org-mode-map (kbd "<C-right>") nil)
+       (define-key org-mode-map (kbd "M-<down>") 'nil)
+       (define-key org-mode-map (kbd "M-<up>") 'nil)
+       (require 'ox-gfm nil t)))
+
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+
+  (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+
+  (setq org-main-file "~/org/notes.org")
+  (setq org-directory "~/org")
+
+  (defun org-insert-elisp-block (name beg end)
+    (interactive "sName:\nr")
+    (org-insert-heading-after-current)
+    (save-excursion
+      (insert name "\n")
+      (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+      (if (region-active-p)
+          (progn
+            (kill-region beg end)
+            (yank)))
+      (insert "#+end_src")))
+
+  (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+
+#+end_src
+
+*** Org Babel mongo
+#+begin_src emacs-lisp :tangle yes
+(defun org-babel-execute:mongo (body params)
+  "org-babel mongo hook."
+  (let* ((db (or (cdr (assoc :db params))
+		 "core.early-birds:27017/earlybirds"))
+	 (cmd (mapconcat 'identity (list "mongo" "--quiet" db) " ")))
+    (org-babel-eval cmd body)))
+
 
 (eval-after-load "org"
-  '(progn
-     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-     ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-     ;; (define-key org-mode-map (kbd "<C-left>") nil)
-     ;; (define-key org-mode-map (kbd "<C-right>") nil)
-     (define-key org-mode-map (kbd "M-<down>") 'nil)
-     (define-key org-mode-map (kbd "M-<up>") 'nil)
-     (require 'ox-gfm nil t)))
+  '(add-to-list 'org-src-lang-modes '("mongo" . js2)))
+#+end_src
+*** Org agenda
+Main org file which will be added to the agenda and where notes will be captured (using C-c c).
+#+begin_src emacs-lisp :tangle yes
+(setq org-agenda-files '("~/org"))
+(load-library "find-lisp")
+(setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
 
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
+;; (setq org-agenda-files (list org-main-file))
+#+end_src
 
-(customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+#+RESULTS:
+| /home/dromar/org/projects/google-cloud-platform.org | /home/dromar/org/projects/console-early-birds.org | /home/dromar/org/stats.org | /home/dromar/org/eb.org | /home/dromar/org/todo.org | /home/dromar/org/misc.org | /home/dromar/org/formation-google-jun-2016.org |
 
-(setq org-main-file "~/org/notes.org")
-(setq org-directory "~/org")
+*** Org capture
+#+begin_src emacs-lisp :tangle yes
+(setq org-default-notes-file org-main-file)
+(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "s-t") 'org-capture)
+;;(define-key global-map (kbd "<f1>") 'org-capture)
+(define-key global-map (kbd "<S-f1>") (lambda () (interactive)
+					(let ((current-prefix-arg '(4)))
+					  (call-interactively 'org-capture))))
 
-(defun org-insert-elisp-block (name beg end)
-  (interactive "sName:\nr")
-  (org-insert-heading-after-current)
-  (save-excursion
-    (insert name "\n")
-    (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-    (if (region-active-p)
-        (progn
-          (kill-region beg end)
-          (yank)))
-    (insert "#+end_src")))
+(defun llc-get-project-org-name ()
+  "Return the name of the projectile project"
+  (replace-regexp-in-string "[^[:alnum:]]" "-"
+			    (car (last (split-string (projectile-project-root) "/" t)))))
 
-(define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+(defun llc-get-project-org-file ()
+  "Return the path to the project org file"
+  (concat org-directory "/projects/"
+	  (llc-get-project-org-name)
+	  ".org"))
+
+(defun llc-find-project-org-file-task ()
+  "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
+  (let ((project-file (llc-get-project-org-file))
+	(project-headline-regexp "^\\* Tasks")
+	(project-name (llc-get-project-org-name)))
+    (set-buffer (find-file-noselect project-file))
+    (goto-char (point-min))
+    (if (not (re-search-forward project-headline-regexp nil t))
+	(progn
+	  (goto-char (point-max))
+	  (if (not (eq (buffer-size) 0))
+	      (newline 2))
+	  (insert (concat "* Tasks :project:" project-name ":"))))
+    (goto-char (point-min))
+    (re-search-forward project-headline-regexp)
+    (end-of-line)))
+
+;; (setq org-capture-templates
+;;       '(("p" "Project" entry (function llc-find-project-org-file-task)
+;;          "* TODO %?\n  %a\n  %i")
+;;         ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
+;;          "* TODO %?\n  %a\n  %i")
+;;         ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
+;;          "* %?\n  %a\n  %i")
+;;         ("j" "Journal" entry (file+datetree "~/org/journal.org")
+;;          "* %?\nEntered on %U\n  %a\n  %i")
+;;         ("J" "Journal - more options")
+;;         ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
+;;          "* %?\nEntered on %U\n  %x\n  %a")))
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Todo")
+	 "* TODO %?\n  %a\n  %i")
+	("w" "Todo - Work" entry (file+headline "~/org/todo.org" "Work")
+	 "* TODO %?\n  %a\n  %i")
+	("c" "Todo - Clipboard" entry (file+headline "~/org/todo.org" "Todo")
+	 "* TODO %?\n  %c\n  %i")
+	("j" "Journal" entry (file+datetree "~/org/journal.org")
+	 "* %?\nEntered on %U\n  %a\n  %i")
+	("J" "Journal - more options")
+	("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
+	 "* %?\nEntered on %U\n  %x\n  %a")))
+
+(setq org-capture-templates-contexts
+      '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
+
+;; Close frame after org-capture only if a certain frame-parameter is set
+(defun llc-close-frame-after-org-capture ()
+  (if (frame-parameter nil 'llc-close-frame-after-org-capture)
+      (delete-frame)))
+(add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
+
+#+end_src
+
+*** COMMENT org-bullets
+#+begin_src emacs-lisp :tangle yes
+(use-package org-bullets :ensure t)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** javascript
+#+begin_src emacs-lisp
+;; Sometimes hideshow doesn't work in js2-mode, so I go back to js-mode
+(add-hook 'js-mode-hook #'hs-minor-mode)
+
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :config
+  (customize-set-variable 'js2-bounce-indent-p nil)
+  (customize-set-variable 'js2-global-externs [global require])
+  (customize-set-variable 'js2-include-node-externs t)
+  (customize-set-variable 'js2-basic-offset 2)
+  (customize-set-variable 'js2-mode-show-parse-errors nil)
+  (customize-set-variable 'js2-mode-show-strict-warnings nil)
+
+  (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
+  (add-hook 'js2-mode-hook #'hs-minor-mode)
+  (add-hook 'js2-mode-hook #'subword-mode)
+  ;; (add-hook 'js2-mode-hook #'eldoc-mode)
+
+  (use-package js2-refactor
+    :config
+    ;; eg. extract function with `C-c C-m ef`.
+    (js2r-add-keybindings-with-prefix "C-c C-m")
+    (add-hook 'js2-mode-hook #'js2-refactor-mode)
+    )
+
+  (use-package tern
+    :ensure t
+    :if (executable-find "tern")
+    :config
+    (add-hook 'js2-mode-hook 'tern-mode)
+    (use-package company-tern :ensure t)
+    )
+
+  (use-package js-doc
+    :ensure t
+    )
+
+  (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
+  (define-key js2-mode-map "@" 'js-doc-insert-tag)
+  )
+
+
+
+(use-package rjsx-mode)
+#+end_src
+
+** typescript
+#+begin_src emacs-lisp :tangle yes
+(use-package tide
+  :ensure t
+  :config
+
+  (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
+
+  (add-hook 'before-save-hook 'tide-format-before-save)
+
+  ;; sample config
+  (add-hook 'typescript-mode-hook
+	    (lambda ()
+	      (tide-setup)
+	      (flycheck-mode +1)
+	      ;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
+	      ;; (eldoc-mode +1)
+	      (hs-minor-mode t)
+	      (subword-mode t)
+
+	      ;; company is an optional dependency. You have to
+	      ;; install it separately via package-install
+	      (company-mode-on)))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; Tide can be used along with web-mode to edit tsx files
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+	    (lambda ()
+	      (when (string-equal "tsx" (file-name-extension buffer-file-name))
+		(tide-setup)
+		(flycheck-mode +1)
+		;;(setq flycheck-check-syntax-automatically '(save mode-enabled))
+		(eldoc-mode +1)
+		(company-mode-on))))
+  )
+#+end_src
+** livescript
+#+begin_src emacs-lisp
+(load "~/.emacs.d/vendor/livescript-mode.el")
+
+;; Javascript improved mode js2-mode
+(add-to-list 'auto-mode-alist '("\\.ls\\'" . livescript-mode))
+
+(defun livescript-eval ()
+  (local-set-key (kbd "C-x C-e") 'livescript-compile-region))
+(add-hook 'livescript-mode-hook 'livescript-eval)
+#+end_src
+
+** lua
+#+begin_src emacs-lisp
+
+(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+
+
+
+#+end_src
+
+** php
+#+begin_src emacs-lisp
+
+(autoload 'php-mode "php-mode.el" "Php mode." t)
+(setq auto-mode-alist (append '(("/*.\.php[345]?$" . php-mode)) auto-mode-alist))
+
+#+end_src
+
+** python
+#+begin_src emacs-lisp
+;; (use-package python
+;;   :mode ("\\.py" . python-mode)
+;;   :config
+;;   (use-package elpy
+;;     :init
+;;     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+;;     :config
+;;     (setq elpy-rpc-backend "jedi")
+;;     (define-key elpy-mode-map (kbd "<C-down>") 'nil)
+;;     (define-key elpy-mode-map (kbd "<C-up>") 'nil)
+;;     (define-key elpy-mode-map (kbd "<M-up>") 'nil)
+;;     (define-key elpy-mode-map (kbd "<M-down>") 'nil)
+
+;;     ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;;     ;;flycheck-python-flake8-executable "/usr/local/bin/flake8"
+;;     :bind (:map elpy-mode-map
+;;    	   ("M-." . elpy-goto-definition)
+;;    	   ("M-," . pop-tag-mark)))
+;;   (elpy-enable))
+
+
+(use-package python
+  :mode ("\\.py" . python-mode)
+  :config
+  (use-package anaconda-mode
+    :init
+    (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+    :config
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+    )
+  )
+
+(use-package company-anaconda
+  :config
+  (eval-after-load "company"
+    '(add-to-list 'company-backends 'company-anaconda))
+
+  (eval-after-load "company"
+    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
+  )
+
+(use-package pip-requirements
+  :config
+  (add-hook 'pip-requirements-mode-hook #'pip-requirements-auto-complete-setup))
+
+(use-package py-autopep8)
+
+
+;; (use-package pyenv-mode
+;;   :init
+;;   (add-to-list 'exec-path "~/.pyenv/shims")
+;;   (setenv "WORKON_HOME" "~/.pyenv/versions/")
+;;   :config
+;;   (pyenv-mode)
+;;   :bind
+;;   ("C-x p e" . pyenv-activate-current-project))
+
+;; (defun pyenv-init()
+;;   (setq global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global")))
+;;   (message (concat "Setting pyenv version to " global-pyenv))
+;;   (pyenv-mode-set global-pyenv)
+;;   (defvar pyenv-current-version nil global-pyenv))
+
+;; (defun pyenv-activate-current-project ()
+;;   "Automatically activates pyenv version if .python-version file exists."
+;;   (interactive)
+;;   (f-traverse-upwards
+;;    (lambda (path)
+;;      (message path)
+;;      (let ((pyenv-version-path (f-expand ".python-version" path)))
+;;     (if (f-exists? pyenv-version-path)
+;;           (progn
+;;             (setq pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8)))
+;;             (pyenv-mode-set pyenv-current-version)
+;;             (pyvenv-workon pyenv-current-version)
+;;             (message (concat "Setting virtualenv to " pyenv-current-version))))))))
+
+;; (add-hook 'after-init-hook 'pyenv-init)
+;; (add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
+#+end_src
+
+** web
+#+begin_src emacs-lisp
+(use-package web-mode
+  :mode (("\\.phtml\\'" . web-mode)
+	 ("\\.tpl\\.php\\'" . web-mode)
+	 ("\\.[gj]sp\\'" . web-mode)
+	 ("\\.as[cp]x\\'" . web-mode)
+	 ("\\.erb\\'" . web-mode)
+	 ("\\.mustache\\'" . web-mode)
+	 ("\\.djhtml\\'" . web-mode)
+	 ("\\.html?\\'" . web-mode)
+	 ("\\.dust?\\'" . web-mode))
+
+  :init
+
+  :config
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-markup-indent-offset 2)
+    )
+  (add-hook 'web-mode-hook  'my-web-mode-hook)
+  )
+
+
+
+#+end_src
+
+** Dockerfile
+#+begin_src emacs-lisp :tangle yes
+
+(use-package dockerfile-mode
+  :ensure t
+  :pin melpa-stable ; or 'manual'
+  )
 
 #+end_src
 * Core
+** Compilation mode
+#+begin_src emacs-lisp :tangle yes
+
+
+
+
+  (use-package compile
+    :config
+    :bind ("C-." . ace-jump-mode)
+
+    )
+
+#+end_src
+** Imenu
+#+begin_src emacs-lisp :tangle yes
+(setq imenu-auto-rescan 1)
+(setq imenu-max-item-length nil)
+(setq imenu-auto-rescan-maxout 600000)
+
+#+end_src
 ** Hyper key
 #+begin_src emacs-lisp
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
