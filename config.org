@@ -1228,62 +1228,62 @@ See `hs-hide-block' and `hs-show-block'."
 ** Org
 *** Setup
 #+begin_src emacs-lisp
-  (use-package org
-    :config
-    (bind-key "<f2>" 'org-edit-special org-mode-map)
-    (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
-    (bind-key "\C-cl" 'org-store-link)
-    (bind-key "\C-ca" 'org-agenda)
-    (setq org-src-preserve-indentation nil)
-    (setq org-adapt-indentation nil)
+(use-package org
+  :config
+  (bind-key "<f2>" 'org-edit-special org-mode-map)
+  (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
+  (bind-key "\C-cl" 'org-store-link)
+  (bind-key "\C-ca" 'org-agenda)
+  (setq org-src-preserve-indentation t)
+  (setq org-adapt-indentation nil)
 
-    (add-hook 'org-mode-hook 
-              (lambda () (setq org-adapt-indentation nil)))
+  (add-hook 'org-mode-hook 
+	    (lambda () (setq org-adapt-indentation nil)))
 
-    (setq org-indent-mode-turns-on-hiding-stars nil)
-    ;; (add-hook 'org-mode-hook 'org-indent-mode) 
-    ;; (add-hook 'org-mode-hook hs-minor-mode) 
-    (company-mode 1)
-    )
+  (setq org-indent-mode-turns-on-hiding-stars nil)
+  ;; (add-hook 'org-mode-hook 'org-indent-mode) 
+  ;; (add-hook 'org-mode-hook hs-minor-mode) 
+  (company-mode 1)
+  )
 
-  (setq org-log-done t)
+(setq org-log-done t)
 
-  (setq org-tag-alist nil)
+(setq org-tag-alist nil)
 
-  ;; (bind-key "<C-S-right>" 'helm-occur)
+;; (bind-key "<C-S-right>" 'helm-occur)
 
-  (eval-after-load "org"
-    '(progn
-       (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-       (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-       ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-       ;; (define-key org-mode-map (kbd "<C-left>") nil)
-       ;; (define-key org-mode-map (kbd "<C-right>") nil)
-       (define-key org-mode-map (kbd "M-<down>") 'nil)
-       (define-key org-mode-map (kbd "M-<up>") 'nil)
-       (require 'ox-gfm nil t)))
+(eval-after-load "org"
+  '(progn
+     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+     ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+     ;; (define-key org-mode-map (kbd "<C-left>") nil)
+     ;; (define-key org-mode-map (kbd "<C-right>") nil)
+     (define-key org-mode-map (kbd "M-<down>") 'nil)
+     (define-key org-mode-map (kbd "M-<up>") 'nil)
+     (require 'ox-gfm nil t)))
 
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
 
-  (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+(customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
 
-  (setq org-main-file "~/org/notes.org")
-  (setq org-directory "~/org")
+(setq org-main-file "~/org/notes.org")
+(setq org-directory "~/org")
 
-  (defun org-insert-elisp-block (name beg end)
-    (interactive "sName:\nr")
-    (org-insert-heading-after-current)
-    (save-excursion
-      (insert name "\n")
-      (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-      (if (region-active-p)
-          (progn
-            (kill-region beg end)
-            (yank)))
-      (insert "#+end_src")))
+(defun org-insert-elisp-block (name beg end)
+  (interactive "sName:\nr")
+  (org-insert-heading-after-current)
+  (save-excursion
+    (insert name "\n")
+    (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+    (if (region-active-p)
+	(progn
+	  (kill-region beg end)
+	  (yank)))
+    (insert "#+end_src")))
 
-  (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+(define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
 #+end_src
 
@@ -1640,11 +1640,11 @@ Main org file which will be added to the agenda and where notes will be captured
 
 
 
-  (use-package compile
-    :config
-    :bind ("C-." . ace-jump-mode)
+(use-package compile
+  :config
+  :bind ("C-." . ace-jump-mode)
 
-    )
+  )
 
 #+end_src
 ** Imenu
@@ -2178,6 +2178,35 @@ Main org file which will be added to the agenda and where notes will be captured
 #+end_src
 
 ** Themes
+*** Load theme (daemon compatible)
+#+begin_src emacs-lisp :tangle yes
+
+
+(defvar my:theme 'doom-one)
+(defvar my:theme-window-loaded nil)
+(defvar my:theme-terminal-loaded nil)
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions (lambda (frame)
+					    (select-frame frame)
+					    (if (window-system frame)
+						(unless my:theme-window-loaded
+						  (if my:theme-terminal-loaded
+						      (enable-theme my:theme)
+						    (load-theme my:theme t))
+						  (setq my:theme-window-loaded t))
+					      (unless my:theme-terminal-loaded
+						(if my:theme-window-loaded
+						    (enable-theme my:theme)
+						  (load-theme my:theme t))
+						(setq my:theme-terminal-loaded t)))))
+
+  (progn
+    (load-theme my:theme t)
+    (if (display-graphic-p)
+	(setq my:theme-window-loaded t)
+      (setq my:theme-terminal-loaded t))))
+#+end_src
 *** COMMENT Moe-dark
 #+begin_src emacs-lisp :tangle yes
 (defun my-moe-light ()
@@ -2271,9 +2300,6 @@ Main org file which will be added to the agenda and where notes will be captured
   (setq doom-themes-enable-bold t)   ; if nil, bold is universally disabled
   (setq doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
-  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-  ;; may have their own settings.
-  (load-theme 'doom-one t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -2284,6 +2310,17 @@ Main org file which will be added to the agenda and where notes will be captured
   ;; (set-face-attribute 'org-block-begin-line nil :background "#23272e" :foreground "#aaa")
   (set-face-attribute 'org-block nil :background "#282C34")
   ;; (set-face-attribute 'org-block-end-line nil :inherit 'default :background "#303030" :foreground "#999")
+
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  ;; (load-theme 'doom-one t)
+
+  ;; (if (daemonp)
+  ;;     (add-hook 'after-make-frame-functions
+  ;; 		(lambda (frame)
+  ;; 		  (select-frame frame)
+  ;; 		  (load-theme 'doom-one t)))
+  ;;   (load-theme 'doom-one t))
 
   )
 
