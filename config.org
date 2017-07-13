@@ -386,6 +386,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :bind (("M-x" . counsel-M-x)
 	 ("C-t" . counsel-imenu)
 	 ("s-b" . counsel-bookmark)
+	 ("C-c b" . counsel-bookmark)
 	 )
   :config
   )
