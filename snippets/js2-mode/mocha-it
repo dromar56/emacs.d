@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: mochait
+# key: it
+# type: snippet
+# --
+it('$1', function() {
+  $0
+});

@@ -366,7 +366,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package counsel-dash
   :config
   (setq counsel-dash-browser-func 'eww)
-  
   )
 
 
@@ -401,15 +400,19 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (setq ivy-height 15)
   (setq ivy-magic-tilde nil)
 
+  (setq ivy-use-virtual-buffers nil)
+
+
   (add-to-list 'ivy-initial-inputs-alist '(counsel-M-x . ""))
 
   (use-package flx) ;; ivy--regex-fuzzy optionally uses flx to score matches
 
-  ;; (setq ivy-re-builders-alist
-  ;; 	'((t . ivy--regex-fuzzy)))
-
   (setq ivy-re-builders-alist
-	'((t . ivy--regex-ignore-order)))
+  	'((t . ivy--regex-fuzzy)))
+
+  ;; (setq ivy-re-builders-alist
+  ;; 	'((t . ivy--regex-ignore-order)))
+
   )
 #+end_src
 ** Ag
@@ -548,7 +551,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   (bind-key "C-o" 'company-manual-begin)
   (bind-key "M-o" 'company-tern)
-  (bind-key "M-?" 'company-dabbrev)
+  ;; (bind-key "M-?" 'xref-find-references)
 
   (defadvice company-complete-common (around advice-for-company-complete-common activate)
     (when (null (yas-expand))
@@ -1075,7 +1078,7 @@ See `hs-hide-block' and `hs-show-block'."
 ;;              (cons tramp-file-name-regexp nil))
 #+end_src
 
-** tscs** Undo-tree
+** Undo-tree
 #+begin_src emacs-lisp :tangle yes
 ;;==========
 ;; Undo tree
@@ -1112,13 +1115,12 @@ See `hs-hide-block' and `hs-show-block'."
 #+end_src
 
 
-#+begin_src emacs-lisp :tangle yes
-(use-package jscs
-  :ensure t
-  )
-
-#+end_src
 * Languages modes
+** markdown
+#+begin_src emacs-lisp :tangle yes
+(add-hook 'markdown-mode-hook #'visual-line-mode)
+(add-hook 'markdown-mode-hook #'subword-mode)
+#+end_src
 ** programm
 ** terraform-mode
 #+begin_src emacs-lisp :tangle yes
@@ -1241,50 +1243,53 @@ See `hs-hide-block' and `hs-show-block'."
   (add-hook 'org-mode-hook 
 	    (lambda () (setq org-adapt-indentation nil)))
 
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-hook 'org-mode-hook #'subword)
+
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+
+  (setq org-log-done t)
+  (setq org-tag-alist nil)
+
   (setq org-indent-mode-turns-on-hiding-stars nil)
   ;; (add-hook 'org-mode-hook 'org-indent-mode) 
   ;; (add-hook 'org-mode-hook hs-minor-mode) 
-  (company-mode 1)
+  (add-hook 'org-mode-hook 'company-mode)
+
+  (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+  (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+  ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+  ;; (define-key org-mode-map (kbd "<C-left>") nil)
+  ;; (define-key org-mode-map (kbd "<C-right>") nil)
+  (define-key org-mode-map (kbd "M-<down>") 'nil)
+  (define-key org-mode-map (kbd "M-<up>") 'nil)
+  (require 'ox-gfm nil t)
+
+  (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+
+  (setq org-main-file "~/org/notes.org")
+  (setq org-directory "~/org")
+
   )
 
-(setq org-log-done t)
+;; (defun org-insert-elisp-block (name beg end)
+;;   (interactive "sName:\nr")
+;;   (org-insert-heading-after-current)
+;;   (save-excursion
+;;     (insert name "\n")
+;;     (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+;;     (if (region-active-p)
+;; 	(progn
+;; 	  (kill-region beg end)
+;; 	  (yank)))
+;;     (insert "#+end_src")))
 
-(setq org-tag-alist nil)
+;; (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
-;; (bind-key "<C-S-right>" 'helm-occur)
 
-(eval-after-load "org"
-  '(progn
-     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-     (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-     ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-     ;; (define-key org-mode-map (kbd "<C-left>") nil)
-     ;; (define-key org-mode-map (kbd "<C-right>") nil)
-     (define-key org-mode-map (kbd "M-<down>") 'nil)
-     (define-key org-mode-map (kbd "M-<up>") 'nil)
-     (require 'ox-gfm nil t)))
 
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
 
-(customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
-
-(setq org-main-file "~/org/notes.org")
-(setq org-directory "~/org")
-
-(defun org-insert-elisp-block (name beg end)
-  (interactive "sName:\nr")
-  (org-insert-heading-after-current)
-  (save-excursion
-    (insert name "\n")
-    (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-    (if (region-active-p)
-	(progn
-	  (kill-region beg end)
-	  (yank)))
-    (insert "#+end_src")))
-
-(define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
 
 #+end_src
 
@@ -1437,6 +1442,11 @@ Main org file which will be added to the agenda and where notes will be captured
 
   (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc)
   (define-key js2-mode-map "@" 'js-doc-insert-tag)
+
+  (use-package jscs
+    :ensure t
+    )
+
   )
 
 
@@ -1450,7 +1460,7 @@ Main org file which will be added to the agenda and where notes will be captured
   :ensure t
   :config
 
-  (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
+  ;; (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
 
   (add-hook 'before-save-hook 'tide-format-before-save)
 
@@ -1547,6 +1557,13 @@ Main org file which will be added to the agenda and where notes will be captured
     (add-hook 'python-mode-hook 'anaconda-mode)
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
     )
+
+  (use-package py-autopep8
+    :config
+    ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+    ;; (setq py-autopep8-options '("--max-line-length=100"))
+    )
+  
   )
 
 (use-package company-anaconda
@@ -1617,6 +1634,7 @@ Main org file which will be added to the agenda and where notes will be captured
   (defun my-web-mode-hook ()
     "Hooks for Web mode."
     (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
     )
   (add-hook 'web-mode-hook  'my-web-mode-hook)
   )
@@ -1635,6 +1653,18 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 * Core
+** Start server
+#+begin_src emacs-lisp :tangle yes
+(server-start)
+#+end_src
+** Manage register configurations
+#+begin_src emacs-lisp :tangle yes
+(bind-key "<S-f5>" (lambda () (interactive) (window-configuration-to-register 'a)))
+(bind-key "<S-f6>" (lambda () (interactive) (window-configuration-to-register 'b)))
+
+(bind-key "<f5>" (lambda () (interactive) (jump-to-register 'a)))
+(bind-key "<f6>" (lambda () (interactive) (jump-to-register 'b)))
+#+end_src
 ** Compilation mode
 #+begin_src emacs-lisp :tangle yes
 
@@ -1669,7 +1699,8 @@ Main org file which will be added to the agenda and where notes will be captured
 
 ;; (bind-key "s-h" 'mark-paragraph)
 
-(setq search-whitespace-regexp ".*?")
+;; (setq search-whitespace-regexp ".*?")
+(setq search-whitespace-regexp "\\s-+")
 
 (setq eldoc-idle-delay 0)
 
@@ -1904,7 +1935,7 @@ Main org file which will be added to the agenda and where notes will be captured
 
 ** Recentf
 #+begin_src emacs-lisp :tangle yes
-(run-at-time (current-time) 120 'recentf-save-list)
+(run-at-time (current-time) 300 'recentf-save-list)
 #+end_src
 ** Don't switch frames when switching buffers
 #+begin_src emacs-lisp :tangle yes
@@ -2024,7 +2055,6 @@ Main org file which will be added to the agenda and where notes will be captured
 (bind-key "<next>" 'scroll-up-command)
 (bind-key "M-<down>" (lambda () (interactive) (scroll-down -4)))
 (bind-key "M-<up>" (lambda () (interactive) (scroll-down 4)))
-
 
 ;; Undo Tree mode
 ;; (bind-key "C-+" 'undo-tree-redo)
@@ -2159,7 +2189,11 @@ Main org file which will be added to the agenda and where notes will be captured
 (set-face-attribute 'window-numbering-face nil
 		    :background "cyan"
 		    :foreground "black"
-		    :weight 'semi-bold )
+		    :weight 'semi-bold
+		    :box '(
+			   :line-width 3
+				       :color "cyan")
+		    )
 #+end_src
 
 *** COMMENT SmartModeline
@@ -2180,10 +2214,9 @@ Main org file which will be added to the agenda and where notes will be captured
 
 ** Themes
 *** Load theme (daemon compatible)
+
 #+begin_src emacs-lisp :tangle yes
-
-
-(defvar my:theme 'doom-one)
+(defvar my:theme 'solarized-dark)
 (defvar my:theme-window-loaded nil)
 (defvar my:theme-terminal-loaded nil)
 
@@ -2232,14 +2265,14 @@ Main org file which will be added to the agenda and where notes will be captured
 (my-moe-dark)
 ;; Available colors: blue, orange, magenta, yellow, purple, red, cyan, w/b.
 
-(set-face-attribute 'default nil :background nil)
-(set-face-attribute 'cursor nil :background "white")
-(set-face-attribute 'org-block-begin-line nil :background "#303030" :foreground "#999")
-(set-face-attribute 'org-block-end-line nil :inherit 'default :background "#303030" :foreground "#999")
-(set-face-attribute 'org-meta-line nil :inherit font-lock-comment-face)
+;; (set-face-attribute 'default nil :background nil)
+;; (set-face-attribute 'cursor nil :background "white")
+;; (set-face-attribute 'org-block-begin-line nil :background "#303030" :foreground "#999")
+;; (set-face-attribute 'org-block-end-line nil :inherit 'default :background "#303030" :foreground "#999")
+;; (set-face-attribute 'org-meta-line nil :inherit font-lock-comment-face)
 
-(after 'js2-mode
-  (set-face-attribute 'js2-external-variable nil :foreground "orange red"))
+;; (after 'js2-mode
+;;   (set-face-attribute 'js2-external-variable nil :foreground "orange red"))
 
 #+end_src
 
@@ -2292,7 +2325,7 @@ Main org file which will be added to the agenda and where notes will be captured
 (load-theme 'solarized-light)
 #+end_src
 
-*** Doom Themes
+*** COMMENT Doom Themes
 #+begin_src emacs-lisp :tangle yes
 (use-package doom-themes
   :config
@@ -2365,7 +2398,8 @@ Main org file which will be added to the agenda and where notes will be captured
      (ac-set-trigger-key nil))
    ))
 
-(define-key  emacs-lisp-mode-map (kbd "C-M-x") nil)
+;; Why did I put this in there?
+;; (define-key  emacs-lisp-mode-map (kbd "C-M-x") nil)
 #+end_src
 * Situational snippets
 #+begin_src emacs-lisp :tangle yes

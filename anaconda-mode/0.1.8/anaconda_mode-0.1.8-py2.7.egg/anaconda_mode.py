@@ -71,7 +71,6 @@ def goto_definitions(script):
 @process_definitions
 def goto_assignments(script):
     """Get assignments for thing under cursor."""
-
     return script.goto_assignments()
 
 
