@@ -1,9 +1,18 @@
 
 ;; ----- smex-history -----
 (
+ powerline-default-theme
+ powerline-center-theme
+ powerline-nano-theme
+ flymake-mode
+ flycheck-verify-setup
+ narrow-or-widen-dwim
+ set-frame-font-size
+ toggle-truncate-lines
+ load-theme
+ visual-line-mode
  kill-emacs
  eldoc-mode
- load-theme
  rainbow-mode
  grep
  server-start
@@ -27,7 +36,6 @@
  compile
  yas-reload-all
  yas-new-snippet
- toggle-truncate-lines
  counsel-shell-history
  counsel-shell-command-history
  subword-mode
@@ -38,7 +46,6 @@
  dabbrev-expand
  counsel-clj
  find-library
- narrow-or-widen-dwim
  snake
  count-words
  describe-char
@@ -88,7 +95,6 @@
  eval-print-last-sexp
  yas-about
  about-emacs
- set-frame-font-size
  package-refresh-contents
  counsel-dash
  helm-dash
@@ -97,12 +103,10 @@
  mc/mark-all-dwim
  magit-fetch
  counsel-find-file
- visual-line-mode
  org-clock-in
  org-clock-cancel
  rjsx-mode
  tern-mode
- flycheck-verify-setup
  org-open-at-point
  ido-find-file
  help
@@ -370,7 +374,6 @@
  clone-indirect-buffer-other-window
  describe-key
  helm-org-agenda-files-headings
- org-insert-elisp-block
  org-insert-heading-after-current
  org-insert-heading
  elpy-config
@@ -919,7 +922,6 @@
  es-jump-line
  es-push-line
  flx-ido-mode
- flymake-mode
  fortran-mode
  forward-char
  forward-line
@@ -999,13 +1001,11 @@
  scss-mode
  js2-mode-toggle-element
  indent-whole-buffer
- js2-mode-toggle-warnings-and-errors
- js2r-log-this
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 24)
+ (visual-line-mode . 25)
  (org-export-dispatch . 3)
  (profiler-start . 6)
  (profiler-report . 12)
@@ -1020,7 +1020,7 @@
  (profiler-reset . 5)
  (profiler-stop . 3)
  (customize-group . 41)
- (set-frame-font-size . 97)
+ (set-frame-font-size . 98)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 18)
@@ -1067,7 +1067,7 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 22)
- (toggle-truncate-lines . 24)
+ (toggle-truncate-lines . 26)
  (helm-projectile-find-dir . 3)
  (set-frame-font . 1)
  (highlight-indentation-mode . 6)
@@ -1090,7 +1090,7 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 5)
- (load-theme . 44)
+ (load-theme . 45)
  (column-number-mode . 1)
  (yas-describe-tables . 7)
  (web-mode . 13)
@@ -1272,7 +1272,7 @@
  (diff-backup . 1)
  (flycheck-buffer . 1)
  (tide-rename-symbol . 1)
- (flycheck-verify-setup . 11)
+ (flycheck-verify-setup . 12)
  (toggle-window-split . 2)
  (eb-magit . 1)
  (neotree-projectile-action . 1)
@@ -1419,7 +1419,7 @@
  (recentf-open-files . 2)
  (about-emacs . 1)
  (yas-about . 1)
- (narrow-or-widen-dwim . 4)
+ (narrow-or-widen-dwim . 6)
  (indent-pp-sexp . 3)
  (man . 2)
  (counsel-describe-face . 1)
@@ -1467,4 +1467,8 @@
  (jedi:show-setup-info . 1)
  (jedi-mode . 1)
  (grep . 1)
+ (powerline-default-theme . 2)
+ (flymake-mode . 1)
+ (powerline-nano-theme . 1)
+ (powerline-center-theme . 1)
 )
