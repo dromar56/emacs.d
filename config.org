@@ -588,8 +588,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ** Dired Tree
 #+begin_src emacs-lisp :tangle yes
-(after "dired" 
-  (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle))
+(use-package dired-subtree
+  :config
+  (after "dired" 
+    (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle)))
 #+end_src
 ** Expand Region
 #+begin_src emacs-lisp :tangle yes
@@ -632,9 +634,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :init (require 'helm-config)
 
   :config
+
+  ;; Regex to ignore all buffers that start with *: "^\\*"
   (customize-set-variable 'helm-boring-buffer-regexp-list
 			  (quote
-			   ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "^\\*")))
+			   ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf")))
+
   (customize-set-variable 'helm-buffer-max-length 30)
   (customize-set-variable 'helm-candidate-number-limit 100)
   (setq helm-M-x-fuzzy-match t)
@@ -921,7 +926,14 @@ See `hs-hide-block' and `hs-show-block'."
   (bind-key "C-M-1" 'magit-show-level-1-all  magit-diff-mode-map)
   (bind-key "C-M-2" 'magit-show-level-2-all  magit-diff-mode-map)
   (bind-key "C-M-3" 'magit-show-level-3-all  magit-diff-mode-map)
-  (bind-key "C-M-4" 'magit-show-level-4-all  magit-diff-mode-map))
+  (bind-key "C-M-4" 'magit-show-level-4-all  magit-diff-mode-map)
+
+  (bind-key "C-x G" 'magit-file-popup)
+
+
+  ;; Enable minor mode with "C-c M-g" and "C-x M-g" bindings
+  (global-magit-file-mode t)
+)
 
 #+end_src
 
@@ -1112,9 +1124,37 @@ See `hs-hide-block' and `hs-show-block'."
 	     ("C-c TAB" . yas-insert-snippet ))
   )
 
+(use-package yankpad
+  :defer 10
+  :init
+  (setq yankpad-file "~/yankpad.org")
+  :config
+  (bind-key "<f7>" 'yankpad-map)
+  (bind-key "<f12>" 'yankpad-expand)
+  ;; If you want to complete snippets using company-mode
+  (add-to-list 'company-backends #'company-yankpad))
+
 #+end_src
 
+** Git Gutter (or diff HL)
+#+begin_src emacs-lisp :tangle yes
+;; (use-package diff-hl
+;;   :config
+;; )
 
+(use-package git-gutter-fringe
+  :config
+
+  (global-git-gutter-mode t)
+  
+  (setq git-gutter-fr:side 'right-fringe)
+  
+  (set-face-foreground 'git-gutter-fr:modified "dim-gray")
+  (set-face-foreground 'git-gutter-fr:added    "blue")
+  (set-face-foreground 'git-gutter-fr:deleted  "red")
+)
+
+#+end_src
 * Languages modes
 ** markdown
 #+begin_src emacs-lisp :tangle yes
@@ -2004,7 +2044,7 @@ Main org file which will be added to the agenda and where notes will be captured
 
 (bind-key "C-;" 'repeat)
 
-(bind-key "s-n" 'narrow-or-widen-dwim)
+(bind-key "C-c n" 'narrow-or-widen-dwim)
 
 ;; Font size
 (bind-key "s-0" '(lambda ()  (interactive) (text-scale-set 0)))
@@ -2169,6 +2209,70 @@ Main org file which will be added to the agenda and where notes will be captured
 #+end_src
 
 ** ModeLine
+*** Powerline
+#+begin_src emacs-lisp :tangle yes
+(use-package powerline
+  :config
+  ;; (powerline-default-theme)
+
+  (setq-default mode-line-format
+		'((:eval (window-numbering-get-number-string)) ;; Show window-numbering number
+		  "%e"
+		  (:eval
+		   (let* ((active (powerline-selected-window-active))
+			  (mode-line-buffer-id (if active 'mode-line-buffer-id 'mode-line-buffer-id-inactive))
+			  (mode-line (if active 'mode-line 'mode-line-inactive))
+			  (face1 (if active 'powerline-active1 'powerline-inactive1))
+			  (face2 (if active 'powerline-active2 'powerline-inactive2))
+			  (separator-left (intern (format "powerline-%s-%s"
+							  (powerline-current-separator)
+							  (car powerline-default-separator-dir))))
+			  (separator-right (intern (format "powerline-%s-%s"
+							   (powerline-current-separator)
+							   (cdr powerline-default-separator-dir))))
+			  (lhs (list (powerline-raw "%*" mode-line 'l)
+				     (when powerline-display-buffer-size
+				       (powerline-buffer-size mode-line 'l))
+				     (when powerline-display-mule-info
+				       (powerline-raw mode-line-mule-info mode-line 'l))
+				     (powerline-buffer-id mode-line-buffer-id 'l)
+				     (when (and (boundp 'which-func-mode) which-func-mode)
+				       (powerline-raw which-func-format nil 'l))
+				     (powerline-raw " ")
+				     (funcall separator-left mode-line face1)
+				     (when (and (boundp 'erc-track-minor-mode) erc-track-minor-mode)
+				       (powerline-raw erc-modified-channels-object face1 'l))
+				     (powerline-major-mode face1 'l)
+				     (powerline-process face1)
+
+				     ;; We hide minor-modes-alist and instead manually show the ones we want
+				     ;; (powerline-minor-modes face1 'l)
+				     (powerline-raw (flycheck-mode-line-status-text) face1)
+				     (powerline-raw (format " P[%s]" (projectile-project-name)) face1)
+				     
+				     (powerline-narrow face1 'l)
+				     (powerline-raw " " face1)
+				     (funcall separator-left face1 face2)
+				     (powerline-vc face2 'r)
+				     (when (bound-and-true-p nyan-mode)
+				       (powerline-raw (list (nyan-create)) face2 'l))))
+			  (rhs (list (powerline-raw global-mode-string face2 'r)
+				     (funcall separator-right face2 face1)
+				     (unless window-system
+				       (powerline-raw (char-to-string #xe0a1) face1 'l))
+				     (powerline-raw "%4l" face1 'l)
+				     (powerline-raw ":" face1 'l)
+				     (powerline-raw "%3c" face1 'r)
+				     (funcall separator-right face1 mode-line)
+				     (powerline-raw " ")
+				     (powerline-raw "%6p" mode-line 'r)
+				     (when powerline-display-hud
+				       (powerline-hud face2 face1)))))
+		     (concat (powerline-render lhs)
+			     (powerline-fill face2 (powerline-width rhs))
+			     (powerline-render rhs))))))
+  )
+#+end_src
 *** COMMENT Spaceline
 #+begin_src emacs-lisp :tangle yes
 (use-package spaceline-config
@@ -2215,8 +2319,12 @@ Main org file which will be added to the agenda and where notes will be captured
 ** Themes
 *** Load theme (daemon compatible)
 
+This code sets theme on a frame-by-frame basis, separating graphical frames from terminal frames to avoid some annoying bugs.
+Change the variable my:theme to the theme you want to load.
+
 #+begin_src emacs-lisp :tangle yes
-(defvar my:theme 'solarized-dark)
+;; (defvar my:theme 'solarized-dark)
+(defvar my:theme 'leuven)
 (defvar my:theme-window-loaded nil)
 (defvar my:theme-terminal-loaded nil)
 
@@ -2433,6 +2541,5 @@ Main org file which will be added to the agenda and where notes will be captured
 					; (switch-to-buffer "*magit: cdn.early-birds")
   )
 
-(bind-key "C-x G" 'eb-magit)
 
 #+end_src
