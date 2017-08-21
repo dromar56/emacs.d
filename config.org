@@ -1,7 +1,6 @@
 #+TLE: David's Emacs Configuration
 #+STARTUP: showblocks
 #+PROPERTY: header-args :tangle yes
-
 * Initialisation
 ** Custom file (load custom file)
 #+begin_src emacs-lisp
@@ -1114,7 +1113,7 @@ See `hs-hide-block' and `hs-show-block'."
   :ensure t
   :config
   (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets"))
+	'("~/.emacs.d/snippets2"))
   (yas-global-mode 1)
 
   (bind-keys :map yas-minor-mode-map
@@ -1125,7 +1124,6 @@ See `hs-hide-block' and `hs-show-block'."
   )
 
 (use-package yankpad
-  :defer 10
   :init
   (setq yankpad-file "~/yankpad.org")
   :config
@@ -1154,6 +1152,11 @@ See `hs-hide-block' and `hs-show-block'."
   (set-face-foreground 'git-gutter-fr:deleted  "red")
 )
 
+#+end_src
+** Realgud (debugger frontend for multiple languages)
+#+begin_src emacs-lisp :tangle yes
+;; Run for example with `realgud:pdb` "python -m pdb file.py"
+(use-package realgud)
 #+end_src
 * Languages modes
 ** markdown
