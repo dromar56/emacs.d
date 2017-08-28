@@ -1113,7 +1113,7 @@ See `hs-hide-block' and `hs-show-block'."
   :ensure t
   :config
   (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets2"))
+	'("~/.emacs.d/snippets"))
   (yas-global-mode 1)
 
   (bind-keys :map yas-minor-mode-map
@@ -1125,7 +1125,7 @@ See `hs-hide-block' and `hs-show-block'."
 
 (use-package yankpad
   :init
-  (setq yankpad-file "~/yankpad.org")
+  (setq yankpad-file "~/org/yankpad.org")
   :config
   (bind-key "<f7>" 'yankpad-map)
   (bind-key "<f12>" 'yankpad-expand)
@@ -1158,6 +1158,191 @@ See `hs-hide-block' and `hs-show-block'."
 ;; Run for example with `realgud:pdb` "python -m pdb file.py"
 (use-package realgud)
 #+end_src
+** Org
+*** Setup
+
+#+begin_src emacs-lisp
+(use-package org
+  :config
+  (bind-key "<f2>" 'org-edit-special org-mode-map)
+  (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
+  (bind-key "C-c l" 'org-store-link)
+  (bind-key "C-c a" 'org-agenda)
+  (setq org-src-preserve-indentation t)
+  (setq org-adapt-indentation nil)
+
+  (add-hook 'org-mode-hook 
+	    (lambda () (setq org-adapt-indentation nil)))
+
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-hook 'org-mode-hook #'subword-mode)
+
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+
+  (setq org-log-done t)
+  (setq org-tag-alist nil)
+
+  (setq org-indent-mode-turns-on-hiding-stars nil)
+  ;; (add-hook 'org-mode-hook 'org-indent-mode) 
+  ;; (add-hook 'org-mode-hook hs-minor-mode) 
+  (add-hook 'org-mode-hook 'company-mode)
+
+  (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+  (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
+  ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
+  ;; (define-key org-mode-map (kbd "<C-left>") nil)
+  ;; (define-key org-mode-map (kbd "<C-right>") nil)
+  (define-key org-mode-map (kbd "M-<down>") 'nil)
+  (define-key org-mode-map (kbd "M-<up>") 'nil)
+  (require 'ox-gfm nil t)
+
+  (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
+
+  (setq org-directory "~/org")
+  (setq org-main-file "~/org/refile.org")
+  )
+
+(use-package org-download
+  :config
+  (setq-default org-download-image-dir "images")
+  (setq-default org-download-method 'download)
+  ;; (setq-default org-download-method 'attach)
+  )
+
+
+;; (defun org-insert-elisp-block (name beg end)
+;;   (interactive "sName:\nr")
+;;   (org-insert-heading-after-current)
+;;   (save-excursion
+;;     (insert name "\n")
+;;     (insert "#+begin_src emacs-lisp :tangle yes" "\n")
+;;     (if (region-active-p)
+;; 	(progn
+;; 	  (kill-region beg end)
+;; 	  (yank)))
+;;     (insert "#+end_src")))
+
+;; (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
+
+
+
+
+
+#+end_src
+
+*** Org Babel mongo
+#+begin_src emacs-lisp :tangle yes
+(defun org-babel-execute:mongo (body params)
+  "org-babel mongo hook."
+  (let* ((db (or (cdr (assoc :db params))
+		 "core.early-birds:27017/earlybirds"))
+	 (cmd (mapconcat 'identity (list "mongo" "--quiet" db) " ")))
+    (org-babel-eval cmd body)))
+
+
+(eval-after-load "org"
+  '(add-to-list 'org-src-lang-modes '("mongo" . js2)))
+#+end_src
+*** Org agenda
+Main org file which will be added to the agenda and where notes will be captured (using C-c c).
+#+begin_src emacs-lisp :tangle yes
+(setq org-agenda-files '("~/org"))
+(load-library "find-lisp")
+
+
+; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+
+; Use full outline paths for refile targets - we file directly with IDO
+(setq org-refile-use-outline-path 'file)
+
+; Targets complete directly with IDO
+(setq org-outline-path-complete-in-steps nil)
+
+; Allow refile to create parent tasks with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+; global Effort estimate values
+; global STYLE property values for completion
+(setq org-global-properties  '(("Effort_ALL" . "0:10 0:30 1:00 2:00 4:00 8:00")))
+
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+
+;; (setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
+
+;; (setq org-agenda-files (list org-main-file))
+#+end_src
+
+*** Org capture
+#+begin_src emacs-lisp :tangle yes
+(setq org-default-notes-file org-main-file)
+(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "s-t") 'org-capture)
+;;(define-key global-map (kbd "<f1>") 'org-capture)
+(define-key global-map (kbd "<S-f1>") (lambda () (interactive)
+					(let ((current-prefix-arg '(4)))
+					  (call-interactively 'org-capture))))
+
+(defun llc-get-project-org-name ()
+  "Return the name of the projectile project"
+  (replace-regexp-in-string "[^[:alnum:]]" "-"
+			    (car (last (split-string (projectile-project-root) "/" t)))))
+
+(defun llc-get-project-org-file ()
+  "Return the path to the project org file"
+  (concat org-directory "/projects/"
+	  (llc-get-project-org-name)
+	  ".org"))
+
+(defun llc-find-project-org-file-task ()
+  "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
+  (let ((project-file (llc-get-project-org-file))
+	(project-headline-regexp "^\\* Tasks")
+	(project-name (llc-get-project-org-name)))
+    (set-buffer (find-file-noselect project-file))
+    (goto-char (point-min))
+    (if (not (re-search-forward project-headline-regexp nil t))
+	(progn
+	  (goto-char (point-max))
+	  (if (not (eq (buffer-size) 0))
+	      (newline 2))
+	  (insert (concat "* Tasks :project:" project-name ":"))))
+    (goto-char (point-min))
+    (re-search-forward project-headline-regexp)
+    (end-of-line)))
+
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file "~/org/refile.org")
+               "* TODO %?\n%U\n%a\n    %i" :clock-in t :clock-resume t)
+	      ("n" "note" entry (file "~/org/refile.org")
+               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree "~/org/journal.org")
+               "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("w" "org-protocol" entry (file "~/org/refile.org")
+               "* TODO Review %c\n%U\n" :immediate-finish t)
+	      )))
+
+(setq org-capture-templates-contexts
+      '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
+
+;; Close frame after org-capture only if a certain frame-parameter is set
+(defun llc-close-frame-after-org-capture ()
+  (if (equal (frame-parameter nil 'name) "org-capture-frame")
+      (delete-frame)))
+(add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
+
+#+end_src
+
+*** COMMENT org-bullets
+#+begin_src emacs-lisp :tangle yes
+(use-package org-bullets :ensure t)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
 * Languages modes
 ** markdown
 #+begin_src emacs-lisp :tangle yes
@@ -1271,179 +1456,6 @@ See `hs-hide-block' and `hs-show-block'."
 (add-hook 'jade-mode-hook 'my-jade-type-face)
 #+end_src
 --
-** Org
-*** Setup
-#+begin_src emacs-lisp
-(use-package org
-  :config
-  (bind-key "<f2>" 'org-edit-special org-mode-map)
-  (bind-key "<f2>" 'org-edit-src-exit org-src-mode-map)
-  (bind-key "\C-cl" 'org-store-link)
-  (bind-key "\C-ca" 'org-agenda)
-  (setq org-src-preserve-indentation t)
-  (setq org-adapt-indentation nil)
-
-  (add-hook 'org-mode-hook 
-	    (lambda () (setq org-adapt-indentation nil)))
-
-  (add-hook 'org-mode-hook #'visual-line-mode)
-  (add-hook 'org-mode-hook #'subword)
-
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-
-  (setq org-log-done t)
-  (setq org-tag-alist nil)
-
-  (setq org-indent-mode-turns-on-hiding-stars nil)
-  ;; (add-hook 'org-mode-hook 'org-indent-mode) 
-  ;; (add-hook 'org-mode-hook hs-minor-mode) 
-  (add-hook 'org-mode-hook 'company-mode)
-
-  (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-  (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-  ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-  ;; (define-key org-mode-map (kbd "<C-left>") nil)
-  ;; (define-key org-mode-map (kbd "<C-right>") nil)
-  (define-key org-mode-map (kbd "M-<down>") 'nil)
-  (define-key org-mode-map (kbd "M-<up>") 'nil)
-  (require 'ox-gfm nil t)
-
-  (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
-
-  (setq org-main-file "~/org/notes.org")
-  (setq org-directory "~/org")
-
-  )
-
-;; (defun org-insert-elisp-block (name beg end)
-;;   (interactive "sName:\nr")
-;;   (org-insert-heading-after-current)
-;;   (save-excursion
-;;     (insert name "\n")
-;;     (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-;;     (if (region-active-p)
-;; 	(progn
-;; 	  (kill-region beg end)
-;; 	  (yank)))
-;;     (insert "#+end_src")))
-
-;; (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
-
-
-
-
-
-#+end_src
-
-*** Org Babel mongo
-#+begin_src emacs-lisp :tangle yes
-(defun org-babel-execute:mongo (body params)
-  "org-babel mongo hook."
-  (let* ((db (or (cdr (assoc :db params))
-		 "core.early-birds:27017/earlybirds"))
-	 (cmd (mapconcat 'identity (list "mongo" "--quiet" db) " ")))
-    (org-babel-eval cmd body)))
-
-
-(eval-after-load "org"
-  '(add-to-list 'org-src-lang-modes '("mongo" . js2)))
-#+end_src
-*** Org agenda
-Main org file which will be added to the agenda and where notes will be captured (using C-c c).
-#+begin_src emacs-lisp :tangle yes
-(setq org-agenda-files '("~/org"))
-(load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files org-directory "\.org$"))
-
-;; (setq org-agenda-files (list org-main-file))
-#+end_src
-
-#+RESULTS:
-| /home/dromar/org/projects/google-cloud-platform.org | /home/dromar/org/projects/console-early-birds.org | /home/dromar/org/stats.org | /home/dromar/org/eb.org | /home/dromar/org/todo.org | /home/dromar/org/misc.org | /home/dromar/org/formation-google-jun-2016.org |
-
-*** Org capture
-#+begin_src emacs-lisp :tangle yes
-(setq org-default-notes-file org-main-file)
-(define-key global-map (kbd "C-c c") 'org-capture)
-(define-key global-map (kbd "s-t") 'org-capture)
-;;(define-key global-map (kbd "<f1>") 'org-capture)
-(define-key global-map (kbd "<S-f1>") (lambda () (interactive)
-					(let ((current-prefix-arg '(4)))
-					  (call-interactively 'org-capture))))
-
-(defun llc-get-project-org-name ()
-  "Return the name of the projectile project"
-  (replace-regexp-in-string "[^[:alnum:]]" "-"
-			    (car (last (split-string (projectile-project-root) "/" t)))))
-
-(defun llc-get-project-org-file ()
-  "Return the path to the project org file"
-  (concat org-directory "/projects/"
-	  (llc-get-project-org-name)
-	  ".org"))
-
-(defun llc-find-project-org-file-task ()
-  "Find the org file associated with the current projectile project, creating it if needed, and place the point at the end of 'Tasks' subtree."
-  (let ((project-file (llc-get-project-org-file))
-	(project-headline-regexp "^\\* Tasks")
-	(project-name (llc-get-project-org-name)))
-    (set-buffer (find-file-noselect project-file))
-    (goto-char (point-min))
-    (if (not (re-search-forward project-headline-regexp nil t))
-	(progn
-	  (goto-char (point-max))
-	  (if (not (eq (buffer-size) 0))
-	      (newline 2))
-	  (insert (concat "* Tasks :project:" project-name ":"))))
-    (goto-char (point-min))
-    (re-search-forward project-headline-regexp)
-    (end-of-line)))
-
-;; (setq org-capture-templates
-;;       '(("p" "Project" entry (function llc-find-project-org-file-task)
-;;          "* TODO %?\n  %a\n  %i")
-;;         ("t" "Todo" entry (file+headline "~/org/notes.org" "Todo")
-;;          "* TODO %?\n  %a\n  %i")
-;;         ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
-;;          "* %?\n  %a\n  %i")
-;;         ("j" "Journal" entry (file+datetree "~/org/journal.org")
-;;          "* %?\nEntered on %U\n  %a\n  %i")
-;;         ("J" "Journal - more options")
-;;         ("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
-;;          "* %?\nEntered on %U\n  %x\n  %a")))
-
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Todo")
-	 "* TODO %?\n  %a\n  %i")
-	("w" "Todo - Work" entry (file+headline "~/org/todo.org" "Work")
-	 "* TODO %?\n  %a\n  %i")
-	("c" "Todo - Clipboard" entry (file+headline "~/org/todo.org" "Todo")
-	 "* TODO %?\n  %c\n  %i")
-	("j" "Journal" entry (file+datetree "~/org/journal.org")
-	 "* %?\nEntered on %U\n  %a\n  %i")
-	("J" "Journal - more options")
-	("Jc" "Journal Clipboard" entry (file+datetree "~/org/journal.org")
-	 "* %?\nEntered on %U\n  %x\n  %a")))
-
-(setq org-capture-templates-contexts
-      '(("p" ((lambda () "DOCSTRING" (interactive) (projectile-project-root))))))
-
-;; Close frame after org-capture only if a certain frame-parameter is set
-(defun llc-close-frame-after-org-capture ()
-  (if (frame-parameter nil 'llc-close-frame-after-org-capture)
-      (delete-frame)))
-(add-hook 'org-capture-after-finalize-hook 'llc-close-frame-after-org-capture)
-
-#+end_src
-
-*** COMMENT org-bullets
-#+begin_src emacs-lisp :tangle yes
-(use-package org-bullets :ensure t)
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+end_src
-
 ** javascript
 #+begin_src emacs-lisp
 ;; Sometimes hideshow doesn't work in js2-mode, so I go back to js-mode
@@ -2500,7 +2512,7 @@ Change the variable my:theme to the theme you want to load.
   (setq mac-command-modifier 'meta)
   (setq mac-right-command-modifier 'super))
 #+end_src
-** I don't even remember what's this
+** COMMENT I don't even remember what's this
 #+begin_src emacs-lisp :tangle yes
 (add-hook
  'after-init-hook
