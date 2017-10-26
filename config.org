@@ -323,13 +323,16 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ("m" yas/minor-mode)
   ("a" yas-reload-all))
 
-(defhydra hydra-winner (global-map "C-c")
+(defhydra hydra-winner (global-map "C-c" 
+				   :foreign-keys warn)
+
   "Winner"
   ("<left>" (progn
 	      (winner-undo)
 	      (setq this-command 'winner-undo))
    "back")
-  ("<right>" winner-redo "forward"))
+  ("<right>" winner-redo "forward")
+  ("RET" nil :exit t))
 
 (defhydra hydra-mark (global-map "C-c")
   "Mark"
@@ -383,10 +386,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :pin melpa-stable
   :bind (("M-x" . counsel-M-x)
 	 ("C-t" . counsel-imenu)
-	 ("s-b" . counsel-bookmark)
-	 ("C-c b" . counsel-bookmark)
+	 ;; ("s-b" . counsel-bookmark)
+	 ;; ("c-c b" . counsel-bookmark)
 	 )
   :config
+  )
+
+(use-package counsel-projectile
+  ;; :bind (("M-z" . counsel-projectile))
   )
 
 (use-package ivy-hydra
@@ -394,6 +401,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package ivy
   :pin melpa-stable
+  :bind (("<f5>" . ivy-push-view) 
+	 ("<f6>" . ivy-pop-view)
+	 ("C-x b" . ivy-switch-buffer)
+	 )
   :config
   (ivy-mode t)
   (setq ivy-height 15)
@@ -409,9 +420,45 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (setq ivy-re-builders-alist
   	'((t . ivy--regex-fuzzy)))
 
+
+  ;; (setq ivy-re-builders-alist
+  ;; 	'((t . ivy--regex-plus)))
+
   ;; (setq ivy-re-builders-alist
   ;; 	'((t . ivy--regex-ignore-order)))
 
+  )
+
+(use-package ivy-rich
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+
+  (setq ivy-virtual-abbreviate 'full)
+  (setq ivy-rich-switch-buffer-align-virtual-buffer t)
+
+  (setq ivy-rich-abbreviate-paths t)
+
+  (setq ivy-rich-switch-buffer-name-max-length 44)
+  (setq ivy-rich-switch-buffer-mode-max-length 20)
+  (setq ivy-rich-switch-buffer-project-max-length 20)
+
+  ;; Override buffer's name face (by default always uses 'ivy-modified-buffer)
+  ;; Sets it to 'ivy-virtual if buffer starts with "*" or is dired,
+  ;; 'ivy-modified-buffer is buffer is modified,
+  ;; 'default otherwise
+  (defun ivy-rich-switch-buffer-buffer-name ()
+    (propertize
+     (ivy-rich-switch-buffer-pad str ivy-rich-switch-buffer-name-max-length)
+     'face
+     (cond 
+      ((or (string-equal "*" (substring (buffer-name) 0 1))
+	   (string-equal major-mode "dired-mode"))
+       'ivy-virtual)
+      ((and (buffer-modified-p)
+	    (ivy-rich-switch-buffer-excluded-modes-p '(dired-mode shell-mode))
+	    (ivy-rich-switch-buffer-user-buffer-p str)) 
+       'ivy-modified-buffer)
+      (t 'default))))
   )
 #+end_src
 ** Ag
@@ -627,7 +674,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	 ("M-o"   . helm-occur)
 	 ("C-M-o" . helm-multi-occur)
 	 ("s-y"   . helm-show-kill-ring)
-	 ;; ("s-b"   . helm-bookmarks)
+	 ("s-b"   . helm-bookmarks)
 	 )
 
   :init (require 'helm-config)
@@ -1183,16 +1230,19 @@ See `hs-hide-block' and `hs-show-block'."
   (setq org-log-done t)
   (setq org-tag-alist nil)
 
+
+  (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+  ;; (defun my-org-confirm-babel-evaluate (lang body)
+  ;;   (not (string= lang "ditaa")))  ; don't ask for ditaae
+  ;; (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+  ;; (setq org-confirm-babel-evaluate nil)
+
+
   (setq org-indent-mode-turns-on-hiding-stars nil)
-  ;; (add-hook 'org-mode-hook 'org-indent-mode) 
-  ;; (add-hook 'org-mode-hook hs-minor-mode) 
   (add-hook 'org-mode-hook 'company-mode)
 
   (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
   (define-key org-mode-map (kbd "<C-S-up>") 'outline-up-heading)
-  ;; (define-key org-mode-map (kbd "<C-S-right>") 'nil)
-  ;; (define-key org-mode-map (kbd "<C-left>") nil)
-  ;; (define-key org-mode-map (kbd "<C-right>") nil)
   (define-key org-mode-map (kbd "M-<down>") 'nil)
   (define-key org-mode-map (kbd "M-<up>") 'nil)
   (require 'ox-gfm nil t)
@@ -1210,23 +1260,24 @@ See `hs-hide-block' and `hs-show-block'."
   ;; (setq-default org-download-method 'attach)
   )
 
-
-;; (defun org-insert-elisp-block (name beg end)
-;;   (interactive "sName:\nr")
-;;   (org-insert-heading-after-current)
-;;   (save-excursion
-;;     (insert name "\n")
-;;     (insert "#+begin_src emacs-lisp :tangle yes" "\n")
-;;     (if (region-active-p)
-;; 	(progn
-;; 	  (kill-region beg end)
-;; 	  (yank)))
-;;     (insert "#+end_src")))
-
-;; (define-key org-mode-map (kbd "M-<return>") 'org-insert-elisp-block)
-
-
-
+(defhydra hydra-org-clock (:color blue :hint nil)
+  "
+Clock   In/out^     ^Edit^   ^Summary     (_?_)
+-----------------------------------------
+        _i_n         _e_dit   _g_oto entry
+        _c_ontinue   _q_uit   _d_isplay
+        _o_ut        ^ ^      _r_eport
+      "
+  ("i" org-clock-in)
+  ("o" org-clock-out)
+  ("c" org-clock-in-last)
+  ("e" org-clock-modify-effort-estimate)
+  ("q" org-clock-cancel)
+  ("g" org-clock-goto)
+  ("d" org-clock-display)
+  ("r" org-clock-report)
+  ("?" (org-info "Clocking commands")))
+(bind-key "C-c i" 'hydra-org-clock/body)
 
 
 #+end_src
@@ -1343,6 +1394,10 @@ Main org file which will be added to the agenda and where notes will be captured
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
+** noflet
+#+begin_src emacs-lisp :tangle yes
+(use-package noflet)
+#+end_src
 * Languages modes
 ** markdown
 #+begin_src emacs-lisp :tangle yes
@@ -1626,8 +1681,8 @@ Main org file which will be added to the agenda and where notes will be captured
   (eval-after-load "company"
     '(add-to-list 'company-backends 'company-anaconda))
 
-  (eval-after-load "company"
-    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
+  ;; (eval-after-load "company"
+  ;;   '(add-to-list 'company-backends '(company-anaconda :with company-capf)))
   )
 
 (use-package pip-requirements
@@ -1712,13 +1767,13 @@ Main org file which will be added to the agenda and where notes will be captured
 #+begin_src emacs-lisp :tangle yes
 (server-start)
 #+end_src
-** Manage register configurations
+** COMMENT Manage register configurations
 #+begin_src emacs-lisp :tangle yes
-(bind-key "<S-f5>" (lambda () (interactive) (window-configuration-to-register 'a)))
-(bind-key "<S-f6>" (lambda () (interactive) (window-configuration-to-register 'b)))
+;; (bind-key "<S-f5>" (lambda () (interactive) (window-configuration-to-register 'a)))
+;; (bind-key "<S-f6>" (lambda () (interactive) (window-configuration-to-register 'b)))
 
-(bind-key "<f5>" (lambda () (interactive) (jump-to-register 'a)))
-(bind-key "<f6>" (lambda () (interactive) (jump-to-register 'b)))
+;; (bind-key "<f5>" (lambda () (interactive) (jump-to-register 'a)))
+;; (bind-key "<f6>" (lambda () (interactive) (jump-to-register 'b)))
 #+end_src
 ** Compilation mode
 #+begin_src emacs-lisp :tangle yes
@@ -2171,8 +2226,6 @@ Main org file which will be added to the agenda and where notes will be captured
 ;; Goto
 (bind-key [(meta g)] 'goto-line)
 
-(bind-key "C-x C-b" 'projectile-switch-to-buffer)
-
 ;; (bind-key "C-x b" 'ibuffer)
 ;; (bind-key "<M-up>" 'up-and-locate)
 ;; (bind-key "<M-down>" 'down-and-locate)
@@ -2339,7 +2392,12 @@ Change the variable my:theme to the theme you want to load.
 
 #+begin_src emacs-lisp :tangle yes
 ;; (defvar my:theme 'solarized-dark)
-(defvar my:theme 'leuven)
+;; (defvar my:theme 'leuven)
+;; (defvar my:theme 'moe-light)
+
+(use-package spacemacs-theme)
+(defvar my:theme 'spacemacs-light)
+
 (defvar my:theme-window-loaded nil)
 (defvar my:theme-terminal-loaded nil)
 
