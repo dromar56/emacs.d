@@ -1398,6 +1398,13 @@ Main org file which will be added to the agenda and where notes will be captured
 #+begin_src emacs-lisp :tangle yes
 (use-package noflet)
 #+end_src
+** Restclient
+#+begin_src emacs-lisp :tangle yes
+
+(use-package restclient)
+(use-package company-restclient)
+
+#+end_src
 * Languages modes
 ** markdown
 #+begin_src emacs-lisp :tangle yes
