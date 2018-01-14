@@ -297,6 +297,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (bind-key "C-x TAB" 'indent-rigidly-block)
 #+end_src
 * Plugins
+** Which-key
+#+begin_src emacs-lisp :tangle yes
+(use-package which-key
+  :config
+  (which-key-mode))
+#+end_src
 ** Hydra
 #+begin_src emacs-lisp :tangle yes
 (use-package hydra :ensure t)
@@ -489,7 +495,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 #+begin_src emacs-lisp :tangle yes
 (use-package avy
   :ensure t
-  :bind ("M-c" . avy-goto-char-2)
+  :bind ("M-c" . avy-goto-word-or-subword-1)
   :config
   (setq avy-keys (number-sequence ?a ?z)))
 #+end_src
@@ -649,12 +655,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package flycheck :ensure t)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc)))
+(customize-set-variable 'flycheck-disabled-checkers (quote (emacs-lisp-checkdoc clojure-cider-typed)))
 (customize-set-variable 'flycheck-idle-change-delay 0.5)
 
 (use-package flycheck-pos-tip :ensure t)
-
-
 
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
@@ -1170,14 +1174,17 @@ See `hs-hide-block' and `hs-show-block'."
 	     ("C-c TAB" . yas-insert-snippet ))
   )
 
-(use-package yankpad
-  :init
-  (setq yankpad-file "~/org/yankpad.org")
-  :config
-  (bind-key "<f7>" 'yankpad-map)
-  (bind-key "<f12>" 'yankpad-expand)
-  ;; If you want to complete snippets using company-mode
-  (add-to-list 'company-backends #'company-yankpad))
+;; (use-package yankpad
+;;   :init
+;;   (setq yankpad-file "~/org/yankpad.org")
+;;   :config
+;;   (bind-key "<f7>" 'yankpad-map)
+;;   (bind-key "<f12>" 'yankpad-expand)
+
+;;   ;; If you want to complete snippets using company-mode
+;;   ;; not working: it shadows other actually useful backends
+;;   ;; (add-to-list 'company-backends #'company-yankpad)
+;;   )
 
 #+end_src
 
@@ -1406,6 +1413,75 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 * Languages modes
+** clojure
+#+begin_src emacs-lisp :tangle yes
+
+(use-package aggressive-indent
+  :after clojure-mode
+  :config
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+
+(use-package clojure-mode
+  :config
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook 'smartparens-global-strict-mode)
+  (add-hook 'clojure-mode-hook 'cider-auto-test-mode)
+
+  (setq cider-save-file-on-load t)
+  (setq cider-prompt-for-symbol nil))
+
+(use-package clj-refactor
+  :config
+  (defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1)
+    (cljr-add-keybindings-with-prefix "M-r")
+    (setq cljr-warn-on-eval nil))
+
+  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
+
+(use-package clojure-snippets)
+
+(use-package cider
+  :pin melpa-stable
+  :config
+  (add-to-list 'exec-path "~/.scripts")
+  (add-to-list 'exec-path "/opt/android-studio/jre/bin"))
+
+(use-package 4clojure :ensure t
+  :config
+  (defun 4clojure-login (user pwd)
+    "Login to 4clojure"
+    (interactive "sWhat's your name? \nsAnd your password ")
+    (request
+     "http://www.4clojure.com/login"
+     :type "POST"
+     :sync t
+     :headers '(
+		("User-Agent" . "Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101  Firefox/28.0")
+		("Referer" . "http://www.4clojure.com/login")
+		)
+					;   :parser 'buffer-string
+     :data `(("user" . ,user) ("pwd" . ,pwd))
+     :success (function*
+	       (lambda (&key data &allow-other-keys)
+		 data
+		 )
+	       )
+					; when server send 302 header, `request` redirect request with original method POST, 
+					; So 4clojure will not handle this redirect and given 404
+     :status-code '((404 . (lambda (&rest _) (message "login successful!"))))
+     )
+    ))
+
+(use-package flycheck-clojure
+  :config
+  (eval-after-load 'flycheck '(flycheck-clojure-setup)))
+
+
+#+end_src
+
+** 
 ** markdown
 #+begin_src emacs-lisp :tangle yes
 (add-hook 'markdown-mode-hook #'visual-line-mode)
@@ -2272,7 +2348,6 @@ Main org file which will be added to the agenda and where notes will be captured
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
-
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 
@@ -2284,7 +2359,7 @@ Main org file which will be added to the agenda and where notes will be captured
 #+end_src
 
 ** ModeLine
-*** Powerline
+*** COMMENT Powerline
 #+begin_src emacs-lisp :tangle yes
 (use-package powerline
   :config
@@ -2392,18 +2467,18 @@ Main org file which will be added to the agenda and where notes will be captured
 #+end_src
 
 ** Themes
-*** Load theme (daemon compatible)
+*** COMMENT Load theme (daemon compatible)
 
 This code sets theme on a frame-by-frame basis, separating graphical frames from terminal frames to avoid some annoying bugs.
 Change the variable my:theme to the theme you want to load.
 
 #+begin_src emacs-lisp :tangle yes
-;; (defvar my:theme 'solarized-dark)
+(defvar my:theme 'solarized-dark)
 ;; (defvar my:theme 'leuven)
 ;; (defvar my:theme 'moe-light)
 
-(use-package spacemacs-theme)
-(defvar my:theme 'spacemacs-light)
+;; (use-package spacemacs-theme)
+;; (defvar my:theme 'spacemacs-light)
 
 (defvar my:theme-window-loaded nil)
 (defvar my:theme-terminal-loaded nil)
