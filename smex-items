@@ -1,10 +1,36 @@
 
 ;; ----- smex-history -----
 (
+ js-jsx-mode
+ flycheck-verify-setup
+ flycheck-mode
+ customize-variable
+ magit-log-buffer-file
+ magit-merge-abort
+ projectile-remove-known-project
  set-frame-font-size
+ toggle-truncate-lines
+ eshell/clear
+ eshell
+ counsel-describe-face
+ describe-face
+ customize-face
+ magit-blame
+ js2-jsx-mode
+ js2-mode
+ smartparens-strict-mode
+ projectile-find-test-file
+ helm-do-grep-ag
+ helm-projectile-grep
+ set-frame-font
+ org-export-dispatch
+ magit-pull
+ hs-hide-level
+ hs-hide-all
+ visual-line-mode
+ orgtbl-mode
  python-mode
  mark-sexp
- projectile-remove-known-project
  markdown-mode
  package-list-packages
  customize-group
@@ -14,7 +40,6 @@
  emacs-lisp-mode
  avy-goto-word-or-subword-1
  avy-goto-symbol-1
- describe-face
  avy-goto-char
  cider-connection-browser
  helm-major-mode
@@ -33,14 +58,10 @@
  list-load-path-shadows
  goto-char
  emacs-version
- toggle-truncate-lines
  cider-version
- flycheck-mode
  flycheck-clojure-setup
  flycheck-manual
- flycheck-verify-setup
  flycheck-list-errors
- magit-blame
  cider-inspect-last-result
  projectile-test-project
  list-processes
@@ -49,7 +70,6 @@
  fundamental-mode
  eval-print-last-sexp
  org-table-edit-formulas
- orgtbl-mode
  py-autopep8-buffer
  shell
  aggressive-indent-mode
@@ -57,12 +77,10 @@
  cider-connect
  company-diag
  company-mode
- customize-variable
  company-complete
  company-elisp
  revert-buffer
  count-words-region
- smartparens-strict-mode
  shell-script-mode
  shell-mode
  clojure-mode-display-version
@@ -89,7 +107,6 @@
  realgud:unload-features
  realgud:reset
  realgud:info-mode
- customize-face
  mc/mark-all-like-this
  counsel-projectile
  macrostep-mode
@@ -102,7 +119,6 @@
  magit-commit
  org-toggle-inline-images
  org-up-element
- visual-line-mode
  org-download-screenshot
  counsel-org-tag
  yas-reload-all
@@ -152,7 +168,6 @@
  org-indent-mode
  solitaire
  multi-term
- eshell
  counsel-esh-history
  flycheck-next-error
  whitespace-mode
@@ -166,7 +181,6 @@
  regexp-builder
  ido-switch-buffer
  imenu
- counsel-describe-face
  helm-imenu
  man
  indent-pp-sexp
@@ -206,7 +220,6 @@
  5x5-crack-xor-mutate
  5x5
  5x5-crack-mutating-best
- org-export-dispatch
  org-mode-restart
  read-only-mode
  todo-archive-mode
@@ -225,7 +238,6 @@
  package-autoremove
  text-mode
  magit-find-file-other-window
- magit-log-buffer-file
  scroll-down
  magit-status
  ensime
@@ -237,7 +249,6 @@
  css-mode
  helm-occur
  db4go-toggle-productivity
- js2-mode
  my-projectile-multi-occur
  align-regexp
  sql-mode
@@ -271,7 +282,6 @@
  mark-defun
  vimish-fold-avy
  vimish-fold-mode
- hs-hide-all
  js2-refactor-mode
  anzu-mode
  global-anzu-mode
@@ -303,9 +313,7 @@
  ibuffer
  lisp-mode
  conf-mode
- js2-jsx-mode
  pop-global-mark
- hs-hide-level
  mc/insert-numbers
  neotree-find
  neotree-toggle
@@ -408,7 +416,6 @@
  delete-file
  make-directory
  highlight-indentation-current-column-mode
- set-frame-font
  delete-trailing-whitespace
  menu-bar-mode
  js2-minor-mode
@@ -737,7 +744,6 @@
  lpr-region
  magit-diff
  magit-init
- magit-pull
  magit-push
  make-frame
  man-follow
@@ -995,18 +1001,12 @@
  iso-iso2sgml
  scss-mode
  helm-projectile-switch-project
- helm-help
- helm-projectile-find-dir
- undo-tree-visualizer-mode
- magit-diff-buffer-file-popup
- js2-mode-toggle-element
- indent-whole-buffer
 )
 
 ;; ----- smex-data -----
 (
- (visual-line-mode . 26)
- (org-export-dispatch . 3)
+ (visual-line-mode . 27)
+ (org-export-dispatch . 4)
  (profiler-start . 6)
  (profiler-report . 12)
  (fundamental-mode . 7)
@@ -1020,7 +1020,7 @@
  (profiler-reset . 5)
  (profiler-stop . 3)
  (customize-group . 51)
- (set-frame-font-size . 125)
+ (set-frame-font-size . 143)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 24)
@@ -1050,9 +1050,9 @@
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 6)
- (js2-mode . 28)
+ (js2-mode . 31)
  (js2-mode-toggle-warnings-and-errors . 6)
- (describe-face . 11)
+ (describe-face . 12)
  (js2r-log-this . 5)
  (js2-minor-mode . 1)
  (js2-mode-show-comments . 2)
@@ -1067,9 +1067,9 @@
  (js2-mode-toggle-hide-functions . 1)
  (js2-mode-toggle-element . 9)
  (align-regexp . 22)
- (toggle-truncate-lines . 30)
+ (toggle-truncate-lines . 33)
  (helm-projectile-find-dir . 3)
- (set-frame-font . 1)
+ (set-frame-font . 2)
  (highlight-indentation-mode . 6)
  (highlight-indentation-current-column-mode . 2)
  (magit-refresh . 1)
@@ -1105,7 +1105,7 @@
  (scss-mode . 10)
  (revert-buffer . 79)
  (shell-backward-command . 1)
- (eshell . 18)
+ (eshell . 20)
  (term . 4)
  (flycheck-next-error . 26)
  (sp-switch-space . 1)
@@ -1128,7 +1128,7 @@
  (magit-process . 1)
  (undo-tree-visualizer-mode . 3)
  (text-mode . 3)
- (magit-blame . 63)
+ (magit-blame . 64)
  (magit-delete-thing . 1)
  (magit-file-delete . 1)
  (execute-extended-command . 1)
@@ -1154,7 +1154,7 @@
  (hydra-yasnippet/body . 1)
  (hydra-winner/body . 1)
  (flycheck-info . 3)
- (js2-jsx-mode . 3)
+ (js2-jsx-mode . 6)
  (make-indirect-buffer . 1)
  (counsel-M-x . 2)
  (counsel-ag . 3)
@@ -1210,10 +1210,10 @@
  (eval-defun . 29)
  (helm-yas-all-complete-or-create . 1)
  (yas-tryout-snippet . 1)
- (orgtbl-mode . 7)
+ (orgtbl-mode . 8)
  (magit-checkout . 1)
  (smex-major-mode-commands . 7)
- (flycheck-mode . 67)
+ (flycheck-mode . 71)
  (iimage-mode . 4)
  (turn-on-iimage-mode . 1)
  (ffap . 1)
@@ -1236,14 +1236,14 @@
  (json-pretty-print . 4)
  (prelude-github . 2)
  (flycheck-describe-checker . 2)
- (hs-hide-level . 20)
+ (hs-hide-level . 21)
  (hs-hide-block . 3)
  (hs-toggle-hiding . 15)
  (find-function . 2)
  (conf-mode . 2)
  (hl-line-mode . 1)
  (hs-show-all . 2)
- (hs-hide-all . 2)
+ (hs-hide-all . 3)
  (shell-script-mode . 6)
  (python-mode . 7)
  (compile . 6)
@@ -1272,7 +1272,7 @@
  (diff-backup . 1)
  (flycheck-buffer . 1)
  (tide-rename-symbol . 1)
- (flycheck-verify-setup . 16)
+ (flycheck-verify-setup . 21)
  (toggle-window-split . 2)
  (eb-magit . 1)
  (neotree-projectile-action . 1)
@@ -1287,13 +1287,13 @@
  (js-doc-describe-tag . 2)
  (js-doc . 2)
  (js-doc-insert-function-doc . 5)
- (customize-variable . 4)
+ (customize-variable . 5)
  (help-go-back . 1)
  (flycheck-verify-checker . 1)
  (smooth-scrolling-mode . 1)
  (show-paren-mode . 6)
  (smartparens-mode . 2)
- (smartparens-strict-mode . 4)
+ (smartparens-strict-mode . 5)
  (js2-refactor-mode . 1)
  (vimish-fold-mode . 1)
  (vimish-fold . 2)
@@ -1345,7 +1345,7 @@
  (helm-projectile-switch-project . 4)
  (goto-char . 4)
  (tern-mode . 12)
- (projectile-remove-known-project . 4)
+ (projectile-remove-known-project . 6)
  (csv-mode . 2)
  (csv-align-fields . 1)
  (csv-yank-as-new-table . 2)
@@ -1354,7 +1354,7 @@
  (org-table-convert-region . 3)
  (ensime-reload . 1)
  (scroll-down . 1)
- (magit-log-buffer-file . 3)
+ (magit-log-buffer-file . 4)
  (magit-find-file-other-window . 1)
  (magit-revert . 2)
  (magit-discard . 1)
@@ -1364,7 +1364,7 @@
  (hydra-yasnippet/yas-reload-all-and-exit . 1)
  (typescript-mode . 3)
  (untabify . 21)
- (customize-face . 4)
+ (customize-face . 6)
  (helm-info-message . 1)
  (rename-buffer . 2)
  (end-of-buffer . 1)
@@ -1422,7 +1422,7 @@
  (narrow-or-widen-dwim . 6)
  (indent-pp-sexp . 3)
  (man . 2)
- (counsel-describe-face . 1)
+ (counsel-describe-face . 3)
  (imenu . 2)
  (ido-switch-buffer . 1)
  (regexp-builder . 1)
@@ -1537,4 +1537,11 @@
  (magit-whitespace-disallowed . 2)
  (which-key-show-major-mode . 1)
  (mark-sexp . 1)
+ (magit-pull . 1)
+ (helm-projectile-grep . 2)
+ (helm-do-grep-ag . 1)
+ (projectile-find-test-file . 2)
+ (js-jsx-mode . 4)
+ (eshell/clear . 1)
+ (magit-merge-abort . 1)
 )

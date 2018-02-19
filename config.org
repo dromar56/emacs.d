@@ -1612,6 +1612,8 @@ Main org file which will be added to the agenda and where notes will be captured
   (add-hook 'js2-mode-hook (lambda () (setq indent-tabs-mode 'nil)))
   (add-hook 'js2-mode-hook #'hs-minor-mode)
   (add-hook 'js2-mode-hook #'subword-mode)
+  (add-hook 'js2-mode-hook #'smartparens-strict-mode)
+  
   ;; (add-hook 'js2-mode-hook #'eldoc-mode)
 
   (use-package js2-refactor
@@ -1641,6 +1643,10 @@ Main org file which will be added to the agenda and where notes will be captured
     )
 
   )
+
+(use-package nodejs-repl :ensure t)
+
+(use-package indium :ensure t)
 
 
 
@@ -2140,9 +2146,9 @@ Main org file which will be added to the agenda and where notes will be captured
 ;; eshell prompt color
 (setq eshell-prompt-function (lambda nil
 			       (concat
-				(propertize (eshell/pwd) 'face `(:foreground "cyan"))
-				(propertize " $" 'face `(:foreground "cyan"))
-				(propertize " " 'face `(:foreground "white"))
+				(propertize (eshell/pwd) 'face `(:foreground "blue"))
+				(propertize " $" 'face `(:foreground "blue"))
+				(propertize " " 'face `(:foreground "black"))
 				)))
 (setq eshell-highlight-prompt nil)
 
@@ -2698,3 +2704,15 @@ Change the variable my:theme to the theme you want to load.
 
 
 #+end_src
+* HABU
+#+begin_src emacs-lisp :tangle yes
+(defun helm-ag-habu ()
+  (interactive)
+  (let ((helm-ag-ignore-patterns '("node_modules" ".terraform" "*.tfstate" "*.backup" "*.tfvars" "bower_components" "build"))
+	(helm-ag-command-option "-U"))
+    (helm-ag "/home/dromar/projects/habu")))
+(bind-key "C-M-g" 'helm-ag-habu)
+#+end_src
+
+
+
