@@ -408,7 +408,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package ivy
   :pin melpa-stable
   :bind (("<f5>" . ivy-push-view) 
-	 ("<f6>" . ivy-pop-view)
+	 ("<f7>" . ivy-pop-view)
 	 ("C-x b" . ivy-switch-buffer)
 	 )
   :config
@@ -433,6 +433,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; (setq ivy-re-builders-alist
   ;; 	'((t . ivy--regex-ignore-order)))
 
+  (defun my-ivy-switch-buffer (regex-list)
+    (let ((ivy-ignore-buffers regex-list))
+      (ivy-switch-buffer)))
+
+  (defun my-show-only-views ()
+    (interactive)
+    (my-ivy-switch-buffer '("^[^{]")))
+  (bind-key "<f6>" 'my-show-only-views)
   )
 
 (use-package ivy-rich
@@ -1412,6 +1420,20 @@ Main org file which will be added to the agenda and where notes will be captured
 (use-package company-restclient)
 
 #+end_src
+** Dumb Jump
+#+begin_src emacs-lisp :tangle yes
+(use-package dumb-jump
+  :bind (("C-M->" . dumb-jump-go-other-window)
+         ("C-M-." . dumb-jump-go)
+         ("C-M-," . dumb-jump-back)
+         ("C-M-l" . dumb-jump-quick-look)
+         ;; ("M-g i" . dumb-jump-go-prompt)
+         ;; ("M-g x" . dumb-jump-go-prefer-external)
+         ;; ("M-g z" . dumb-jump-go-prefer-external-other-window)
+	 )
+  :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+  :ensure)
+#+end_src
 * Languages modes
 ** clojure
 #+begin_src emacs-lisp :tangle yes
@@ -2132,7 +2154,7 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 
-** Recentf
+** COMMENT Recentf
 #+begin_src emacs-lisp :tangle yes
 (run-at-time (current-time) 300 'recentf-save-list)
 #+end_src
@@ -2712,6 +2734,8 @@ Change the variable my:theme to the theme you want to load.
 	(helm-ag-command-option "-U"))
     (helm-ag "/home/dromar/projects/habu")))
 (bind-key "C-M-g" 'helm-ag-habu)
+
+(add-to-list 'auto-mode-alist '("projects/habu/ui/.*\\.js\\'" . rjsx-mode))
 #+end_src
 
 
