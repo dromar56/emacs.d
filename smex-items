@@ -1,14 +1,40 @@
 
 ;; ----- smex-history -----
 (
+ load-theme
+ tide-jump-to-implementation
+ tide-restart-server
+ tide-mode
+ rjsx-mode
+ rjsx-rename-tag-at-point
+ sass-mode
+ narrow-or-widen-dwim
+ my-show-only-views
+ set-frame-font-size
+ js2-jsx-mode
  js-jsx-mode
+ dumb-jump-go
+ indium-switch-to-repl-buffer
+ tern-find-definition
+ indium-connect-to-chrome
+ package-autoremove
+ js2-mode
+ package-list-packages
+ nodejs-repl-send-region
+ nodejs-repl-send-last-expression
+ nodejs-repl-send-line
+ nodejs-repl-load-file
+ nodejs-repl
+ avy-goto-char-2
+ helm-all-mark-rings
+ helm-mark-all
+ customize-group
  flycheck-verify-setup
  flycheck-mode
  customize-variable
  magit-log-buffer-file
  magit-merge-abort
  projectile-remove-known-project
- set-frame-font-size
  toggle-truncate-lines
  eshell/clear
  eshell
@@ -16,8 +42,6 @@
  describe-face
  customize-face
  magit-blame
- js2-jsx-mode
- js2-mode
  smartparens-strict-mode
  projectile-find-test-file
  helm-do-grep-ag
@@ -32,8 +56,6 @@
  python-mode
  mark-sexp
  markdown-mode
- package-list-packages
- customize-group
  clojure-mode
  which-key-show-major-mode
  package-refresh-contents
@@ -86,7 +108,6 @@
  clojure-mode-display-version
  sort-lines
  count-lines-page
- load-theme
  recover-this-file
  org-version
  toggle-debug-on-error
@@ -131,7 +152,6 @@
  powerline-center-theme
  powerline-nano-theme
  flymake-mode
- narrow-or-widen-dwim
  kill-emacs
  eldoc-mode
  rainbow-mode
@@ -193,7 +213,6 @@
  mc/mark-all-dwim
  magit-fetch
  counsel-find-file
- rjsx-mode
  tern-mode
  org-open-at-point
  ido-find-file
@@ -235,7 +254,6 @@
  rename-file
  hydra-yasnippet/yas-reload-all-and-exit
  repeat-complex-command
- package-autoremove
  text-mode
  magit-find-file-other-window
  scroll-down
@@ -252,7 +270,6 @@
  my-projectile-multi-occur
  align-regexp
  sql-mode
- tern-find-definition
  replace-regexp
  json-pretty-print
  jscs-fix
@@ -401,7 +418,6 @@
  org-babel-open-src-block-result
  tramp-cleanup-all-connections
  shell-backward-command
- avy-goto-char-2
  avy-goto-subword-1
  avy-goto-word-1
  php-mode
@@ -672,7 +688,6 @@
  pike-mode
  recompile
  ruby-mode
- sass-mode
  scroll-up
  sgml-mode
  sml/setup
@@ -986,21 +1001,6 @@
  helm-recentf
  helm-surfraw
  hi-lock-mode
- hide-subtree
- holiday-list
- ibuffer-mode
- ibuffer-yank
- idlwave-mode
- ido-complete
- ido-push-dir
- inferior-tcl
- info-apropos
- isearch-exit
- iso-gtex2iso
- iso-iso2gtex
- iso-iso2sgml
- scss-mode
- helm-projectile-switch-project
 )
 
 ;; ----- smex-data -----
@@ -1019,8 +1019,8 @@
  (helm-mode . 2)
  (profiler-reset . 5)
  (profiler-stop . 3)
- (customize-group . 51)
- (set-frame-font-size . 143)
+ (customize-group . 54)
+ (set-frame-font-size . 154)
  (projectile-invalidate-cache . 6)
  (js-mode . 7)
  (shell . 24)
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 29)
+ (package-list-packages . 30)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1050,7 +1050,7 @@
  (re-builder . 1)
  (indent-whole-buffer . 8)
  (json-mode . 6)
- (js2-mode . 31)
+ (js2-mode . 32)
  (js2-mode-toggle-warnings-and-errors . 6)
  (describe-face . 12)
  (js2r-log-this . 5)
@@ -1059,7 +1059,7 @@
  (js2-mode-hide-functions . 3)
  (js2-mode-show-all . 1)
  (js2-mode-display-warnings-and-errors . 1)
- (tern-find-definition . 12)
+ (tern-find-definition . 14)
  (menu-bar-mode . 3)
  (tool-bar-mode . 4)
  (delete-trailing-whitespace . 1)
@@ -1090,7 +1090,7 @@
  (js2r-contract-function . 3)
  (discover-mode . 1)
  (pop-global-mark . 5)
- (load-theme . 46)
+ (load-theme . 47)
  (column-number-mode . 1)
  (yas-describe-tables . 8)
  (web-mode . 13)
@@ -1101,7 +1101,7 @@
  (avy-goto-subword-1 . 3)
  (avy-goto-word-or-subword-1 . 4)
  (avy-goto-word-1 . 2)
- (avy-goto-char-2 . 5)
+ (avy-goto-char-2 . 6)
  (scss-mode . 10)
  (revert-buffer . 79)
  (shell-backward-command . 1)
@@ -1154,7 +1154,7 @@
  (hydra-yasnippet/body . 1)
  (hydra-winner/body . 1)
  (flycheck-info . 3)
- (js2-jsx-mode . 6)
+ (js2-jsx-mode . 14)
  (make-indirect-buffer . 1)
  (counsel-M-x . 2)
  (counsel-ag . 3)
@@ -1268,7 +1268,7 @@
  (emacs-lisp-mode . 7)
  (ibuffer . 1)
  (highlight-changes-mode . 7)
- (tide-restart-server . 7)
+ (tide-restart-server . 9)
  (diff-backup . 1)
  (flycheck-buffer . 1)
  (tide-rename-symbol . 1)
@@ -1358,7 +1358,7 @@
  (magit-find-file-other-window . 1)
  (magit-revert . 2)
  (magit-discard . 1)
- (package-autoremove . 1)
+ (package-autoremove . 2)
  (tide-documentation-at-point . 3)
  (tide-hl-identifier-mode . 2)
  (hydra-yasnippet/yas-reload-all-and-exit . 1)
@@ -1404,7 +1404,7 @@
  (help . 2)
  (multi-isearch-buffers . 1)
  (lazy-highlight-cleanup . 1)
- (rjsx-mode . 6)
+ (rjsx-mode . 19)
  (org-open-at-point . 1)
  (org-clock-in . 14)
  (org-clock-cancel . 2)
@@ -1419,7 +1419,7 @@
  (recentf-open-files . 3)
  (about-emacs . 2)
  (yas-about . 2)
- (narrow-or-widen-dwim . 6)
+ (narrow-or-widen-dwim . 7)
  (indent-pp-sexp . 3)
  (man . 2)
  (counsel-describe-face . 3)
@@ -1541,7 +1541,22 @@
  (helm-projectile-grep . 2)
  (helm-do-grep-ag . 1)
  (projectile-find-test-file . 2)
- (js-jsx-mode . 4)
+ (js-jsx-mode . 6)
  (eshell/clear . 1)
  (magit-merge-abort . 1)
+ (helm-mark-all . 1)
+ (helm-all-mark-rings . 1)
+ (nodejs-repl . 1)
+ (nodejs-repl-send-last-expression . 10)
+ (nodejs-repl-load-file . 1)
+ (nodejs-repl-send-region . 7)
+ (nodejs-repl-send-line . 3)
+ (indium-connect-to-chrome . 2)
+ (rjsx-rename-tag-at-point . 3)
+ (indium-switch-to-repl-buffer . 1)
+ (dumb-jump-go . 1)
+ (my-show-only-views . 1)
+ (sass-mode . 1)
+ (tide-mode . 2)
+ (tide-jump-to-implementation . 3)
 )
