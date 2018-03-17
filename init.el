@@ -1,13 +1,17 @@
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/org-mode-zip/lisp")
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/org-mode/lisp")
 
-(add-to-list 'load-path "~/.emacs.d/vendor/benchmark-init-el/")
-(require 'benchmark-init-loaddefs)
-(benchmark-init/activate)
+;; (add-to-list 'load-path "~/.emacs.d/vendor/benchmark-init-el/")
+;; (require 'benchmark-init-loaddefs)
+;; (benchmark-init/activate)
 
 (package-initialize)
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+
+;; (when (memq window-system '(mac ns))
+;;   (exec-path-from-shell-initialize))
+
+;; Apparently we also need exec-path-from-shell-initialize on linux
+(exec-path-from-shell-initialize)
 
 (let ((emacs-binary (if (eq system-type 'darwin)
 			"/Applications/Emacs.app/Contents/MacOS/Emacs"
@@ -17,10 +21,8 @@
 
 (require 'org)
 (require 'use-package)
-(setq use-package-always-ensure t)
+(setq use-package-always-ensure nil)
 (load-file (expand-file-name "~/.emacs.d/config.el"))
-
-
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
