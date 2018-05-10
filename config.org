@@ -993,6 +993,13 @@ See `hs-hide-block' and `hs-show-block'."
   (global-magit-file-mode t)
 )
 
+(use-package magithub
+  :after magit
+  :config
+  (magithub-feature-autoinject t)
+  (setq magithub-clone-default-directory "~/github"))
+
+
 #+end_src
 
 ** Multiple Cursors
@@ -1503,7 +1510,10 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 
-** 
+** arduino
+#+begin_src emacs-lisp :tangle yes
+(use-package arduino-mode :ensure t)
+#+end_src
 ** markdown
 #+begin_src emacs-lisp :tangle yes
 (add-hook 'markdown-mode-hook #'visual-line-mode)
@@ -1670,9 +1680,20 @@ Main org file which will be added to the agenda and where notes will be captured
 
 (use-package indium :ensure t)
 
-
-
 (use-package rjsx-mode)
+
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
 #+end_src
 
 ** typescript
