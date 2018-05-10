@@ -1,0 +1,4 @@
+* js2-mode
+#+begin_src js2 :tangle nonono
+var a = 1 + 3
+#+end_src
