@@ -1003,11 +1003,11 @@ See `hs-hide-block' and `hs-show-block'."
   (global-magit-file-mode t)
 )
 
-(use-package magithub
-  :after magit
-  :config
-  (magithub-feature-autoinject t)
-  (setq magithub-clone-default-directory "~/github"))
+;; (use-package magithub
+;;   :after magit
+;;   :config
+;;   (magithub-feature-autoinject t)
+;;   (setq magithub-clone-default-directory "~/github"))
 
 
 #+end_src
