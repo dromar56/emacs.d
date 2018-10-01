@@ -297,6 +297,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (bind-key "C-x TAB" 'indent-rigidly-block)
 #+end_src
 * Plugins
+** Nav (epub reader)
+#+begin_src emacs-lisp :tangle yes
+(use-package nov
+  :ensure t)
+#+end_src
 ** Which-key
 #+begin_src emacs-lisp :tangle yes
 (use-package which-key
