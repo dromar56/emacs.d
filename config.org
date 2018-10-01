@@ -2786,5 +2786,6 @@ Change the variable my:theme to the theme you want to load.
   :ensure t
   :config
   (add-hook 'rjsx-mode-hook 'eslintd-fix-mode)
+  (add-hook 'js-mode-hook 'eslintd-fix-mode)
   )
 #+end_src
