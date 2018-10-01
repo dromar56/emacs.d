@@ -1484,7 +1484,7 @@ Main org file which will be added to the agenda and where notes will be captured
 (use-package clojure-snippets)
 
 (use-package cider
-  :pin melpa-stable
+  :pin melpa
   :config
   (add-to-list 'exec-path "~/.scripts")
   (add-to-list 'exec-path "/opt/android-studio/jre/bin"))
