@@ -986,10 +986,15 @@ See `hs-hide-block' and `hs-show-block'."
   :config
   (setq magit-last-seen-setup-instructions "1.4.0")
 
-  (bind-key "C-M-1" 'magit-show-level-1-all  magit-diff-mode-map)
-  (bind-key "C-M-2" 'magit-show-level-2-all  magit-diff-mode-map)
-  (bind-key "C-M-3" 'magit-show-level-3-all  magit-diff-mode-map)
-  (bind-key "C-M-4" 'magit-show-level-4-all  magit-diff-mode-map)
+  (bind-key "C-M-1" 'magit-section-show-level-1-all  magit-diff-mode-map)
+  (bind-key "C-M-2" 'magit-section-show-level-2-all  magit-diff-mode-map)
+  (bind-key "C-M-3" 'magit-section-show-level-3-all  magit-diff-mode-map)
+  (bind-key "C-M-4" 'magit-section-show-level-4-all  magit-diff-mode-map)
+
+  (bind-key "C-M-1" 'magit-section-show-level-1-all  magit-mode-map)
+  (bind-key "C-M-2" 'magit-section-show-level-2-all  magit-mode-map)
+  (bind-key "C-M-3" 'magit-section-show-level-3-all  magit-mode-map)
+  (bind-key "C-M-4" 'magit-section-show-level-4-all  magit-mode-map)
 
   (bind-key "C-x G" 'magit-file-popup)
 
