@@ -1264,6 +1264,7 @@ See `hs-hide-block' and `hs-show-block'."
   (setq org-log-done t)
   (setq org-tag-alist nil)
 
+  (setq org-priority-start-cycle-with-default nil)
 
   (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
   ;; (defun my-org-confirm-babel-evaluate (lang body)
