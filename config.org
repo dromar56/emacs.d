@@ -1089,8 +1089,8 @@ See `hs-hide-block' and `hs-show-block'."
   :config
 
   (require 'smartparens-config)
-  
-  (setq sp-show-pair-delay 0)
+
+  (setq sp-show-pair-delay 0.2)
   (setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
 
   (setq sp-autoescape-string-quote nil)
