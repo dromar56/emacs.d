@@ -999,8 +999,9 @@ See `hs-hide-block' and `hs-show-block'."
   (bind-key "C-x G" 'magit-file-popup)
 
 
-  ;; Enable minor mode with "C-c M-g" and "C-x M-g" bindings
+  ;; Enable minor mode file-popup with "C-c g" binding
   (global-magit-file-mode t)
+  (bind-key "C-c g" 'magit-file-popup magit-file-mode-map)
 )
 
 ;; (use-package magithub
