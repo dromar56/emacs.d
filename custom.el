@@ -53,6 +53,7 @@
    (quote
     ("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))
  '(isearch-allow-scroll nil)
+ '(js-enabled-frameworks (quote (javascript)))
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])
