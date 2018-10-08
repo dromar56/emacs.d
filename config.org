@@ -1713,6 +1713,14 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 
+*** indium
+  #+begin_src emacs-lisp :tangle yes
+(use-package indium
+  :ensure t
+  )
+
+
+  #+end_src
 ** typescript
 #+begin_src emacs-lisp :tangle yes
 (use-package tide
