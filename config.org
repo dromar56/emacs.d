@@ -13,10 +13,11 @@
 Initialize packages and provide the very useful =use-package= function, who installs the package from the repositories if it doesn't exist :ensure t.
 #+begin_src emacs-lisp
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+			 ("melpa-mirror" . "https://www.mirrorservice.org/sites/melpa.org/packages/")
 			 ("melpa-stable" . "http://stable.melpa.org/packages/")
 			 ("org" . "http://orgmode.org/elpa/")
-					; ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("gnu" . "http://elpa.gnu.org/packages/")))
+
 (setq package-enable-at-startup nil)
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
@@ -1695,8 +1696,6 @@ Main org file which will be added to the agenda and where notes will be captured
 
 (use-package nodejs-repl :ensure t)
 
-(use-package indium :ensure t)
-
 (use-package rjsx-mode)
 
 (defun my/use-eslint-from-node-modules ()
@@ -1717,9 +1716,26 @@ Main org file which will be added to the agenda and where notes will be captured
   #+begin_src emacs-lisp :tangle yes
 (use-package indium
   :ensure t
-  )
+  :config
+  (add-hook 'js2-mode-hook #'indium-interaction-mode)
 
+  (defun indium-eval-and-maybe-print-region (print)
+    (indium-eval 
+     (buffer-substring-no-properties
+      (region-beginning)
+      (region-end))
+     (lexical-let ((print print))
+       (lambda (value)
+	 (let ((string (indium-render-remote-object-to-string value)))
+	   (if print (insert string) (message string)))))))
 
+  (defun indium-eval-last-node-or-region (arg)
+    (interactive "P")
+    (if (use-region-p)
+	(indium-eval-and-maybe-print-region arg)
+      (indium-eval-last-node arg)))
+
+  (bind-key [remap indium-eval-last-node] #'indium-eval-last-node-or-region indium-interaction-mode-map))
   #+end_src
 ** typescript
 #+begin_src emacs-lisp :tangle yes
@@ -1729,7 +1745,7 @@ Main org file which will be added to the agenda and where notes will be captured
 
   ;; (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
 
-  (add-hook 'before-save-hook 'tide-format-before-save)
+  ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
   ;; sample config
   (add-hook 'typescript-mode-hook

@@ -107,6 +107,7 @@
  '(swiper-faces
    (quote
     (swiper-match-face-1 swiper-match-face-2 swiper-match-face-3 swiper-match-face-4)))
+ '(tide-always-show-documentation t)
  '(tool-bar-mode nil)
  '(tree-widget-image-enable nil)
  '(typescript-indent-level 2)
