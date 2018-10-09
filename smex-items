@@ -1,17 +1,27 @@
 
 ;; ----- smex-history -----
 (
+ indium-eval-last-node-or-region
+ smartparens-strict-mode
+ revert-buffer
+ indium-launch
+ indium-quit
+ indium-connect
+ indium-eval-region
+ indium-scratch
+ tide-mode
  package-list-packages
+ eldoc-mode
+ tide-restart-server
+ tide-verify-setup
+ tide-setup
+ tern-mode
  package-install
  tide-documentation-at-point
- tide-restart-server
  js2-mode
  indium-interaction-mode
- eldoc-mode
  typescript-mode
  tide-jsdoc-template
- tide-verify-setup
- tide-mode
  tide-jump-to-definition
  tide-organize-imports
  tide-fix
@@ -19,9 +29,6 @@
  customize-group
  tide-format-before-save
  tide-goto-reference
- indium-launch
- indium-quit
- indium-connect
  indium-eval-last-node
  package-autoremove
  package-refresh-contents
@@ -46,7 +53,6 @@
  flycheck-mode
  elisp-index-search
  nov-mode
- revert-buffer
  vc-update
  org-bullets-mode
  customize-face
@@ -152,7 +158,6 @@
  magit-merge-abort
  eshell/clear
  counsel-describe-face
- smartparens-strict-mode
  projectile-find-test-file
  helm-do-grep-ag
  helm-projectile-grep
@@ -290,7 +295,6 @@
  mc/mark-all-dwim
  magit-fetch
  counsel-find-file
- tern-mode
  org-open-at-point
  ido-find-file
  help
@@ -997,10 +1001,6 @@
  bs-customize
  c-set-offset
  check-parens
- clone-buffer
- comment-dwim
- comment-kill
- company-capf
 )
 
 ;; ----- smex-data -----
@@ -1031,14 +1031,14 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 36)
+ (package-list-packages . 37)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
  (org-insert-heading . 2)
  (org-insert-heading-after-current . 1)
  (org-insert-elisp-block . 25)
- (eldoc-mode . 23)
+ (eldoc-mode . 24)
  (toggle-debug-on-error . 25)
  (helm-org-agenda-files-headings . 1)
  (describe-key . 1)
@@ -1103,7 +1103,7 @@
  (avy-goto-word-1 . 2)
  (avy-goto-char-2 . 6)
  (scss-mode . 16)
- (revert-buffer . 91)
+ (revert-buffer . 92)
  (shell-backward-command . 1)
  (eshell . 21)
  (term . 5)
@@ -1268,7 +1268,7 @@
  (emacs-lisp-mode . 8)
  (ibuffer . 1)
  (highlight-changes-mode . 7)
- (tide-restart-server . 26)
+ (tide-restart-server . 29)
  (diff-backup . 1)
  (flycheck-buffer . 1)
  (tide-rename-symbol . 1)
@@ -1293,7 +1293,7 @@
  (smooth-scrolling-mode . 1)
  (show-paren-mode . 8)
  (smartparens-mode . 15)
- (smartparens-strict-mode . 5)
+ (smartparens-strict-mode . 7)
  (js2-refactor-mode . 1)
  (vimish-fold-mode . 1)
  (vimish-fold . 2)
@@ -1344,7 +1344,7 @@
  (helm-occur . 4)
  (helm-projectile-switch-project . 4)
  (goto-char . 4)
- (tern-mode . 12)
+ (tern-mode . 13)
  (projectile-remove-known-project . 7)
  (csv-mode . 2)
  (csv-align-fields . 1)
@@ -1557,13 +1557,13 @@
  (dumb-jump-go . 1)
  (my-show-only-views . 1)
  (sass-mode . 1)
- (tide-mode . 16)
+ (tide-mode . 21)
  (tide-jump-to-implementation . 3)
  (js2-mode-show-element . 2)
  (indium-run-chrome . 1)
  (indium-debugger-here . 1)
  (indium-switch-to-debugger . 2)
- (indium-quit . 8)
+ (indium-quit . 11)
  (js2r-expand-node-at-point . 1)
  (counsel-git . 3)
  (er/mark-js-outer-return . 1)
@@ -1609,14 +1609,18 @@
  (js2-indent-bounce . 9)
  (auto-revert-mode . 1)
  (package-list-packages-no-fetch . 2)
- (indium-connect . 5)
- (indium-launch . 11)
+ (indium-connect . 6)
+ (indium-launch . 17)
  (indium-eval-last-node . 1)
  (indium-interaction-mode . 3)
- (tide-verify-setup . 11)
+ (tide-verify-setup . 12)
  (tide-format-before-save . 1)
  (tide-organize-imports . 2)
  (tide-jsdoc-template . 4)
  (turn-on-eldoc-mode . 1)
  (tide-jump-to-definition . 1)
+ (tide-setup . 1)
+ (indium-scratch . 1)
+ (indium-eval-region . 12)
+ (indium-eval-last-node-or-region . 1)
 )
