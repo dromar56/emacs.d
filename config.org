@@ -1041,8 +1041,11 @@ See `hs-hide-block' and `hs-show-block'."
 #+begin_src emacs-lisp :tangle yes
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :config
-  (projectile-global-mode t)
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
   (customize-set-variable 'projectile-globally-ignored-directories
 			  '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa"))
   (customize-set-variable 'projectile-remember-window-configs nil)
