@@ -1,16 +1,17 @@
 
 ;; ----- smex-history -----
 (
+ package-autoremove
+ package-list-packages
+ indium-launch
  indium-eval-last-node-or-region
  smartparens-strict-mode
  revert-buffer
- indium-launch
  indium-quit
  indium-connect
  indium-eval-region
  indium-scratch
  tide-mode
- package-list-packages
  eldoc-mode
  tide-restart-server
  tide-verify-setup
@@ -30,7 +31,6 @@
  tide-format-before-save
  tide-goto-reference
  indium-eval-last-node
- package-autoremove
  package-refresh-contents
  package-list-packages-no-fetch
  auto-revert-mode
@@ -1031,7 +1031,7 @@
  (magit-stash-pop . 2)
  (elpy-enable . 2)
  (elpy-config . 4)
- (package-list-packages . 37)
+ (package-list-packages . 42)
  (elpy-disable . 1)
  (elpy-doc . 1)
  (delete-other-frames . 2)
@@ -1358,7 +1358,7 @@
  (magit-find-file-other-window . 1)
  (magit-revert . 2)
  (magit-discard . 1)
- (package-autoremove . 4)
+ (package-autoremove . 5)
  (tide-documentation-at-point . 33)
  (tide-hl-identifier-mode . 2)
  (hydra-yasnippet/yas-reload-all-and-exit . 1)
@@ -1610,7 +1610,7 @@
  (auto-revert-mode . 1)
  (package-list-packages-no-fetch . 2)
  (indium-connect . 6)
- (indium-launch . 17)
+ (indium-launch . 18)
  (indium-eval-last-node . 1)
  (indium-interaction-mode . 3)
  (tide-verify-setup . 12)

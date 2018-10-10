@@ -13,7 +13,7 @@
 Initialize packages and provide the very useful =use-package= function, who installs the package from the repositories if it doesn't exist :ensure t.
 #+begin_src emacs-lisp
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
-			 ("melpa-mirror" . "https://www.mirrorservice.org/sites/melpa.org/packages/")
+			 ;; ("melpa-mirror" . "https://www.mirrorservice.org/sites/melpa.org/packages/")
 			 ("melpa-stable" . "http://stable.melpa.org/packages/")
 			 ("org" . "http://orgmode.org/elpa/")
 			 ("gnu" . "http://elpa.gnu.org/packages/")))
