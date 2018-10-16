@@ -500,7 +500,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :bind (("M-%" . anzu-query-replace)
 	 ("C-M-%" . anzu-query-replace-regexp))
   :config
-  (setq anzu-cons-mode-line-p nil)
+  (setq anzu-cons-mode-line-p t)
   (global-anzu-mode 1))
 
 #+end_src
@@ -2717,7 +2717,6 @@ Change the variable my:theme to the theme you want to load.
 (use-package all-the-icons)
 
 #+end_src
-
 
 ** Font Lock speed (performance improvements with big files )
 #+begin_src emacs-lisp :tangle yes
