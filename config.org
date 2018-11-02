@@ -13,10 +13,11 @@
 Initialize packages and provide the very useful =use-package= function, who installs the package from the repositories if it doesn't exist :ensure t.
 #+begin_src emacs-lisp
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+			 ;; ("melpa-mirror" . "https://www.mirrorservice.org/sites/melpa.org/packages/")
 			 ("melpa-stable" . "http://stable.melpa.org/packages/")
 			 ("org" . "http://orgmode.org/elpa/")
-					; ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("gnu" . "http://elpa.gnu.org/packages/")))
+
 (setq package-enable-at-startup nil)
 ;; ZOMG C'ETAIS TELLEMENT FUCKING EASY - RIEN NE MARCHE SANS CE TRUC
 (package-initialize)
@@ -297,6 +298,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (bind-key "C-x TAB" 'indent-rigidly-block)
 #+end_src
 * Plugins
+** Nav (epub reader)
+#+begin_src emacs-lisp :tangle yes
+(use-package nov
+  :ensure t)
+#+end_src
 ** Which-key
 #+begin_src emacs-lisp :tangle yes
 (use-package which-key
@@ -494,7 +500,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :bind (("M-%" . anzu-query-replace)
 	 ("C-M-%" . anzu-query-replace-regexp))
   :config
-  (setq anzu-cons-mode-line-p nil)
+  (setq anzu-cons-mode-line-p t)
   (global-anzu-mode 1))
 
 #+end_src
@@ -981,17 +987,30 @@ See `hs-hide-block' and `hs-show-block'."
   :config
   (setq magit-last-seen-setup-instructions "1.4.0")
 
-  (bind-key "C-M-1" 'magit-show-level-1-all  magit-diff-mode-map)
-  (bind-key "C-M-2" 'magit-show-level-2-all  magit-diff-mode-map)
-  (bind-key "C-M-3" 'magit-show-level-3-all  magit-diff-mode-map)
-  (bind-key "C-M-4" 'magit-show-level-4-all  magit-diff-mode-map)
+  (bind-key "C-M-1" 'magit-section-show-level-1-all  magit-diff-mode-map)
+  (bind-key "C-M-2" 'magit-section-show-level-2-all  magit-diff-mode-map)
+  (bind-key "C-M-3" 'magit-section-show-level-3-all  magit-diff-mode-map)
+  (bind-key "C-M-4" 'magit-section-show-level-4-all  magit-diff-mode-map)
+
+  (bind-key "C-M-1" 'magit-section-show-level-1-all  magit-mode-map)
+  (bind-key "C-M-2" 'magit-section-show-level-2-all  magit-mode-map)
+  (bind-key "C-M-3" 'magit-section-show-level-3-all  magit-mode-map)
+  (bind-key "C-M-4" 'magit-section-show-level-4-all  magit-mode-map)
 
   (bind-key "C-x G" 'magit-file-popup)
 
 
-  ;; Enable minor mode with "C-c M-g" and "C-x M-g" bindings
+  ;; Enable minor mode file-popup with "C-c g" binding
   (global-magit-file-mode t)
+  (bind-key "C-c g" 'magit-file-popup magit-file-mode-map)
 )
+
+;; (use-package magithub
+;;   :after magit
+;;   :config
+;;   (magithub-feature-autoinject t)
+;;   (setq magithub-clone-default-directory "~/github"))
+
 
 #+end_src
 
@@ -1022,8 +1041,11 @@ See `hs-hide-block' and `hs-show-block'."
 #+begin_src emacs-lisp :tangle yes
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :config
-  (projectile-global-mode t)
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
   (customize-set-variable 'projectile-globally-ignored-directories
 			  '(".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" "build" "node_modules" "elpa"))
   (customize-set-variable 'projectile-remember-window-configs nil)
@@ -1071,7 +1093,9 @@ See `hs-hide-block' and `hs-show-block'."
   :ensure t
   :config
 
-  (setq sp-show-pair-delay 0)
+  (require 'smartparens-config)
+
+  (setq sp-show-pair-delay 0.2)
   (setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
 
   (setq sp-autoescape-string-quote nil)
@@ -1082,7 +1106,10 @@ See `hs-hide-block' and `hs-show-block'."
   (smartparens-global-mode t)
   (smartparens-global-strict-mode -1)
 
-  (show-smartparens-global-mode t)
+  ;; sp-show--pair-function causes slows downs in big files
+  (show-smartparens-global-mode 0)
+  (show-smartparens-mode 0)
+
   (show-paren-mode 1)
 
   (sp-pair "`" nil :actions :rem)
@@ -1245,6 +1272,7 @@ See `hs-hide-block' and `hs-show-block'."
   (setq org-log-done t)
   (setq org-tag-alist nil)
 
+  (setq org-priority-start-cycle-with-default nil)
 
   (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
   ;; (defun my-org-confirm-babel-evaluate (lang body)
@@ -1465,7 +1493,7 @@ Main org file which will be added to the agenda and where notes will be captured
 (use-package clojure-snippets)
 
 (use-package cider
-  :pin melpa-stable
+  :pin melpa
   :config
   (add-to-list 'exec-path "~/.scripts")
   (add-to-list 'exec-path "/opt/android-studio/jre/bin"))
@@ -1503,7 +1531,10 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 
-** 
+** arduino
+#+begin_src emacs-lisp :tangle yes
+(use-package arduino-mode :ensure t)
+#+end_src
 ** markdown
 #+begin_src emacs-lisp :tangle yes
 (add-hook 'markdown-mode-hook #'visual-line-mode)
@@ -1668,13 +1699,47 @@ Main org file which will be added to the agenda and where notes will be captured
 
 (use-package nodejs-repl :ensure t)
 
-(use-package indium :ensure t)
-
-
-
 (use-package rjsx-mode)
+
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
 #+end_src
 
+*** indium
+  #+begin_src emacs-lisp :tangle yes
+(use-package indium
+  :ensure t
+  :config
+  (add-hook 'js2-mode-hook #'indium-interaction-mode)
+
+  (defun indium-eval-and-maybe-print-region (print)
+    (indium-eval 
+     (buffer-substring-no-properties
+      (region-beginning)
+      (region-end))
+     (lexical-let ((print print))
+       (lambda (value)
+	 (let ((string (indium-render-remote-object-to-string value)))
+	   (if print (insert string) (message string)))))))
+
+  (defun indium-eval-last-node-or-region (arg)
+    (interactive "P")
+    (if (use-region-p)
+	(indium-eval-and-maybe-print-region arg)
+      (indium-eval-last-node arg)))
+
+  (bind-key [remap indium-eval-last-node] #'indium-eval-last-node-or-region indium-interaction-mode-map))
+  #+end_src
 ** typescript
 #+begin_src emacs-lisp :tangle yes
 (use-package tide
@@ -1683,7 +1748,7 @@ Main org file which will be added to the agenda and where notes will be captured
 
   ;; (setq tide-tsserver-executable "/usr/lib/node_modules/typescript/bin/tsserver")
 
-  (add-hook 'before-save-hook 'tide-format-before-save)
+  ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
   ;; sample config
   (add-hook 'typescript-mode-hook
@@ -2653,7 +2718,6 @@ Change the variable my:theme to the theme you want to load.
 
 #+end_src
 
-
 ** Font Lock speed (performance improvements with big files )
 #+begin_src emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;
@@ -2753,5 +2817,6 @@ Change the variable my:theme to the theme you want to load.
   :ensure t
   :config
   (add-hook 'rjsx-mode-hook 'eslintd-fix-mode)
+  (add-hook 'js-mode-hook 'eslintd-fix-mode)
   )
 #+end_src

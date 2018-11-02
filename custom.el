@@ -53,6 +53,7 @@
    (quote
     ("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))
  '(isearch-allow-scroll nil)
+ '(js-enabled-frameworks (quote (javascript)))
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(js2-global-externs [global require])
@@ -64,6 +65,7 @@
  '(magit-use-overlays nil)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control)))))
  '(neo-theme (quote nerd))
+ '(neo-vc-integration (quote (face)))
  '(neo-window-fixed-size nil)
  '(neo-window-width 35)
  '(org-agenda-files nil)
@@ -71,7 +73,7 @@
  '(org-imenu-depth 4)
  '(package-selected-packages
    (quote
-    (eslintd-fix prettier-eslint-emacs diminish pip-requirements py-autopep8 scala-mode2 dumb-jump indium nodejs-indium nodejs-repl which-key clojure-snippets seq clj-refactor 4clojure aggressive-indent aggressive-indent-mode flycheck-clojure company-restclient pdf-tools ivy-rich spacemacs-theme counsel-projectile noflet yankpad dired-subtree-toggle git-gutter-fringe diff-hl org-present realgud org-download jedi doom-themes all-the-icons gruvbox-theme counsel-dash rjsx-mode swiper counsel hydra ivy-hydra company-anaconda anaconda-company anaconda-mode dockerfile-mode terraform-mode ox-gfm org htmlize flycheck-pos-tip typescript-mode js2-mode jscs sublimity minimap vimish-fold helm-descbinds js-doc tide zenburn-theme yaml-mode workgroups2 window-numbering window-number wgrep-helm wgrep-ag web-mode w3m tern-auto-complete tabbar sws-mode sublime-themes spaceline solarized-theme smooth-scrolling smex smartparens smart-mode-line slime skewer-mode shorten shackle scss-mode sass-mode restclient req-package rainbow-mode rainbow-delimiters python-environment project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit lui love-minor-mode leuven-theme lcs lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe cider busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
+    (nov nav arduino-mode magithub eslintd-fix prettier-eslint-emacs diminish pip-requirements scala-mode2 dumb-jump nodejs-indium nodejs-repl clojure-snippets seq clj-refactor 4clojure aggressive-indent aggressive-indent-mode flycheck-clojure company-restclient pdf-tools ivy-rich counsel-projectile noflet dired-subtree-toggle git-gutter-fringe diff-hl org-present org-download jedi doom-themes all-the-icons gruvbox-theme counsel-dash swiper counsel hydra ivy-hydra company-anaconda anaconda-company anaconda-mode dockerfile-mode ox-gfm org htmlize flycheck-pos-tip js2-mode jscs minimap helm-descbinds js-doc shorten scss-mode req-package project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit love-minor-mode leuven-theme lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
  '(pe/directory-tree-function (quote pe/get-directory-tree-async))
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
@@ -105,6 +107,7 @@
  '(swiper-faces
    (quote
     (swiper-match-face-1 swiper-match-face-2 swiper-match-face-3 swiper-match-face-4)))
+ '(tide-always-show-documentation t)
  '(tool-bar-mode nil)
  '(tree-widget-image-enable nil)
  '(typescript-indent-level 2)
@@ -146,4 +149,6 @@ $0")
  '(font-lock-regexp-grouping-backslash ((t (:inherit bold :background "wheat"))))
  '(font-lock-regexp-grouping-construct ((t (:inherit bold :background "wheat"))))
  '(ivy-modified-buffer ((t (:inherit default :foreground "orange red"))))
+ '(neo-vc-up-to-date-face ((t (:foreground "Black"))))
+ '(org-block ((t (:background "#D9EDF3"))))
  '(org-block-end-line ((t (:background "inherit" :foreground "#9380b2")))))

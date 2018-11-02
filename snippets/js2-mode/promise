@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: promise
+# key: promise
+# type: snippet
+# --
+
+new Promise((resolve, reject) => {
+  $0
+  // do something asynchronous which eventually calls either:
+  //
+  //   resolve(someValue); // fulfilled
+  // or
+  //   reject("failure reason"); // rejected
+})

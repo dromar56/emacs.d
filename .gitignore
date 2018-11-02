@@ -12,6 +12,7 @@ ede-projects.el
 .DS_Store
 places
 .smex-items
+smex-items
 savefile/
 /prelude-modules.el
 projectile-bookmarks.eld
