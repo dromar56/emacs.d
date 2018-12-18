@@ -917,7 +917,7 @@ See `hs-hide-block' and `hs-show-block'."
 
   (bind-key "C--" 'hs-hide-block hs-minor-mode-map)
   (bind-key "C-=" 'hs-show-block hs-minor-mode-map)
-  (bind-key "M--" 'hs-hide-all hs-minor-mode-map)
+  (bind-key "M--" 'hs-hide-level hs-minor-mode-map)
   (bind-key "M-=" 'hs-show-all hs-minor-mode-map)
   (bind-key "s-h" 'hs-toggle-hiding hs-minor-mode-map)
   (bind-key "<S-down-mouse-1>" nil hs-minor-mode-map)
