@@ -23,6 +23,7 @@ Initialize packages and provide the very useful =use-package= function, who inst
 (package-initialize)
 
 (setq use-package-always-ensure t) 
+(setq use-package-compute-statistics t)
 
 #+end_src
 * Elisp code
