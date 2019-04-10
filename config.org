@@ -1004,6 +1004,9 @@ See `hs-hide-block' and `hs-show-block'."
   ;; Enable minor mode file-popup with "C-c g" binding
   (global-magit-file-mode t)
   (bind-key "C-c g" 'magit-file-popup magit-file-mode-map)
+
+  (magit-define-popup-switch 'magit-log-popup ?f "first parent" "--first-parent")
+
 )
 
 ;; (use-package magithub
