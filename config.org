@@ -1463,6 +1463,11 @@ Main org file which will be added to the agenda and where notes will be captured
   :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 #+end_src
+** browse-at-remote
+#+begin_src emacs-lisp :tangle yes
+(use-package browse-at-remote
+  :ensure t)
+#+end_src
 * Languages modes
 ** clojure
 #+begin_src emacs-lisp :tangle yes
