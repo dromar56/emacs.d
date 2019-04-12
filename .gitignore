@@ -28,3 +28,4 @@ secret.el
 magithub/
 .persistent-scratch
 ido-last
+.python-environments/
