@@ -27,3 +27,4 @@ config.el
 secret.el
 magithub/
 .persistent-scratch
+ido-last
