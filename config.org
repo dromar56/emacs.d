@@ -2815,6 +2815,8 @@ Change the variable my:theme to the theme you want to load.
 (bind-key "C-M-g" 'helm-ag-habu)
 
 (add-to-list 'auto-mode-alist '("projects/habu/ui/.*\\.js\\'" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("projects/habu/ui/.*container.js\\'" . js2-mode))
+
 
 (defun eslint-fix ()
   "Format the current file with ESLint."
