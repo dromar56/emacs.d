@@ -21,12 +21,9 @@ session*
 .cask
 ac-comphist.dat
 tramp
-.mc-lists.el
 bookmarks
 .cache
-
 config.el
-
 secret.el
 magithub/
 .persistent-scratch
