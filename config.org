@@ -1495,15 +1495,15 @@ Main org file which will be added to the agenda and where notes will be captured
   (setq cider-save-file-on-load t)
   (setq cider-prompt-for-symbol nil))
 
-(use-package clj-refactor
-  :config
-  (defun my-clojure-mode-hook ()
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1)
-    (cljr-add-keybindings-with-prefix "M-r")
-    (setq cljr-warn-on-eval nil))
+;; (use-package clj-refactor
+;;   :config
+;;   (defun my-clojure-mode-hook ()
+;;     (clj-refactor-mode 1)
+;;     (yas-minor-mode 1)
+;;     (cljr-add-keybindings-with-prefix "M-r")
+;;     (setq cljr-warn-on-eval nil))
 
-  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
+;; (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
 
 (use-package clojure-snippets)
 
@@ -1954,7 +1954,7 @@ Main org file which will be added to the agenda and where notes will be captured
 
 #+end_src
 * Core
-** Start server
+** COMMENT Start server
 #+begin_src emacs-lisp :tangle yes
 (server-start)
 #+end_src
