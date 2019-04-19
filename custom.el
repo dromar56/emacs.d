@@ -11,7 +11,7 @@
  '(avy-highlight-first t)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
- '(company-dabbrev-char-regexp "[a-zA-Z0-9-_]" t)
+ '(company-dabbrev-char-regexp "[a-zA-Z0-9-_]")
  '(company-selection-wrap-around t)
  '(css-indent-offset 2)
  '(custom-safe-themes
@@ -73,7 +73,7 @@
  '(org-imenu-depth 4)
  '(package-selected-packages
    (quote
-    (browse-at-remote persistent-scratch nov nav arduino-mode magithub eslintd-fix prettier-eslint-emacs diminish pip-requirements scala-mode2 dumb-jump nodejs-indium nodejs-repl clojure-snippets seq clj-refactor 4clojure aggressive-indent aggressive-indent-mode flycheck-clojure company-restclient pdf-tools ivy-rich counsel-projectile noflet dired-subtree-toggle git-gutter-fringe diff-hl org-present org-download jedi doom-themes all-the-icons gruvbox-theme counsel-dash swiper counsel hydra ivy-hydra company-anaconda anaconda-company anaconda-mode dockerfile-mode ox-gfm org htmlize flycheck-pos-tip js2-mode jscs minimap helm-descbinds js-doc shorten scss-mode req-package project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit love-minor-mode leuven-theme lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
+    (ivy browse-at-remote persistent-scratch nov nav arduino-mode magithub eslintd-fix prettier-eslint-emacs diminish pip-requirements scala-mode2 dumb-jump nodejs-indium nodejs-repl clojure-snippets seq clj-refactor 4clojure aggressive-indent aggressive-indent-mode flycheck-clojure company-restclient pdf-tools ivy-rich counsel-projectile noflet dired-subtree-toggle git-gutter-fringe diff-hl org-present org-download jedi doom-themes all-the-icons gruvbox-theme counsel-dash swiper counsel hydra ivy-hydra company-anaconda anaconda-company anaconda-mode dockerfile-mode ox-gfm org htmlize flycheck-pos-tip js2-mode jscs minimap helm-descbinds js-doc shorten scss-mode req-package project-explorer pretty-symbols popwin php-mode org-bullets nose neotree multi-term monokai-theme molokai-theme moe-theme mmm-mode material-theme markdown-mode magit love-minor-mode leuven-theme lacarte key-chord json-mode js2-refactor jade-mode iy-go-to-char isearch+ indent-guide imenu-anywhere iedit idomenu ido-vertical-mode ido-ubiquitous idle-highlight-mode highlight-parentheses helm-swoop helm-spaces helm-projectile helm-dash helm-c-yasnippet helm-ag guru-mode god-mode go-eldoc git-gutter fuzzy flycheck flx-ido expand-region exec-path-from-shell evil epc ensime emr elscreen elpy edit-server discover-my-major discover direx-grep dired-subtree cyberpunk-theme company-tern company-go color-theme-solarized color-theme-sanityinc-tomorrow color-theme-approximate coffee-mode circe busybee-theme base16-theme avy auto-yasnippet anzu ag ack-and-a-half ace-jump-mode ac-dabbrev)))
  '(pe/directory-tree-function (quote pe/get-directory-tree-async))
  '(projectile-completion-system (quote ivy))
  '(projectile-globally-ignored-directories
@@ -96,7 +96,7 @@
  '(scss-compile-at-save nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(smex-history-length 1000 t)
+ '(smex-history-length 1000)
  '(sml/hidden-modes (quote (" hl-p" " Helm" " skewer")))
  '(sml/show-file-name t)
  '(sml/use-projectile-p (quote before-prefixes))
