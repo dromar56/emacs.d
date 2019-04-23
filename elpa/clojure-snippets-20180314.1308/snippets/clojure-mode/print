@@ -3,4 +3,3 @@
 # key: print
 # --
 (println $1)
-$0
