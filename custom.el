@@ -38,15 +38,15 @@
  '(helm-always-two-windows nil)
  '(helm-boring-buffer-regexp-list
    (quote
-    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf")) t)
- '(helm-buffer-max-length 30 t)
+    ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf")))
+ '(helm-buffer-max-length 30)
  '(helm-candidate-number-limit 100)
  '(helm-descbinds-window-style (quote split-window))
  '(helm-projectile-sources-list
    (quote
     (helm-source-projectile-buffers-list helm-source-projectile-files-list helm-source-projectile-recentf-list)))
  '(helm-split-window-in-side-p t)
- '(helm-truncate-lines t t)
+ '(helm-truncate-lines t)
  '(helm-yas-display-key-on-candidate t)
  '(helm-yas-not-display-dups t)
  '(hl-paren-colors
@@ -102,6 +102,7 @@
  '(sml/use-projectile-p (quote before-prefixes))
  '(sp-hybrid-kill-excessive-whitespace nil)
  '(sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
+ '(sp-show-pair-delay 0)
  '(sp-show-pair-from-inside t)
  '(sp-successive-kill-preserve-whitespace 2)
  '(swiper-faces

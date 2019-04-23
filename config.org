@@ -1099,7 +1099,7 @@ See `hs-hide-block' and `hs-show-block'."
 
   (require 'smartparens-config)
 
-  (setq sp-show-pair-delay 0.2)
+  (setq sp-show-pair-delay 0)
   (setq sp-show-pair-from-inside 1) ;; Shows two pair of parenthesis when used with show-paren-mode
 
   (setq sp-autoescape-string-quote nil)
@@ -1145,7 +1145,6 @@ See `hs-hide-block' and `hs-show-block'."
 
   (customize-set-variable 'sp-hybrid-kill-excessive-whitespace nil)
   (customize-set-variable 'sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
-  (customize-set-variable 'sp-show-pair-from-inside t)
   (customize-set-variable 'sp-successive-kill-preserve-whitespace 2)
 
   )
@@ -1493,19 +1492,21 @@ Main org file which will be added to the agenda and where notes will be captured
   (add-hook 'clojure-mode-hook 'cider-auto-test-mode)
 
   (setq cider-save-file-on-load t)
-  (setq cider-prompt-for-symbol nil))
+  (setq cider-prompt-for-symbol nil)
 
-;; (use-package clj-refactor
-;;   :config
-;;   (defun my-clojure-mode-hook ()
-;;     (clj-refactor-mode 1)
-;;     (yas-minor-mode 1)
-;;     (cljr-add-keybindings-with-prefix "M-r")
-;;     (setq cljr-warn-on-eval nil))
+  (use-package clojure-snippets
+    :config (add-hook 'clojure-mode-hook 'clojure-snippets-initialize))
+)
 
-;; (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
+(use-package clj-refactor
+  :config
+  (defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1)
+    (cljr-add-keybindings-with-prefix "C-c C-m")
+    (setq cljr-warn-on-eval t))
 
-(use-package clojure-snippets)
+  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
 
 (use-package cider
   :pin melpa
