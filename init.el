@@ -23,6 +23,7 @@
 (require 'use-package)
 (setq use-package-always-ensure nil)
 (load-file (expand-file-name "~/.emacs.d/config.el"))
+(load-file (expand-file-name "~/.emacs.d/refile.el"))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
