@@ -1489,6 +1489,7 @@ Main org file which will be added to the agenda and where notes will be captured
   :config
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'clojure-mode-hook 'smartparens-global-strict-mode)
+  (add-hook 'clojure-mode-hook 'hs-minor-mode)
   (add-hook 'clojure-mode-hook 'cider-auto-test-mode)
 
   (setq cider-save-file-on-load t)
@@ -1512,7 +1513,9 @@ Main org file which will be added to the agenda and where notes will be captured
   :pin melpa
   :config
   (add-to-list 'exec-path "~/.scripts")
-  (add-to-list 'exec-path "/opt/android-studio/jre/bin"))
+  (add-to-list 'exec-path "/opt/android-studio/jre/bin")
+  :bind (("C-c M-m" . cider-macroexpand-1))
+  )
 
 (use-package 4clojure :ensure t
   :config
