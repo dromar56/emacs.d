@@ -1328,19 +1328,6 @@ Clock   In/out^     ^Edit^   ^Summary     (_?_)
 
 #+end_src
 
-*** Org Babel mongo
-#+begin_src emacs-lisp :tangle yes
-(defun org-babel-execute:mongo (body params)
-  "org-babel mongo hook."
-  (let* ((db (or (cdr (assoc :db params))
-		 "core.early-birds:27017/earlybirds"))
-	 (cmd (mapconcat 'identity (list "mongo" "--quiet" db) " ")))
-    (org-babel-eval cmd body)))
-
-
-(eval-after-load "org"
-  '(add-to-list 'org-src-lang-modes '("mongo" . js2)))
-#+end_src
 *** Org agenda
 Main org file which will be added to the agenda and where notes will be captured (using C-c c).
 #+begin_src emacs-lisp :tangle yes
