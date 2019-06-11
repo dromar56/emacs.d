@@ -1295,8 +1295,8 @@ See `hs-hide-block' and `hs-show-block'."
 
   (customize-set-variable 'org-export-backends (quote (ascii html icalendar latex md)))
 
-  (setq org-directory "~/org")
-  (setq org-main-file "~/org/refile.org")
+  (setq org-directory "~/Dropbox/org")
+  (setq org-main-file "~/Dropbox/org/refile.org")
   )
 
 (use-package org-download
@@ -1331,7 +1331,7 @@ Clock   In/out^     ^Edit^   ^Summary     (_?_)
 *** Org agenda
 Main org file which will be added to the agenda and where notes will be captured (using C-c c).
 #+begin_src emacs-lisp :tangle yes
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files '("~/Dropbox/org"))
 (load-library "find-lisp")
 
 
@@ -1399,13 +1399,13 @@ Main org file which will be added to the agenda and where notes will be captured
     (end-of-line)))
 
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/org/refile.org")
+      (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
                "* TODO %?\n%U\n%a\n    %i" :clock-in t :clock-resume t)
-	      ("n" "note" entry (file "~/org/refile.org")
+	      ("n" "note" entry (file "~/Dropbox/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "~/org/journal.org")
+              ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "~/org/refile.org")
+              ("w" "org-protocol" entry (file "~/Dropbox/org/refile.org")
                "* TODO Review %c\n%U\n" :immediate-finish t)
 	      )))
 
