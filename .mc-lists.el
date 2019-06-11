@@ -3,9 +3,12 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	beginning-of-visual-line
 	cljr-slash
 	dabbrev-expand
+	delete-indentation
 	electric-newline-and-maybe-indent
+	end-of-visual-line
 	indent-for-tab-command
 	iy-go-to-char--command
 	js2r-expand-node-at-point
@@ -21,6 +24,7 @@
 	sp-backward-kill-word
 	sp-backward-unwrap-sexp
 	sp-delete-char
+	sp-forward-sexp
 	sp-forward-slurp-sexp
 	sp-kill-hybrid-sexp
 	sp-kill-region

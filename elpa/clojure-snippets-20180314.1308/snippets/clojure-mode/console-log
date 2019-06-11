@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+# name: console.log
+# key: log
+# --
+(js/console.log $1)
