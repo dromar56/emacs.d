@@ -29,3 +29,4 @@ magithub/
 .persistent-scratch
 ido-last
 .python-environments/
+/transient/history.el
